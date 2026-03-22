@@ -1,0 +1,380 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "7d7ed205-319f-4ee2-bac6-538026d8102a",
+              "leftValue": "={{ $json.data.approved }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -288,
+        176
+      ],
+      "id": "460a9c83-d65b-465b-b085-8a06e456915a",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Webhook').item.json.body.email }}",
+        "subject": "=Event Declined: {{ $('Webhook').item.json.body.description }}",
+        "emailType": "text",
+        "message": "=Hi {{ $('Webhook').item.json.body.agency_lead }}\n\nThank you for subbimiting the New Job Card,\nWe appreciate your Patience, Kindly note that unfortunately the application was not succesfull.\n\nKind Regards\nPrimeEdgeAi \n{{ $today.format('dd-MMM-yyyy') }}",
+        "options": {
+          "senderName": "PrimeEdgeAi"
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        -64,
+        368
+      ],
+      "id": "aea787f0-a46b-48cf-918f-27c5c650ef01",
+      "name": "Send a message2",
+      "webhookId": "ad812484-d5c8-443e-a913-bf72398bb928",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "9H95MvEelxbXO9Tm",
+          "name": "Gmail OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1AO-06SYVS_uVnBWkM5smUFeSoTWUeq0GbFvX7tJr3oE",
+          "mode": "list",
+          "cachedResultName": "BTL_Command_Center",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1AO-06SYVS_uVnBWkM5smUFeSoTWUeq0GbFvX7tJr3oE/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Events",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1AO-06SYVS_uVnBWkM5smUFeSoTWUeq0GbFvX7tJr3oE/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Job_ID": "= {{ $('Webhook').item.json.body.client }}-{{ $('Webhook').item.json.body.description }}  {{ $('Webhook').item.json.body.start_date }}to {{ $('Webhook').item.json.body.end_date }}",
+            "Client": "= {{ $('Webhook').item.json.body.client }}",
+            "Status": "={{ $('Webhook').item.json.body.status }}",
+            "Project Lead": "={{ $('Webhook').item.json.body.agency_lead }}",
+            "Email": "={{ $('Webhook').item.json.body.email }}",
+            "Start Date": "={{ $('Webhook').item.json.body.start_date }}",
+            "End Date": "={{ $('Webhook').item.json.body.end_date }}",
+            "Where": "={{ $('Webhook').item.json.body.event_location }}",
+            "Description": "={{ $('Webhook').item.json.body.description }}",
+            "Client Lead": "={{ $('Webhook').item.json.body.client_lead }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Job_ID",
+              "displayName": "Job_ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Description",
+              "displayName": "Description",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Client",
+              "displayName": "Client",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Client Lead",
+              "displayName": "Client Lead",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Project Lead",
+              "displayName": "Project Lead",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Where",
+              "displayName": "Where",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Start Date",
+              "displayName": "Start Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "End Date",
+              "displayName": "End Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -64,
+        176
+      ],
+      "id": "64c965f8-3d35-445d-ab16-4022510b1510",
+      "name": "Events Google Forms",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "fBt09PYaFPAUCccA",
+          "name": "Google Sheets OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Webhook').item.json.body.email }}",
+        "subject": "=Event Approved:{{ $json.description }}",
+        "emailType": "text",
+        "message": "=Hi { $('Webhook').item.json.body.agency_lead }}\n\nThank you for Your patience, Kindly note that the event has been approved please proceed with the Reccee.\n\nKindly proceed with the Reccee\nhttps://techkev.app.n8n.cloud/form/Reccee\n\nKind Regards\nPrimeEdgeAi \n{{ $today.format('dd-MMM-yyyy') }}",
+        "options": {
+          "senderName": "PrimeEdgeAi"
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        160,
+        -16
+      ],
+      "id": "e9c252e6-f2f8-4381-b006-334026e2bb6c",
+      "name": "Send a message3",
+      "webhookId": "ad812484-d5c8-443e-a913-bf72398bb928",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "9H95MvEelxbXO9Tm",
+          "name": "Gmail OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "sendAndWait",
+        "sendTo": "kmongare4@gmail.com",
+        "subject": "=New Event Created: {{ $json.Description }}  - {{ $json['Client Lead'] }}",
+        "message": "=Hi \n\nKindly confirm Approval of a new Event from dates  {{ $json['Start Date'] }} to {{ $json['End Date'] }} At {{ $json['Event Location'] }} Organized by {{ $json['Client Lead'] }}-{{ $json.Client }}.\n\nKind Regards\nPrimeEdgeAi\n{{ $now.format('dd MM yyyy') }}",
+        "approvalOptions": {
+          "values": {
+            "approvalType": "double"
+          }
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        -512,
+        192
+      ],
+      "id": "2060c99a-ed3e-4fbb-8198-818b336dab20",
+      "name": "Send message and wait for response",
+      "webhookId": "d1155d31-4afd-4183-8c01-73a14ab7f3b1",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "9H95MvEelxbXO9Tm",
+          "name": "Gmail OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "calendar": {
+          "__rl": true,
+          "value": "9591e3d302c5fd793f5fa9a0de0a706acc8015e4513b149bf06eeb2a60b9e01c@group.calendar.google.com",
+          "mode": "list",
+          "cachedResultName": "PrimeEdgeAI"
+        },
+        "start": "={{ $('Webhook').item.json.body.start_date }}",
+        "end": "={{ $('Webhook').item.json.body.end_date }}\n",
+        "additionalFields": {
+          "allday": "yes",
+          "attendees": [
+            "={{ $('Webhook').item.json.body.email }}"
+          ],
+          "color": "1",
+          "description": "= {{ $('Webhook').item.json.body.description }}Event Assigned to {{ $('Webhook').item.json.body.agency_lead }}",
+          "location": "={{ $('Webhook').item.json.body.event_location }}",
+          "summary": "= {{ $('Webhook').item.json.body.description }}Event Assigned to {{ $('Webhook').item.json.body.agency_lead }}"
+        }
+      },
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.3,
+      "position": [
+        -64,
+        -16
+      ],
+      "id": "0873e9b5-5c81-4634-9112-6666970eee7b",
+      "name": "Create an event",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "Ehq1lZqpHNkp7Gsr",
+          "name": "Google Calendar OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "event-registration",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -720,
+        192
+      ],
+      "id": "928d8494-cea3-4aae-8483-b620086c88f1",
+      "name": "Webhook",
+      "webhookId": "729fff57-4d1b-439c-9fec-9eb2746888cb"
+    }
+  ],
+  "connections": {
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Events Google Forms",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Create an event",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send a message2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send message and wait for response": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create an event": {
+      "main": [
+        [
+          {
+            "node": "Send a message3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Send message and wait for response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "228e95aa2f2ac2b5623e4f6e099869bb3baa96c0716d91b17cd2d5126cdf7353"
+  }
+}
