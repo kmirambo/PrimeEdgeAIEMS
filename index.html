@@ -336,21 +336,68 @@
 
   @keyframes spin { to { transform: rotate(360deg); } }
 
-  /* ---- SUCCESS STATE ---- */
-  .success-banner {
+  /* ---- SUCCESS SCREEN ---- */
+  .success-screen {
     display: none;
-    background: rgba(200,230,60,0.08);
-    border: 1px solid rgba(200,230,60,0.3);
-    border-radius: var(--radius);
-    padding: 16px 20px;
-    margin-top: 24px;
-    font-size: 13px;
-    color: var(--accent);
-    font-family: 'DM Mono', monospace;
+    flex-direction: column;
     align-items: center;
-    gap: 10px;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 40px;
+    animation: rise 0.5s ease both;
   }
-  .success-banner.visible { display: flex; }
+  .success-screen.visible { display: flex; }
+  .success-icon {
+    width: 72px; height: 72px;
+    background: rgba(200,230,60,0.1);
+    border: 2px solid var(--accent);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 32px;
+    margin-bottom: 28px;
+    animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) both 0.1s;
+  }
+  @keyframes popIn {
+    from { transform: scale(0.4); opacity: 0; }
+    to   { transform: scale(1);   opacity: 1; }
+  }
+  .success-screen h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 28px;
+    font-weight: 400;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+  }
+  .success-screen p {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    max-width: 360px;
+    margin-bottom: 32px;
+  }
+  .success-screen .ref {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--text-muted);
+    background: var(--input-bg);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 6px 16px;
+    margin-bottom: 32px;
+    letter-spacing: 0.08em;
+  }
+  .btn-new {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    border-radius: var(--radius);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    padding: 11px 24px;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-new:hover { border-color: var(--accent); color: var(--accent); }
 
   /* ---- ERROR BANNER ---- */
   .error-banner {
@@ -366,35 +413,7 @@
   }
   .error-banner.visible { display: block; }
 
-  /* ---- WEBHOOK CONFIG ---- */
-  .webhook-config {
-    background: rgba(200,230,60,0.04);
-    border: 1px solid rgba(200,230,60,0.15);
-    border-radius: var(--radius);
-    padding: 14px 16px;
-    margin-bottom: 32px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    flex-wrap: wrap;
-  }
-  .webhook-config label {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.12em;
-    color: var(--accent);
-    margin: 0;
-    white-space: nowrap;
-  }
-  .webhook-config input {
-    flex: 1;
-    min-width: 200px;
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    padding: 8px 12px;
-    background: var(--bg);
-    border-color: rgba(200,230,60,0.2);
-  }
+
 </style>
 </head>
 <body>
@@ -405,12 +424,6 @@
     <span class="header-tag">Recce Submission</span>
     <h1>Submit Your <em>Reccee</em></h1>
     <p>Fill out the form below and attach at least 4 pictures. Your submission will be sent directly to the webhook endpoint.</p>
-  </div>
-
-  <!-- Webhook URL Config -->
-  <div class="webhook-config">
-    <label>WEBHOOK URL</label>
-    <input type="text" id="webhook-url" placeholder="https://your-n8n-instance.com/webhook/..." value="" />
   </div>
 
   <!-- Form Card -->
@@ -490,7 +503,7 @@
     <div class="section-label">Attachments</div>
 
     <div class="field" id="field-photos">
-      <label>Photos <span class="req">*</span> <span style="color:var(--text-muted);font-weight:300;font-size:11px;">(minimum 4)</span></label>
+      <label>Photos <span style="color:var(--text-muted);font-weight:300;font-size:11px;">(optional)</span></label>
       <div class="file-drop" id="drop-zone">
         <input type="file" id="photos" name="photos" multiple accept="image/*" />
         <span class="icon">📷</span>
@@ -510,14 +523,23 @@
       </button>
     </div>
 
-    <div class="success-banner" id="success-banner">
-      ✓ &nbsp; Submission received. Your reccee has been sent successfully.
-    </div>
+    <div class="success-banner" id="success-banner" style="display:none"></div>
     <div class="error-banner" id="error-banner"></div>
   </div><!-- /form-card -->
+
+  <!-- Success Screen (replaces form card on submit) -->
+  <div class="form-card success-screen" id="success-screen">
+    <div class="success-icon">✓</div>
+    <h2>Reccee Submitted!</h2>
+    <p>Your submission has been received and is on its way. The team will review it shortly and follow up with next steps.</p>
+    <div class="ref" id="success-ref">REF — —</div>
+    <button class="btn-new" id="btn-new">Submit another reccee</button>
+  </div>
 </div><!-- /page-wrap -->
 
 <script>
+  const WEBHOOK_URL = 'https://kevinmongare.app.n8n.cloud/webhook/event-registration';
+
   /* ---- FILE HANDLING ---- */
   const dropZone  = document.getElementById('drop-zone');
   const fileInput = document.getElementById('photos');
@@ -577,45 +599,51 @@
       { id: 'start-date', val: () => document.getElementById('start-date').value },
       { id: 'end-date',   val: () => document.getElementById('end-date').value },
     ];
-
     required.forEach(r => {
       const ok = !!r.val();
       setError(r.id, !ok);
       if (!ok) valid = false;
     });
-
     // Email
     const emailVal = document.getElementById('email').value.trim();
     const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal);
     setError('email', !emailOk);
     if (!emailOk) valid = false;
-
-    // Photos
-    const photosOk = selectedFiles.length >= 4;
-    document.getElementById('field-photos').classList.toggle('has-error', !photosOk);
-    if (!photosOk) valid = false;
-
     return valid;
   }
 
+  /* ---- SHOW SUCCESS ---- */
+  function showSuccess(client) {
+    const ref = 'REC-' + Date.now().toString(36).toUpperCase();
+    document.getElementById('success-ref').textContent = `REF ${ref} · ${client}`;
+    document.getElementById('success-screen').classList.add('visible');
+    document.querySelector('.form-card:not(.success-screen)').style.display = 'none';
+    document.querySelector('.header').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  /* ---- RESET FORM ---- */
+  document.getElementById('btn-new').addEventListener('click', () => {
+    ['client','description','client-lead','agency-lead','email','event-location','start-date','end-date'].forEach(id => {
+      document.getElementById(id).value = '';
+    });
+    document.getElementById('status').value = '';
+    selectedFiles = []; renderFiles();
+    document.getElementById('error-banner').classList.remove('visible');
+    document.getElementById('success-screen').classList.remove('visible');
+    document.querySelector('.form-card:not(.success-screen)').style.display = '';
+  });
+
   /* ---- SUBMIT ---- */
   document.getElementById('submit-btn').addEventListener('click', async () => {
-    const webhookUrl = document.getElementById('webhook-url').value.trim();
-    if (!webhookUrl) {
-      document.getElementById('error-banner').textContent = '⚠ Please enter a webhook URL above before submitting.';
-      document.getElementById('error-banner').classList.add('visible');
-      return;
-    }
-
     if (!validate()) return;
 
     const btn = document.getElementById('submit-btn');
     btn.classList.add('loading');
-    document.getElementById('success-banner').classList.remove('visible');
     document.getElementById('error-banner').classList.remove('visible');
 
+    const clientVal = document.getElementById('client').value.trim();
     const fd = new FormData();
-    fd.append('client',         document.getElementById('client').value.trim());
+    fd.append('client',         clientVal);
     fd.append('status',         document.getElementById('status').value);
     fd.append('description',    document.getElementById('description').value.trim());
     fd.append('client_lead',    document.getElementById('client-lead').value.trim());
@@ -627,21 +655,14 @@
     selectedFiles.forEach((f, i) => fd.append(`photo_${i + 1}`, f, f.name));
 
     try {
-      const res = await fetch(webhookUrl, { method: 'POST', body: fd });
+      const res = await fetch(WEBHOOK_URL, { method: 'POST', body: fd });
       if (res.ok || res.status === 200 || res.status === 201 || res.status === 202) {
-        document.getElementById('success-banner').classList.add('visible');
-        // Reset
-        ['client','description','client-lead','agency-lead','email','event-location','start-date','end-date'].forEach(id => {
-          document.getElementById(id).value = '';
-        });
-        document.getElementById('status').value = '';
-        selectedFiles = [];
-        renderFiles();
+        showSuccess(clientVal);
       } else {
         throw new Error(`Server returned ${res.status}`);
       }
     } catch (err) {
-      document.getElementById('error-banner').textContent = `⚠ Submission failed: ${err.message}. Check the webhook URL and try again.`;
+      document.getElementById('error-banner').textContent = `⚠ Submission failed: ${err.message}. Please try again.`;
       document.getElementById('error-banner').classList.add('visible');
     } finally {
       btn.classList.remove('loading');
