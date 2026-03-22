@@ -336,6 +336,48 @@
 
   @keyframes spin { to { transform: rotate(360deg); } }
 
+  /* ---- WEBHOOK CONFIG ---- */
+  .webhook-config {
+    background: rgba(200,230,60,0.04);
+    border: 1px solid rgba(200,230,60,0.15);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .webhook-config .wh-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    white-space: nowrap;
+    margin: 0;
+    display: block;
+    font-weight: 500;
+  }
+  .webhook-config input {
+    flex: 1;
+    min-width: 200px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    padding: 8px 12px;
+    background: var(--bg);
+    border: 1px solid rgba(200,230,60,0.2);
+    border-radius: var(--radius);
+    color: var(--text-primary);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .webhook-config input::placeholder { color: var(--text-muted); }
+  .webhook-config input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(200,230,60,0.1);
+  }
+
   /* ---- SUCCESS SCREEN ---- */
   .success-screen {
     display: none;
@@ -424,6 +466,12 @@
     <span class="header-tag">Recce Submission</span>
     <h1>Submit Your <em>Reccee</em></h1>
     <p>Fill out the form below and attach at least 4 pictures. Your submission will be sent directly to the webhook endpoint.</p>
+  </div>
+
+  <!-- Webhook URL -->
+  <div class="webhook-config">
+    <span class="wh-label">Webhook URL</span>
+    <input type="text" id="webhook-url" placeholder="https://your-n8n-instance.com/webhook/..." value="https://kevinmongare.app.n8n.cloud/webhook/event-registration" />
   </div>
 
   <!-- Form Card -->
@@ -538,7 +586,7 @@
 </div><!-- /page-wrap -->
 
 <script>
-  const WEBHOOK_URL = 'https://kevinmongare.app.n8n.cloud/webhook/event-registration';
+  const WEBHOOK_URL = () => document.getElementById('webhook-url').value.trim() || 'https://kevinmongare.app.n8n.cloud/webhook/event-registration';
 
   /* ---- FILE HANDLING ---- */
   const dropZone  = document.getElementById('drop-zone');
@@ -655,7 +703,7 @@
     selectedFiles.forEach((f, i) => fd.append(`photo_${i + 1}`, f, f.name));
 
     try {
-      const res = await fetch(WEBHOOK_URL, { method: 'POST', body: fd });
+      const res = await fetch(WEBHOOK_URL(), { method: 'POST', body: fd });
       if (res.ok || res.status === 200 || res.status === 201 || res.status === 202) {
         showSuccess(clientVal);
       } else {
