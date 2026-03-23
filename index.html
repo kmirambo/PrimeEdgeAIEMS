@@ -254,7 +254,7 @@ button[type="submit"].loading .btn-text { opacity:0.5; }
 
   <div class="form-card" id="main-form-card">
 
-    <div class="update-banner" id="update-banner">✏️ &nbsp; Update Mode — editing an existing event</div>
+    <div class="update-banner" id="update-banner">Update Mode — editing an existing event</div>
 
     <div class="section-label">Event Info</div>
 
@@ -357,7 +357,7 @@ button[type="submit"].loading .btn-text { opacity:0.5; }
       <label>Photos <span style="color:var(--text-muted);font-weight:300;font-size:11px;">(optional)</span></label>
       <div class="file-drop" id="drop-zone">
         <input type="file" id="photos" name="photos" multiple accept="image/*" />
-        <span class="icon">📷</span>
+        <span class="icon" style="font-size:20px;color:var(--text-muted);margin-bottom:8px;display:block;">&#8613;</span>
         <span class="upload-label"><strong>Click to upload</strong> or drag &amp; drop</span>
         <span class="upload-hint">JPG, PNG, WEBP, HEIC — max 20 MB each</span>
       </div>
@@ -377,7 +377,7 @@ button[type="submit"].loading .btn-text { opacity:0.5; }
 
   <!-- Success Screen -->
   <div class="form-card success-screen" id="success-screen">
-    <div class="success-icon" id="success-icon">✓</div>
+    <div class="success-icon" id="success-icon">&#10003;</div>
     <h2 id="success-title">Reccee Submitted!</h2>
     <p id="success-msg">Your submission has been received and is on its way. The team will review it shortly and follow up with next steps.</p>
     <div class="ref" id="success-ref">REF — —</div>
@@ -387,7 +387,7 @@ button[type="submit"].loading .btn-text { opacity:0.5; }
 </div>
 
 <script>
-const EVENTS_URL = 'https://kevinmongare.app.n8n.cloud/webhook/get-events';
+const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQzV51evXd43ebjxahF57b6j4MTDnI0tcEjBNzLjoqdP84_vujazI5cLRD12tzJ9fLl30hYT3zEMyyU/pub?output=csv';
 const WEBHOOK    = () => 'https://kevinmongare.app.n8n.cloud/webhook/event-registration';
 
 let allEvents = [], selectedFiles = [], isUpdateMode = false;
@@ -402,7 +402,7 @@ function renderFiles() {
   selectedFiles.forEach((f, i) => {
     const c = document.createElement('div');
     c.className = 'file-chip';
-    c.innerHTML = `<span>${f.name}</span><span style="cursor:pointer;margin-left:4px;opacity:.6" data-i="${i}">✕</span>`;
+    c.innerHTML = `<span>${f.name}</span><span style="cursor:pointer;margin-left:4px;opacity:.6" data-i="${i}">x</span>`;
     fileList.appendChild(c);
   });
   fileList.querySelectorAll('[data-i]').forEach(el =>
@@ -469,9 +469,10 @@ document.getElementById('btn-fetch').addEventListener('click', async () => {
   btn.disabled=true; lbl.textContent='Loading…'; lt.textContent='Fetching events…';
 
   try {
-    const res = await fetch(EVENTS_URL);
-    if (!res.ok) throw new Error(`Proxy returned ${res.status}. Make sure the n8n workflow is active.`);
-    allEvents = await res.json();
+    const res = await fetch(SHEET_URL);
+    if (!res.ok) throw new Error(`Could not reach the sheet (${res.status}). Make sure it is published: File > Share > Publish to web.`);
+    const csv = await res.text();
+    allEvents = parseCSV(csv);
 
     const fs = document.getElementById('filter-start').value;
     const fe = document.getElementById('filter-end').value;
@@ -497,7 +498,7 @@ document.getElementById('btn-fetch').addEventListener('click', async () => {
       lt.textContent = `${filtered.length} event${filtered.length!==1?'s':''} loaded — select one to prefill.`;
     }
   } catch(err) {
-    lt.textContent = '⚠ ' + err.message;
+    lt.textContent = 'Error: ' + err.message;
   } finally {
     btn.disabled=false; lbl.textContent='Load Events';
   }
@@ -531,7 +532,7 @@ document.getElementById('event-select').addEventListener('change', function() {
   });
 
   document.getElementById('loader-text').textContent =
-    `✓ Prefilled: ${ev['Description']||ev['Job_ID']} (Job ID: ${ev['Job_ID']||'—'})`;
+    `Prefilled: ${ev['Description']||ev['Job_ID']} — Job ID: ${ev['Job_ID']||'n/a'}`;
 });
 
 /* ── VALIDATION ── */
@@ -557,11 +558,11 @@ function showSuccess(client) {
   document.getElementById('success-ref').textContent=`REF ${ref} · ${client}`;
   const icon=document.getElementById('success-icon');
   if (isUpdateMode) {
-    icon.classList.add('update-icon'); icon.textContent='✏️';
+    icon.classList.add('update-icon'); icon.textContent='&#10003;';
     document.getElementById('success-title').textContent='Event Updated!';
     document.getElementById('success-msg').textContent='Your update has been received. The team will action it shortly.';
   } else {
-    icon.classList.remove('update-icon'); icon.textContent='✓';
+    icon.classList.remove('update-icon'); icon.innerHTML='&#10003;';
     document.getElementById('success-title').textContent='Reccee Submitted!';
     document.getElementById('success-msg').textContent='Your submission has been received and is on its way. The team will review it shortly.';
   }
@@ -620,7 +621,7 @@ document.getElementById('submit-btn').addEventListener('click', async () => {
       showSuccess(clientVal);
     } else throw new Error(`Server returned ${res.status}`);
   } catch(err) {
-    document.getElementById('error-banner').textContent=`⚠ Submission failed: ${err.message}. Please try again.`;
+    document.getElementById('error-banner').textContent=`Submission failed: ${err.message}. Please try again.`;
     document.getElementById('error-banner').classList.add('visible');
   } finally { btn.classList.remove('loading'); }
 });
