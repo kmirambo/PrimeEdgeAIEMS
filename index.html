@@ -55,27 +55,6 @@ body {
 .header h1 em { font-style: italic; color: var(--accent); }
 .header p { font-size: 14px; color: var(--text-secondary); line-height: 1.6; max-width: 480px; }
 
-/* WEBHOOK CONFIG */
-.webhook-config {
-  background: rgba(200,230,60,0.04); border: 1px solid rgba(200,230,60,0.15);
-  border-radius: var(--radius); padding: 14px 16px; margin-bottom: 24px;
-  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
-}
-.wh-label {
-  font-family: 'DM Mono', monospace; font-size: 10px;
-  letter-spacing: 0.12em; text-transform: uppercase;
-  color: var(--accent); white-space: nowrap; font-weight: 500;
-}
-.webhook-config input {
-  flex: 1; min-width: 200px;
-  font-family: 'DM Mono', monospace; font-size: 11px; padding: 8px 12px;
-  background: var(--bg); border: 1px solid rgba(200,230,60,0.2);
-  border-radius: var(--radius); color: var(--text-primary);
-  outline: none; transition: border-color 0.2s, box-shadow 0.2s;
-}
-.webhook-config input::placeholder { color: var(--text-muted); }
-.webhook-config input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(200,230,60,0.1); }
-
 /* FORM CARD */
 .form-card {
   background: var(--surface); border: 1px solid var(--border);
@@ -273,11 +252,6 @@ button[type="submit"].loading .btn-text { opacity:0.5; }
     <p>Fill out the form below and attach pictures. Your submission will be sent directly to the webhook endpoint.</p>
   </div>
 
-  <div class="webhook-config">
-    <span class="wh-label">Webhook URL</span>
-    <input type="text" id="webhook-url" placeholder="https://your-n8n-instance.com/webhook/..." value="https://kevinmongare.app.n8n.cloud/webhook/event-registration" />
-  </div>
-
   <div class="form-card" id="main-form-card">
 
     <div class="update-banner" id="update-banner">✏️ &nbsp; Update Mode — editing an existing event</div>
@@ -413,10 +387,8 @@ button[type="submit"].loading .btn-text { opacity:0.5; }
 </div>
 
 <script>
-const SHEET_ID  = '1AO-06SYVS_uVnBWkM5smUFeSoTWUeq0GbFvX7tJr3oE';
-const SHEET_CSV = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=0`;
-const WEBHOOK   = () => document.getElementById('webhook-url').value.trim()
-  || 'https://kevinmongare.app.n8n.cloud/webhook/event-registration';
+const EVENTS_URL = 'https://kevinmongare.app.n8n.cloud/webhook/get-events';
+const WEBHOOK    = () => 'https://kevinmongare.app.n8n.cloud/webhook/event-registration';
 
 let allEvents = [], selectedFiles = [], isUpdateMode = false;
 
@@ -494,12 +466,12 @@ document.getElementById('btn-fetch').addEventListener('click', async () => {
   const lbl = document.getElementById('fetch-label');
   const lt  = document.getElementById('loader-text');
   const sel = document.getElementById('event-select');
-  btn.disabled=true; lbl.textContent='Loading…'; lt.textContent='Fetching from Google Sheets…';
+  btn.disabled=true; lbl.textContent='Loading…'; lt.textContent='Fetching events…';
 
   try {
-    const res = await fetch(SHEET_CSV);
-    if (!res.ok) throw new Error('Could not reach the sheet. Ensure it is shared as "Anyone with the link can view".');
-    allEvents = parseCSV(await res.text());
+    const res = await fetch(EVENTS_URL);
+    if (!res.ok) throw new Error(`Proxy returned ${res.status}. Make sure the n8n workflow is active.`);
+    allEvents = await res.json();
 
     const fs = document.getElementById('filter-start').value;
     const fe = document.getElementById('filter-end').value;
