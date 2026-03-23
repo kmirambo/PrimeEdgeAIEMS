@@ -176,27 +176,7 @@ textarea { min-height: 100px; resize: vertical; line-height: 1.6; }
 select { cursor: pointer; }
 select option { background: #1e2318; }
 
-/* FILE UPLOAD */
-.file-drop {
-  border: 1.5px dashed var(--border); border-radius: var(--radius);
-  background: var(--input-bg); padding: 28px 20px;
-  text-align: center; cursor: pointer;
-  transition: border-color 0.2s, background 0.2s; position: relative;
-}
-.file-drop:hover, .file-drop.drag-over { border-color: var(--accent); background: rgba(200,230,60,0.04); }
-.file-drop input[type="file"] { position:absolute; inset:0; opacity:0; cursor:pointer; width:100%; height:100%; }
-.file-drop .icon { font-size:24px; margin-bottom:8px; display:block; }
-.file-drop .upload-label { font-size:13px; color:var(--text-secondary); display:block; }
-.file-drop .upload-label strong { color: var(--accent); }
-.file-drop .upload-hint { font-family:'DM Mono',monospace; font-size:10px; color:var(--text-muted); margin-top:6px; display:block; }
-#file-list { margin-top:10px; display:flex; flex-wrap:wrap; gap:8px; }
-.file-chip {
-  display:flex; align-items:center; gap:6px;
-  background:rgba(200,230,60,0.08); border:1px solid rgba(200,230,60,0.2);
-  border-radius:100px; padding:4px 10px;
-  font-size:11px; font-family:'DM Mono',monospace; color:var(--accent); max-width:200px;
-}
-.file-chip span { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+
 
 /* ERRORS */
 .field-error { font-size:11px; color:var(--error); margin-top:5px; font-family:'DM Mono',monospace; display:none; }
@@ -249,7 +229,7 @@ button[type="submit"].loading .btn-text { opacity:0.5; }
   <div class="header">
     <span class="header-tag">Recce Submission</span>
     <h1>Submit Your <em>Reccee</em></h1>
-    <p>Fill out the form below and attach pictures. Your submission will be sent directly to the webhook endpoint.</p>
+    <p>Submit a new event for approval or update an existing one. Once submitted, your entry will be reviewed and you will receive a confirmation email from PrimeEdgeAI.</p>
   </div>
 
   <div class="form-card" id="main-form-card">
@@ -318,7 +298,7 @@ button[type="submit"].loading .btn-text { opacity:0.5; }
         <input type="text" name="client_lead" id="client-lead" placeholder="Name" />
       </div>
       <div class="field" id="field-agency-lead">
-        <label>Agency Lead <span class="req">*</span></label>
+        <label>Project Lead <span class="req">*</span></label>
         <input type="text" name="agency_lead" id="agency-lead" placeholder="Name" />
         <div class="field-error">Agency lead is required.</div>
       </div>
@@ -351,19 +331,6 @@ button[type="submit"].loading .btn-text { opacity:0.5; }
       </div>
     </div>
 
-    <div class="section-label">Attachments</div>
-
-    <div class="field" id="field-photos">
-      <label>Photos <span style="color:var(--text-muted);font-weight:300;font-size:11px;">(optional)</span></label>
-      <div class="file-drop" id="drop-zone">
-        <input type="file" id="photos" name="photos" multiple accept="image/*" />
-        <span class="icon" style="font-size:20px;color:var(--text-muted);margin-bottom:8px;display:block;">&#8613;</span>
-        <span class="upload-label"><strong>Click to upload</strong> or drag &amp; drop</span>
-        <span class="upload-hint">JPG, PNG, WEBP, HEIC — max 20 MB each</span>
-      </div>
-      <div id="file-list"></div>
-    </div>
-
     <div class="submit-row">
       <span class="submit-note">* required fields</span>
       <button type="submit" id="submit-btn">
@@ -390,36 +357,7 @@ button[type="submit"].loading .btn-text { opacity:0.5; }
 const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQzV51evXd43ebjxahF57b6j4MTDnI0tcEjBNzLjoqdP84_vujazI5cLRD12tzJ9fLl30hYT3zEMyyU/pub?output=csv';
 const WEBHOOK    = () => 'https://kevinmongare.app.n8n.cloud/webhook/event-registration';
 
-let allEvents = [], selectedFiles = [], isUpdateMode = false;
-
-/* ── FILE HANDLING ── */
-const dropZone = document.getElementById('drop-zone');
-const fileInput = document.getElementById('photos');
-const fileList  = document.getElementById('file-list');
-
-function renderFiles() {
-  fileList.innerHTML = '';
-  selectedFiles.forEach((f, i) => {
-    const c = document.createElement('div');
-    c.className = 'file-chip';
-    c.innerHTML = `<span>${f.name}</span><span style="cursor:pointer;margin-left:4px;opacity:.6" data-i="${i}">x</span>`;
-    fileList.appendChild(c);
-  });
-  fileList.querySelectorAll('[data-i]').forEach(el =>
-    el.addEventListener('click', () => { selectedFiles.splice(+el.dataset.i, 1); renderFiles(); })
-  );
-}
-fileInput.addEventListener('change', () => {
-  [...fileInput.files].forEach(f => { if (!selectedFiles.find(e => e.name===f.name&&e.size===f.size)) selectedFiles.push(f); });
-  renderFiles(); fileInput.value='';
-});
-dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
-dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
-dropZone.addEventListener('drop', e => {
-  e.preventDefault(); dropZone.classList.remove('drag-over');
-  [...e.dataTransfer.files].forEach(f => { if (f.type.startsWith('image/')&&!selectedFiles.find(e=>e.name===f.name&&e.size===f.size)) selectedFiles.push(f); });
-  renderFiles();
-});
+let allEvents = [], isUpdateMode = false;
 
 /* ── STATUS TOGGLE ── */
 document.getElementById('status').addEventListener('change', function() {
@@ -447,7 +385,7 @@ function parseCSV(text) {
     }
     cols.push(cur.trim());
     const obj={};
-    headers.forEach((h,i) => { obj[h]=(cols[i]||'').replace(/^"|"$/g,''); });
+    headers.forEach((h,i) => { obj[h]=(cols[i]||'').replace(/^"|"$/g,'').trim(); });
     return obj;
   }).filter(r => r['Job_ID']||r['Description']);
 }
@@ -520,7 +458,7 @@ document.getElementById('event-select').addEventListener('change', function() {
     'start-date':     normDate(ev['Start Date']||ev['StartDate']||''),
     'end-date':       normDate(ev['End Date']  ||ev['EndDate']  ||''),
   };
-  document.getElementById('job-id').value = ev['Job_ID'] || '';
+  document.getElementById('job-id').value = (ev['Job_ID'] || '').trim();
 
   Object.entries(map).forEach(([id, val]) => {
     const el = document.getElementById(id);
@@ -559,12 +497,12 @@ function showSuccess(client) {
   const icon=document.getElementById('success-icon');
   if (isUpdateMode) {
     icon.classList.add('update-icon'); icon.textContent='&#10003;';
-    document.getElementById('success-title').textContent='Event Updated!';
-    document.getElementById('success-msg').textContent='Your update has been received. The team will action it shortly.';
+    document.getElementById('success-title').textContent='Update Submitted';
+    document.getElementById('success-msg').textContent='Your update has been submitted. PrimeEdgeAI will review the changes and follow up by email.';
   } else {
     icon.classList.remove('update-icon'); icon.innerHTML='&#10003;';
-    document.getElementById('success-title').textContent='Reccee Submitted!';
-    document.getElementById('success-msg').textContent='Your submission has been received and is on its way. The team will review it shortly.';
+    document.getElementById('success-title').textContent='Submission Received';
+    document.getElementById('success-msg').textContent='Your submission is pending approval. You will receive an email from PrimeEdgeAI once it has been reviewed.';
   }
   document.getElementById('success-screen').classList.add('visible');
   document.getElementById('main-form-card').style.display='none';
@@ -588,7 +526,7 @@ document.getElementById('btn-new').addEventListener('click', () => {
   const sbtn=document.getElementById('submit-btn');
   sbtn.classList.remove('update-submit');
   document.querySelector('#submit-btn .btn-text').textContent='Submit Reccee';
-  selectedFiles=[]; renderFiles(); isUpdateMode=false;
+  isUpdateMode=false;
   document.getElementById('error-banner').classList.remove('visible');
   document.getElementById('success-screen').classList.remove('visible');
 });
@@ -601,22 +539,22 @@ document.getElementById('submit-btn').addEventListener('click', async () => {
   document.getElementById('error-banner').classList.remove('visible');
 
   const clientVal=document.getElementById('client').value.trim();
-  const fd=new FormData();
-  fd.append('client',        clientVal);
-  fd.append('status',        document.getElementById('status').value);
-  fd.append('description',   document.getElementById('description').value.trim());
-  fd.append('client_lead',   document.getElementById('client-lead').value.trim());
-  fd.append('agency_lead',   document.getElementById('agency-lead').value.trim());
-  fd.append('email',         document.getElementById('email').value.trim());
-  fd.append('event_location',document.getElementById('event-location').value.trim());
-  fd.append('start_date',    document.getElementById('start-date').value);
-  fd.append('end_date',      document.getElementById('end-date').value);
+  const payload = {
+    client:         clientVal,
+    status:         document.getElementById('status').value,
+    description:    document.getElementById('description').value.trim(),
+    client_lead:    document.getElementById('client-lead').value.trim(),
+    agency_lead:    document.getElementById('agency-lead').value.trim(),
+    email:          document.getElementById('email').value.trim(),
+    event_location: document.getElementById('event-location').value.trim(),
+    start_date:     document.getElementById('start-date').value,
+    end_date:       document.getElementById('end-date').value,
+  };
   const jid=document.getElementById('job-id').value;
-  if(jid) fd.append('job_id', jid);
-  selectedFiles.forEach((f,i)=>fd.append(`photo_${i+1}`,f,f.name));
+  if(jid) payload.job_id = jid;
 
   try {
-    const res=await fetch(WEBHOOK(),{method:'POST',body:fd});
+    const res=await fetch(WEBHOOK(),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
     if(res.ok||res.status===200||res.status===201||res.status===202) {
       showSuccess(clientVal);
     } else throw new Error(`Server returned ${res.status}`);
