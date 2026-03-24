@@ -3,13 +3,14 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Submit Your Recce</title>
+<title>Reccee Assessment</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
 <style>
 :root {
   --bg: #0C0F0A;
   --surface: #141710;
+  --surface2: #1a1f15;
   --border: #2A2E26;
   --border-focus: #C8E63C;
   --accent: #C8E63C;
@@ -30,14 +31,15 @@ body {
     url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%232a2e26' fill-opacity='0.4'%3E%3Cpath d='M0 0h1v1H0zM20 0h1v1h-1zM0 20h1v1H0zM20 20h1v1h-1z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
   min-height: 100vh;
   display: flex; align-items: flex-start; justify-content: center;
-  padding: 60px 16px;
+  padding: 60px 16px 80px;
   font-family: 'DM Sans', sans-serif;
   color: var(--text-primary);
 }
-.page-wrap { width: 100%; max-width: 620px; animation: rise 0.5s ease both; }
+
+.page-wrap { width: 100%; max-width: 660px; animation: rise 0.5s ease both; }
 @keyframes rise { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
 
-/* HEADER */
+/* ── HEADER ── */
 .header { margin-bottom: 36px; }
 .header-tag {
   display: inline-block;
@@ -53,9 +55,44 @@ body {
   line-height: 1.1; color: var(--text-primary); margin-bottom: 10px;
 }
 .header h1 em { font-style: italic; color: var(--accent); }
-.header p { font-size: 14px; color: var(--text-secondary); line-height: 1.6; max-width: 480px; }
+.header p { font-size: 14px; color: var(--text-secondary); line-height: 1.6; max-width: 500px; }
 
-/* FORM CARD */
+/* ── PROGRESS ── */
+.progress-bar {
+  display: flex; align-items: center; gap: 0;
+  margin-bottom: 32px;
+}
+.step-pip {
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  flex: 1;
+}
+.pip-dot {
+  width: 28px; height: 28px; border-radius: 50%;
+  border: 2px solid var(--border);
+  background: var(--input-bg);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-muted);
+  transition: all 0.3s ease; position: relative; z-index: 1;
+}
+.pip-label {
+  font-family: 'DM Mono', monospace; font-size: 9px;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text-muted); text-align: center;
+  transition: color 0.3s;
+}
+.step-pip.active .pip-dot { border-color: var(--accent); background: rgba(200,230,60,0.12); color: var(--accent); }
+.step-pip.active .pip-label { color: var(--accent); }
+.step-pip.done .pip-dot { border-color: var(--accent); background: var(--accent); color: #0C0F0A; }
+.step-pip.done .pip-label { color: var(--text-secondary); }
+.pip-line {
+  flex: 1; height: 1px; background: var(--border);
+  margin-top: -22px; /* align with dots */
+  position: relative; z-index: 0;
+  transition: background 0.3s;
+}
+.pip-line.done { background: var(--accent); }
+
+/* ── FORM CARD ── */
 .form-card {
   background: var(--surface); border: 1px solid var(--border);
   border-radius: 12px; padding: 40px; position: relative; overflow: hidden;
@@ -63,24 +100,15 @@ body {
 .form-card::before {
   content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
   background: linear-gradient(90deg, transparent, var(--accent), transparent);
-  opacity: 0.6; transition: background 0.4s;
+  opacity: 0.6;
 }
-.form-card.update-mode::before {
-  background: linear-gradient(90deg, transparent, var(--orange), transparent);
-}
+@media (max-width: 520px) { .form-card { padding: 28px 20px; } }
 
-/* UPDATE BANNER */
-.update-banner {
-  display: none; background: rgba(249,115,22,0.08);
-  border: 1px solid rgba(249,115,22,0.25); border-radius: var(--radius);
-  padding: 12px 16px; margin-bottom: 24px;
-  font-size: 12px; color: var(--orange);
-  font-family: 'DM Mono', monospace; letter-spacing: 0.04em;
-  align-items: center; gap: 10px;
-}
-.update-banner.visible { display: flex; }
+/* ── STEPS (panels) ── */
+.step-panel { display: none; animation: rise 0.35s ease both; }
+.step-panel.active { display: block; }
 
-/* SECTION LABELS */
+/* ── SECTION LABELS ── */
 .section-label {
   font-family: 'DM Mono', monospace; font-size: 10px;
   letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted);
@@ -90,122 +118,166 @@ body {
 .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 .section-label:first-child { margin-top: 0; }
 
-/* LOOKUP PANEL */
-.lookup-panel {
-  display: none;
-  background: rgba(249,115,22,0.04); border: 1px solid rgba(249,115,22,0.2);
-  border-radius: 8px; padding: 20px; margin-bottom: 28px;
-  animation: rise 0.3s ease both;
-}
-.lookup-panel.visible { display: block; }
-.lookup-title {
-  font-family: 'DM Mono', monospace; font-size: 10px;
-  letter-spacing: 0.2em; text-transform: uppercase; color: var(--orange);
-  margin-bottom: 16px; display: flex; align-items: center; gap: 10px;
-}
-.lookup-title::after { content: ''; flex: 1; height: 1px; background: rgba(249,115,22,0.2); }
-.lookup-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
-@media (max-width: 520px) { .lookup-row { grid-template-columns: 1fr; } }
-.lookup-panel label { font-size: 11px; color: var(--text-secondary); margin-bottom: 6px; display: block; }
-.lookup-panel input[type="date"] {
-  width: 100%; background: var(--input-bg); border: 1px solid rgba(249,115,22,0.2);
-  border-radius: var(--radius); color: var(--text-primary);
-  font-family: 'DM Sans', sans-serif; font-size: 13px; padding: 10px 12px;
-  outline: none; transition: border-color 0.2s; -webkit-appearance: none; appearance: none;
-}
-.lookup-panel input[type="date"]:focus { border-color: var(--orange); box-shadow: 0 0 0 3px rgba(249,115,22,0.1); }
-input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(0.6); cursor: pointer; }
-.lookup-bottom { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
-.btn-load {
-  display: flex; align-items: center; gap: 8px;
-  background: var(--orange); color: #fff;
-  border: none; border-radius: var(--radius);
-  font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500;
-  padding: 10px 20px; cursor: pointer; white-space: nowrap;
-  transition: background 0.2s, transform 0.15s;
-}
-.btn-load:hover { background: #ea6c0a; transform: translateY(-1px); }
-.btn-load:disabled { opacity: 0.5; pointer-events: none; }
-.evt-select-wrap { flex: 1; min-width: 180px; position: relative; }
-.evt-select-wrap::after {
-  content: ''; position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
-  width: 9px; height: 9px; background: var(--text-muted);
-  clip-path: polygon(0 30%,50% 80%,100% 30%); pointer-events: none;
-}
-#event-select {
-  width: 100%; background: var(--input-bg);
-  border: 1px solid rgba(249,115,22,0.2); border-radius: var(--radius);
-  color: var(--text-primary); font-family: 'DM Sans', sans-serif;
-  font-size: 13px; padding: 10px 32px 10px 12px;
-  outline: none; -webkit-appearance: none; appearance: none;
-  transition: border-color 0.2s;
-}
-#event-select:focus { border-color: var(--orange); box-shadow: 0 0 0 3px rgba(249,115,22,0.1); }
-#event-select option { background: #1e2318; }
-.loader-text {
-  font-family: 'DM Mono', monospace; font-size: 11px;
-  color: var(--text-muted); margin-top: 10px; min-height: 16px;
-}
-
-/* FIELDS */
-.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-@media (max-width: 520px) {
-  .field-row { grid-template-columns: 1fr; }
-  .form-card { padding: 28px 20px; }
-}
+/* ── FIELDS ── */
 .field { margin-bottom: 20px; }
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 520px) { .field-row { grid-template-columns: 1fr; } }
 label { display:block; font-size:12px; font-weight:500; color:var(--text-secondary); letter-spacing:0.04em; margin-bottom:8px; }
 label .req { color: var(--error); margin-left: 3px; }
 
-input[type="text"], input[type="email"], input[type="date"], select, textarea {
+input[type="text"], input[type="email"], input[type="date"],
+input[type="number"], select, textarea {
   width: 100%; background: var(--input-bg); border: 1px solid var(--border);
   border-radius: var(--radius); color: var(--text-primary);
   font-family: 'DM Sans', sans-serif; font-size: 14px; padding: 12px 14px;
-  outline: none; transition: border-color 0.2s, box-shadow 0.2s, background 0.4s;
+  outline: none; transition: border-color 0.2s, box-shadow 0.2s;
   -webkit-appearance: none; appearance: none;
 }
 input::placeholder, textarea::placeholder { color: var(--text-muted); }
 input:focus, select:focus, textarea:focus { border-color: var(--border-focus); box-shadow: 0 0 0 3px rgba(200,230,60,0.12); }
-textarea { min-height: 100px; resize: vertical; line-height: 1.6; }
+textarea { min-height: 90px; resize: vertical; line-height: 1.6; }
+input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(0.5); cursor: pointer; }
 .select-wrap { position: relative; }
 .select-wrap::after {
   content: ''; position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
   width: 10px; height: 10px; background: var(--text-muted);
   clip-path: polygon(0 30%,50% 80%,100% 30%); pointer-events: none;
 }
-select { cursor: pointer; }
+select { cursor: pointer; padding-right: 36px; }
 select option { background: #1e2318; }
 
+/* ── RADIO / CHECKBOX GROUPS ── */
+.radio-group, .check-group {
+  display: flex; flex-direction: column; gap: 10px;
+}
+.radio-group.inline { flex-direction: row; gap: 16px; flex-wrap: wrap; }
+.radio-item, .check-item {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--input-bg); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 11px 14px; cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  user-select: none;
+}
+.radio-item:hover, .check-item:hover { border-color: var(--border-focus); }
+.radio-item input, .check-item input { display: none; }
+.radio-item .pip, .check-item .pip {
+  width: 16px; height: 16px; border-radius: 50%;
+  border: 2px solid var(--border); flex-shrink: 0;
+  transition: all 0.2s; display: flex; align-items: center; justify-content: center;
+}
+.check-item .pip { border-radius: 4px; }
+.radio-item.selected, .check-item.selected {
+  border-color: var(--accent); background: rgba(200,230,60,0.06);
+}
+.radio-item.selected .pip {
+  border-color: var(--accent); background: var(--accent);
+  box-shadow: inset 0 0 0 3px var(--input-bg);
+}
+.check-item.selected .pip {
+  border-color: var(--accent); background: var(--accent);
+}
+.check-item.selected .pip::after {
+  content: '✓'; font-size: 10px; color: #0C0F0A; font-weight: 700;
+}
+.radio-item span, .check-item span {
+  font-size: 13px; color: var(--text-secondary);
+  transition: color 0.2s;
+}
+.radio-item.selected span, .check-item.selected span { color: var(--text-primary); }
 
-
-/* ERRORS */
+/* ── ERRORS ── */
 .field-error { font-size:11px; color:var(--error); margin-top:5px; font-family:'DM Mono',monospace; display:none; }
 .field.has-error input, .field.has-error select, .field.has-error textarea { border-color: var(--error); }
 .field.has-error .field-error { display: block; }
 .error-banner { display:none; background:rgba(255,95,82,0.08); border:1px solid rgba(255,95,82,0.3); border-radius:var(--radius); padding:14px 18px; margin-top:20px; font-size:12px; color:var(--error); font-family:'DM Mono',monospace; }
 .error-banner.visible { display:block; }
 
-/* SUBMIT */
-.submit-row { margin-top:32px; display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
-.submit-note { font-size:11px; color:var(--text-muted); font-family:'DM Mono',monospace; }
-button[type="submit"] {
+/* ── NAV BUTTONS ── */
+.btn-row {
+  margin-top: 36px; display: flex; align-items: center;
+  justify-content: space-between; gap: 12px; flex-wrap: wrap;
+}
+.btn-back {
+  background: transparent; border: 1px solid var(--border);
+  color: var(--text-secondary); border-radius: var(--radius);
+  font-family: 'DM Sans', sans-serif; font-size: 13px;
+  padding: 12px 22px; cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+.btn-back:hover { border-color: var(--accent); color: var(--accent); }
+.btn-next, .btn-submit {
   background: var(--accent); color: #0C0F0A;
   border: none; border-radius: var(--radius);
   font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500;
-  padding: 14px 32px; cursor: pointer;
+  padding: 13px 32px; cursor: pointer;
   transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
-  display: flex; align-items: center; gap: 10px;
+  display: flex; align-items: center; gap: 10px; margin-left: auto;
 }
-button[type="submit"]:hover { background:#d8f04e; transform:translateY(-2px); box-shadow:0 8px 24px rgba(200,230,60,0.2); }
-button[type="submit"].update-submit { background: var(--orange); color: #fff; }
-button[type="submit"].update-submit:hover { background:#ea6c0a; box-shadow:0 8px 24px rgba(249,115,22,0.25); }
-button[type="submit"].loading { pointer-events:none; opacity:0.7; }
-.btn-spinner { width:16px; height:16px; border:2px solid rgba(0,0,0,0.25); border-top-color:currentColor; border-radius:50%; animation:spin .7s linear infinite; display:none; }
-button[type="submit"].loading .btn-spinner { display:block; }
-button[type="submit"].loading .btn-text { opacity:0.5; }
+.btn-next:hover, .btn-submit:hover { background:#d8f04e; transform:translateY(-2px); box-shadow:0 8px 24px rgba(200,230,60,0.2); }
+.btn-submit.loading { pointer-events:none; opacity:0.7; }
+.btn-spinner { width:16px; height:16px; border:2px solid rgba(0,0,0,0.25); border-top-color:#0C0F0A; border-radius:50%; animation:spin .7s linear infinite; display:none; }
+.btn-submit.loading .btn-spinner { display:block; }
+.btn-submit.loading .btn-text { opacity:0.5; }
 @keyframes spin { to { transform:rotate(360deg); } }
+.step-hint { font-family:'DM Mono',monospace; font-size:10px; color:var(--text-muted); margin-top: 0; }
 
-/* SUCCESS */
+/* ── LOOKUP PANEL ── */
+.lookup-panel {
+  background: rgba(200,230,60,0.04); border: 1px solid rgba(200,230,60,0.15);
+  border-radius: 8px; padding: 20px; margin-bottom: 24px;
+}
+.lookup-title {
+  font-family: 'DM Mono', monospace; font-size: 10px;
+  letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent);
+  margin-bottom: 16px; display: flex; align-items: center; gap: 10px;
+}
+.lookup-title::after { content: ''; flex: 1; height: 1px; background: rgba(200,230,60,0.15); }
+.lookup-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+@media (max-width: 520px) { .lookup-row { grid-template-columns: 1fr; } }
+.lookup-panel label { font-size: 11px; color: var(--text-secondary); margin-bottom: 6px; display: block; }
+.btn-load {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(200,230,60,0.1); color: var(--accent);
+  border: 1px solid rgba(200,230,60,0.25); border-radius: var(--radius);
+  font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500;
+  padding: 10px 20px; cursor: pointer; white-space: nowrap;
+  transition: background 0.2s;
+}
+.btn-load:hover { background: rgba(200,230,60,0.18); }
+.btn-load:disabled { opacity: 0.5; pointer-events: none; }
+.evt-select-wrap { position: relative; flex: 1; min-width: 180px; }
+.evt-select-wrap::after {
+  content: ''; position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+  width: 9px; height: 9px; background: var(--text-muted);
+  clip-path: polygon(0 30%,50% 80%,100% 30%); pointer-events: none;
+}
+#event-select {
+  width: 100%; background: var(--input-bg); border: 1px solid var(--border);
+  border-radius: var(--radius); color: var(--text-primary);
+  font-family: 'DM Sans', sans-serif; font-size: 13px;
+  padding: 10px 32px 10px 12px; outline: none;
+  -webkit-appearance: none; appearance: none;
+}
+#event-select:focus { border-color: var(--border-focus); }
+#event-select option { background: #1e2318; }
+.lookup-bottom { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.loader-text { font-family:'DM Mono',monospace; font-size:11px; color:var(--text-muted); margin-top:10px; min-height:16px; }
+
+/* prefill flash */
+.flash { animation: flashFill 0.8s ease forwards; }
+@keyframes flashFill { 0%,5% { background: rgba(200,230,60,0.14); } 100% { background: var(--input-bg); } }
+
+/* ── SUMMARY CARD (step 4 review) ── */
+.summary-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+  margin-bottom: 20px;
+}
+@media (max-width: 520px) { .summary-grid { grid-template-columns: 1fr; } }
+.summary-item { background: var(--input-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 14px; }
+.summary-item .s-label { font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.15em; text-transform:uppercase; color:var(--text-muted); margin-bottom:4px; }
+.summary-item .s-val { font-size:13px; color:var(--text-primary); }
+
+/* ── SUCCESS ── */
 .success-screen { display:none; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:60px 40px; animation:rise 0.5s ease both; }
 .success-screen.visible { display:flex; }
 .success-icon {
@@ -214,10 +286,9 @@ button[type="submit"].loading .btn-text { opacity:0.5; }
   font-size:30px; margin-bottom:28px;
   animation:popIn 0.4s cubic-bezier(0.175,0.885,0.32,1.275) both 0.1s;
 }
-.success-icon.update-icon { background:rgba(249,115,22,0.1); border-color:var(--orange); }
 @keyframes popIn { from{transform:scale(0.4);opacity:0;} to{transform:scale(1);opacity:1;} }
 .success-screen h2 { font-family:'DM Serif Display',serif; font-size:28px; font-weight:400; color:var(--text-primary); margin-bottom:12px; }
-.success-screen p { font-size:14px; color:var(--text-secondary); line-height:1.7; max-width:360px; margin-bottom:28px; }
+.success-screen p { font-size:14px; color:var(--text-secondary); line-height:1.7; max-width:380px; margin-bottom:28px; }
 .success-screen .ref { font-family:'DM Mono',monospace; font-size:11px; color:var(--text-muted); background:var(--input-bg); border:1px solid var(--border); border-radius:100px; padding:6px 16px; margin-bottom:28px; letter-spacing:0.08em; }
 .btn-new { background:transparent; border:1px solid var(--border); color:var(--text-secondary); border-radius:var(--radius); font-family:'DM Sans',sans-serif; font-size:13px; padding:11px 24px; cursor:pointer; transition:border-color 0.2s,color 0.2s; }
 .btn-new:hover { border-color:var(--accent); color:var(--accent); }
@@ -227,151 +298,369 @@ button[type="submit"].loading .btn-text { opacity:0.5; }
 <div class="page-wrap">
 
   <div class="header">
-    <span class="header-tag">Recce Submission</span>
-    <h1>Submit Your <em>Reccee</em></h1>
-    <p>Submit a new event for approval or update an existing one. Once submitted, your entry will be reviewed and you will receive a confirmation email from PrimeEdgeAI.</p>
+    <span class="header-tag">Site Assessment</span>
+    <h1>Reccee <em>Assessment</em></h1>
+    <p>Complete the site assessment for your event. Your report will be submitted to the PrimeEdgeAI team once all sections are filled in.</p>
   </div>
 
-  <div class="form-card" id="main-form-card">
+  <!-- PROGRESS -->
+  <div class="progress-bar" id="progress-bar">
+    <div class="step-pip active" id="pip-1">
+      <div class="pip-dot">1</div>
+      <div class="pip-label">Event</div>
+    </div>
+    <div class="pip-line" id="line-1"></div>
+    <div class="step-pip" id="pip-2">
+      <div class="pip-dot">2</div>
+      <div class="pip-label">Venue</div>
+    </div>
+    <div class="pip-line" id="line-2"></div>
+    <div class="step-pip" id="pip-3">
+      <div class="pip-dot">3</div>
+      <div class="pip-label">Assessment</div>
+    </div>
+    <div class="pip-line" id="line-3"></div>
+    <div class="step-pip" id="pip-4">
+      <div class="pip-dot">4</div>
+      <div class="pip-label">Logistics</div>
+    </div>
+    <div class="pip-line" id="line-4"></div>
+    <div class="step-pip" id="pip-5">
+      <div class="pip-dot">5</div>
+      <div class="pip-label">Submit</div>
+    </div>
+  </div>
 
-    <div class="update-banner" id="update-banner">Update Mode — editing an existing event</div>
+  <!-- MAIN FORM CARD -->
+  <div class="form-card" id="main-card">
 
-    <div class="section-label">Event Info</div>
+    <!-- ══ STEP 1: Event Lookup ══ -->
+    <div class="step-panel active" id="step-1">
+      <div class="section-label">Identify Your Event</div>
 
-    <div class="field" id="field-client">
-      <label>Client <span class="req">*</span></label>
-      <input type="text" name="client" id="client" placeholder="e.g., Jumia" autocomplete="off" />
-      <div class="field-error">Client name is required.</div>
+      <div class="lookup-panel">
+        <div class="lookup-title">Load from Event Register</div>
+        <div class="lookup-row">
+          <div>
+            <label>Filter by Start Date</label>
+            <input type="date" id="filter-start" />
+          </div>
+          <div>
+            <label>Filter by End Date</label>
+            <input type="date" id="filter-end" />
+          </div>
+        </div>
+        <div class="lookup-bottom">
+          <button class="btn-load" id="btn-fetch" type="button">
+            <span id="fetch-label">Load Events</span>
+          </button>
+          <div class="evt-select-wrap">
+            <select id="event-select">
+              <option value="">— select an event —</option>
+            </select>
+          </div>
+        </div>
+        <div class="loader-text" id="loader-text"></div>
+      </div>
+
+      <div class="field" id="field-client">
+        <label>Client <span class="req">*</span></label>
+        <input type="text" id="client" placeholder="e.g., KCB" autocomplete="off" />
+        <div class="field-error">Client is required.</div>
+      </div>
+
+      <div class="field-row">
+        <div class="field" id="field-project-manager">
+          <label>Project Manager <span class="req">*</span></label>
+          <input type="text" id="project-manager" placeholder="Manager's name" />
+          <div class="field-error">Project Manager is required.</div>
+        </div>
+        <div class="field" id="field-email">
+          <label>Email <span class="req">*</span></label>
+          <input type="email" id="email" placeholder="manager@email.com" />
+          <div class="field-error">Valid email required.</div>
+        </div>
+      </div>
+
+      <div class="field" id="field-description">
+        <label>Description <span class="req">*</span></label>
+        <input type="text" id="description" placeholder="e.g., KCB vs Equity Rugby" />
+        <div class="field-error">Description is required.</div>
+      </div>
+
+      <div class="btn-row">
+        <span class="step-hint">Step 1 of 5</span>
+        <button class="btn-next" id="next-1">Continue →</button>
+      </div>
     </div>
 
-    <div class="field" id="field-status">
-      <label>Status <span class="req">*</span></label>
-      <div class="select-wrap">
-        <select name="status" id="status">
-          <option value="">Select status…</option>
-          <option value="Event Creation">Event Creation</option>
-          <option value="Event Update">Event Update</option>
-        </select>
+    <!-- ══ STEP 2: Venue & Date ══ -->
+    <div class="step-panel" id="step-2">
+      <div class="section-label">Venue &amp; Dates</div>
+
+      <div class="field-row">
+        <div class="field" id="field-reccee-date">
+          <label>Reccee Date <span class="req">*</span></label>
+          <input type="date" id="reccee-date" />
+          <div class="field-error">Date is required.</div>
+        </div>
+        <div class="field" id="field-location">
+          <label>Venue / Location <span class="req">*</span></label>
+          <input type="text" id="location" placeholder="Where will the event take place?" />
+          <div class="field-error">Location is required.</div>
+        </div>
       </div>
-      <div class="field-error">Please select a status.</div>
+
+      <div class="field" id="field-attendees">
+        <label>Attendees <span class="req">*</span></label>
+        <textarea id="attendees" placeholder="List all attendees who attended the reccee…"></textarea>
+        <div class="field-error">Attendees is required.</div>
+      </div>
+
+      <div class="section-label">Access &amp; Transport</div>
+
+      <div class="field">
+        <label>How far is the venue from the main town? <span class="req">*</span></label>
+        <div class="radio-group inline" id="rg-distance">
+          <label class="radio-item" data-group="distance" data-val="At least 15 min"><input type="radio" name="distance" value="At least 15 min"/><span class="pip"></span><span>≤ 15 min</span></label>
+          <label class="radio-item" data-group="distance" data-val="At least 30 min"><input type="radio" name="distance" value="At least 30 min"/><span class="pip"></span><span>≤ 30 min</span></label>
+          <label class="radio-item" data-group="distance" data-val="At least 45 min"><input type="radio" name="distance" value="At least 45 min"/><span class="pip"></span><span>≤ 45 min</span></label>
+          <label class="radio-item" data-group="distance" data-val="1 hour and above"><input type="radio" name="distance" value="1 hour and above"/><span class="pip"></span><span>1 hr +</span></label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Is public transport available?</label>
+        <div class="radio-group inline" id="rg-transport">
+          <label class="radio-item" data-group="transport" data-val="Yes"><input type="radio" name="transport" value="Yes"/><span class="pip"></span><span>Yes</span></label>
+          <label class="radio-item" data-group="transport" data-val="No"><input type="radio" name="transport" value="No"/><span class="pip"></span><span>No</span></label>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn-back" onclick="goStep(1)">← Back</button>
+        <span class="step-hint">Step 2 of 5</span>
+        <button class="btn-next" id="next-2">Continue →</button>
+      </div>
     </div>
 
-    <!-- LOOKUP PANEL -->
-    <div class="lookup-panel" id="lookup-panel">
-      <div class="lookup-title">Find Event to Update</div>
-      <div class="lookup-row">
-        <div>
-          <label>Filter by Start Date</label>
-          <input type="date" id="filter-start" />
-        </div>
-        <div>
-          <label>Filter by End Date</label>
-          <input type="date" id="filter-end" />
+    <!-- ══ STEP 3: Security & Medical ══ -->
+    <div class="step-panel" id="step-3">
+      <div class="section-label">Security Assessment</div>
+
+      <div class="field">
+        <label>Are there residential settlements near the venue?</label>
+        <div class="radio-group inline" id="rg-residential">
+          <label class="radio-item" data-group="residential" data-val="Yes"><input type="radio" name="residential" value="Yes"/><span class="pip"></span><span>Yes</span></label>
+          <label class="radio-item" data-group="residential" data-val="No"><input type="radio" name="residential" value="No"/><span class="pip"></span><span>No</span></label>
         </div>
       </div>
-      <div class="lookup-bottom">
-        <button class="btn-load" id="btn-fetch" type="button">
-          <span id="fetch-label">Load Events</span>
+
+      <div class="field">
+        <label>Does the venue have a well-secured perimeter wall?</label>
+        <div class="radio-group inline" id="rg-perimeter">
+          <label class="radio-item" data-group="perimeter" data-val="Yes"><input type="radio" name="perimeter" value="Yes"/><span class="pip"></span><span>Yes</span></label>
+          <label class="radio-item" data-group="perimeter" data-val="No"><input type="radio" name="perimeter" value="No"/><span class="pip"></span><span>No</span></label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Is there a police station nearby?</label>
+        <div class="radio-group inline" id="rg-police">
+          <label class="radio-item" data-group="police" data-val="Yes"><input type="radio" name="police" value="Yes"/><span class="pip"></span><span>Yes</span></label>
+          <label class="radio-item" data-group="police" data-val="No"><input type="radio" name="police" value="No"/><span class="pip"></span><span>No</span></label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Will additional security be needed?</label>
+        <div class="radio-group inline" id="rg-extra-security">
+          <label class="radio-item" data-group="extra-security" data-val="Yes"><input type="radio" name="extra-security" value="Yes"/><span class="pip"></span><span>Yes</span></label>
+          <label class="radio-item" data-group="extra-security" data-val="No"><input type="radio" name="extra-security" value="No"/><span class="pip"></span><span>No</span></label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Security details &amp; notes</label>
+        <textarea id="security-notes" placeholder="Describe access points, guard requirements, any known risks…"></textarea>
+      </div>
+
+      <div class="section-label">Medical &amp; Facilities</div>
+
+      <div class="field">
+        <label>Are there medical facilities within 30 min?</label>
+        <div class="radio-group inline" id="rg-medical">
+          <label class="radio-item" data-group="medical" data-val="Yes"><input type="radio" name="medical" value="Yes"/><span class="pip"></span><span>Yes</span></label>
+          <label class="radio-item" data-group="medical" data-val="No"><input type="radio" name="medical" value="No"/><span class="pip"></span><span>No</span></label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Medical facility details</label>
+        <textarea id="medical-notes" placeholder="Name, distance, type of facility…"></textarea>
+      </div>
+
+      <div class="field">
+        <label>Available facilities &amp; amenities <span style="font-size:11px;color:var(--text-muted)">(select all that apply)</span></label>
+        <div class="check-group" id="cg-amenities">
+          <label class="check-item" data-group="amenities" data-val="Adequate toilets"><input type="checkbox" value="Adequate toilets"/><span class="pip"></span><span>Adequate toilets</span></label>
+          <label class="check-item" data-group="amenities" data-val="Water supply"><input type="checkbox" value="Water supply"/><span class="pip"></span><span>Water supply</span></label>
+          <label class="check-item" data-group="amenities" data-val="3-phase electricity points"><input type="checkbox" value="3-phase electricity points"/><span class="pip"></span><span>3-phase electricity points</span></label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Other facilities needed</label>
+        <textarea id="other-facilities" placeholder="Any other infrastructure requirements…"></textarea>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn-back" onclick="goStep(2)">← Back</button>
+        <span class="step-hint">Step 3 of 5</span>
+        <button class="btn-next" id="next-3">Continue →</button>
+      </div>
+    </div>
+
+    <!-- ══ STEP 4: Logistics & Permits ══ -->
+    <div class="step-panel" id="step-4">
+      <div class="section-label">Event Logistics</div>
+
+      <div class="field">
+        <label>Entry &amp; Exit details</label>
+        <textarea id="entry-exit" placeholder="Describe entry/exit points, crowd flow, vehicle access…"></textarea>
+      </div>
+
+      <div class="field">
+        <label>Event layout details</label>
+        <textarea id="event-layout" placeholder="Stage position, audience area, vendor zones, emergency routes…"></textarea>
+      </div>
+
+      <div class="section-label">Compliance</div>
+
+      <div class="field">
+        <label>Permits required</label>
+        <textarea id="permits" placeholder="List all permits that will be needed (county, noise, liquor, etc.)…"></textarea>
+      </div>
+
+      <div class="section-label">Summary Notes</div>
+
+      <div class="field" id="field-challenges">
+        <label>Challenges &amp; Recommendations <span class="req">*</span></label>
+        <textarea id="challenges" placeholder="Key issues identified and your recommendations to resolve them…" style="min-height:120px;"></textarea>
+        <div class="field-error">Please fill in challenges &amp; recommendations.</div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn-back" onclick="goStep(3)">← Back</button>
+        <span class="step-hint">Step 4 of 5</span>
+        <button class="btn-next" id="next-4">Review →</button>
+      </div>
+    </div>
+
+    <!-- ══ STEP 5: Review & Submit ══ -->
+    <div class="step-panel" id="step-5">
+      <div class="section-label">Review Your Submission</div>
+
+      <div class="summary-grid" id="summary-grid">
+        <!-- populated by JS -->
+      </div>
+
+      <div class="error-banner" id="error-banner"></div>
+
+      <div class="btn-row">
+        <button class="btn-back" onclick="goStep(4)">← Back</button>
+        <span class="step-hint">Step 5 of 5</span>
+        <button class="btn-submit" id="submit-btn">
+          <span class="btn-text">Submit Assessment</span>
+          <div class="btn-spinner"></div>
         </button>
-        <div class="evt-select-wrap">
-          <select id="event-select">
-            <option value="">— select an event —</option>
-          </select>
-        </div>
-      </div>
-      <div class="loader-text" id="loader-text"></div>
-    </div>
-
-    <input type="hidden" id="job-id" name="job_id" value="" />
-
-    <div class="field" id="field-description">
-      <label>Description <span class="req">*</span></label>
-      <textarea name="description" id="description" placeholder="e.g., KCB VS Police FC"></textarea>
-      <div class="field-error">Description is required.</div>
-    </div>
-
-    <div class="section-label">Contacts</div>
-
-    <div class="field-row">
-      <div class="field" id="field-client-lead">
-        <label>Client Lead</label>
-        <input type="text" name="client_lead" id="client-lead" placeholder="Name" />
-      </div>
-      <div class="field" id="field-agency-lead">
-        <label>Project Lead <span class="req">*</span></label>
-        <input type="text" name="agency_lead" id="agency-lead" placeholder="Name" />
-        <div class="field-error">Agency lead is required.</div>
       </div>
     </div>
 
-    <div class="field" id="field-email">
-      <label>Email <span class="req">*</span></label>
-      <input type="email" name="email" id="email" placeholder="e.g., john@gmail.com" />
-      <div class="field-error">A valid email is required.</div>
-    </div>
+  </div><!-- /form-card -->
 
-    <div class="section-label">Location &amp; Dates</div>
-
-    <div class="field" id="field-location">
-      <label>Event Location <span class="req">*</span></label>
-      <input type="text" name="event_location" id="event-location" placeholder="Where is the Reccee?" />
-      <div class="field-error">Event location is required.</div>
-    </div>
-
-    <div class="field-row">
-      <div class="field" id="field-start-date">
-        <label>Start Date <span class="req">*</span></label>
-        <input type="date" name="start_date" id="start-date" />
-        <div class="field-error">Start date is required.</div>
-      </div>
-      <div class="field" id="field-end-date">
-        <label>End Date <span class="req">*</span></label>
-        <input type="date" name="end_date" id="end-date" />
-        <div class="field-error">End date is required.</div>
-      </div>
-    </div>
-
-    <div class="submit-row">
-      <span class="submit-note">* required fields</span>
-      <button type="submit" id="submit-btn">
-        <span class="btn-text">Submit Reccee</span>
-        <div class="btn-spinner"></div>
-      </button>
-    </div>
-
-    <div class="error-banner" id="error-banner"></div>
-  </div>
-
-  <!-- Success Screen -->
+  <!-- ── SUCCESS ── -->
   <div class="form-card success-screen" id="success-screen">
-    <div class="success-icon" id="success-icon">&#10003;</div>
-    <h2 id="success-title">Reccee Submitted!</h2>
-    <p id="success-msg">Your submission has been received and is on its way. The team will review it shortly and follow up with next steps.</p>
-    <div class="ref" id="success-ref">REF — —</div>
-    <button class="btn-new" id="btn-new">Submit another reccee</button>
+    <div class="success-icon">&#10003;</div>
+    <h2>Assessment Submitted!</h2>
+    <p>Your Reccee report has been received. The PrimeEdgeAI team will review it and follow up within 72 hours with next steps.</p>
+    <div class="ref" id="success-ref">REC — —</div>
+    <button class="btn-new" id="btn-new">Submit another assessment</button>
   </div>
 
-</div>
+</div><!-- /page-wrap -->
 
 <script>
+/* ─────────────────────────────────────────
+   CONFIG
+───────────────────────────────────────── */
 const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQzV51evXd43ebjxahF57b6j4MTDnI0tcEjBNzLjoqdP84_vujazI5cLRD12tzJ9fLl30hYT3zEMyyU/pub?output=csv';
-const WEBHOOK    = () => 'https://kevinmongare.app.n8n.cloud/webhook/event-registration';
+const WEBHOOK   = 'https://kevinmongare.app.n8n.cloud/webhook/reccee-assessment';
 
-let allEvents = [], isUpdateMode = false;
+/* ─────────────────────────────────────────
+   STATE
+───────────────────────────────────────── */
+let allEvents  = [];
+let currentStep = 1;
+const TOTAL_STEPS = 5;
 
-/* ── STATUS TOGGLE ── */
-document.getElementById('status').addEventListener('change', function() {
-  isUpdateMode = this.value === 'Event Update';
-  document.getElementById('lookup-panel').classList.toggle('visible', isUpdateMode);
-  document.getElementById('update-banner').classList.toggle('visible', isUpdateMode);
-  document.getElementById('main-form-card').classList.toggle('update-mode', isUpdateMode);
-  const btn = document.getElementById('submit-btn');
-  btn.classList.toggle('update-submit', isUpdateMode);
-  document.querySelector('#submit-btn .btn-text').textContent = isUpdateMode ? 'Update Event' : 'Submit Reccee';
-  if (!isUpdateMode) { document.getElementById('job-id').value=''; document.getElementById('event-select').value=''; }
-});
+/* ─────────────────────────────────────────
+   RADIO / CHECKBOX WIDGET
+───────────────────────────────────────── */
+function initChoices() {
+  document.querySelectorAll('.radio-item').forEach(item => {
+    item.addEventListener('click', () => {
+      const group = item.dataset.group;
+      document.querySelectorAll(`.radio-item[data-group="${group}"]`)
+        .forEach(i => i.classList.remove('selected'));
+      item.classList.add('selected');
+    });
+  });
+  document.querySelectorAll('.check-item').forEach(item => {
+    item.addEventListener('click', () => {
+      item.classList.toggle('selected');
+    });
+  });
+}
 
-/* ── PARSE CSV ── */
+function getRadio(group) {
+  const sel = document.querySelector(`.radio-item[data-group="${group}"].selected`);
+  return sel ? sel.dataset.val : '';
+}
+
+function getChecks(group) {
+  return [...document.querySelectorAll(`.check-item[data-group="${group}"].selected`)]
+    .map(i => i.dataset.val);
+}
+
+/* ─────────────────────────────────────────
+   PROGRESS BAR
+───────────────────────────────────────── */
+function updateProgress(step) {
+  for (let i = 1; i <= TOTAL_STEPS; i++) {
+    const pip  = document.getElementById(`pip-${i}`);
+    const line = document.getElementById(`line-${i}`);
+    pip.classList.remove('active','done');
+    if (i < step)  pip.classList.add('done');
+    if (i === step) pip.classList.add('active');
+    if (line) line.classList.toggle('done', i < step);
+  }
+}
+
+/* ─────────────────────────────────────────
+   STEP NAVIGATION
+───────────────────────────────────────── */
+function goStep(n) {
+  document.getElementById(`step-${currentStep}`).classList.remove('active');
+  currentStep = n;
+  document.getElementById(`step-${currentStep}`).classList.add('active');
+  updateProgress(currentStep);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* ─────────────────────────────────────────
+   CSV PARSER
+───────────────────────────────────────── */
 function parseCSV(text) {
   const lines = text.trim().split('\n');
   if (lines.length < 2) return [];
@@ -385,20 +674,28 @@ function parseCSV(text) {
     }
     cols.push(cur.trim());
     const obj={};
-    headers.forEach((h,i) => { obj[h]=(cols[i]||'').replace(/^"|"$/g,''); });
+    headers.forEach((h,i) => { obj[h]=(cols[i]||'').replace(/^"|"$/g,'').trim(); });
     return obj;
   }).filter(r => r['Job_ID']||r['Description']);
 }
 
-/* ── NORMALISE DATE ── */
 function normDate(s) {
   if (!s) return '';
   const d = new Date(s);
-  if (!isNaN(d)) return d.toISOString().slice(0,10);
-  return s;
+  return isNaN(d) ? s : d.toISOString().slice(0,10);
 }
 
-/* ── FETCH EVENTS ── */
+function flash(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.classList.remove('flash');
+  void el.offsetWidth;
+  el.classList.add('flash');
+}
+
+/* ─────────────────────────────────────────
+   LOAD EVENTS
+───────────────────────────────────────── */
 document.getElementById('btn-fetch').addEventListener('click', async () => {
   const btn = document.getElementById('btn-fetch');
   const lbl = document.getElementById('fetch-label');
@@ -408,9 +705,8 @@ document.getElementById('btn-fetch').addEventListener('click', async () => {
 
   try {
     const res = await fetch(SHEET_URL);
-    if (!res.ok) throw new Error(`Could not reach the sheet (${res.status}). Make sure it is published: File > Share > Publish to web.`);
-    const csv = await res.text();
-    allEvents = parseCSV(csv);
+    if (!res.ok) throw new Error(`Sheet unavailable (${res.status})`);
+    allEvents = parseCSV(await res.text());
 
     const fs = document.getElementById('filter-start').value;
     const fe = document.getElementById('filter-end').value;
@@ -424,16 +720,16 @@ document.getElementById('btn-fetch').addEventListener('click', async () => {
 
     sel.innerHTML = '<option value="">— select an event —</option>';
     if (!filtered.length) {
-      lt.textContent = `No events found${fs||fe?' for that date range':''}. Try clearing the filters.`;
+      lt.textContent = 'No events found. Try clearing the date filters.';
     } else {
       filtered.forEach(ev => {
+        const idx = allEvents.indexOf(ev);
         const label = [ev['Job_ID'], ev['Description'], ev['Client']].filter(Boolean).join(' · ');
         const opt = document.createElement('option');
-        opt.value = allEvents.indexOf(ev);
-        opt.textContent = label;
+        opt.value = idx; opt.textContent = label;
         sel.appendChild(opt);
       });
-      lt.textContent = `${filtered.length} event${filtered.length!==1?'s':''} loaded — select one to prefill.`;
+      lt.textContent = `${filtered.length} event${filtered.length!==1?'s':''} loaded.`;
     }
   } catch(err) {
     lt.textContent = 'Error: ' + err.message;
@@ -442,127 +738,206 @@ document.getElementById('btn-fetch').addEventListener('click', async () => {
   }
 });
 
-/* ── PREFILL ON EVENT SELECT ── */
 document.getElementById('event-select').addEventListener('change', function() {
-  if (this.value==='') return;
+  if (!this.value) return;
   const ev = allEvents[+this.value];
   if (!ev) return;
-
   const map = {
-    'client':         ev['Client']       || '',
-    'description':    ev['Description']  || '',
-    'client-lead':    ev['Client Lead']  || '',
-    'agency-lead':    ev['Project Lead'] || '',
-    'email':          ev['Email']        || '',
-    'event-location': ev['Where']        || '',
-    'start-date':     normDate(ev['Start Date']||ev['StartDate']||''),
-    'end-date':       normDate(ev['End Date']  ||ev['EndDate']  ||''),
+    'client':          ev['Client']       || '',
+    'project-manager': ev['Project Lead'] || '',
+    'email':           ev['Email']        || '',
+    'description':     ev['Description']  || '',
   };
-  document.getElementById('job-id').value = ev['Job_ID'] || '';
-
   Object.entries(map).forEach(([id, val]) => {
     const el = document.getElementById(id);
-    el.value = val;
-    // orange flash
-    el.style.transition='background 0s';
-    el.style.background='rgba(249,115,22,0.12)';
-    setTimeout(()=>{ el.style.transition='background 0.7s'; el.style.background=''; }, 60);
+    if (el) { el.value = val; flash(id); }
   });
-
   document.getElementById('loader-text').textContent =
-    `Prefilled: ${ev['Description']||ev['Job_ID']} — Job ID: ${ev['Job_ID']||'n/a'}`;
+    `Prefilled from: ${ev['Description']||ev['Job_ID']} (Job: ${ev['Job_ID']||'n/a'})`;
 });
 
-/* ── VALIDATION ── */
-function setErr(id, show) { const el=document.getElementById('field-'+id); if(el) el.classList.toggle('has-error',show); }
-function validate() {
-  let ok=true;
-  [['client',()=>document.getElementById('client').value.trim()],
-   ['status',()=>document.getElementById('status').value],
-   ['description',()=>document.getElementById('description').value.trim()],
-   ['agency-lead',()=>document.getElementById('agency-lead').value.trim()],
-   ['location',()=>document.getElementById('event-location').value.trim()],
-   ['start-date',()=>document.getElementById('start-date').value],
-   ['end-date',()=>document.getElementById('end-date').value],
-  ].forEach(([id,fn])=>{ const v=!!fn(); setErr(id,!v); if(!v) ok=false; });
-  const emailOk=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(document.getElementById('email').value.trim());
-  setErr('email',!emailOk); if(!emailOk) ok=false;
+/* ─────────────────────────────────────────
+   VALIDATION
+───────────────────────────────────────── */
+function setErr(fieldId, show) {
+  const el = document.getElementById('field-' + fieldId);
+  if (el) el.classList.toggle('has-error', show);
+}
+function clearErrors() {
+  document.querySelectorAll('.field.has-error').forEach(f => f.classList.remove('has-error'));
+}
+
+function validateStep(n) {
+  clearErrors();
+  let ok = true;
+  if (n === 1) {
+    [['client', () => document.getElementById('client').value.trim()],
+     ['project-manager', () => document.getElementById('project-manager').value.trim()],
+     ['email', () => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(document.getElementById('email').value.trim())],
+     ['description', () => document.getElementById('description').value.trim()],
+    ].forEach(([id, fn]) => { const v = !!fn(); setErr(id, !v); if (!v) ok = false; });
+  }
+  if (n === 2) {
+    [['reccee-date', () => document.getElementById('reccee-date').value],
+     ['location',   () => document.getElementById('location').value.trim()],
+     ['attendees',  () => document.getElementById('attendees').value.trim()],
+    ].forEach(([id, fn]) => { const v = !!fn(); setErr(id, !v); if (!v) ok = false; });
+  }
+  if (n === 4) {
+    const v = document.getElementById('challenges').value.trim();
+    setErr('challenges', !v); if (!v) ok = false;
+  }
   return ok;
 }
 
-/* ── SUCCESS ── */
-function showSuccess(client) {
-  const ref='REC-'+Date.now().toString(36).toUpperCase();
-  document.getElementById('success-ref').textContent=`REF ${ref} · ${client}`;
-  const icon=document.getElementById('success-icon');
-  if (isUpdateMode) {
-    icon.classList.add('update-icon'); icon.textContent='&#10003;';
-    document.getElementById('success-title').textContent='Update Submitted';
-    document.getElementById('success-msg').textContent='Your update has been submitted. PrimeEdgeAI will review the changes and follow up by email.';
-  } else {
-    icon.classList.remove('update-icon'); icon.innerHTML='&#10003;';
-    document.getElementById('success-title').textContent='Submission Received';
-    document.getElementById('success-msg').textContent='Your submission is pending approval. You will receive an email from PrimeEdgeAI once it has been reviewed.';
-  }
-  document.getElementById('success-screen').classList.add('visible');
-  document.getElementById('main-form-card').style.display='none';
-  document.querySelector('.header').scrollIntoView({behavior:'smooth'});
+/* ─────────────────────────────────────────
+   NEXT BUTTONS
+───────────────────────────────────────── */
+document.getElementById('next-1').addEventListener('click', () => { if (validateStep(1)) goStep(2); });
+document.getElementById('next-2').addEventListener('click', () => { if (validateStep(2)) goStep(3); });
+document.getElementById('next-3').addEventListener('click', () => goStep(4));
+document.getElementById('next-4').addEventListener('click', () => { if (validateStep(4)) { buildSummary(); goStep(5); } });
+
+/* ─────────────────────────────────────────
+   SUMMARY (step 5)
+───────────────────────────────────────── */
+function buildSummary() {
+  const items = [
+    ['Client',       document.getElementById('client').value],
+    ['Manager',      document.getElementById('project-manager').value],
+    ['Description',  document.getElementById('description').value],
+    ['Reccee Date',  document.getElementById('reccee-date').value],
+    ['Location',     document.getElementById('location').value],
+    ['Distance',     getRadio('distance') || '—'],
+    ['Public Transport', getRadio('transport') || '—'],
+    ['Perimeter Wall',   getRadio('perimeter') || '—'],
+    ['Police Nearby',    getRadio('police') || '—'],
+    ['Extra Security',   getRadio('extra-security') || '—'],
+    ['Medical Nearby',   getRadio('medical') || '—'],
+    ['Amenities',    getChecks('amenities').join(', ') || '—'],
+  ];
+  const grid = document.getElementById('summary-grid');
+  grid.innerHTML = items.map(([l,v]) => `
+    <div class="summary-item">
+      <div class="s-label">${l}</div>
+      <div class="s-val">${v || '—'}</div>
+    </div>`).join('');
 }
 
-/* ── RESET ── */
-document.getElementById('btn-new').addEventListener('click', () => {
-  ['client','description','client-lead','agency-lead','email','event-location','start-date','end-date']
-    .forEach(id => document.getElementById(id).value='');
-  document.getElementById('status').value='';
-  document.getElementById('job-id').value='';
-  document.getElementById('event-select').innerHTML='<option value="">— select an event —</option>';
-  document.getElementById('loader-text').textContent='';
-  document.getElementById('filter-start').value='';
-  document.getElementById('filter-end').value='';
-  document.getElementById('lookup-panel').classList.remove('visible');
-  document.getElementById('update-banner').classList.remove('visible');
-  document.getElementById('main-form-card').classList.remove('update-mode');
-  document.getElementById('main-form-card').style.display='';
-  const sbtn=document.getElementById('submit-btn');
-  sbtn.classList.remove('update-submit');
-  document.querySelector('#submit-btn .btn-text').textContent='Submit Reccee';
-  isUpdateMode=false;
-  document.getElementById('error-banner').classList.remove('visible');
-  document.getElementById('success-screen').classList.remove('visible');
-});
-
-/* ── SUBMIT ── */
+/* ─────────────────────────────────────────
+   SUBMIT
+───────────────────────────────────────── */
 document.getElementById('submit-btn').addEventListener('click', async () => {
-  if (!validate()) return;
-  const btn=document.getElementById('submit-btn');
+  const btn = document.getElementById('submit-btn');
   btn.classList.add('loading');
   document.getElementById('error-banner').classList.remove('visible');
 
-  const clientVal=document.getElementById('client').value.trim();
+  // Build quick_notes string
+  const amenities = getChecks('amenities');
+  const quickNotes = [
+    `How many minutes from town: ${getRadio('distance')||'—'}`,
+    `Public transport: ${getRadio('transport')||'—'}`,
+    `Residential settlements nearby: ${getRadio('residential')||'—'}`,
+    `Perimeter wall: ${getRadio('perimeter')||'—'}`,
+    `Police station nearby: ${getRadio('police')||'—'}`,
+    `Additional security needed: ${getRadio('extra-security')||'—'}`,
+    `Medical facilities within 30 min: ${getRadio('medical')||'—'}`,
+    '',
+    'Facilities & Amenities:',
+    ...amenities.map(a => `  ✓ ${a}`),
+  ].join('\n');
+
   const payload = {
-    client:         clientVal,
-    status:         document.getElementById('status').value,
-    description:    document.getElementById('description').value.trim(),
-    client_lead:    document.getElementById('client-lead').value.trim(),
-    agency_lead:    document.getElementById('agency-lead').value.trim(),
-    email:          document.getElementById('email').value.trim(),
-    event_location: document.getElementById('event-location').value.trim(),
-    start_date:     document.getElementById('start-date').value,
-    end_date:       document.getElementById('end-date').value,
+    // Identity
+    client:          document.getElementById('client').value.trim(),
+    project_manager: document.getElementById('project-manager').value.trim(),
+    email:           document.getElementById('email').value.trim(),
+    description:     document.getElementById('description').value.trim(),
+    // Venue & Date
+    reccee_date:     document.getElementById('reccee-date').value,
+    location:        document.getElementById('location').value.trim(),
+    attendees:       document.getElementById('attendees').value.trim(),
+    // Transport
+    distance_from_town: getRadio('distance'),
+    public_transport:   getRadio('transport'),
+    // Security
+    residential_nearby:   getRadio('residential'),
+    perimeter_wall:       getRadio('perimeter'),
+    police_nearby:        getRadio('police'),
+    extra_security:       getRadio('extra-security'),
+    security_notes:       document.getElementById('security-notes').value.trim(),
+    // Medical
+    medical_nearby:  getRadio('medical'),
+    medical_notes:   document.getElementById('medical-notes').value.trim(),
+    // Facilities
+    amenities:        amenities,
+    other_facilities: document.getElementById('other-facilities').value.trim(),
+    // Logistics
+    entry_exit:    document.getElementById('entry-exit').value.trim(),
+    event_layout:  document.getElementById('event-layout').value.trim(),
+    permits:       document.getElementById('permits').value.trim(),
+    // Summary
+    challenges:    document.getElementById('challenges').value.trim(),
+    // Compiled fields (matching n8n sheet columns)
+    quick_notes:   quickNotes,
   };
-  const jid=document.getElementById('job-id').value;
-  if(jid) payload.job_id = jid;
 
   try {
-    const res=await fetch(WEBHOOK(),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
-    if(res.ok||res.status===200||res.status===201||res.status===202) {
-      showSuccess(clientVal);
-    } else throw new Error(`Server returned ${res.status}`);
+    const res = await fetch(WEBHOOK, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    if (res.ok || res.status === 200 || res.status === 201 || res.status === 202) {
+      showSuccess(payload.client, payload.description);
+    } else {
+      throw new Error(`Server returned ${res.status}`);
+    }
   } catch(err) {
-    document.getElementById('error-banner').textContent=`Submission failed: ${err.message}. Please try again.`;
+    document.getElementById('error-banner').textContent =
+      `Submission failed: ${err.message}. Please try again.`;
     document.getElementById('error-banner').classList.add('visible');
-  } finally { btn.classList.remove('loading'); }
+  } finally {
+    btn.classList.remove('loading');
+  }
 });
+
+/* ─────────────────────────────────────────
+   SUCCESS
+───────────────────────────────────────── */
+function showSuccess(client, desc) {
+  const ref = 'REC-' + Date.now().toString(36).toUpperCase();
+  document.getElementById('success-ref').textContent = `${ref} · ${client} · ${desc}`;
+  document.getElementById('main-card').style.display = 'none';
+  document.getElementById('success-screen').classList.add('visible');
+  document.querySelector('.header').scrollIntoView({ behavior: 'smooth' });
+}
+
+document.getElementById('btn-new').addEventListener('click', () => {
+  // reset all
+  ['client','project-manager','email','description',
+   'reccee-date','location','attendees',
+   'security-notes','medical-notes','other-facilities',
+   'entry-exit','event-layout','permits','challenges']
+    .forEach(id => { const el = document.getElementById(id); if(el) el.value=''; });
+  document.querySelectorAll('.radio-item.selected, .check-item.selected')
+    .forEach(el => el.classList.remove('selected'));
+  document.getElementById('event-select').innerHTML = '<option value="">— select an event —</option>';
+  document.getElementById('loader-text').textContent = '';
+  document.getElementById('filter-start').value = '';
+  document.getElementById('filter-end').value = '';
+  document.getElementById('error-banner').classList.remove('visible');
+  document.getElementById('success-screen').classList.remove('visible');
+  document.getElementById('main-card').style.display = '';
+  clearErrors();
+  goStep(1);
+});
+
+/* ─────────────────────────────────────────
+   INIT
+───────────────────────────────────────── */
+initChoices();
+updateProgress(1);
 </script>
 </body>
 </html>
