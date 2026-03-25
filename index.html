@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>PrimeEdgeAi-Event Creation workflow</title>
+<title>Submit Your Recce</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
 <style>
@@ -37,6 +37,7 @@ body {
 .page-wrap { width: 100%; max-width: 620px; animation: rise 0.5s ease both; }
 @keyframes rise { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
 
+/* HEADER */
 .header { margin-bottom: 36px; }
 .header-tag {
   display: inline-block;
@@ -54,6 +55,7 @@ body {
 .header h1 em { font-style: italic; color: var(--accent); }
 .header p { font-size: 14px; color: var(--text-secondary); line-height: 1.6; max-width: 480px; }
 
+/* FORM CARD */
 .form-card {
   background: var(--surface); border: 1px solid var(--border);
   border-radius: 12px; padding: 40px; position: relative; overflow: hidden;
@@ -67,6 +69,7 @@ body {
   background: linear-gradient(90deg, transparent, var(--orange), transparent);
 }
 
+/* UPDATE BANNER */
 .update-banner {
   display: none; background: rgba(249,115,22,0.08);
   border: 1px solid rgba(249,115,22,0.25); border-radius: var(--radius);
@@ -77,6 +80,7 @@ body {
 }
 .update-banner.visible { display: flex; }
 
+/* SECTION LABELS */
 .section-label {
   font-family: 'DM Mono', monospace; font-size: 10px;
   letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted);
@@ -86,6 +90,7 @@ body {
 .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 .section-label:first-child { margin-top: 0; }
 
+/* LOOKUP PANEL */
 .lookup-panel {
   display: none;
   background: rgba(249,115,22,0.04); border: 1px solid rgba(249,115,22,0.2);
@@ -142,6 +147,7 @@ input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(0.6); cur
   color: var(--text-muted); margin-top: 10px; min-height: 16px;
 }
 
+/* FIELDS */
 .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 @media (max-width: 520px) {
   .field-row { grid-template-columns: 1fr; }
@@ -170,11 +176,14 @@ textarea { min-height: 100px; resize: vertical; line-height: 1.6; }
 select { cursor: pointer; }
 select option { background: #1e2318; }
 
+
+
+
+/* ASSISTANTS */
 .assistants-section {
-  display: none;
+  display: block;
   margin-top: 28px;
 }
-.assistants-section.visible { display: block; }
 .assistant-entry {
   display: grid;
   grid-template-columns: 1fr 1fr auto;
@@ -187,7 +196,9 @@ select option { background: #1e2318; }
   .assistant-entry { grid-template-columns: 1fr; }
   .assistant-entry .btn-remove { width: 100%; }
 }
-.assistant-entry input { margin-bottom: 0; }
+.assistant-entry input {
+  margin-bottom: 0;
+}
 .btn-remove {
   background: rgba(255,95,82,0.08);
   border: 1px solid rgba(255,95,82,0.2);
@@ -234,12 +245,14 @@ select option { background: #1e2318; }
 }
 @media (max-width: 520px) { .assistant-col-labels { display: none; } }
 
+/* ERRORS */
 .field-error { font-size:11px; color:var(--error); margin-top:5px; font-family:'DM Mono',monospace; display:none; }
 .field.has-error input, .field.has-error select, .field.has-error textarea { border-color: var(--error); }
 .field.has-error .field-error { display: block; }
 .error-banner { display:none; background:rgba(255,95,82,0.08); border:1px solid rgba(255,95,82,0.3); border-radius:var(--radius); padding:14px 18px; margin-top:20px; font-size:12px; color:var(--error); font-family:'DM Mono',monospace; }
 .error-banner.visible { display:block; }
 
+/* SUBMIT */
 .submit-row { margin-top:32px; display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
 .submit-note { font-size:11px; color:var(--text-muted); font-family:'DM Mono',monospace; }
 button[type="submit"] {
@@ -259,6 +272,7 @@ button[type="submit"].loading .btn-spinner { display:block; }
 button[type="submit"].loading .btn-text { opacity:0.5; }
 @keyframes spin { to { transform:rotate(360deg); } }
 
+/* SUCCESS */
 .success-screen { display:none; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:60px 40px; animation:rise 0.5s ease both; }
 .success-screen.visible { display:flex; }
 .success-icon {
@@ -280,8 +294,8 @@ button[type="submit"].loading .btn-text { opacity:0.5; }
 <div class="page-wrap">
 
   <div class="header">
-    <span class="header-tag">Event Submission</span>
-    <h1>Submit  <em>Event</em></h1>
+    <span class="header-tag">Recce Submission</span>
+    <h1>Submit Your <em>Reccee</em></h1>
     <p>Submit a new event for approval or update an existing one. Once submitted, your entry will be reviewed and you will receive a confirmation email from PrimeEdgeAI.</p>
   </div>
 
@@ -375,6 +389,7 @@ button[type="submit"].loading .btn-text { opacity:0.5; }
       <button type="button" class="btn-add-assistant" id="btn-add-assistant">+ Add Assistant</button>
     </div>
 
+
     <div class="section-label">Location &amp; Dates</div>
 
     <div class="field" id="field-location">
@@ -424,6 +439,7 @@ const WEBHOOK    = () => 'https://kevinmongare.app.n8n.cloud/webhook/event-regis
 
 let allEvents = [], isUpdateMode = false;
 
+
 /* ── ASSISTANTS ── */
 let assistantCount = 0;
 
@@ -435,15 +451,11 @@ function addAssistant(name='', email='') {
   entry.className = 'assistant-entry';
   entry.id = `assistant-${id}`;
   entry.innerHTML = `
-    <input type="text" placeholder="Name" id="asst-name-${id}" value="${escapeHtml(name)}" />
-    <input type="email" placeholder="email@example.com" id="asst-email-${id}" value="${escapeHtml(email)}" />
+    <input type="text" placeholder="Name" id="asst-name-${id}" value="${name}" />
+    <input type="email" placeholder="email@example.com" id="asst-email-${id}" value="${email}" />
     <button type="button" class="btn-remove" onclick="removeAssistant(${id})">Remove</button>
   `;
   list.appendChild(entry);
-}
-
-function escapeHtml(str) {
-  return String(str).replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
 
 function removeAssistant(id) {
@@ -469,23 +481,6 @@ function clearAssistants() {
   assistantCount = 0;
 }
 
-/**
- * FIX: Parse assistants from the sheet's comma-separated
- * "Project Assistant" and "Project Assistant Email" columns
- * and repopulate the assistants UI on prefill.
- *
- * Sheet stores them as: "Alice, Bob"  and  "alice@x.com, bob@x.com"
- */
-function prefillAssistants(namesStr, emailsStr) {
-  clearAssistants();
-  const names  = namesStr  ? namesStr.split(',').map(s => s.trim()).filter(Boolean)  : [];
-  const emails = emailsStr ? emailsStr.split(',').map(s => s.trim()).filter(Boolean) : [];
-  const count  = Math.max(names.length, emails.length);
-  for (let i = 0; i < count; i++) {
-    addAssistant(names[i] || '', emails[i] || '');
-  }
-}
-
 document.getElementById('btn-add-assistant').addEventListener('click', () => addAssistant());
 
 /* ── STATUS TOGGLE ── */
@@ -497,11 +492,9 @@ document.getElementById('status').addEventListener('change', function() {
   const btn = document.getElementById('submit-btn');
   btn.classList.toggle('update-submit', isUpdateMode);
   document.querySelector('#submit-btn .btn-text').textContent = isUpdateMode ? 'Update Event' : 'Submit Reccee';
-  document.getElementById('assistants-section').classList.toggle('visible', isUpdateMode);
   if (!isUpdateMode) {
     document.getElementById('job-id').value='';
     document.getElementById('event-select').value='';
-    clearAssistants();
   }
 });
 
@@ -603,14 +596,6 @@ document.getElementById('event-select').addEventListener('change', function() {
     setTimeout(()=>{ el.style.transition='background 0.7s'; el.style.background=''; }, 60);
   });
 
-  // ── FIX: Prefill assistants from the sheet data ──
-  // Reads "Project Assistant" (names) and "Project Assistant Email" (emails)
-  // which are stored as comma-separated strings in the sheet.
-  prefillAssistants(
-    ev['Project Assistant']       || ev['ProjectAssistant']      || '',
-    ev['Project Assistant Email'] || ev['ProjectAssistantEmail'] || ''
-  );
-
   document.getElementById('loader-text').textContent =
     `Prefilled: ${ev['Description']||ev['Job_ID']} — Job ID: ${ev['Job_ID']||'n/a'}`;
 });
@@ -661,7 +646,6 @@ document.getElementById('btn-new').addEventListener('click', () => {
   document.getElementById('loader-text').textContent='';
   document.getElementById('filter-start').value='';
   clearAssistants();
-  document.getElementById('assistants-section').classList.remove('visible');
   document.getElementById('filter-end').value='';
   document.getElementById('lookup-panel').classList.remove('visible');
   document.getElementById('update-banner').classList.remove('visible');
@@ -693,13 +677,11 @@ document.getElementById('submit-btn').addEventListener('click', async () => {
     event_location: document.getElementById('event-location').value.trim(),
     start_date:     document.getElementById('start-date').value,
     end_date:       document.getElementById('end-date').value,
-    // FIX: Always include assistants array (empty array if none),
-    // so n8n always receives the field and can safely map it.
-    assistants:     getAssistants(),
   };
-
   const jid=document.getElementById('job-id').value;
   if(jid) payload.job_id = jid;
+  const assistants = getAssistants();
+  if(assistants.length) payload.assistants = assistants;
 
   try {
     const res=await fetch(WEBHOOK(),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
