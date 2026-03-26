@@ -5,10 +5,10 @@ A modern, enterprise-grade event management platform with role-based access cont
 ## Features
 
 ### Modern Design
-- 🎨 Gradient-based UI with purple/blue color scheme
-- 📱 Fully responsive design (mobile, tablet, desktop)
-- ✨ Smooth animations and transitions
-- 🎯 Intuitive sidebar navigation
+- Gradient-based UI with purple/blue color scheme
+- Fully responsive design (mobile, tablet, desktop)
+- Smooth animations and transitions
+- Intuitive sidebar navigation
 
 ### Three Complete Role Dashboards
 
