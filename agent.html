@@ -395,7 +395,7 @@ select option { background: #1e2318; }
   box-shadow: 0 8px 24px rgba(200,230,60,0.2);
 }
 
-.btn-submit.loading, .btn-download.loading {
+.btn-submit.loading, .btn-download.loading, .btn-next.loading {
   pointer-events: none;
   opacity: 0.7;
 }
@@ -410,8 +410,8 @@ select option { background: #1e2318; }
   display: none;
 }
 
-.btn-submit.loading .btn-spinner, .btn-download.loading .btn-spinner { display: block; }
-.btn-submit.loading .btn-text, .btn-download.loading .btn-text { opacity: 0.5; }
+.btn-submit.loading .btn-spinner, .btn-download.loading .btn-spinner, .btn-next.loading .btn-spinner { display: block; }
+.btn-submit.loading .btn-text, .btn-download.loading .btn-text, .btn-next.loading .btn-text { opacity: 0.5; }
 
 @keyframes spin { to { transform: rotate(360deg); } }
 
@@ -709,7 +709,10 @@ select option { background: #1e2318; }
 
       <div class="btn-row">
         <span class="step-hint">Step 1 of 5</span>
-        <button class="btn-next" id="next-1">Verify & Continue →</button>
+        <button class="btn-next" id="next-1">
+          <span class="btn-text">Verify & Continue →</span>
+          <div class="btn-spinner"></div>
+        </button>
       </div>
     </div>
 
@@ -1063,7 +1066,6 @@ document.getElementById('next-1').addEventListener('click', async () => {
   userEmail = document.getElementById('project-email').value.trim();
 
   const btn = document.getElementById('next-1');
-  const oldText = btn.querySelector('.btn-text').textContent;
   btn.classList.add('loading');
 
   try {
