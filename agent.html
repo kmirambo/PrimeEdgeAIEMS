@@ -649,6 +649,25 @@ select option { background: #1e2318; }
 }
 
 .info-message.visible { display: block; }
+
+/* ── DEBUG PANEL ── */
+#debug-panel {
+  display: none;
+  background: rgba(66, 165, 245, 0.15);
+  border: 1px solid rgba(66, 165, 245, 0.4);
+  border-radius: var(--radius);
+  padding: 12px 14px;
+  font-size: 11px;
+  color: #42a5f5;
+  margin-bottom: 20px;
+  font-family: 'DM Mono', monospace;
+  max-height: 200px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+#debug-panel.visible { display: block; }
 </style>
 </head>
 <body>
@@ -704,6 +723,8 @@ select option { background: #1e2318; }
         <input type="email" id="project-email" placeholder="your.email@company.com" autocomplete="off" />
         <div class="field-error">Valid email required.</div>
       </div>
+
+      <div id="debug-panel"></div>
 
       <div class="error-banner" id="error-banner"></div>
 
@@ -1073,16 +1094,55 @@ document.getElementById('next-1').addEventListener('click', async () => {
     const res = await fetch(SHEET_URL);
     if (!res.ok) throw new Error(`Sheet unavailable (${res.status})`);
     
-    allEvents = parseCSV(await res.text());
+    const csvText = await res.text();
+    const debugPanel = document.getElementById('debug-panel');
     
-    // Filter jobs where Project Lead Email matches
-    const userJobs = allEvents.filter(ev => {
-      const leadEmail = (ev['Project Lead Email'] || '').trim().toLowerCase();
-      return leadEmail === userEmail.toLowerCase();
+    let debugOutput = `[FETCHED] CSV length: ${csvText.length} chars\n`;
+    debugOutput += `[CSV START]\n${csvText.substring(0, 300)}\n[CSV END]\n\n`;
+    
+    allEvents = parseCSV(csvText);
+    debugOutput += `[PARSED] ${allEvents.length} events\n\n`;
+    
+    if (allEvents.length > 0) {
+      debugOutput += `[COLUMNS] ${Object.keys(allEvents[0]).join(', ')}\n\n`;
+      debugOutput += `[FIRST ROW]\n`;
+      Object.entries(allEvents[0]).forEach(([key, val]) => {
+        debugOutput += `  ${key}: "${val}"\n`;
+      });
+      debugOutput += `\n[SEARCHING FOR] "${userEmail}"\n\n`;
+    }
+    
+    // Try multiple possible column names
+    const emailColumnNames = ['Project Lead Email', 'Project LeadEmail', 'ProjectLeadEmail', 'Email'];
+    let foundColumn = null;
+    let userJobs = [];
+    
+    for (const colName of emailColumnNames) {
+      userJobs = allEvents.filter(ev => {
+        const leadEmail = (ev[colName] || '').trim().toLowerCase();
+        return leadEmail === userEmail.toLowerCase();
+      });
+      
+      if (userJobs.length > 0) {
+        foundColumn = colName;
+        debugOutput += `[MATCHED] Using column: "${colName}"\n`;
+        debugOutput += `[RESULTS] Found ${userJobs.length} matching job(s)\n`;
+        break;
+      }
+    }
+    
+    debugOutput += `[ATTEMPTS]\n`;
+    emailColumnNames.forEach(col => {
+      const count = allEvents.filter(ev => (ev[col] || '').trim().toLowerCase() === userEmail.toLowerCase()).length;
+      debugOutput += `  ${col}: ${count} matches\n`;
     });
 
+    debugPanel.textContent = debugOutput;
+    debugPanel.classList.add('visible');
+
     if (userJobs.length === 0) {
-      throw new Error('No jobs found for this email. Please verify your email address.');
+      const availableColumns = allEvents.length > 0 ? Object.keys(allEvents[0]).join(', ') : 'No data';
+      throw new Error(`No jobs found for ${userEmail}.\n\nAvailable columns:\n${availableColumns}`);
     }
 
     // Populate job selector
@@ -1103,6 +1163,7 @@ document.getElementById('next-1').addEventListener('click', async () => {
   } catch(err) {
     document.getElementById('error-banner').textContent = err.message;
     document.getElementById('error-banner').classList.add('visible');
+    console.error('Full error:', err);
   } finally {
     btn.classList.remove('loading');
   }
