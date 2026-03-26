@@ -1075,9 +1075,9 @@ document.getElementById('next-1').addEventListener('click', async () => {
     
     allEvents = parseCSV(await res.text());
     
-    // Filter jobs where Project Lead email matches
+    // Filter jobs where Project Lead Email matches
     const userJobs = allEvents.filter(ev => {
-      const leadEmail = (ev['Email'] || ev['Project Lead Email'] || '').trim().toLowerCase();
+      const leadEmail = (ev['Project Lead Email'] || '').trim().toLowerCase();
       return leadEmail === userEmail.toLowerCase();
     });
 
@@ -1115,7 +1115,7 @@ document.getElementById('job-select').addEventListener('change', function() {
   if (!this.value) return;
   
   const userJobs = allEvents.filter(ev => {
-    const leadEmail = (ev['Email'] || ev['Project Lead Email'] || '').trim().toLowerCase();
+    const leadEmail = (ev['Project Lead Email'] || '').trim().toLowerCase();
     return leadEmail === userEmail.toLowerCase();
   });
   
