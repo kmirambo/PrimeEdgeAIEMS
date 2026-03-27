@@ -11,7 +11,6 @@
 :root {
   --bg: #0C0F0A;
   --surface: #141710;
-  --surface2: #1a1f15;
   --border: #2A2E26;
   --border-focus: #C8E63C;
   --accent: #C8E63C;
@@ -23,14 +22,12 @@
   --input-bg: #181C14;
   --radius: 6px;
 }
-
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
 body {
   background-color: var(--bg);
   background-image:
     radial-gradient(ellipse 80% 60% at 50% -10%, rgba(200,230,60,0.06) 0%, transparent 70%),
-    url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%232a2e26' fill-opacity='0.4'%3E%3Cpath d='M0 0h1v1H0zM20 0h1v1h-1zM0 20h1v1H0zM20 20h1v1h-1z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%232a2e26' fill-opacity='0.4'%3E%3Cpath d='M0 0h1v1H0zM20 0h1v1h-1zM0 20h1v1H0zM20 20h1v1h-1z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
   min-height: 100vh;
   display: flex;
   align-items: flex-start;
@@ -39,60 +36,39 @@ body {
   font-family: 'DM Sans', sans-serif;
   color: var(--text-primary);
 }
-
 .page-wrap { width: 100%; max-width: 720px; animation: rise 0.5s ease both; }
 @keyframes rise { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
 
-/* ── HEADER ── */
+/* HEADER */
 .header { margin-bottom: 36px; }
 .header-tag {
-  display: inline-block;
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--accent);
-  background: rgba(200,230,60,0.08);
-  border: 1px solid rgba(200,230,60,0.2);
-  padding: 5px 12px;
-  border-radius: 100px;
-  margin-bottom: 20px;
+  display: inline-block; font-family: 'DM Mono', monospace; font-size: 11px;
+  letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent);
+  background: rgba(200,230,60,0.08); border: 1px solid rgba(200,230,60,0.2);
+  padding: 5px 12px; border-radius: 100px; margin-bottom: 20px;
 }
-.header h1 {
-  font-family: 'DM Serif Display', serif;
-  font-size: clamp(28px, 5vw, 40px);
-  font-weight: 400;
-  line-height: 1.1;
-  color: var(--text-primary);
-  margin-bottom: 10px;
-}
+.header h1 { font-family: 'DM Serif Display', serif; font-size: clamp(28px,5vw,40px); font-weight: 400; line-height: 1.1; margin-bottom: 10px; }
 .header h1 em { font-style: italic; color: var(--accent); }
 .header p { font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
 
-/* ── PROGRESS ── */
-.progress-bar { display: flex; align-items: center; gap: 0; margin-bottom: 32px; }
+/* PROGRESS */
+.progress-bar { display: flex; align-items: center; margin-bottom: 32px; }
 .step-pip { display: flex; flex-direction: column; align-items: center; gap: 6px; flex: 1; }
 .pip-dot {
   width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--border);
   background: var(--input-bg); display: flex; align-items: center; justify-content: center;
   font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-muted);
-  transition: all 0.3s ease; position: relative; z-index: 1;
+  transition: all 0.3s; position: relative; z-index: 1;
 }
-.pip-label {
-  font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.12em;
-  text-transform: uppercase; color: var(--text-muted); text-align: center; transition: color 0.3s;
-}
+.pip-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); text-align: center; transition: color 0.3s; }
 .step-pip.active .pip-dot { border-color: var(--accent); background: rgba(200,230,60,0.12); color: var(--accent); }
 .step-pip.active .pip-label { color: var(--accent); }
 .step-pip.done .pip-dot { border-color: var(--accent); background: var(--accent); color: #0C0F0A; }
 .step-pip.done .pip-label { color: var(--text-secondary); }
-.pip-line {
-  flex: 1; height: 1px; background: var(--border); margin-top: -22px;
-  position: relative; z-index: 0; transition: background 0.3s;
-}
+.pip-line { flex: 1; height: 1px; background: var(--border); margin-top: -22px; position: relative; z-index: 0; transition: background 0.3s; }
 .pip-line.done { background: var(--accent); }
 
-/* ── FORM CARD ── */
+/* FORM CARD */
 .form-card {
   background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
   padding: 40px; position: relative; overflow: hidden;
@@ -103,11 +79,11 @@ body {
 }
 @media (max-width: 520px) { .form-card { padding: 28px 20px; } }
 
-/* ── STEPS ── */
+/* STEPS */
 .step-panel { display: none; animation: rise 0.35s ease both; }
 .step-panel.active { display: block; }
 
-/* ── SECTION LABELS ── */
+/* LABELS */
 .section-label {
   font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em;
   text-transform: uppercase; color: var(--text-muted); margin-bottom: 20px; margin-top: 32px;
@@ -116,16 +92,13 @@ body {
 .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 .section-label:first-child { margin-top: 0; }
 
-/* ── FIELDS ── */
+/* FIELDS */
 .field { margin-bottom: 20px; }
 .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 @media (max-width: 520px) { .field-row { grid-template-columns: 1fr; } }
-
 label { display: block; font-size: 12px; font-weight: 500; color: var(--text-secondary); letter-spacing: 0.04em; margin-bottom: 8px; }
 label .req { color: var(--error); margin-left: 3px; }
-
-input[type="text"], input[type="email"], input[type="date"],
-input[type="number"], select, textarea {
+input[type="text"], input[type="email"], input[type="date"], select, textarea {
   width: 100%; background: var(--input-bg); border: 1px solid var(--border);
   border-radius: var(--radius); color: var(--text-primary); font-family: 'DM Sans', sans-serif;
   font-size: 14px; padding: 12px 14px; outline: none; transition: border-color 0.2s, box-shadow 0.2s;
@@ -137,25 +110,7 @@ textarea { min-height: 90px; resize: vertical; line-height: 1.6; }
 input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(0.5); cursor: pointer; }
 input[readonly] { opacity: 0.7; cursor: default; }
 
-.select-wrap { position: relative; }
-.select-wrap::after {
-  content: ''; position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
-  width: 10px; height: 10px; background: var(--text-muted); clip-path: polygon(0 30%,50% 80%,100% 30%); pointer-events: none;
-}
-select { cursor: pointer; padding-right: 36px; }
-select option { background: #1e2318; }
-
-/* ── VERIFIED BADGE ── */
-.verified-pill {
-  display: inline-flex; align-items: center; gap: 7px;
-  background: rgba(102,187,106,0.1); border: 1px solid rgba(102,187,106,0.3);
-  color: var(--success); font-family: 'DM Mono', monospace; font-size: 11px;
-  padding: 6px 14px; border-radius: 100px; margin-top: 10px;
-  animation: rise 0.3s ease both;
-}
-.verified-pill::before { content: '✓'; font-weight: 700; font-size: 13px; }
-
-/* ── JOB CARDS ── */
+/* JOB CARDS */
 .job-cards { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
 .job-card {
   background: var(--input-bg); border: 1px solid var(--border); border-radius: 8px;
@@ -165,12 +120,9 @@ select option { background: #1e2318; }
 .job-card:hover { border-color: rgba(200,230,60,0.4); background: rgba(200,230,60,0.03); }
 .job-card.selected { border-color: var(--accent); background: rgba(200,230,60,0.06); }
 .job-card-left { flex: 1; }
-.job-card-id {
-  font-family: 'DM Mono', monospace; font-size: 11px; color: var(--accent);
-  letter-spacing: 0.1em; margin-bottom: 4px;
-}
+.job-card-id { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--accent); letter-spacing: 0.1em; margin-bottom: 4px; }
 .job-card-desc { font-size: 13px; color: var(--text-primary); font-weight: 500; margin-bottom: 3px; }
-.job-card-client { font-size: 11px; color: var(--text-secondary); }
+.job-card-meta { font-size: 11px; color: var(--text-secondary); }
 .job-card-check {
   width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--border);
   flex-shrink: 0; display: flex; align-items: center; justify-content: center;
@@ -178,7 +130,7 @@ select option { background: #1e2318; }
 }
 .job-card.selected .job-card-check { border-color: var(--accent); background: var(--accent); color: #0C0F0A; font-weight: 700; }
 
-/* ── RADIO / CHECKBOX ── */
+/* RADIO / CHECKBOX */
 .radio-group, .check-group { display: flex; flex-direction: column; gap: 10px; }
 .radio-group.inline { flex-direction: row; gap: 16px; flex-wrap: wrap; }
 .radio-item, .check-item {
@@ -200,7 +152,23 @@ select option { background: #1e2318; }
 .radio-item span, .check-item span { font-size: 13px; color: var(--text-secondary); transition: color 0.2s; }
 .radio-item.selected span, .check-item.selected span { color: var(--text-primary); }
 
-/* ── ERRORS ── */
+/* VERIFIED BADGE */
+.verified-pill {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: rgba(102,187,106,0.1); border: 1px solid rgba(102,187,106,0.3);
+  color: var(--success); font-family: 'DM Mono', monospace; font-size: 11px;
+  padding: 6px 14px; border-radius: 100px; margin-top: 10px; animation: rise 0.3s ease both;
+}
+.verified-pill::before { content: '✓'; font-weight: 700; font-size: 13px; }
+
+/* INFO BOX */
+.info-box {
+  background: rgba(200,230,60,0.04); border: 1px solid rgba(200,230,60,0.12);
+  border-radius: 8px; padding: 14px 16px; margin-bottom: 20px;
+  font-size: 12px; color: var(--text-secondary); line-height: 1.6;
+}
+
+/* ERRORS */
 .field-error { font-size: 11px; color: var(--error); margin-top: 5px; font-family: 'DM Mono', monospace; display: none; }
 .field.has-error input, .field.has-error select, .field.has-error textarea { border-color: var(--error); }
 .field.has-error .field-error { display: block; }
@@ -211,7 +179,7 @@ select option { background: #1e2318; }
 }
 .error-banner.visible { display: block; }
 
-/* ── NAV BUTTONS ── */
+/* BUTTONS */
 .btn-row { margin-top: 36px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
 .btn-back {
   background: transparent; border: 1px solid var(--border); color: var(--text-secondary);
@@ -219,24 +187,40 @@ select option { background: #1e2318; }
   padding: 12px 22px; cursor: pointer; transition: border-color 0.2s, color 0.2s;
 }
 .btn-back:hover { border-color: var(--accent); color: var(--accent); }
-.btn-next, .btn-submit, .btn-download {
+.btn-next {
   background: var(--accent); color: #0C0F0A; border: none; border-radius: var(--radius);
   font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; padding: 13px 32px;
   cursor: pointer; transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
   display: flex; align-items: center; gap: 10px; margin-left: auto;
 }
-.btn-next:hover, .btn-submit:hover, .btn-download:hover { background: #d8f04e; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(200,230,60,0.2); }
-.btn-submit.loading, .btn-download.loading, .btn-next.loading { pointer-events: none; opacity: 0.7; }
+.btn-next:hover { background: #d8f04e; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(200,230,60,0.2); }
+.btn-next.loading { pointer-events: none; opacity: 0.7; }
 .btn-spinner {
   width: 16px; height: 16px; border: 2px solid rgba(0,0,0,0.25); border-top-color: #0C0F0A;
   border-radius: 50%; animation: spin 0.7s linear infinite; display: none;
 }
-.btn-submit.loading .btn-spinner, .btn-download.loading .btn-spinner, .btn-next.loading .btn-spinner { display: block; }
-.btn-submit.loading .btn-text, .btn-download.loading .btn-text, .btn-next.loading .btn-text { opacity: 0.5; }
+.btn-next.loading .btn-spinner { display: block; }
+.btn-next.loading .btn-text { opacity: 0.5; }
 @keyframes spin { to { transform: rotate(360deg); } }
 .step-hint { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-muted); }
 
-/* ── RECAP (step 6) ── */
+/* SUBMIT AREA */
+.submit-area { display: flex; flex-direction: column; gap: 12px; margin-top: 32px; }
+.btn-download, .btn-submit {
+  background: var(--accent); color: #0C0F0A; border: none; border-radius: var(--radius);
+  font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; padding: 13px 32px;
+  cursor: pointer; transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+  display: flex; align-items: center; gap: 10px; justify-content: center; width: 100%;
+}
+.btn-download:hover { background: #d8f04e; }
+.btn-submit { background: var(--success); color: #fff; }
+.btn-submit:hover { background: #81c784; }
+.btn-submit.loading, .btn-download.loading { pointer-events: none; opacity: 0.7; }
+.btn-submit .btn-spinner { border-color: rgba(255,255,255,0.3); border-top-color: #fff; }
+.btn-submit.loading .btn-spinner, .btn-download.loading .btn-spinner { display: block; }
+.btn-submit.loading .btn-text, .btn-download.loading .btn-text { opacity: 0.5; }
+
+/* RECAP */
 .recap-section { margin-bottom: 28px; }
 .recap-section-title {
   font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em;
@@ -252,62 +236,40 @@ select option { background: #1e2318; }
 .recap-val { font-size: 13px; color: var(--text-primary); word-break: break-word; white-space: pre-wrap; line-height: 1.5; }
 .recap-val.empty { color: var(--text-muted); font-style: italic; }
 
-/* ── PDF PREVIEW (hidden) ── */
+/* SUCCESS */
+.success-screen { display: none; flex-direction: column; align-items: center; text-align: center; padding: 60px 40px; animation: rise 0.5s ease both; }
+.success-screen.visible { display: flex; }
+.success-icon {
+  width: 72px; height: 72px; background: rgba(102,187,106,0.1); border: 2px solid var(--success);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px;
+  margin-bottom: 28px; animation: popIn 0.4s cubic-bezier(0.175,0.885,0.32,1.275) both 0.1s;
+}
+@keyframes popIn { from { transform: scale(0.4); opacity:0; } to { transform: scale(1); opacity:1; } }
+.success-screen h2 { font-family: 'DM Serif Display', serif; font-size: 28px; font-weight: 400; margin-bottom: 12px; }
+.success-screen p { font-size: 14px; color: var(--text-secondary); line-height: 1.7; max-width: 380px; margin-bottom: 28px; }
+.success-ref { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-muted); background: var(--input-bg); border: 1px solid var(--border); border-radius: 100px; padding: 6px 16px; margin-bottom: 28px; letter-spacing: 0.08em; }
+.btn-new { background: transparent; border: 1px solid var(--border); color: var(--text-secondary); border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 13px; padding: 11px 24px; cursor: pointer; transition: border-color 0.2s, color 0.2s; }
+.btn-new:hover { border-color: var(--accent); color: var(--accent); }
+
+/* PDF PREVIEW */
 #pdf-preview {
   display: none; background: #fff; color: #111; padding: 36px 40px;
   font-family: 'Segoe UI', sans-serif; font-size: 12px; line-height: 1.6;
 }
 #pdf-preview .pdf-header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 3px solid #111; padding-bottom: 16px; margin-bottom: 24px; }
-#pdf-preview .pdf-title { font-size: 22px; font-weight: 700; color: #111; }
+#pdf-preview .pdf-title { font-size: 22px; font-weight: 700; }
 #pdf-preview .pdf-meta { font-size: 10px; color: #666; text-align: right; }
 #pdf-preview .pdf-section { margin-bottom: 22px; }
 #pdf-preview .pdf-section-title { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #333; border-bottom: 1px solid #ddd; padding-bottom: 5px; margin-bottom: 12px; }
 #pdf-preview .pdf-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 24px; }
-#pdf-preview .pdf-field {}
 #pdf-preview .pdf-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #888; margin-bottom: 3px; }
 #pdf-preview .pdf-value { font-size: 12px; color: #222; background: #f7f7f7; padding: 6px 8px; border-radius: 3px; min-height: 22px; white-space: pre-wrap; word-break: break-word; }
-#pdf-preview .pdf-value.empty { color: #bbb; font-style: italic; }
 #pdf-preview .pdf-full { grid-column: 1 / -1; }
 #pdf-preview .pdf-footer { margin-top: 28px; padding-top: 12px; border-top: 1px solid #ccc; font-size: 9px; color: #aaa; display: flex; justify-content: space-between; }
-
-/* ── SUCCESS ── */
-.success-screen { display: none; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 60px 40px; animation: rise 0.5s ease both; }
-.success-screen.visible { display: flex; }
-.success-icon {
-  width: 72px; height: 72px; background: rgba(102,187,106,0.1); border: 2px solid var(--success);
-  border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px;
-  margin-bottom: 28px; animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) both 0.1s;
-}
-@keyframes popIn { from { transform: scale(0.4); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-.success-screen h2 { font-family: 'DM Serif Display', serif; font-size: 28px; font-weight: 400; color: var(--text-primary); margin-bottom: 12px; }
-.success-screen p { font-size: 14px; color: var(--text-secondary); line-height: 1.7; max-width: 380px; margin-bottom: 28px; }
-.success-screen .ref { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-muted); background: var(--input-bg); border: 1px solid var(--border); border-radius: 100px; padding: 6px 16px; margin-bottom: 28px; letter-spacing: 0.08em; }
-.btn-new { background: transparent; border: 1px solid var(--border); color: var(--text-secondary); border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 13px; padding: 11px 24px; cursor: pointer; transition: border-color 0.2s, color 0.2s; }
-.btn-new:hover { border-color: var(--accent); color: var(--accent); }
-
-/* ── INFO BOX ── */
-.info-box {
-  background: rgba(200,230,60,0.04); border: 1px solid rgba(200,230,60,0.12);
-  border-radius: 8px; padding: 14px 16px; margin-bottom: 20px;
-  font-size: 12px; color: var(--text-secondary); line-height: 1.6;
-}
-
-/* ── SUBMIT BUTTON AREA (step 6) ── */
-.submit-area { display: flex; flex-direction: column; gap: 12px; margin-top: 32px; }
-.submit-area .btn-download,
-.submit-area .btn-submit { margin-left: 0; width: 100%; justify-content: center; }
-.submit-area .btn-submit { background: var(--success); color: #fff; }
-.submit-area .btn-submit:hover { background: #81c784; }
-/* Override spinner border for white-button variant */
-.submit-area .btn-submit .btn-spinner { border-color: rgba(255,255,255,0.3); border-top-color: #fff; }
-
-.flash { animation: flashFill 0.8s ease forwards; }
-@keyframes flashFill { 0%,5% { background: rgba(200,230,60,0.14); } 100% { background: var(--input-bg); } }
 </style>
 </head>
 <body>
 <div class="page-wrap">
-
   <div class="header">
     <span class="header-tag">Site Assessment</span>
     <h1>Reccee <em>Assessment</em></h1>
@@ -315,7 +277,7 @@ select option { background: #1e2318; }
   </div>
 
   <!-- PROGRESS -->
-  <div class="progress-bar" id="progress-bar">
+  <div class="progress-bar">
     <div class="step-pip active" id="pip-1"><div class="pip-dot">1</div><div class="pip-label">Verify</div></div>
     <div class="pip-line" id="line-1"></div>
     <div class="step-pip" id="pip-2"><div class="pip-dot">2</div><div class="pip-label">Job</div></div>
@@ -329,58 +291,46 @@ select option { background: #1e2318; }
     <div class="step-pip" id="pip-6"><div class="pip-dot">6</div><div class="pip-label">Review</div></div>
   </div>
 
-  <!-- MAIN FORM CARD -->
   <div class="form-card" id="main-card">
 
-    <!-- ══ STEP 1: Email Verification ══ -->
+    <!-- STEP 1: Email -->
     <div class="step-panel active" id="step-1">
       <div class="section-label">Project Lead Verification</div>
-
       <div class="info-box">
-        Enter your email address to verify your access. Only registered project leads can submit Reccee assessments.
+        Enter your email to find your assigned jobs. Both project leads and project assistants can submit assessments.
       </div>
-
       <div class="field" id="field-project-email">
-        <label>Project Lead Email <span class="req">*</span></label>
+        <label>Your Email Address <span class="req">*</span></label>
         <input type="email" id="project-email" placeholder="your.email@company.com" autocomplete="off" />
         <div class="field-error">Please enter a valid email address.</div>
       </div>
-
       <div id="verified-badge-wrap"></div>
       <div class="error-banner" id="error-banner-1"></div>
-
       <div class="btn-row">
         <span class="step-hint">Step 1 of 6</span>
         <button class="btn-next" id="next-1">
-          <span class="btn-text">Verify &amp; Continue →</span>
+          <span class="btn-text">Find My Jobs →</span>
           <div class="btn-spinner"></div>
         </button>
       </div>
     </div>
 
-    <!-- ══ STEP 2: Job Selection ══ -->
+    <!-- STEP 2: Job Selection -->
     <div class="step-panel" id="step-2">
       <div class="section-label">Select Job to Assess</div>
-
       <div class="info-box" id="jobs-info-box"></div>
-
       <div class="job-cards" id="job-cards-container"></div>
-
       <div id="selected-job-detail" style="display:none;">
         <div class="field-row">
-          <div class="field">
-            <label>Client</label>
-            <input type="text" id="client" placeholder="Auto-populated" readonly />
-          </div>
-          <div class="field">
-            <label>Event Description</label>
-            <input type="text" id="description" placeholder="Auto-populated" readonly />
-          </div>
+          <div class="field"><label>Client</label><input type="text" id="client" readonly /></div>
+          <div class="field"><label>Event Description</label><input type="text" id="description" readonly /></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>Project Lead</label><input type="text" id="project-lead-display" readonly /></div>
+          <div class="field"><label>Venue</label><input type="text" id="venue-display" readonly /></div>
         </div>
       </div>
-
       <div class="error-banner" id="error-banner-2"></div>
-
       <div class="btn-row">
         <button class="btn-back" onclick="goStep(1)">← Back</button>
         <span class="step-hint">Step 2 of 6</span>
@@ -388,10 +338,9 @@ select option { background: #1e2318; }
       </div>
     </div>
 
-    <!-- ══ STEP 3: Venue & Date ══ -->
+    <!-- STEP 3: Venue & Date -->
     <div class="step-panel" id="step-3">
       <div class="section-label">Venue &amp; Dates</div>
-
       <div class="field-row">
         <div class="field" id="field-reccee-date">
           <label>Reccee Date <span class="req">*</span></label>
@@ -404,33 +353,28 @@ select option { background: #1e2318; }
           <div class="field-error">Location is required.</div>
         </div>
       </div>
-
       <div class="field" id="field-attendees">
         <label>Reccee Attendees <span class="req">*</span></label>
         <textarea id="attendees" placeholder="List all attendees who attended the reccee…"></textarea>
         <div class="field-error">Attendees is required.</div>
       </div>
-
       <div class="section-label">Access &amp; Transport</div>
-
       <div class="field">
-        <label>How far is the venue from the main town? <span class="req">*</span></label>
-        <div class="radio-group inline" id="rg-distance">
-          <label class="radio-item" data-group="distance" data-val="≤ 15 min"><input type="radio" name="distance" value="≤ 15 min"/><span class="pip"></span><span>≤ 15 min</span></label>
-          <label class="radio-item" data-group="distance" data-val="≤ 30 min"><input type="radio" name="distance" value="≤ 30 min"/><span class="pip"></span><span>≤ 30 min</span></label>
-          <label class="radio-item" data-group="distance" data-val="≤ 45 min"><input type="radio" name="distance" value="≤ 45 min"/><span class="pip"></span><span>≤ 45 min</span></label>
-          <label class="radio-item" data-group="distance" data-val="1 hour and above"><input type="radio" name="distance" value="1 hour and above"/><span class="pip"></span><span>1 hr +</span></label>
+        <label>How far is the venue from the main town?</label>
+        <div class="radio-group inline">
+          <label class="radio-item" data-group="distance" data-val="≤ 15 min"><input type="radio"/><span class="pip"></span><span>≤ 15 min</span></label>
+          <label class="radio-item" data-group="distance" data-val="≤ 30 min"><input type="radio"/><span class="pip"></span><span>≤ 30 min</span></label>
+          <label class="radio-item" data-group="distance" data-val="≤ 45 min"><input type="radio"/><span class="pip"></span><span>≤ 45 min</span></label>
+          <label class="radio-item" data-group="distance" data-val="1 hour and above"><input type="radio"/><span class="pip"></span><span>1 hr +</span></label>
         </div>
       </div>
-
       <div class="field">
         <label>Is public transport available?</label>
-        <div class="radio-group inline" id="rg-transport">
-          <label class="radio-item" data-group="transport" data-val="Yes"><input type="radio" name="transport" value="Yes"/><span class="pip"></span><span>Yes</span></label>
-          <label class="radio-item" data-group="transport" data-val="No"><input type="radio" name="transport" value="No"/><span class="pip"></span><span>No</span></label>
+        <div class="radio-group inline">
+          <label class="radio-item" data-group="transport" data-val="Yes"><input type="radio"/><span class="pip"></span><span>Yes</span></label>
+          <label class="radio-item" data-group="transport" data-val="No"><input type="radio"/><span class="pip"></span><span>No</span></label>
         </div>
       </div>
-
       <div class="btn-row">
         <button class="btn-back" onclick="goStep(2)">← Back</button>
         <span class="step-hint">Step 3 of 6</span>
@@ -438,76 +382,65 @@ select option { background: #1e2318; }
       </div>
     </div>
 
-    <!-- ══ STEP 4: Security & Medical ══ -->
+    <!-- STEP 4: Security & Medical -->
     <div class="step-panel" id="step-4">
       <div class="section-label">Security Assessment</div>
-
       <div class="field">
         <label>Are there residential settlements near the venue?</label>
-        <div class="radio-group inline" id="rg-residential">
-          <label class="radio-item" data-group="residential" data-val="Yes"><input type="radio" name="residential" value="Yes"/><span class="pip"></span><span>Yes</span></label>
-          <label class="radio-item" data-group="residential" data-val="No"><input type="radio" name="residential" value="No"/><span class="pip"></span><span>No</span></label>
+        <div class="radio-group inline">
+          <label class="radio-item" data-group="residential" data-val="Yes"><input type="radio"/><span class="pip"></span><span>Yes</span></label>
+          <label class="radio-item" data-group="residential" data-val="No"><input type="radio"/><span class="pip"></span><span>No</span></label>
         </div>
       </div>
-
       <div class="field">
         <label>Does the venue have a well-secured perimeter wall?</label>
-        <div class="radio-group inline" id="rg-perimeter">
-          <label class="radio-item" data-group="perimeter" data-val="Yes"><input type="radio" name="perimeter" value="Yes"/><span class="pip"></span><span>Yes</span></label>
-          <label class="radio-item" data-group="perimeter" data-val="No"><input type="radio" name="perimeter" value="No"/><span class="pip"></span><span>No</span></label>
+        <div class="radio-group inline">
+          <label class="radio-item" data-group="perimeter" data-val="Yes"><input type="radio"/><span class="pip"></span><span>Yes</span></label>
+          <label class="radio-item" data-group="perimeter" data-val="No"><input type="radio"/><span class="pip"></span><span>No</span></label>
         </div>
       </div>
-
       <div class="field">
         <label>Is there a police station nearby?</label>
-        <div class="radio-group inline" id="rg-police">
-          <label class="radio-item" data-group="police" data-val="Yes"><input type="radio" name="police" value="Yes"/><span class="pip"></span><span>Yes</span></label>
-          <label class="radio-item" data-group="police" data-val="No"><input type="radio" name="police" value="No"/><span class="pip"></span><span>No</span></label>
+        <div class="radio-group inline">
+          <label class="radio-item" data-group="police" data-val="Yes"><input type="radio"/><span class="pip"></span><span>Yes</span></label>
+          <label class="radio-item" data-group="police" data-val="No"><input type="radio"/><span class="pip"></span><span>No</span></label>
         </div>
       </div>
-
       <div class="field">
         <label>Will additional security be needed?</label>
-        <div class="radio-group inline" id="rg-extra-security">
-          <label class="radio-item" data-group="extra-security" data-val="Yes"><input type="radio" name="extra-security" value="Yes"/><span class="pip"></span><span>Yes</span></label>
-          <label class="radio-item" data-group="extra-security" data-val="No"><input type="radio" name="extra-security" value="No"/><span class="pip"></span><span>No</span></label>
+        <div class="radio-group inline">
+          <label class="radio-item" data-group="extra-security" data-val="Yes"><input type="radio"/><span class="pip"></span><span>Yes</span></label>
+          <label class="radio-item" data-group="extra-security" data-val="No"><input type="radio"/><span class="pip"></span><span>No</span></label>
         </div>
       </div>
-
       <div class="field">
         <label>Security details &amp; notes</label>
         <textarea id="security-notes" placeholder="Describe access points, guard requirements, any known risks…"></textarea>
       </div>
-
       <div class="section-label">Medical &amp; Facilities</div>
-
       <div class="field">
         <label>Are there medical facilities within 30 min?</label>
-        <div class="radio-group inline" id="rg-medical">
-          <label class="radio-item" data-group="medical" data-val="Yes"><input type="radio" name="medical" value="Yes"/><span class="pip"></span><span>Yes</span></label>
-          <label class="radio-item" data-group="medical" data-val="No"><input type="radio" name="medical" value="No"/><span class="pip"></span><span>No</span></label>
+        <div class="radio-group inline">
+          <label class="radio-item" data-group="medical" data-val="Yes"><input type="radio"/><span class="pip"></span><span>Yes</span></label>
+          <label class="radio-item" data-group="medical" data-val="No"><input type="radio"/><span class="pip"></span><span>No</span></label>
         </div>
       </div>
-
       <div class="field">
         <label>Medical facility details</label>
         <textarea id="medical-notes" placeholder="Name, distance, type of facility…"></textarea>
       </div>
-
       <div class="field">
         <label>Available facilities &amp; amenities <span style="font-size:11px;color:var(--text-muted)">(select all that apply)</span></label>
-        <div class="check-group" id="cg-amenities">
-          <label class="check-item" data-group="amenities" data-val="Adequate toilets"><input type="checkbox" value="Adequate toilets"/><span class="pip"></span><span>Adequate toilets</span></label>
-          <label class="check-item" data-group="amenities" data-val="Water supply"><input type="checkbox" value="Water supply"/><span class="pip"></span><span>Water supply</span></label>
-          <label class="check-item" data-group="amenities" data-val="3-phase electricity points"><input type="checkbox" value="3-phase electricity points"/><span class="pip"></span><span>3-phase electricity points</span></label>
+        <div class="check-group">
+          <label class="check-item" data-group="amenities" data-val="Adequate toilets"><input type="checkbox"/><span class="pip"></span><span>Adequate toilets</span></label>
+          <label class="check-item" data-group="amenities" data-val="Water supply"><input type="checkbox"/><span class="pip"></span><span>Water supply</span></label>
+          <label class="check-item" data-group="amenities" data-val="3-phase electricity points"><input type="checkbox"/><span class="pip"></span><span>3-phase electricity points</span></label>
         </div>
       </div>
-
       <div class="field">
         <label>Other facilities needed</label>
         <textarea id="other-facilities" placeholder="Any other infrastructure requirements…"></textarea>
       </div>
-
       <div class="btn-row">
         <button class="btn-back" onclick="goStep(3)">← Back</button>
         <span class="step-hint">Step 4 of 6</span>
@@ -515,35 +448,28 @@ select option { background: #1e2318; }
       </div>
     </div>
 
-    <!-- ══ STEP 5: Logistics & Permits ══ -->
+    <!-- STEP 5: Logistics -->
     <div class="step-panel" id="step-5">
       <div class="section-label">Event Logistics</div>
-
       <div class="field">
         <label>Entry &amp; Exit details</label>
         <textarea id="entry-exit" placeholder="Describe entry/exit points, crowd flow, vehicle access…"></textarea>
       </div>
-
       <div class="field">
         <label>Event layout details</label>
         <textarea id="event-layout" placeholder="Stage position, audience area, vendor zones, emergency routes…"></textarea>
       </div>
-
       <div class="section-label">Compliance</div>
-
       <div class="field">
         <label>Permits required</label>
-        <textarea id="permits" placeholder="List all permits that will be needed (county, noise, liquor, etc.)…"></textarea>
+        <textarea id="permits" placeholder="List all permits needed (county, noise, liquor, etc.)…"></textarea>
       </div>
-
       <div class="section-label">Summary Notes</div>
-
       <div class="field" id="field-challenges">
         <label>Challenges &amp; Recommendations <span class="req">*</span></label>
-        <textarea id="challenges" placeholder="Key issues identified and your recommendations to resolve them…" style="min-height:120px;"></textarea>
+        <textarea id="challenges" placeholder="Key issues and your recommendations to resolve them…" style="min-height:120px;"></textarea>
         <div class="field-error">Please fill in challenges &amp; recommendations.</div>
       </div>
-
       <div class="btn-row">
         <button class="btn-back" onclick="goStep(4)">← Back</button>
         <span class="step-hint">Step 5 of 6</span>
@@ -551,22 +477,18 @@ select option { background: #1e2318; }
       </div>
     </div>
 
-    <!-- ══ STEP 6: Full Recap + Download + Submit ══ -->
+    <!-- STEP 6: Review -->
     <div class="step-panel" id="step-6">
       <div class="section-label">Full Assessment Recap</div>
-
-      <!-- Project Info -->
       <div class="recap-section">
         <div class="recap-section-title">Project Information</div>
         <div class="recap-grid">
           <div class="recap-item"><div class="recap-label">Email</div><div class="recap-val" id="r-email">—</div></div>
           <div class="recap-item"><div class="recap-label">Job ID</div><div class="recap-val" id="r-job-id">—</div></div>
           <div class="recap-item"><div class="recap-label">Client</div><div class="recap-val" id="r-client">—</div></div>
-          <div class="recap-item"><div class="recap-label">Event Description</div><div class="recap-val" id="r-description">—</div></div>
+          <div class="recap-item"><div class="recap-label">Description</div><div class="recap-val" id="r-description">—</div></div>
         </div>
       </div>
-
-      <!-- Venue -->
       <div class="recap-section">
         <div class="recap-section-title">Venue &amp; Date</div>
         <div class="recap-grid">
@@ -577,51 +499,40 @@ select option { background: #1e2318; }
           <div class="recap-item"><div class="recap-label">Public Transport</div><div class="recap-val" id="r-transport">—</div></div>
         </div>
       </div>
-
-      <!-- Security -->
       <div class="recap-section">
         <div class="recap-section-title">Security Assessment</div>
         <div class="recap-grid">
           <div class="recap-item"><div class="recap-label">Residential Nearby</div><div class="recap-val" id="r-residential">—</div></div>
           <div class="recap-item"><div class="recap-label">Perimeter Wall</div><div class="recap-val" id="r-perimeter">—</div></div>
           <div class="recap-item"><div class="recap-label">Police Nearby</div><div class="recap-val" id="r-police">—</div></div>
-          <div class="recap-item"><div class="recap-label">Extra Security Needed</div><div class="recap-val" id="r-extra-security">—</div></div>
+          <div class="recap-item"><div class="recap-label">Extra Security</div><div class="recap-val" id="r-extra-security">—</div></div>
           <div class="recap-item full"><div class="recap-label">Security Notes</div><div class="recap-val" id="r-security-notes">—</div></div>
         </div>
       </div>
-
-      <!-- Medical -->
       <div class="recap-section">
         <div class="recap-section-title">Medical &amp; Facilities</div>
         <div class="recap-grid">
-          <div class="recap-item"><div class="recap-label">Medical Facilities Nearby</div><div class="recap-val" id="r-medical">—</div></div>
-          <div class="recap-item"><div class="recap-label">Amenities Available</div><div class="recap-val" id="r-amenities">—</div></div>
+          <div class="recap-item"><div class="recap-label">Medical Nearby</div><div class="recap-val" id="r-medical">—</div></div>
+          <div class="recap-item"><div class="recap-label">Amenities</div><div class="recap-val" id="r-amenities">—</div></div>
           <div class="recap-item full"><div class="recap-label">Medical Notes</div><div class="recap-val" id="r-medical-notes">—</div></div>
-          <div class="recap-item full"><div class="recap-label">Other Facilities Needed</div><div class="recap-val" id="r-other-facilities">—</div></div>
+          <div class="recap-item full"><div class="recap-label">Other Facilities</div><div class="recap-val" id="r-other-facilities">—</div></div>
         </div>
       </div>
-
-      <!-- Logistics -->
       <div class="recap-section">
         <div class="recap-section-title">Logistics &amp; Compliance</div>
         <div class="recap-grid">
-          <div class="recap-item full"><div class="recap-label">Entry &amp; Exit Details</div><div class="recap-val" id="r-entry-exit">—</div></div>
+          <div class="recap-item full"><div class="recap-label">Entry &amp; Exit</div><div class="recap-val" id="r-entry-exit">—</div></div>
           <div class="recap-item full"><div class="recap-label">Event Layout</div><div class="recap-val" id="r-event-layout">—</div></div>
-          <div class="recap-item full"><div class="recap-label">Permits Required</div><div class="recap-val" id="r-permits">—</div></div>
+          <div class="recap-item full"><div class="recap-label">Permits</div><div class="recap-val" id="r-permits">—</div></div>
         </div>
       </div>
-
-      <!-- Challenges -->
       <div class="recap-section">
         <div class="recap-section-title">Challenges &amp; Recommendations</div>
         <div class="recap-grid">
-          <div class="recap-item full"><div class="recap-label">Challenges &amp; Recommendations</div><div class="recap-val" id="r-challenges">—</div></div>
+          <div class="recap-item full"><div class="recap-label">Challenges</div><div class="recap-val" id="r-challenges">—</div></div>
         </div>
       </div>
-
       <div class="error-banner" id="error-banner-6"></div>
-
-      <!-- FIX: Replaced two buttons with inconsistent inline styles with a proper .submit-area container -->
       <div class="submit-area">
         <button class="btn-download" id="download-btn">
           <span class="btn-text">📥 Download PDF Report</span>
@@ -632,8 +543,7 @@ select option { background: #1e2318; }
           <div class="btn-spinner"></div>
         </button>
       </div>
-
-      <div class="btn-row" style="margin-top: 16px;">
+      <div class="btn-row" style="margin-top:16px;">
         <button class="btn-back" onclick="goStep(5)">← Back</button>
         <span class="step-hint">Step 6 of 6</span>
       </div>
@@ -641,137 +551,115 @@ select option { background: #1e2318; }
 
   </div><!-- /form-card -->
 
-  <!-- ── SUCCESS ── -->
+  <!-- SUCCESS -->
   <div class="form-card success-screen" id="success-screen">
     <div class="success-icon">✓</div>
     <h2>Assessment Submitted!</h2>
-    <p>Your Reccee report has been submitted to the PrimeEdgeAI team. You will receive confirmation and next steps within 72 hours.</p>
-    <div class="ref" id="success-ref">REC — — —</div>
+    <p>Your Reccee report has been sent to the PrimeEdgeAI team. You'll receive a confirmation email and next steps within 72 hours.</p>
+    <div class="success-ref" id="success-ref">REC — — —</div>
     <button class="btn-new" id="btn-new">Submit another assessment</button>
   </div>
 
-  <!-- Hidden PDF source element -->
   <div id="pdf-preview"></div>
-
-</div><!-- /page-wrap -->
+</div>
 
 <script>
-/* ─────────────────────────────────────────
+/* ──────────────────────────────────────────────────────
    CONFIG
-───────────────────────────────────────── */
-const VERIFY_WEBHOOK = 'https://kevinmongare.app.n8n.cloud/webhook/reccee-verify-email';
-const WEBHOOK        = 'https://kevinmongare.app.n8n.cloud/webhook/reccee-assessment';
+   Sheet must be shared: "Anyone with the link can view"
+   The CSV export URL uses gid=0 (Events sheet)
+────────────────────────────────────────────────────── */
+const SHEET_ID      = '1AO-06SYVS_uVnBWkM5smUFeSoTWUeq0GbFvX7tJr3oE';
+const SHEET_GID     = '0';
+const SHEET_CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${SHEET_GID}`;
+const WEBHOOK       = 'https://kevinmongare.app.n8n.cloud/webhook/reccee-assessment';
 
-/* ─────────────────────────────────────────
+/* ──────────────────────────────────────────────────────
    STATE
-───────────────────────────────────────── */
+────────────────────────────────────────────────────── */
 let userEmail       = '';
 let projectLeadName = '';
 let userJobs        = [];
 let selectedJob     = null;
 let currentStep     = 1;
+let submitting      = false;
 const TOTAL_STEPS   = 6;
 
-/* ─────────────────────────────────────────
-   RADIO / CHECKBOX WIDGET
-───────────────────────────────────────── */
-function initChoices() {
-  document.querySelectorAll('.radio-item').forEach(item => {
-    item.addEventListener('click', () => {
-      const group = item.dataset.group;
-      document.querySelectorAll(`.radio-item[data-group="${group}"]`).forEach(i => i.classList.remove('selected'));
-      item.classList.add('selected');
-    });
-  });
-  document.querySelectorAll('.check-item').forEach(item => {
-    item.addEventListener('click', () => item.classList.toggle('selected'));
-  });
-}
-
-function getRadio(group) {
-  const sel = document.querySelector(`.radio-item[data-group="${group}"].selected`);
-  return sel ? sel.dataset.val : '';
-}
-
-function getChecks(group) {
-  return [...document.querySelectorAll(`.check-item[data-group="${group}"].selected`)].map(i => i.dataset.val);
-}
-
-/* ─────────────────────────────────────────
-   PROGRESS BAR
-───────────────────────────────────────── */
-function updateProgress(step) {
-  for (let i = 1; i <= TOTAL_STEPS; i++) {
-    const pip  = document.getElementById(`pip-${i}`);
-    const line = document.getElementById(`line-${i}`);
-    if (pip) {
-      pip.classList.remove('active', 'done');
-      if (i < step)  pip.classList.add('done');
-      if (i === step) pip.classList.add('active');
+/* ──────────────────────────────────────────────────────
+   CSV PARSER — handles quoted fields with commas/newlines
+────────────────────────────────────────────────────── */
+function parseCSV(text) {
+  const rows = [];
+  let row = [], field = '', inQuotes = false;
+  for (let i = 0; i < text.length; i++) {
+    const ch = text[i], next = text[i + 1];
+    if (inQuotes) {
+      if (ch === '"' && next === '"') { field += '"'; i++; }
+      else if (ch === '"') { inQuotes = false; }
+      else { field += ch; }
+    } else {
+      if (ch === '"') { inQuotes = true; }
+      else if (ch === ',') { row.push(field.trim()); field = ''; }
+      else if (ch === '\n') { row.push(field.trim()); rows.push(row); row = []; field = ''; }
+      else if (ch === '\r') { /* skip */ }
+      else { field += ch; }
     }
-    if (line) line.classList.toggle('done', i < step);
   }
+  if (field || row.length) { row.push(field.trim()); rows.push(row); }
+  return rows;
 }
 
-/* ─────────────────────────────────────────
-   STEP NAVIGATION
-───────────────────────────────────────── */
-function goStep(n) {
-  document.getElementById(`step-${currentStep}`).classList.remove('active');
-  currentStep = n;
-  const panel = document.getElementById(`step-${currentStep}`);
-  if (panel) {
-    panel.classList.add('active');
-    updateProgress(currentStep);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-}
-
-/* ─────────────────────────────────────────
-   VALIDATION
-───────────────────────────────────────── */
-function setErr(fieldId, show) {
-  const el = document.getElementById('field-' + fieldId);
-  if (el) el.classList.toggle('has-error', show);
-}
-
-function clearErrors() {
-  document.querySelectorAll('.field.has-error').forEach(f => f.classList.remove('has-error'));
-}
-
-function validateStep(n) {
-  clearErrors();
-  let ok = true;
-  if (n === 1) {
-    const v = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(document.getElementById('project-email').value.trim());
-    setErr('project-email', !v);
-    if (!v) ok = false;
-  }
-  if (n === 3) {
-    [
-      ['reccee-date', () => document.getElementById('reccee-date').value],
-      ['location',   () => document.getElementById('location').value.trim()],
-      ['attendees',  () => document.getElementById('attendees').value.trim()],
-    ].forEach(([id, fn]) => {
-      const v = !!fn();
-      setErr(id, !v);
-      if (!v) ok = false;
+function csvToObjects(rows) {
+  if (rows.length < 2) return [];
+  const headers = rows[0];
+  return rows.slice(1)
+    .filter(r => r.some(c => c))
+    .map(r => {
+      const obj = {};
+      headers.forEach((h, i) => { obj[h.trim()] = (r[i] || '').trim(); });
+      return obj;
     });
-  }
-  if (n === 5) {
-    const v = document.getElementById('challenges').value.trim();
-    setErr('challenges', !v);
-    if (!v) ok = false;
-  }
-  return ok;
 }
 
-/* ─────────────────────────────────────────
-   STEP 1 — EMAIL VERIFICATION
-   FIX: Added proper handling for non-JSON / network errors so the
-   error banner always shows a human-readable message instead of
-   crashing silently.
-───────────────────────────────────────── */
+/* ──────────────────────────────────────────────────────
+   EMAIL MATCHING
+   Checks: Project Lead Email column, Project Assistant Email column
+   Both columns may contain comma-separated email lists
+────────────────────────────────────────────────────── */
+function emailMatchesRow(email, row) {
+  const needle = email.toLowerCase();
+
+  // Primary email (Project Lead)
+  const primaryEmail = (row['Email'] || '').toLowerCase();
+  if (primaryEmail.split(',').map(e => e.trim()).includes(needle)) return true;
+
+  // Assistant email (may be comma-separated)
+  const assistantEmail = (row['Project Assistant Email'] || '').toLowerCase();
+  if (assistantEmail.split(',').map(e => e.trim()).includes(needle)) return true;
+
+  return false;
+}
+
+function getNameForEmail(email, row) {
+  const needle = email.toLowerCase();
+  // If email matches the primary project lead email, return project lead name
+  const primaryEmail = (row['Email'] || '').toLowerCase();
+  if (primaryEmail.split(',').map(e => e.trim()).includes(needle)) {
+    return row['Project Lead'] || '';
+  }
+  // If it's an assistant, return assistant name
+  const assistantEmails = (row['Project Assistant Email'] || '').toLowerCase().split(',').map(e => e.trim());
+  if (assistantEmails.includes(needle)) {
+    const assistantNames = (row['Project Assistant'] || '').split(',').map(n => n.trim());
+    const idx = assistantEmails.indexOf(needle);
+    return assistantNames[idx] || row['Project Assistant'] || '';
+  }
+  return '';
+}
+
+/* ──────────────────────────────────────────────────────
+   STEP 1 — FIND JOBS FROM SHEET
+────────────────────────────────────────────────────── */
 document.getElementById('next-1').addEventListener('click', async () => {
   if (!validateStep(1)) return;
 
@@ -782,74 +670,70 @@ document.getElementById('next-1').addEventListener('click', async () => {
   document.getElementById('verified-badge-wrap').innerHTML = '';
 
   try {
-    let res;
+    let csvText;
     try {
-      res = await fetch(VERIFY_WEBHOOK, {
-        method:  'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body:    JSON.stringify({ email: userEmail }),
-      });
-    } catch (networkErr) {
-      throw new Error('Could not reach the verification service. Please check your connection and try again.');
+      const res = await fetch(SHEET_CSV_URL);
+      if (!res.ok) throw new Error(`Sheet fetch failed: ${res.status}`);
+      csvText = await res.text();
+    } catch (e) {
+      throw new Error('Could not load job data. Make sure the sheet is set to "Anyone with the link can view".');
     }
 
-    let data;
-    try {
-      data = await res.json();
-    } catch (_) {
-      throw new Error('Unexpected response from the verification service. Please try again.');
+    const rows = parseCSV(csvText);
+    const allJobs = csvToObjects(rows);
+
+    // Filter jobs matching this email (lead or assistant)
+    const matched = allJobs.filter(row => emailMatchesRow(userEmail, row));
+
+    if (matched.length === 0) {
+      throw new Error(`No jobs found for "${userEmail}". Please check your email or contact the PrimeEdgeAI team.`);
     }
 
-    if (!res.ok || data.verified === false) {
-      throw new Error(data.message || `No jobs found for "${userEmail}". Please check your email or contact the PrimeEdgeAI team.`);
-    }
-
-    userJobs = data.jobs || [];
-    if (userJobs.length === 0) {
-      throw new Error(`No jobs assigned to "${userEmail}". Please contact the PrimeEdgeAI team.`);
-    }
-
-    projectLeadName = data.name || '';
+    userJobs = matched;
+    // Determine display name from the first matched row
+    projectLeadName = getNameForEmail(userEmail, matched[0]) || userEmail;
 
     document.getElementById('verified-badge-wrap').innerHTML =
       `<div class="verified-pill">${userEmail} — ${userJobs.length} job${userJobs.length !== 1 ? 's' : ''} found</div>`;
 
     buildJobCards(userJobs);
     document.getElementById('jobs-info-box').textContent =
-      `Verified: ${userEmail} · ${userJobs.length} assigned job${userJobs.length !== 1 ? 's' : ''} found. Select one to continue.`;
+      `Hi ${projectLeadName} · ${userJobs.length} assigned job${userJobs.length !== 1 ? 's' : ''} found. Select one to continue.`;
 
     goStep(2);
 
   } catch (err) {
-    const banner = document.getElementById('error-banner-1');
-    banner.textContent = err.message;
-    banner.classList.add('visible');
+    const b = document.getElementById('error-banner-1');
+    b.textContent = err.message;
+    b.classList.add('visible');
   } finally {
     btn.classList.remove('loading');
   }
 });
 
-/* ─────────────────────────────────────────
-   BUILD JOB CARDS (step 2)
-───────────────────────────────────────── */
+/* ──────────────────────────────────────────────────────
+   BUILD JOB CARDS
+────────────────────────────────────────────────────── */
 function buildJobCards(jobs) {
   const container = document.getElementById('job-cards-container');
   container.innerHTML = '';
-
   jobs.forEach((job, idx) => {
     const card   = document.createElement('div');
     card.className = 'job-card';
-    card.dataset.idx = idx;
 
-    const jobId  = job['Job_ID'] || job['Job ID'] || `JOB-${idx + 1}`;
+    const jobId  = job['Job_ID'] || '';
     const desc   = job['Description'] || '(no description)';
     const client = job['Client'] || '(no client)';
+    const where  = job['Where'] || '';
+    const start  = job['Start Date'] || '';
+    const end    = job['End Date'] || '';
+    const dateStr = start === end ? start : (start && end ? `${start} → ${end}` : start || end);
 
     card.innerHTML = `
       <div class="job-card-left">
         <div class="job-card-id">${jobId}</div>
         <div class="job-card-desc">${desc}</div>
-        <div class="job-card-client">${client}</div>
+        <div class="job-card-meta">${client}${where ? ' · ' + where : ''}${dateStr ? ' · ' + dateStr : ''}</div>
       </div>
       <div class="job-card-check"></div>
     `;
@@ -861,10 +745,12 @@ function buildJobCards(jobs) {
       });
       card.classList.add('selected');
       card.querySelector('.job-card-check').textContent = '✓';
-
       selectedJob = job;
-      document.getElementById('client').value      = client;
-      document.getElementById('description').value = desc;
+
+      document.getElementById('client').value             = client;
+      document.getElementById('description').value        = desc;
+      document.getElementById('project-lead-display').value = job['Project Lead'] || '';
+      document.getElementById('venue-display').value      = where;
       document.getElementById('selected-job-detail').style.display = 'block';
       document.getElementById('error-banner-2').classList.remove('visible');
     });
@@ -873,9 +759,78 @@ function buildJobCards(jobs) {
   });
 }
 
-/* ─────────────────────────────────────────
-   STEP 2 CONTINUE
-───────────────────────────────────────── */
+/* ──────────────────────────────────────────────────────
+   RADIO / CHECKBOX
+────────────────────────────────────────────────────── */
+function initChoices() {
+  document.querySelectorAll('.radio-item').forEach(item => {
+    item.addEventListener('click', () => {
+      const g = item.dataset.group;
+      document.querySelectorAll(`.radio-item[data-group="${g}"]`).forEach(i => i.classList.remove('selected'));
+      item.classList.add('selected');
+    });
+  });
+  document.querySelectorAll('.check-item').forEach(item => {
+    item.addEventListener('click', () => item.classList.toggle('selected'));
+  });
+}
+function getRadio(g) {
+  const s = document.querySelector(`.radio-item[data-group="${g}"].selected`);
+  return s ? s.dataset.val : '';
+}
+function getChecks(g) {
+  return [...document.querySelectorAll(`.check-item[data-group="${g}"].selected`)].map(i => i.dataset.val);
+}
+
+/* ──────────────────────────────────────────────────────
+   PROGRESS + NAVIGATION
+────────────────────────────────────────────────────── */
+function updateProgress(step) {
+  for (let i = 1; i <= TOTAL_STEPS; i++) {
+    const pip = document.getElementById(`pip-${i}`);
+    const line = document.getElementById(`line-${i}`);
+    if (pip) { pip.classList.remove('active','done'); if (i < step) pip.classList.add('done'); if (i === step) pip.classList.add('active'); }
+    if (line) line.classList.toggle('done', i < step);
+  }
+}
+function goStep(n) {
+  document.getElementById(`step-${currentStep}`).classList.remove('active');
+  currentStep = n;
+  document.getElementById(`step-${currentStep}`).classList.add('active');
+  updateProgress(currentStep);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* ──────────────────────────────────────────────────────
+   VALIDATION
+────────────────────────────────────────────────────── */
+function setErr(id, show) {
+  const el = document.getElementById('field-' + id);
+  if (el) el.classList.toggle('has-error', show);
+}
+function clearErrors() {
+  document.querySelectorAll('.field.has-error').forEach(f => f.classList.remove('has-error'));
+}
+function validateStep(n) {
+  clearErrors();
+  let ok = true;
+  if (n === 1) {
+    const v = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(document.getElementById('project-email').value.trim());
+    setErr('project-email', !v); if (!v) ok = false;
+  }
+  if (n === 3) {
+    [['reccee-date', () => document.getElementById('reccee-date').value],
+     ['location',   () => document.getElementById('location').value.trim()],
+     ['attendees',  () => document.getElementById('attendees').value.trim()]
+    ].forEach(([id, fn]) => { const v = !!fn(); setErr(id, !v); if (!v) ok = false; });
+  }
+  if (n === 5) {
+    const v = document.getElementById('challenges').value.trim();
+    setErr('challenges', !v); if (!v) ok = false;
+  }
+  return ok;
+}
+
 document.getElementById('next-2').addEventListener('click', () => {
   if (!selectedJob) {
     const b = document.getElementById('error-banner-2');
@@ -885,24 +840,18 @@ document.getElementById('next-2').addEventListener('click', () => {
   }
   goStep(3);
 });
-
-/* ─────────────────────────────────────────
-   STEP NAV
-───────────────────────────────────────── */
 document.getElementById('next-3').addEventListener('click', () => { if (validateStep(3)) goStep(4); });
 document.getElementById('next-4').addEventListener('click', () => goStep(5));
 document.getElementById('next-5').addEventListener('click', () => { if (validateStep(5)) { buildRecap(); goStep(6); } });
 
-/* ─────────────────────────────────────────
-   BUILD RECAP (step 6)
-───────────────────────────────────────── */
+/* ──────────────────────────────────────────────────────
+   RECAP
+────────────────────────────────────────────────────── */
 function v(val) { return val || '—'; }
-
 function buildRecap() {
   const amenities = getChecks('amenities');
-
   document.getElementById('r-email').textContent           = v(userEmail);
-  document.getElementById('r-job-id').textContent          = v(selectedJob['Job_ID'] || selectedJob['Job ID']);
+  document.getElementById('r-job-id').textContent          = v(selectedJob['Job_ID']);
   document.getElementById('r-client').textContent          = v(document.getElementById('client').value);
   document.getElementById('r-description').textContent     = v(document.getElementById('description').value);
   document.getElementById('r-date').textContent            = v(document.getElementById('reccee-date').value);
@@ -923,127 +872,66 @@ function buildRecap() {
   document.getElementById('r-event-layout').textContent    = v(document.getElementById('event-layout').value);
   document.getElementById('r-permits').textContent         = v(document.getElementById('permits').value);
   document.getElementById('r-challenges').textContent      = v(document.getElementById('challenges').value);
-
-  document.querySelectorAll('.recap-val').forEach(el => {
-    el.classList.toggle('empty', el.textContent === '—');
-  });
+  document.querySelectorAll('.recap-val').forEach(el => el.classList.toggle('empty', el.textContent === '—'));
 }
 
-/* ─────────────────────────────────────────
-   BUILD PDF CONTENT
-───────────────────────────────────────── */
+/* ──────────────────────────────────────────────────────
+   PDF
+────────────────────────────────────────────────────── */
 function buildPDFContent() {
   const amenities = getChecks('amenities');
-  const jobId = selectedJob['Job_ID'] || selectedJob['Job ID'] || 'N/A';
+  const jobId = selectedJob['Job_ID'] || 'N/A';
   const now = new Date().toLocaleString('en-KE', { dateStyle: 'full', timeStyle: 'short' });
-
-  function field(label, value, full) {
-    const val = value || '<span style="color:#bbb;font-style:italic">Not provided</span>';
-    return `<div class="pdf-field${full ? ' pdf-full' : ''}">
-      <div class="pdf-label">${label}</div>
-      <div class="pdf-value">${val}</div>
-    </div>`;
-  }
-
+  const f = (label, value, full) => `<div class="pdf-field${full?' pdf-full':''}"><div class="pdf-label">${label}</div><div class="pdf-value">${value || '<span style="color:#bbb;font-style:italic">Not provided</span>'}</div></div>`;
   return `
     <div class="pdf-header">
-      <div>
-        <div class="pdf-title">Reccee Assessment Report</div>
-        <div style="font-size:12px;color:#555;margin-top:4px;">PrimeEdgeAI — Site Assessment System</div>
-      </div>
-      <div class="pdf-meta">
-        <div>Generated: ${now}</div>
-        <div>Job: ${jobId}</div>
-      </div>
+      <div><div class="pdf-title">Reccee Assessment Report</div><div style="font-size:12px;color:#555;margin-top:4px;">PrimeEdgeAI — Site Assessment System</div></div>
+      <div class="pdf-meta"><div>Generated: ${now}</div><div>Job: ${jobId}</div></div>
     </div>
-
-    <div class="pdf-section">
-      <div class="pdf-section-title">Project Information</div>
-      <div class="pdf-grid">
-        ${field('Project Lead Email', userEmail)}
-        ${field('Job ID', jobId)}
-        ${field('Client', document.getElementById('client').value)}
-        ${field('Event Description', document.getElementById('description').value, true)}
-      </div>
-    </div>
-
-    <div class="pdf-section">
-      <div class="pdf-section-title">Venue &amp; Date</div>
-      <div class="pdf-grid">
-        ${field('Reccee Date', document.getElementById('reccee-date').value)}
-        ${field('Location / Venue', document.getElementById('location').value)}
-        ${field('Attendees', document.getElementById('attendees').value, true)}
-        ${field('Distance from Town', getRadio('distance'))}
-        ${field('Public Transport Available', getRadio('transport'))}
-      </div>
-    </div>
-
-    <div class="pdf-section">
-      <div class="pdf-section-title">Security Assessment</div>
-      <div class="pdf-grid">
-        ${field('Residential Settlements Nearby', getRadio('residential'))}
-        ${field('Secured Perimeter Wall', getRadio('perimeter'))}
-        ${field('Police Station Nearby', getRadio('police'))}
-        ${field('Additional Security Needed', getRadio('extra-security'))}
-        ${field('Security Notes', document.getElementById('security-notes').value, true)}
-      </div>
-    </div>
-
-    <div class="pdf-section">
-      <div class="pdf-section-title">Medical &amp; Facilities</div>
-      <div class="pdf-grid">
-        ${field('Medical Facilities within 30 min', getRadio('medical'))}
-        ${field('Available Amenities', amenities.length ? amenities.join(', ') : '')}
-        ${field('Medical Facility Notes', document.getElementById('medical-notes').value, true)}
-        ${field('Other Facilities Needed', document.getElementById('other-facilities').value, true)}
-      </div>
-    </div>
-
-    <div class="pdf-section">
-      <div class="pdf-section-title">Event Logistics &amp; Compliance</div>
-      <div class="pdf-grid">
-        ${field('Entry &amp; Exit Details', document.getElementById('entry-exit').value, true)}
-        ${field('Event Layout', document.getElementById('event-layout').value, true)}
-        ${field('Permits Required', document.getElementById('permits').value, true)}
-      </div>
-    </div>
-
-    <div class="pdf-section">
-      <div class="pdf-section-title">Challenges &amp; Recommendations</div>
-      <div class="pdf-grid">
-        ${field('Challenges &amp; Recommendations', document.getElementById('challenges').value, true)}
-      </div>
-    </div>
-
-    <div class="pdf-footer">
-      <div>PrimeEdgeAI Reccee Assessment System</div>
-      <div>${now}</div>
-    </div>
-  `;
+    <div class="pdf-section"><div class="pdf-section-title">Project Information</div><div class="pdf-grid">
+      ${f('Project Lead Email', userEmail)}${f('Job ID', jobId)}
+      ${f('Client', document.getElementById('client').value)}
+      ${f('Event Description', document.getElementById('description').value, true)}
+    </div></div>
+    <div class="pdf-section"><div class="pdf-section-title">Venue &amp; Date</div><div class="pdf-grid">
+      ${f('Reccee Date', document.getElementById('reccee-date').value)}
+      ${f('Location / Venue', document.getElementById('location').value)}
+      ${f('Attendees', document.getElementById('attendees').value, true)}
+      ${f('Distance from Town', getRadio('distance'))}
+      ${f('Public Transport', getRadio('transport'))}
+    </div></div>
+    <div class="pdf-section"><div class="pdf-section-title">Security Assessment</div><div class="pdf-grid">
+      ${f('Residential Nearby', getRadio('residential'))}${f('Perimeter Wall', getRadio('perimeter'))}
+      ${f('Police Nearby', getRadio('police'))}${f('Extra Security', getRadio('extra-security'))}
+      ${f('Security Notes', document.getElementById('security-notes').value, true)}
+    </div></div>
+    <div class="pdf-section"><div class="pdf-section-title">Medical &amp; Facilities</div><div class="pdf-grid">
+      ${f('Medical Nearby', getRadio('medical'))}
+      ${f('Amenities', amenities.length ? amenities.join(', ') : '')}
+      ${f('Medical Notes', document.getElementById('medical-notes').value, true)}
+      ${f('Other Facilities', document.getElementById('other-facilities').value, true)}
+    </div></div>
+    <div class="pdf-section"><div class="pdf-section-title">Event Logistics &amp; Compliance</div><div class="pdf-grid">
+      ${f('Entry &amp; Exit', document.getElementById('entry-exit').value, true)}
+      ${f('Event Layout', document.getElementById('event-layout').value, true)}
+      ${f('Permits', document.getElementById('permits').value, true)}
+    </div></div>
+    <div class="pdf-section"><div class="pdf-section-title">Challenges &amp; Recommendations</div><div class="pdf-grid">
+      ${f('Challenges &amp; Recommendations', document.getElementById('challenges').value, true)}
+    </div></div>
+    <div class="pdf-footer"><div>PrimeEdgeAI Reccee Assessment System</div><div>${now}</div></div>`;
 }
 
-/* ─────────────────────────────────────────
-   PDF DOWNLOAD
-───────────────────────────────────────── */
 document.getElementById('download-btn').addEventListener('click', async () => {
   const btn = document.getElementById('download-btn');
   btn.classList.add('loading');
-
   try {
-    const pdf = document.getElementById('pdf-preview');
-    pdf.innerHTML = buildPDFContent();
-
-    const jobId = selectedJob['Job_ID'] || selectedJob['Job ID'] || 'reccee';
-    const opt = {
-      margin:      10,
-      filename:    `reccee-${jobId}-${Date.now()}.pdf`,
-      image:       { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2 },
-      jsPDF:       { orientation: 'portrait', unit: 'mm', format: 'a4' }
-    };
-
-    await html2pdf().set(opt).from(pdf).save();
-
+    document.getElementById('pdf-preview').innerHTML = buildPDFContent();
+    await html2pdf().set({
+      margin: 10, filename: `reccee-${selectedJob['Job_ID'] || 'report'}-${Date.now()}.pdf`,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 }, jsPDF: { orientation: 'portrait', unit: 'mm', format: 'a4' }
+    }).from(document.getElementById('pdf-preview')).save();
   } catch (err) {
     const b = document.getElementById('error-banner-6');
     b.textContent = 'PDF generation failed: ' + err.message;
@@ -1053,33 +941,20 @@ document.getElementById('download-btn').addEventListener('click', async () => {
   }
 });
 
-/* ─────────────────────────────────────────
+/* ──────────────────────────────────────────────────────
    SUBMIT
-   FIX 1: Wrapped fetch in an inner try/catch to properly handle
-   network-level errors separately from HTTP error responses.
-   FIX 2: n8n sendAndWait flows return 200 immediately from the
-   Respond node — we now treat any 2xx as success instead of only
-   checking res.ok (which already does this), so the note is for
-   clarity. Also added res.status 202 acceptance.
-   FIX 3: Prevent double-submit by disabling button after first click.
-───────────────────────────────────────── */
-let submitting = false;
-
+────────────────────────────────────────────────────── */
 document.getElementById('submit-btn').addEventListener('click', async () => {
   if (submitting) return;
   submitting = true;
-
   const btn = document.getElementById('submit-btn');
   btn.classList.add('loading');
   document.getElementById('error-banner-6').classList.remove('visible');
 
-  const amenities = getChecks('amenities');
-  const jobId = selectedJob['Job_ID'] || selectedJob['Job ID'] || '';
-
   const payload = {
     email:              userEmail,
     project_lead_name:  projectLeadName,
-    job_id:             jobId,
+    job_id:             selectedJob['Job_ID'] || '',
     client:             document.getElementById('client').value.trim(),
     description:        document.getElementById('description').value.trim(),
     reccee_date:        document.getElementById('reccee-date').value,
@@ -1094,7 +969,7 @@ document.getElementById('submit-btn').addEventListener('click', async () => {
     security_notes:     document.getElementById('security-notes').value.trim(),
     medical_nearby:     getRadio('medical'),
     medical_notes:      document.getElementById('medical-notes').value.trim(),
-    amenities:          amenities,
+    amenities:          getChecks('amenities'),
     other_facilities:   document.getElementById('other-facilities').value.trim(),
     entry_exit:         document.getElementById('entry-exit').value.trim(),
     event_layout:       document.getElementById('event-layout').value.trim(),
@@ -1106,77 +981,65 @@ document.getElementById('submit-btn').addEventListener('click', async () => {
     let res;
     try {
       res = await fetch(WEBHOOK, {
-        method:  'POST',
+        method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body:    JSON.stringify(payload),
+        body: JSON.stringify(payload)
       });
-    } catch (networkErr) {
-      throw new Error('Could not reach the submission service. Please check your connection and try again.');
+    } catch (e) {
+      throw new Error('Could not reach the submission service. Check your connection and try again.');
     }
 
-    // FIX: Parse the JSON response to get richer error messages from n8n
     let data = null;
-    try { data = await res.json(); } catch (_) { /* non-JSON response is OK for success */ }
+    try { data = await res.json(); } catch (_) {}
 
     if (res.ok) {
-      showSuccess(payload.client, payload.description, jobId);
+      showSuccess(payload.client, payload.description, payload.job_id);
     } else {
-      const msg = data?.message || `Server returned ${res.status}. Please try again.`;
-      throw new Error(msg);
+      throw new Error(data?.message || `Server returned ${res.status}. Please try again.`);
     }
-
   } catch (err) {
-    const b = document.getElementById('error-banner-6');
-    b.textContent = 'Submission failed: ' + err.message;
-    b.classList.add('visible');
-    submitting = false; // allow retry on error
+    document.getElementById('error-banner-6').textContent = 'Submission failed: ' + err.message;
+    document.getElementById('error-banner-6').classList.add('visible');
+    submitting = false;
   } finally {
     btn.classList.remove('loading');
   }
 });
 
-/* ─────────────────────────────────────────
-   SUCCESS
-───────────────────────────────────────── */
+/* ──────────────────────────────────────────────────────
+   SUCCESS + RESET
+────────────────────────────────────────────────────── */
 function showSuccess(client, desc, jobId) {
   const ref = 'REC-' + Date.now().toString(36).toUpperCase();
   document.getElementById('success-ref').textContent = `${ref} · ${jobId} · ${client}`;
-  document.getElementById('main-card').style.display  = 'none';
+  document.getElementById('main-card').style.display = 'none';
   document.getElementById('success-screen').classList.add('visible');
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-/* ─────────────────────────────────────────
-   RESET / NEW SUBMISSION
-───────────────────────────────────────── */
 document.getElementById('btn-new').addEventListener('click', () => {
-  [
-    'reccee-date','location','attendees','security-notes','medical-notes',
-    'other-facilities','entry-exit','event-layout','permits','challenges'
-  ].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
-
-  document.querySelectorAll('.radio-item.selected, .check-item.selected')
-    .forEach(el => el.classList.remove('selected'));
-
+  ['reccee-date','location','attendees','security-notes','medical-notes',
+   'other-facilities','entry-exit','event-layout','permits','challenges']
+    .forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+  document.querySelectorAll('.radio-item.selected,.check-item.selected').forEach(el => el.classList.remove('selected'));
   document.getElementById('job-cards-container').innerHTML = '';
   document.getElementById('selected-job-detail').style.display = 'none';
-  document.getElementById('client').value      = '';
-  document.getElementById('description').value = '';
+  ['client','description','project-lead-display','venue-display'].forEach(id => {
+    const el = document.getElementById(id); if (el) el.value = '';
+  });
   document.getElementById('verified-badge-wrap').innerHTML = '';
   ['error-banner-1','error-banner-2','error-banner-6'].forEach(id =>
-    document.getElementById(id).classList.remove('visible')
-  );
+    document.getElementById(id).classList.remove('visible'));
   document.getElementById('success-screen').classList.remove('visible');
   document.getElementById('main-card').style.display = '';
-
   clearErrors();
   userEmail = ''; projectLeadName = ''; userJobs = []; selectedJob = null; submitting = false;
   goStep(1);
 });
 
-/* ─────────────────────────────────────────
+/* ──────────────────────────────────────────────────────
    INIT
-───────────────────────────────────────── */
+────────────────────────────────────────────────────── */
 initChoices();
 updateProgress(1);
 </script>
