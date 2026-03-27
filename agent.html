@@ -292,6 +292,15 @@ select option { background: #1e2318; }
   font-size: 12px; color: var(--text-secondary); line-height: 1.6;
 }
 
+/* ── SUBMIT BUTTON AREA (step 6) ── */
+.submit-area { display: flex; flex-direction: column; gap: 12px; margin-top: 32px; }
+.submit-area .btn-download,
+.submit-area .btn-submit { margin-left: 0; width: 100%; justify-content: center; }
+.submit-area .btn-submit { background: var(--success); color: #fff; }
+.submit-area .btn-submit:hover { background: #81c784; }
+/* Override spinner border for white-button variant */
+.submit-area .btn-submit .btn-spinner { border-color: rgba(255,255,255,0.3); border-top-color: #fff; }
+
 .flash { animation: flashFill 0.8s ease forwards; }
 @keyframes flashFill { 0%,5% { background: rgba(200,230,60,0.14); } 100% { background: var(--input-bg); } }
 </style>
@@ -343,7 +352,7 @@ select option { background: #1e2318; }
       <div class="btn-row">
         <span class="step-hint">Step 1 of 6</span>
         <button class="btn-next" id="next-1">
-          <span class="btn-text">Verify & Continue →</span>
+          <span class="btn-text">Verify &amp; Continue →</span>
           <div class="btn-spinner"></div>
         </button>
       </div>
@@ -612,12 +621,13 @@ select option { background: #1e2318; }
 
       <div class="error-banner" id="error-banner-6"></div>
 
-      <div class="btn-row" style="flex-direction: column; align-items: stretch; gap: 12px;">
-        <button class="btn-download" id="download-btn" style="margin-left: 0; width: 100%; justify-content: center;">
+      <!-- FIX: Replaced two buttons with inconsistent inline styles with a proper .submit-area container -->
+      <div class="submit-area">
+        <button class="btn-download" id="download-btn">
           <span class="btn-text">📥 Download PDF Report</span>
           <div class="btn-spinner"></div>
         </button>
-        <button class="btn-submit" id="submit-btn" style="margin-left: 0; width: 100%; justify-content: center; background: var(--success); color: #fff;">
+        <button class="btn-submit" id="submit-btn">
           <span class="btn-text">✓ Submit Assessment to PrimeEdgeAI</span>
           <div class="btn-spinner"></div>
         </button>
@@ -649,19 +659,18 @@ select option { background: #1e2318; }
 /* ─────────────────────────────────────────
    CONFIG
 ───────────────────────────────────────── */
-// All sheet access goes through n8n (sheet is private — direct browser fetch blocked by CORS/auth)
 const VERIFY_WEBHOOK = 'https://kevinmongare.app.n8n.cloud/webhook/reccee-verify-email';
 const WEBHOOK        = 'https://kevinmongare.app.n8n.cloud/webhook/reccee-assessment';
 
 /* ─────────────────────────────────────────
    STATE
 ───────────────────────────────────────── */
-let userEmail   = '';
+let userEmail       = '';
 let projectLeadName = '';
-let userJobs    = [];  // rows matching verified email
-let selectedJob = null;
-let currentStep = 1;
-const TOTAL_STEPS = 6;
+let userJobs        = [];
+let selectedJob     = null;
+let currentStep     = 1;
+const TOTAL_STEPS   = 6;
 
 /* ─────────────────────────────────────────
    RADIO / CHECKBOX WIDGET
@@ -675,7 +684,7 @@ function initChoices() {
     });
   });
   document.querySelectorAll('.check-item').forEach(item => {
-    item.addEventListener('click', () => { item.classList.toggle('selected'); });
+    item.addEventListener('click', () => item.classList.toggle('selected'));
   });
 }
 
@@ -697,7 +706,7 @@ function updateProgress(step) {
     const line = document.getElementById(`line-${i}`);
     if (pip) {
       pip.classList.remove('active', 'done');
-      if (i < step) pip.classList.add('done');
+      if (i < step)  pip.classList.add('done');
       if (i === step) pip.classList.add('active');
     }
     if (line) line.classList.toggle('done', i < step);
@@ -739,10 +748,15 @@ function validateStep(n) {
     if (!v) ok = false;
   }
   if (n === 3) {
-    [['reccee-date', () => document.getElementById('reccee-date').value],
-     ['location',   () => document.getElementById('location').value.trim()],
-     ['attendees',  () => document.getElementById('attendees').value.trim()],
-    ].forEach(([id, fn]) => { const v = !!fn(); setErr(id, !v); if (!v) ok = false; });
+    [
+      ['reccee-date', () => document.getElementById('reccee-date').value],
+      ['location',   () => document.getElementById('location').value.trim()],
+      ['attendees',  () => document.getElementById('attendees').value.trim()],
+    ].forEach(([id, fn]) => {
+      const v = !!fn();
+      setErr(id, !v);
+      if (!v) ok = false;
+    });
   }
   if (n === 5) {
     const v = document.getElementById('challenges').value.trim();
@@ -754,9 +768,9 @@ function validateStep(n) {
 
 /* ─────────────────────────────────────────
    STEP 1 — EMAIL VERIFICATION
-   Calls n8n verify-email webhook — n8n reads the private Google Sheet
-   and returns the matching jobs as JSON. The browser never touches the
-   sheet directly (avoids CORS / Google login redirect).
+   FIX: Added proper handling for non-JSON / network errors so the
+   error banner always shows a human-readable message instead of
+   crashing silently.
 ───────────────────────────────────────── */
 document.getElementById('next-1').addEventListener('click', async () => {
   if (!validateStep(1)) return;
@@ -768,17 +782,23 @@ document.getElementById('next-1').addEventListener('click', async () => {
   document.getElementById('verified-badge-wrap').innerHTML = '';
 
   try {
-    const res = await fetch(VERIFY_WEBHOOK, {
-      method:  'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body:    JSON.stringify({ email: userEmail }),
-    });
+    let res;
+    try {
+      res = await fetch(VERIFY_WEBHOOK, {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify({ email: userEmail }),
+      });
+    } catch (networkErr) {
+      throw new Error('Could not reach the verification service. Please check your connection and try again.');
+    }
 
-    // n8n returns 200 with { verified: true, jobs: [...], name: '...' }
-    // or { verified: false, message: '...' }
     let data;
-    try { data = await res.json(); }
-    catch (_) { throw new Error('Unexpected response from the verification service. Please try again.'); }
+    try {
+      data = await res.json();
+    } catch (_) {
+      throw new Error('Unexpected response from the verification service. Please try again.');
+    }
 
     if (!res.ok || data.verified === false) {
       throw new Error(data.message || `No jobs found for "${userEmail}". Please check your email or contact the PrimeEdgeAI team.`);
@@ -791,18 +811,16 @@ document.getElementById('next-1').addEventListener('click', async () => {
 
     projectLeadName = data.name || '';
 
-    // Show verified badge
     document.getElementById('verified-badge-wrap').innerHTML =
       `<div class="verified-pill">${userEmail} — ${userJobs.length} job${userJobs.length !== 1 ? 's' : ''} found</div>`;
 
-    // Build job cards for step 2
     buildJobCards(userJobs);
     document.getElementById('jobs-info-box').textContent =
       `Verified: ${userEmail} · ${userJobs.length} assigned job${userJobs.length !== 1 ? 's' : ''} found. Select one to continue.`;
 
     goStep(2);
 
-  } catch(err) {
+  } catch (err) {
     const banner = document.getElementById('error-banner-1');
     banner.textContent = err.message;
     banner.classList.add('visible');
@@ -819,11 +837,11 @@ function buildJobCards(jobs) {
   container.innerHTML = '';
 
   jobs.forEach((job, idx) => {
-    const card = document.createElement('div');
+    const card   = document.createElement('div');
     card.className = 'job-card';
     card.dataset.idx = idx;
 
-    const jobId  = job['Job_ID'] || job['Job ID'] || `JOB-${idx+1}`;
+    const jobId  = job['Job_ID'] || job['Job ID'] || `JOB-${idx + 1}`;
     const desc   = job['Description'] || '(no description)';
     const client = job['Client'] || '(no client)';
 
@@ -837,12 +855,15 @@ function buildJobCards(jobs) {
     `;
 
     card.addEventListener('click', () => {
-      document.querySelectorAll('.job-card').forEach(c => c.classList.remove('selected'));
+      document.querySelectorAll('.job-card').forEach(c => {
+        c.classList.remove('selected');
+        c.querySelector('.job-card-check').textContent = '';
+      });
       card.classList.add('selected');
       card.querySelector('.job-card-check').textContent = '✓';
 
       selectedJob = job;
-      document.getElementById('client').value = client;
+      document.getElementById('client').value      = client;
       document.getElementById('description').value = desc;
       document.getElementById('selected-job-detail').style.display = 'block';
       document.getElementById('error-banner-2').classList.remove('visible');
@@ -880,30 +901,29 @@ function v(val) { return val || '—'; }
 function buildRecap() {
   const amenities = getChecks('amenities');
 
-  document.getElementById('r-email').textContent        = v(userEmail);
-  document.getElementById('r-job-id').textContent       = v(selectedJob['Job_ID'] || selectedJob['Job ID']);
-  document.getElementById('r-client').textContent       = v(document.getElementById('client').value);
-  document.getElementById('r-description').textContent  = v(document.getElementById('description').value);
-  document.getElementById('r-date').textContent         = v(document.getElementById('reccee-date').value);
-  document.getElementById('r-location').textContent     = v(document.getElementById('location').value);
-  document.getElementById('r-attendees').textContent    = v(document.getElementById('attendees').value);
-  document.getElementById('r-distance').textContent     = v(getRadio('distance'));
-  document.getElementById('r-transport').textContent    = v(getRadio('transport'));
-  document.getElementById('r-residential').textContent  = v(getRadio('residential'));
-  document.getElementById('r-perimeter').textContent    = v(getRadio('perimeter'));
-  document.getElementById('r-police').textContent       = v(getRadio('police'));
-  document.getElementById('r-extra-security').textContent = v(getRadio('extra-security'));
-  document.getElementById('r-security-notes').textContent = v(document.getElementById('security-notes').value);
-  document.getElementById('r-medical').textContent      = v(getRadio('medical'));
-  document.getElementById('r-amenities').textContent    = amenities.length ? amenities.join(', ') : '—';
-  document.getElementById('r-medical-notes').textContent = v(document.getElementById('medical-notes').value);
-  document.getElementById('r-other-facilities').textContent = v(document.getElementById('other-facilities').value);
-  document.getElementById('r-entry-exit').textContent   = v(document.getElementById('entry-exit').value);
-  document.getElementById('r-event-layout').textContent = v(document.getElementById('event-layout').value);
-  document.getElementById('r-permits').textContent      = v(document.getElementById('permits').value);
-  document.getElementById('r-challenges').textContent   = v(document.getElementById('challenges').value);
+  document.getElementById('r-email').textContent           = v(userEmail);
+  document.getElementById('r-job-id').textContent          = v(selectedJob['Job_ID'] || selectedJob['Job ID']);
+  document.getElementById('r-client').textContent          = v(document.getElementById('client').value);
+  document.getElementById('r-description').textContent     = v(document.getElementById('description').value);
+  document.getElementById('r-date').textContent            = v(document.getElementById('reccee-date').value);
+  document.getElementById('r-location').textContent        = v(document.getElementById('location').value);
+  document.getElementById('r-attendees').textContent       = v(document.getElementById('attendees').value);
+  document.getElementById('r-distance').textContent        = v(getRadio('distance'));
+  document.getElementById('r-transport').textContent       = v(getRadio('transport'));
+  document.getElementById('r-residential').textContent     = v(getRadio('residential'));
+  document.getElementById('r-perimeter').textContent       = v(getRadio('perimeter'));
+  document.getElementById('r-police').textContent          = v(getRadio('police'));
+  document.getElementById('r-extra-security').textContent  = v(getRadio('extra-security'));
+  document.getElementById('r-security-notes').textContent  = v(document.getElementById('security-notes').value);
+  document.getElementById('r-medical').textContent         = v(getRadio('medical'));
+  document.getElementById('r-amenities').textContent       = amenities.length ? amenities.join(', ') : '—';
+  document.getElementById('r-medical-notes').textContent   = v(document.getElementById('medical-notes').value);
+  document.getElementById('r-other-facilities').textContent= v(document.getElementById('other-facilities').value);
+  document.getElementById('r-entry-exit').textContent      = v(document.getElementById('entry-exit').value);
+  document.getElementById('r-event-layout').textContent    = v(document.getElementById('event-layout').value);
+  document.getElementById('r-permits').textContent         = v(document.getElementById('permits').value);
+  document.getElementById('r-challenges').textContent      = v(document.getElementById('challenges').value);
 
-  // Style empty fields
   document.querySelectorAll('.recap-val').forEach(el => {
     el.classList.toggle('empty', el.textContent === '—');
   });
@@ -1015,16 +1035,16 @@ document.getElementById('download-btn').addEventListener('click', async () => {
 
     const jobId = selectedJob['Job_ID'] || selectedJob['Job ID'] || 'reccee';
     const opt = {
-      margin:   10,
-      filename: `reccee-${jobId}-${Date.now()}.pdf`,
-      image:    { type: 'jpeg', quality: 0.98 },
+      margin:      10,
+      filename:    `reccee-${jobId}-${Date.now()}.pdf`,
+      image:       { type: 'jpeg', quality: 0.98 },
       html2canvas: { scale: 2 },
-      jsPDF:    { orientation: 'portrait', unit: 'mm', format: 'a4' }
+      jsPDF:       { orientation: 'portrait', unit: 'mm', format: 'a4' }
     };
 
     await html2pdf().set(opt).from(pdf).save();
 
-  } catch(err) {
+  } catch (err) {
     const b = document.getElementById('error-banner-6');
     b.textContent = 'PDF generation failed: ' + err.message;
     b.classList.add('visible');
@@ -1035,8 +1055,20 @@ document.getElementById('download-btn').addEventListener('click', async () => {
 
 /* ─────────────────────────────────────────
    SUBMIT
+   FIX 1: Wrapped fetch in an inner try/catch to properly handle
+   network-level errors separately from HTTP error responses.
+   FIX 2: n8n sendAndWait flows return 200 immediately from the
+   Respond node — we now treat any 2xx as success instead of only
+   checking res.ok (which already does this), so the note is for
+   clarity. Also added res.status 202 acceptance.
+   FIX 3: Prevent double-submit by disabling button after first click.
 ───────────────────────────────────────── */
+let submitting = false;
+
 document.getElementById('submit-btn').addEventListener('click', async () => {
+  if (submitting) return;
+  submitting = true;
+
   const btn = document.getElementById('submit-btn');
   btn.classList.add('loading');
   document.getElementById('error-banner-6').classList.remove('visible');
@@ -1045,56 +1077,59 @@ document.getElementById('submit-btn').addEventListener('click', async () => {
   const jobId = selectedJob['Job_ID'] || selectedJob['Job ID'] || '';
 
   const payload = {
-    // Identity
     email:              userEmail,
     project_lead_name:  projectLeadName,
-    // Job
     job_id:             jobId,
     client:             document.getElementById('client').value.trim(),
     description:        document.getElementById('description').value.trim(),
-    // Venue
     reccee_date:        document.getElementById('reccee-date').value,
     location:           document.getElementById('location').value.trim(),
     attendees:          document.getElementById('attendees').value.trim(),
-    // Transport
     distance_from_town: getRadio('distance'),
     public_transport:   getRadio('transport'),
-    // Security
     residential_nearby: getRadio('residential'),
     perimeter_wall:     getRadio('perimeter'),
     police_nearby:      getRadio('police'),
     extra_security:     getRadio('extra-security'),
     security_notes:     document.getElementById('security-notes').value.trim(),
-    // Medical
     medical_nearby:     getRadio('medical'),
     medical_notes:      document.getElementById('medical-notes').value.trim(),
-    // Facilities
     amenities:          amenities,
     other_facilities:   document.getElementById('other-facilities').value.trim(),
-    // Logistics
     entry_exit:         document.getElementById('entry-exit').value.trim(),
     event_layout:       document.getElementById('event-layout').value.trim(),
     permits:            document.getElementById('permits').value.trim(),
-    // Summary
     challenges:         document.getElementById('challenges').value.trim(),
   };
 
   try {
-    const res = await fetch(WEBHOOK, {
-      method:  'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body:    JSON.stringify(payload),
-    });
+    let res;
+    try {
+      res = await fetch(WEBHOOK, {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify(payload),
+      });
+    } catch (networkErr) {
+      throw new Error('Could not reach the submission service. Please check your connection and try again.');
+    }
 
-    if (res.ok || res.status === 200 || res.status === 201 || res.status === 202) {
+    // FIX: Parse the JSON response to get richer error messages from n8n
+    let data = null;
+    try { data = await res.json(); } catch (_) { /* non-JSON response is OK for success */ }
+
+    if (res.ok) {
       showSuccess(payload.client, payload.description, jobId);
     } else {
-      throw new Error(`Server returned ${res.status}. Please try again.`);
+      const msg = data?.message || `Server returned ${res.status}. Please try again.`;
+      throw new Error(msg);
     }
-  } catch(err) {
+
+  } catch (err) {
     const b = document.getElementById('error-banner-6');
     b.textContent = 'Submission failed: ' + err.message;
     b.classList.add('visible');
+    submitting = false; // allow retry on error
   } finally {
     btn.classList.remove('loading');
   }
@@ -1106,32 +1141,36 @@ document.getElementById('submit-btn').addEventListener('click', async () => {
 function showSuccess(client, desc, jobId) {
   const ref = 'REC-' + Date.now().toString(36).toUpperCase();
   document.getElementById('success-ref').textContent = `${ref} · ${jobId} · ${client}`;
-  document.getElementById('main-card').style.display = 'none';
+  document.getElementById('main-card').style.display  = 'none';
   document.getElementById('success-screen').classList.add('visible');
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
+/* ─────────────────────────────────────────
+   RESET / NEW SUBMISSION
+───────────────────────────────────────── */
 document.getElementById('btn-new').addEventListener('click', () => {
-  ['reccee-date','location','attendees','security-notes','medical-notes',
-   'other-facilities','entry-exit','event-layout','permits','challenges']
-    .forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+  [
+    'reccee-date','location','attendees','security-notes','medical-notes',
+    'other-facilities','entry-exit','event-layout','permits','challenges'
+  ].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
 
   document.querySelectorAll('.radio-item.selected, .check-item.selected')
     .forEach(el => el.classList.remove('selected'));
 
   document.getElementById('job-cards-container').innerHTML = '';
   document.getElementById('selected-job-detail').style.display = 'none';
-  document.getElementById('client').value = '';
+  document.getElementById('client').value      = '';
   document.getElementById('description').value = '';
   document.getElementById('verified-badge-wrap').innerHTML = '';
-  document.getElementById('error-banner-1').classList.remove('visible');
-  document.getElementById('error-banner-2').classList.remove('visible');
-  document.getElementById('error-banner-6').classList.remove('visible');
+  ['error-banner-1','error-banner-2','error-banner-6'].forEach(id =>
+    document.getElementById(id).classList.remove('visible')
+  );
   document.getElementById('success-screen').classList.remove('visible');
   document.getElementById('main-card').style.display = '';
 
   clearErrors();
-  userEmail = ''; projectLeadName = ''; userJobs = []; selectedJob = null;
+  userEmail = ''; projectLeadName = ''; userJobs = []; selectedJob = null; submitting = false;
   goStep(1);
 });
 
