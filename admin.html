@@ -42,7 +42,7 @@ body {
 }
 
 /* ═══════════════════════════════════════════════
-   LOGIN PAGE (full-page, shown before app shell)
+   LOGIN PAGE
 ═══════════════════════════════════════════════ */
 #login-page {
   min-height: 100vh;
@@ -66,14 +66,8 @@ body {
   display: flex; align-items: center; justify-content: center;
   font-family: 'DM Serif Display', serif; font-size: 18px; color: #0C0F0A;
 }
-.logo-text {
-  font-family: 'DM Mono', monospace; font-size: 13px;
-  letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-secondary);
-}
-.login-header h1 {
-  font-family: 'DM Serif Display', serif; font-size: clamp(26px,5vw,34px);
-  font-weight: 400; line-height: 1.15; margin-bottom: 10px;
-}
+.logo-text { font-family: 'DM Mono', monospace; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-secondary); }
+.login-header h1 { font-family: 'DM Serif Display', serif; font-size: clamp(26px,5vw,34px); font-weight: 400; line-height: 1.15; margin-bottom: 10px; }
 .login-header h1 em { font-style: italic; color: var(--accent); }
 .login-header p { font-size: 13px; color: var(--text-secondary); line-height: 1.65; }
 
@@ -85,8 +79,6 @@ body {
   content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
   background: linear-gradient(90deg, transparent, var(--accent), transparent); opacity: 0.6;
 }
-
-/* step indicator (login) */
 .lstep-bar { display: flex; align-items: center; margin-bottom: 32px; }
 .lstep { display: flex; align-items: center; gap: 8px; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); transition: color 0.3s; }
 .lstep.active { color: var(--accent); }
@@ -95,8 +87,6 @@ body {
 .lstep.active .lstep-dot { background: var(--accent-dim); border-color: var(--accent); }
 .lstep.done .lstep-dot { background: rgba(200,230,60,0.08); }
 .lstep-line { flex: 1; height: 1px; background: var(--border); margin: 0 10px; }
-
-/* panels */
 .lpanel { display: none; }
 .lpanel.active { display: block; animation: rise .35s ease both; }
 .section-label {
@@ -175,7 +165,6 @@ input.error-state { border-color: var(--error); }
 .dot-pulse span:nth-child(2) { animation-delay: .2s; }
 .dot-pulse span:nth-child(3) { animation-delay: .4s; }
 @keyframes pulse { 0%,80%,100%{opacity:.3;transform:scale(.8)} 40%{opacity:1;transform:scale(1)} }
-
 .login-footer { text-align: center; margin-top: 28px; font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-muted); letter-spacing: .1em; }
 
 /* ═══════════════════════════════════════════════
@@ -184,51 +173,25 @@ input.error-state { border-color: var(--error); }
 #app-shell { display: none; min-height: 100vh; }
 #app-shell.visible { display: flex; }
 
-/* ── SIDEBAR ── */
+/* SIDEBAR */
 .sidebar {
-  width: var(--sidebar-w);
-  min-height: 100vh;
-  background: var(--surface);
-  border-right: 1px solid var(--border);
-  display: flex;
-  flex-direction: column;
-  position: fixed;
-  left: 0; top: 0; bottom: 0;
-  z-index: 100;
+  width: var(--sidebar-w); min-height: 100vh; background: var(--surface);
+  border-right: 1px solid var(--border); display: flex; flex-direction: column;
+  position: fixed; left: 0; top: 0; bottom: 0; z-index: 100;
   transition: transform .3s cubic-bezier(.4,0,.2,1);
 }
 .sidebar.collapsed { transform: translateX(calc(-1 * var(--sidebar-w))); }
-
-.sidebar-logo {
-  padding: 20px 20px 16px;
-  border-bottom: 1px solid var(--border);
-  display: flex; align-items: center; gap: 10px;
-}
+.sidebar-logo { padding: 20px 20px 16px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; }
 .sidebar-logo-mark { width: 32px; height: 32px; background: var(--accent); border-radius: 7px; display: flex; align-items: center; justify-content: center; font-family: 'DM Serif Display', serif; font-size: 16px; color: #0C0F0A; flex-shrink: 0; }
 .sidebar-logo-text { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--text-secondary); }
-
-.sidebar-user {
-  padding: 14px 16px;
-  border-bottom: 1px solid var(--border);
-  display: flex; align-items: center; gap: 10px;
-}
-.user-avatar {
-  width: 32px; height: 32px; border-radius: 50%;
-  background: linear-gradient(135deg, var(--accent) 0%, #8bc34a 100%);
-  display: flex; align-items: center; justify-content: center;
-  font-family: 'DM Serif Display', serif; font-size: 14px; color: #0C0F0A; flex-shrink: 0;
-}
+.sidebar-user { padding: 14px 16px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; }
+.user-avatar { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, var(--accent) 0%, #8bc34a 100%); display: flex; align-items: center; justify-content: center; font-family: 'DM Serif Display', serif; font-size: 14px; color: #0C0F0A; flex-shrink: 0; }
 .user-info { min-width: 0; }
 .user-name { font-size: 12px; font-weight: 500; color: var(--text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .user-email { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .user-badge { margin-left: auto; font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: .08em; color: var(--accent); background: var(--accent-dim); border: 1px solid var(--accent-border); border-radius: 100px; padding: 2px 8px; flex-shrink: 0; }
-
-/* NAV */
 .sidebar-nav { flex: 1; overflow-y: auto; padding: 12px 0; }
-.nav-section-title {
-  font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: .2em; text-transform: uppercase;
-  color: var(--text-muted); padding: 10px 20px 6px; margin-top: 4px;
-}
+.nav-section-title { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: .2em; text-transform: uppercase; color: var(--text-muted); padding: 10px 20px 6px; margin-top: 4px; }
 .nav-item {
   display: flex; align-items: center; gap: 10px;
   padding: 10px 16px; margin: 2px 8px; border-radius: 8px;
@@ -246,97 +209,36 @@ input.error-state { border-color: var(--error); }
 .nav-badge { font-family: 'DM Mono', monospace; font-size: 9px; background: var(--accent); color: #0C0F0A; border-radius: 100px; padding: 2px 7px; font-weight: 600; }
 .nav-tag { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--text-muted); background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: 100px; padding: 2px 7px; }
 .nav-item.disabled { pointer-events: none; opacity: .4; }
-
-/* nav group (expandable for future) */
-.nav-group-header {
-  display: flex; align-items: center; gap: 10px;
-  padding: 10px 16px; margin: 2px 8px; border-radius: 8px;
-  cursor: pointer; transition: background .15s;
-}
-.nav-group-header:hover { background: rgba(255,255,255,0.04); }
-.nav-group-header .nav-label { color: var(--text-secondary); font-size: 13px; }
-.nav-chevron { margin-left: auto; transition: transform .2s; color: var(--text-muted); font-size: 10px; }
-.nav-group-header.open .nav-chevron { transform: rotate(90deg); }
-.nav-group-children { overflow: hidden; max-height: 0; transition: max-height .25s ease; }
-.nav-group-children.open { max-height: 400px; }
-.nav-group-children .nav-item { padding-left: 44px; }
-
 .sidebar-bottom { padding: 12px 8px; border-top: 1px solid var(--border); }
-.btn-logout {
-  width: 100%; display: flex; align-items: center; gap: 10px; padding: 10px 16px; border-radius: 8px;
-  background: transparent; border: none; cursor: pointer; color: var(--text-muted); transition: all .15s; font-family: 'DM Sans', sans-serif; font-size: 13px;
-}
+.btn-logout { width: 100%; display: flex; align-items: center; gap: 10px; padding: 10px 16px; border-radius: 8px; background: transparent; border: none; cursor: pointer; color: var(--text-muted); transition: all .15s; font-family: 'DM Sans', sans-serif; font-size: 13px; }
 .btn-logout:hover { background: rgba(255,95,82,0.08); color: var(--error); }
 .btn-logout svg { opacity: .5; transition: opacity .15s; }
 .btn-logout:hover svg { opacity: 1; }
 
-/* ── MAIN CONTENT ── */
-.main-wrap {
-  margin-left: var(--sidebar-w);
-  flex: 1;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  transition: margin-left .3s cubic-bezier(.4,0,.2,1);
-}
+/* MAIN */
+.main-wrap { margin-left: var(--sidebar-w); flex: 1; min-height: 100vh; display: flex; flex-direction: column; transition: margin-left .3s cubic-bezier(.4,0,.2,1); }
 .main-wrap.full { margin-left: 0; }
-
-/* TOPBAR */
-.topbar {
-  height: var(--topbar-h);
-  background: var(--surface);
-  border-bottom: 1px solid var(--border);
-  display: flex; align-items: center; gap: 12px;
-  padding: 0 24px;
-  position: sticky; top: 0; z-index: 50;
-}
-.topbar-toggle {
-  width: 36px; height: 36px; border-radius: 8px; background: transparent;
-  border: 1px solid var(--border); cursor: pointer; display: flex; align-items: center; justify-content: center;
-  color: var(--text-secondary); transition: all .15s; flex-shrink: 0;
-}
+.topbar { height: var(--topbar-h); background: var(--surface); border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 12px; padding: 0 24px; position: sticky; top: 0; z-index: 50; }
+.topbar-toggle { width: 36px; height: 36px; border-radius: 8px; background: transparent; border: 1px solid var(--border); cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--text-secondary); transition: all .15s; flex-shrink: 0; }
 .topbar-toggle:hover { background: var(--accent-dim); border-color: var(--accent-border); color: var(--accent); }
-.topbar-breadcrumb {
-  display: flex; align-items: center; gap: 8px;
-  font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-muted; flex: 1;
-}
+.topbar-breadcrumb { display: flex; align-items: center; gap: 8px; font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-muted); flex: 1; }
 .bc-sep { opacity: .4; }
 .bc-current { color: var(--text-secondary); }
 .topbar-right { display: flex; align-items: center; gap: 10px; margin-left: auto; }
 .topbar-time { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-muted); }
-.topbar-notif {
-  width: 32px; height: 32px; border-radius: 8px; background: transparent;
-  border: 1px solid var(--border); cursor: pointer; display: flex; align-items: center; justify-content: center;
-  color: var(--text-secondary); position: relative; transition: all .15s;
-}
+.topbar-notif { width: 32px; height: 32px; border-radius: 8px; background: transparent; border: 1px solid var(--border); cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--text-secondary); position: relative; transition: all .15s; }
 .topbar-notif:hover { background: var(--accent-dim); border-color: var(--accent-border); color: var(--accent); }
 .notif-dot { position: absolute; top: 6px; right: 6px; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+.content-area { flex: 1; padding: 32px 32px 60px; max-width: 1100px; width: 100%; margin: 0 auto; }
 
-/* ── CONTENT AREA ── */
-.content-area {
-  flex: 1;
-  padding: 32px 32px 60px;
-  max-width: 1100px;
-  width: 100%;
-  margin: 0 auto;
-}
-
-/* ── DASHBOARD (HOME) ── */
+/* DASHBOARD */
 .dash-greeting { margin-bottom: 32px; }
-.dash-greeting .time-tag {
-  font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: .15em; text-transform: uppercase;
-  color: var(--accent); background: var(--accent-dim); border: 1px solid var(--accent-border);
-  padding: 4px 12px; border-radius: 100px; display: inline-block; margin-bottom: 14px;
-}
+.dash-greeting .time-tag { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: .15em; text-transform: uppercase; color: var(--accent); background: var(--accent-dim); border: 1px solid var(--accent-border); padding: 4px 12px; border-radius: 100px; display: inline-block; margin-bottom: 14px; }
 .dash-greeting h2 { font-family: 'DM Serif Display', serif; font-size: clamp(24px,3vw,34px); font-weight: 400; line-height: 1.15; }
 .dash-greeting h2 em { font-style: italic; color: var(--accent); }
 .dash-greeting p { margin-top: 8px; font-size: 14px; color: var(--text-secondary); }
-
 .stats-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 14px; margin-bottom: 32px; }
-.stat-card {
-  background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
-  padding: 18px 20px; position: relative; overflow: hidden; transition: border-color .2s;
-}
+.stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; position: relative; overflow: hidden; transition: border-color .2s; }
 .stat-card:hover { border-color: var(--accent-border); }
 .stat-card::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--accent), transparent); opacity: 0; transition: opacity .2s; }
 .stat-card:hover::after { opacity: .5; }
@@ -344,13 +246,8 @@ input.error-state { border-color: var(--error); }
 .stat-val { font-family: 'DM Serif Display', serif; font-size: 28px; font-weight: 400; color: var(--text-primary); }
 .stat-sub { font-size: 11px; color: var(--text-muted); margin-top: 4px; }
 .stat-icon { position: absolute; right: 16px; top: 16px; font-size: 18px; opacity: .3; }
-
 .module-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
-.module-card {
-  background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
-  padding: 24px; cursor: pointer; transition: border-color .2s, transform .15s, box-shadow .2s;
-  position: relative; overflow: hidden;
-}
+.module-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; cursor: pointer; transition: border-color .2s, transform .15s, box-shadow .2s; position: relative; overflow: hidden; }
 .module-card:hover { border-color: var(--accent-border); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
 .module-card.locked { opacity: .5; cursor: not-allowed; }
 .module-card.locked:hover { transform: none; box-shadow: none; border-color: var(--border); }
@@ -366,23 +263,17 @@ input.error-state { border-color: var(--error); }
 .status-locked { background: rgba(255,255,255,.04); color: var(--text-muted); border: 1px solid var(--border); }
 .module-arrow { color: var(--text-muted); font-size: 14px; transition: color .2s, transform .2s; }
 .module-card:hover:not(.locked) .module-arrow { color: var(--accent); transform: translateX(3px); }
-
-/* section headers */
 .section-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 20px; }
 .section-head h3 { font-family: 'DM Serif Display', serif; font-size: 20px; font-weight: 400; }
 .section-head .line { flex: 1; height: 1px; background: var(--border); }
 
-/* ── RECCEE MODULE ── */
+/* ═══════════════════════════════════════════════
+   RECCEE MODULE
+═══════════════════════════════════════════════ */
 .reccee-wrap { width: 100%; }
-
-/* progress pips */
 .r-progress { display: flex; align-items: center; margin-bottom: 28px; }
 .step-pip { display: flex; flex-direction: column; align-items: center; gap: 6px; flex: 1; }
-.pip-dot {
-  width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--border);
-  background: var(--input-bg); display: flex; align-items: center; justify-content: center;
-  font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-muted); transition: all .3s; position: relative; z-index: 1;
-}
+.pip-dot { width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--border); background: var(--input-bg); display: flex; align-items: center; justify-content: center; font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-muted); transition: all .3s; position: relative; z-index: 1; }
 .pip-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: var(--text-muted); text-align: center; transition: color .3s; }
 .step-pip.active .pip-dot { border-color: var(--accent); background: var(--accent-dim); color: var(--accent); }
 .step-pip.active .pip-label { color: var(--accent); }
@@ -390,25 +281,14 @@ input.error-state { border-color: var(--error); }
 .step-pip.done .pip-label { color: var(--text-secondary); }
 .pip-line { flex: 1; height: 1px; background: var(--border); margin-top: -22px; position: relative; z-index: 0; transition: background .3s; }
 .pip-line.done { background: var(--accent); }
-
-/* form card */
-.form-card {
-  background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
-  padding: 36px; position: relative; overflow: hidden;
-}
+.form-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 36px; position: relative; overflow: hidden; }
 .form-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--accent), transparent); opacity: .6; }
 @media (max-width: 600px) { .form-card { padding: 24px 18px; } }
-
 .step-panel { display: none; animation: rise .35s ease both; }
 .step-panel.active { display: block; }
-
-.r-section-label {
-  font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .2em; text-transform: uppercase;
-  color: var(--text-muted); margin-bottom: 20px; margin-top: 32px; display: flex; align-items: center; gap: 12px;
-}
+.r-section-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 20px; margin-top: 32px; display: flex; align-items: center; gap: 12px; }
 .r-section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 .r-section-label:first-child { margin-top: 0; }
-
 .r-field { margin-bottom: 20px; }
 .r-field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 @media (max-width: 560px) { .r-field-row { grid-template-columns: 1fr; } }
@@ -424,13 +304,8 @@ input.error-state { border-color: var(--error); }
 .r-textarea { min-height: 90px; resize: vertical; line-height: 1.6; }
 .r-input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(.5); cursor: pointer; }
 .r-input[readonly] { opacity: .7; cursor: default; }
-
 .job-cards { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
-.job-card {
-  background: var(--input-bg); border: 1px solid var(--border); border-radius: 8px;
-  padding: 16px 18px; cursor: pointer; transition: border-color .2s, background .2s;
-  display: flex; justify-content: space-between; align-items: center; gap: 12px;
-}
+.job-card { background: var(--input-bg); border: 1px solid var(--border); border-radius: 8px; padding: 16px 18px; cursor: pointer; transition: border-color .2s, background .2s; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
 .job-card:hover { border-color: rgba(200,230,60,.4); background: rgba(200,230,60,.03); }
 .job-card.selected { border-color: var(--accent); background: rgba(200,230,60,.06); }
 .job-card-left { flex: 1; }
@@ -439,14 +314,9 @@ input.error-state { border-color: var(--error); }
 .job-card-meta { font-size: 11px; color: var(--text-secondary); }
 .job-card-check { width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--border); flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all .2s; font-size: 11px; }
 .job-card.selected .job-card-check { border-color: var(--accent); background: var(--accent); color: #0C0F0A; font-weight: 700; }
-
 .radio-group, .check-group { display: flex; flex-direction: column; gap: 10px; }
 .radio-group.inline { flex-direction: row; gap: 12px; flex-wrap: wrap; }
-.radio-item, .check-item {
-  display: flex; align-items: center; gap: 10px; background: var(--input-bg);
-  border: 1px solid var(--border); border-radius: var(--radius); padding: 10px 14px;
-  cursor: pointer; transition: border-color .2s, background .2s; user-select: none;
-}
+.radio-item, .check-item { display: flex; align-items: center; gap: 10px; background: var(--input-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 10px 14px; cursor: pointer; transition: border-color .2s, background .2s; user-select: none; }
 .radio-item:hover, .check-item:hover { border-color: var(--border-focus); }
 .radio-item .rpip, .check-item .rpip { width: 16px; height: 16px; border-radius: 50%; border: 2px solid var(--border); flex-shrink: 0; transition: all .2s; display: flex; align-items: center; justify-content: center; }
 .check-item .rpip { border-radius: 4px; }
@@ -456,23 +326,14 @@ input.error-state { border-color: var(--error); }
 .check-item.selected .rpip::after { content: '✓'; font-size: 10px; color: #0C0F0A; font-weight: 700; }
 .radio-item span:last-child, .check-item span:last-child { font-size: 13px; color: var(--text-secondary); }
 .radio-item.selected span:last-child, .check-item.selected span:last-child { color: var(--text-primary); }
-
-.verified-pill {
-  display: inline-flex; align-items: center; gap: 7px;
-  background: rgba(102,187,106,.1); border: 1px solid rgba(102,187,106,.3);
-  color: var(--success); font-family: 'DM Mono', monospace; font-size: 11px;
-  padding: 6px 14px; border-radius: 100px; margin-top: 10px; animation: rise .3s ease both;
-}
+.verified-pill { display: inline-flex; align-items: center; gap: 7px; background: rgba(102,187,106,.1); border: 1px solid rgba(102,187,106,.3); color: var(--success); font-family: 'DM Mono', monospace; font-size: 11px; padding: 6px 14px; border-radius: 100px; margin-top: 10px; animation: rise .3s ease both; }
 .verified-pill::before { content: '✓'; font-weight: 700; font-size: 13px; }
-
 .r-info-box { background: var(--accent-dim); border: 1px solid var(--accent-border); border-radius: 8px; padding: 14px 16px; margin-bottom: 20px; font-size: 12px; color: var(--text-secondary); line-height: 1.6; }
-
 .r-field-error { font-size: 11px; color: var(--error); margin-top: 5px; font-family: 'DM Mono', monospace; display: none; }
 .r-field.has-error .r-input, .r-field.has-error .r-textarea { border-color: var(--error); }
 .r-field.has-error .r-field-error { display: block; }
 .error-banner { display: none; background: rgba(255,95,82,.08); border: 1px solid rgba(255,95,82,.3); border-radius: var(--radius); padding: 14px 18px; margin-top: 20px; font-size: 12px; color: var(--error); font-family: 'DM Mono', monospace; }
 .error-banner.visible { display: block; }
-
 .btn-row { margin-top: 32px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
 .btn-back { background: transparent; border: 1px solid var(--border); color: var(--text-secondary); border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 13px; padding: 11px 20px; cursor: pointer; transition: border-color .2s, color .2s; }
 .btn-back:hover { border-color: var(--accent); color: var(--accent); }
@@ -483,7 +344,6 @@ input.error-state { border-color: var(--error); }
 .btn-next.loading .btn-spinner { display: block; }
 .btn-next.loading .btn-text { opacity: .5; }
 .step-hint { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-muted); }
-
 .submit-area { display: flex; flex-direction: column; gap: 12px; margin-top: 32px; }
 .btn-download { background: var(--accent); color: #0C0F0A; border: none; border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; padding: 13px 28px; cursor: pointer; transition: background .2s; display: flex; align-items: center; gap: 10px; justify-content: center; width: 100%; }
 .btn-download:hover { background: #d8f04e; }
@@ -494,7 +354,6 @@ input.error-state { border-color: var(--error); }
 .btn-submit .btn-spinner { width: 16px; height: 16px; border: 2px solid rgba(255,255,255,.3); border-top-color: #fff; border-radius: 50%; animation: spin .7s linear infinite; display: none; }
 .btn-download.loading .btn-spinner, .btn-submit.loading .btn-spinner { display: block; }
 .btn-download.loading .btn-text, .btn-submit.loading .btn-text { opacity: .5; }
-
 .recap-section { margin-bottom: 24px; }
 .recap-section-title { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
 .recap-section-title::after { content: ''; flex: 1; height: 1px; background: var(--accent-border); }
@@ -505,7 +364,6 @@ input.error-state { border-color: var(--error); }
 .recap-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: .15em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 5px; }
 .recap-val { font-size: 13px; color: var(--text-primary); word-break: break-word; white-space: pre-wrap; line-height: 1.5; }
 .recap-val.empty { color: var(--text-muted); font-style: italic; }
-
 .r-success { display: none; flex-direction: column; align-items: center; text-align: center; padding: 48px 32px; }
 .r-success.visible { display: flex; animation: rise .4s ease both; }
 .r-success-icon { width: 72px; height: 72px; background: rgba(102,187,106,.1); border: 2px solid var(--success); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; margin-bottom: 24px; animation: popIn .4s cubic-bezier(.175,.885,.32,1.275) both .1s; }
@@ -517,11 +375,91 @@ input.error-state { border-color: var(--error); }
 .btn-go-dash { background: var(--accent); color: #0C0F0A; border: none; border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; padding: 10px 22px; cursor: pointer; transition: all .2s; margin: 4px; }
 .btn-go-dash:hover { background: #d8f04e; }
 
-/* coming soon page */
-.coming-soon {
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  text-align: center; min-height: 400px; padding: 40px;
+/* ═══════════════════════════════════════════════
+   EVENT SUBMISSION MODULE
+═══════════════════════════════════════════════ */
+.evt-form-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 40px; position: relative; overflow: hidden; }
+.evt-form-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--accent), transparent); opacity: .6; transition: background .4s; }
+.evt-form-card.update-mode::before { background: linear-gradient(90deg, transparent, var(--orange), transparent); }
+@media (max-width: 600px) { .evt-form-card { padding: 24px 18px; } }
+.update-banner { display: none; background: rgba(249,115,22,0.08); border: 1px solid rgba(249,115,22,0.25); border-radius: var(--radius); padding: 12px 16px; margin-bottom: 24px; font-size: 12px; color: var(--orange); font-family: 'DM Mono', monospace; letter-spacing: .04em; align-items: center; gap: 10px; }
+.update-banner.visible { display: flex; }
+.e-section-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 20px; margin-top: 32px; display: flex; align-items: center; gap: 12px; }
+.e-section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+.e-section-label:first-child { margin-top: 0; }
+.lookup-panel { display: none; background: rgba(249,115,22,0.04); border: 1px solid rgba(249,115,22,0.2); border-radius: 8px; padding: 20px; margin-bottom: 28px; animation: rise .3s ease both; }
+.lookup-panel.visible { display: block; }
+.lookup-title { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--orange); margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+.lookup-title::after { content: ''; flex: 1; height: 1px; background: rgba(249,115,22,.2); }
+.lookup-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
+@media (max-width: 520px) { .lookup-row { grid-template-columns: 1fr; } }
+.lookup-panel label { font-size: 11px; color: var(--text-secondary); margin-bottom: 6px; display: block; }
+.lookup-panel input[type="date"] { width: 100%; background: var(--input-bg); border: 1px solid rgba(249,115,22,0.2); border-radius: var(--radius); color: var(--text-primary); font-family: 'DM Sans', sans-serif; font-size: 13px; padding: 10px 12px; outline: none; transition: border-color .2s; -webkit-appearance: none; }
+.lookup-panel input[type="date"]:focus { border-color: var(--orange); box-shadow: 0 0 0 3px rgba(249,115,22,.1); }
+.lookup-bottom { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.btn-load { display: flex; align-items: center; gap: 8px; background: var(--orange); color: #fff; border: none; border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; padding: 10px 20px; cursor: pointer; white-space: nowrap; transition: background .2s, transform .15s; }
+.btn-load:hover { background: #ea6c0a; transform: translateY(-1px); }
+.btn-load:disabled { opacity: .5; pointer-events: none; }
+.evt-select-wrap { flex: 1; min-width: 180px; position: relative; }
+.evt-select-wrap::after { content: ''; position: absolute; right: 12px; top: 50%; transform: translateY(-50%); width: 9px; height: 9px; background: var(--text-muted); clip-path: polygon(0 30%,50% 80%,100% 30%); pointer-events: none; }
+#event-select { width: 100%; background: var(--input-bg); border: 1px solid rgba(249,115,22,0.2); border-radius: var(--radius); color: var(--text-primary); font-family: 'DM Sans', sans-serif; font-size: 13px; padding: 10px 32px 10px 12px; outline: none; -webkit-appearance: none; appearance: none; transition: border-color .2s; }
+#event-select:focus { border-color: var(--orange); box-shadow: 0 0 0 3px rgba(249,115,22,.1); }
+#event-select option { background: #1e2318; }
+.loader-text { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-muted); margin-top: 10px; min-height: 16px; }
+.e-field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 520px) { .e-field-row { grid-template-columns: 1fr; } }
+.e-field { margin-bottom: 20px; }
+.e-field label { display: block; font-size: 12px; font-weight: 500; color: var(--text-secondary); letter-spacing: .04em; margin-bottom: 8px; }
+.e-field label .req { color: var(--error); margin-left: 3px; }
+.e-input, .e-textarea, .e-select {
+  width: 100%; background: var(--input-bg); border: 1px solid var(--border); border-radius: var(--radius);
+  color: var(--text-primary); font-family: 'DM Sans', sans-serif; font-size: 14px; padding: 12px 14px;
+  outline: none; transition: border-color .2s, box-shadow .2s, background .4s; -webkit-appearance: none; appearance: none;
 }
+.e-input::placeholder, .e-textarea::placeholder { color: var(--text-muted); }
+.e-input:focus, .e-textarea:focus, .e-select:focus { border-color: var(--border-focus); box-shadow: 0 0 0 3px var(--accent-dim); }
+.e-textarea { min-height: 100px; resize: vertical; line-height: 1.6; }
+.e-select-wrap { position: relative; }
+.e-select-wrap::after { content: ''; position: absolute; right: 14px; top: 50%; transform: translateY(-50%); width: 10px; height: 10px; background: var(--text-muted); clip-path: polygon(0 30%,50% 80%,100% 30%); pointer-events: none; }
+.e-input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(.5); cursor: pointer; }
+.e-field.has-error .e-input, .e-field.has-error .e-select, .e-field.has-error .e-textarea { border-color: var(--error); }
+.e-field.has-error .e-field-error { display: block; }
+.e-field-error { font-size: 11px; color: var(--error); margin-top: 5px; font-family: 'DM Mono', monospace; display: none; }
+.assistants-section { display: block; margin-top: 28px; }
+.assistant-entry { display: grid; grid-template-columns: 1fr 1fr auto; gap: 10px; align-items: end; margin-bottom: 12px; animation: rise .25s ease both; }
+@media (max-width: 520px) { .assistant-entry { grid-template-columns: 1fr; } .assistant-entry .btn-remove { width: 100%; } }
+.assistant-entry .e-input { margin-bottom: 0; }
+.btn-remove { background: rgba(255,95,82,.08); border: 1px solid rgba(255,95,82,.2); color: var(--error); border-radius: var(--radius); font-family: 'DM Mono', monospace; font-size: 11px; padding: 11px 14px; cursor: pointer; white-space: nowrap; transition: background .2s, border-color .2s; height: 44px; }
+.btn-remove:hover { background: rgba(255,95,82,.15); border-color: rgba(255,95,82,.4); }
+.btn-add-assistant { display: inline-flex; align-items: center; gap: 8px; background: transparent; border: 1px dashed var(--border); color: var(--text-secondary); border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 13px; padding: 10px 18px; cursor: pointer; margin-top: 4px; transition: border-color .2s, color .2s; width: 100%; justify-content: center; }
+.btn-add-assistant:hover { border-color: var(--orange); color: var(--orange); }
+.assistant-col-labels { display: grid; grid-template-columns: 1fr 1fr auto; gap: 10px; margin-bottom: 6px; }
+.assistant-col-labels span { font-size: 11px; color: var(--text-secondary); font-weight: 500; letter-spacing: .04em; }
+@media (max-width: 520px) { .assistant-col-labels { display: none; } }
+.evt-submit-row { margin-top: 32px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.evt-submit-note { font-size: 11px; color: var(--text-muted); font-family: 'DM Mono', monospace; }
+.btn-evt-submit { background: var(--accent); color: #0C0F0A; border: none; border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; padding: 14px 32px; cursor: pointer; transition: background .2s, transform .15s, box-shadow .2s; display: flex; align-items: center; gap: 10px; }
+.btn-evt-submit:hover { background: #d8f04e; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(200,230,60,.2); }
+.btn-evt-submit.update-submit { background: var(--orange); color: #fff; }
+.btn-evt-submit.update-submit:hover { background: #ea6c0a; box-shadow: 0 8px 24px rgba(249,115,22,.25); }
+.btn-evt-submit.loading { pointer-events: none; opacity: .7; }
+.btn-evt-submit .btn-spinner { width: 16px; height: 16px; border: 2px solid rgba(0,0,0,.25); border-top-color: currentColor; border-radius: 50%; animation: spin .7s linear infinite; display: none; }
+.btn-evt-submit.loading .btn-spinner { display: block; }
+.btn-evt-submit.loading .btn-text { opacity: .5; }
+.evt-error-banner { display: none; background: rgba(255,95,82,.08); border: 1px solid rgba(255,95,82,.3); border-radius: var(--radius); padding: 14px 18px; margin-top: 20px; font-size: 12px; color: var(--error); font-family: 'DM Mono', monospace; }
+.evt-error-banner.visible { display: block; }
+.evt-success-screen { display: none; flex-direction: column; align-items: center; text-align: center; padding: 60px 40px; animation: rise .5s ease both; }
+.evt-success-screen.visible { display: flex; }
+.evt-success-icon { width: 72px; height: 72px; background: var(--accent-dim); border: 2px solid var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; margin-bottom: 28px; animation: popIn .4s cubic-bezier(.175,.885,.32,1.275) both .1s; }
+.evt-success-icon.update-icon { background: rgba(249,115,22,.1); border-color: var(--orange); }
+.evt-success-screen h2 { font-family: 'DM Serif Display', serif; font-size: 28px; font-weight: 400; margin-bottom: 12px; }
+.evt-success-screen p { font-size: 14px; color: var(--text-secondary); line-height: 1.7; max-width: 380px; margin-bottom: 28px; }
+.evt-success-ref { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-muted); background: var(--input-bg); border: 1px solid var(--border); border-radius: 100px; padding: 6px 16px; margin-bottom: 28px; letter-spacing: .08em; }
+.btn-evt-new { background: transparent; border: 1px solid var(--border); color: var(--text-secondary); border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 13px; padding: 11px 24px; cursor: pointer; transition: border-color .2s, color .2s; }
+.btn-evt-new:hover { border-color: var(--accent); color: var(--accent); }
+
+/* COMING SOON */
+.coming-soon { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; min-height: 400px; padding: 40px; }
 .coming-soon .cs-icon { font-size: 48px; margin-bottom: 24px; opacity: .5; }
 .coming-soon h3 { font-family: 'DM Serif Display', serif; font-size: 26px; font-weight: 400; margin-bottom: 10px; }
 .coming-soon p { font-size: 13px; color: var(--text-secondary); line-height: 1.7; max-width: 380px; }
@@ -541,10 +479,9 @@ input.error-state { border-color: var(--error); }
 #pdf-preview .pdf-full { grid-column: 1 / -1; }
 #pdf-preview .pdf-footer { margin-top: 28px; padding-top: 12px; border-top: 1px solid #ccc; font-size: 9px; color: #aaa; display: flex; justify-content: space-between; }
 
-/* mobile overlay */
+/* MOBILE */
 .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.6); z-index: 90; }
 .sidebar-overlay.visible { display: block; }
-
 @media (max-width: 768px) {
   .sidebar { transform: translateX(calc(-1 * var(--sidebar-w))); }
   .sidebar.open { transform: translateX(0); }
@@ -570,14 +507,12 @@ input.error-state { border-color: var(--error); }
       <h1>Welcome <em>Back</em></h1>
       <p>Secure OTP login — enter your registered email to receive a one-time passcode.</p>
     </div>
-
     <div class="lcard">
       <div class="lstep-bar">
         <div class="lstep active" id="lstep1"><div class="lstep-dot">1</div><span>Email</span></div>
         <div class="lstep-line"></div>
         <div class="lstep" id="lstep2"><div class="lstep-dot">2</div><span>Verify</span></div>
       </div>
-
       <div class="lpanel active" id="lpanel-email">
         <div class="section-label">Your Email</div>
         <div class="field">
@@ -592,7 +527,6 @@ input.error-state { border-color: var(--error); }
           </button>
         </div>
       </div>
-
       <div class="lpanel" id="lpanel-otp">
         <div class="info-box">OTP sent to <strong id="l-otp-email">—</strong></div>
         <div class="section-label">Enter Code</div>
@@ -617,7 +551,6 @@ input.error-state { border-color: var(--error); }
         </div>
         <div class="back-link"><button id="l-btn-back">← Use a different email</button></div>
       </div>
-
       <div class="login-success-wrap" id="l-success">
         <div class="login-success-icon">✓</div>
         <h3>Identity Verified</h3>
@@ -631,17 +564,13 @@ input.error-state { border-color: var(--error); }
 
 <!-- ═══════════════ APP SHELL ═══════════════ -->
 <div id="app-shell">
-
-  <!-- Overlay for mobile sidebar -->
   <div class="sidebar-overlay" id="sb-overlay"></div>
 
-  <!-- SIDEBAR -->
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-logo">
       <div class="sidebar-logo-mark">P</div>
       <span class="sidebar-logo-text">PrimeEdge AI</span>
     </div>
-
     <div class="sidebar-user">
       <div class="user-avatar" id="sb-avatar">J</div>
       <div class="user-info">
@@ -650,14 +579,12 @@ input.error-state { border-color: var(--error); }
       </div>
       <span class="user-badge">Staff</span>
     </div>
-
     <nav class="sidebar-nav">
       <div class="nav-section-title">Main</div>
       <div class="nav-item active" data-page="dashboard">
         <svg class="nav-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M2 10a8 8 0 1116 0A8 8 0 012 10zm8-4a.75.75 0 01.75.75v3.5h2a.75.75 0 010 1.5h-2.75A.75.75 0 019.25 11V6.75A.75.75 0 0110 6z"/></svg>
         <span class="nav-label">Dashboard</span>
       </div>
-
       <div class="nav-section-title">Field Operations</div>
       <div class="nav-item" data-page="reccee">
         <svg class="nav-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8.157 2.175a1.5 1.5 0 00-1.147 0l-4.084 1.69A1.5 1.5 0 002 5.251v10.877a1.5 1.5 0 002.074 1.386l3.51-1.453 4.26 1.763a1.5 1.5 0 001.146 0l4.083-1.69A1.5 1.5 0 0018 14.748V3.873a1.5 1.5 0 00-2.073-1.386l-3.51 1.452-4.26-1.763zM7.5 4.5v11l5 2.07V6.57l-5-2.07z" clip-rule="evenodd"/></svg>
@@ -674,19 +601,17 @@ input.error-state { border-color: var(--error); }
         <span class="nav-label">Incident Report</span>
         <span class="nav-tag">Soon</span>
       </div>
-
       <div class="nav-section-title">Projects</div>
-      <div class="nav-item disabled" data-page="jobs">
+      <div class="nav-item" data-page="event-submission">
         <svg class="nav-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M6 3.75A2.75 2.75 0 018.75 1h2.5A2.75 2.75 0 0114 3.75v.443c.572.055 1.14.122 1.706.2C17.053 4.582 18 5.75 18 7.07v3.469c0 1.126-.694 2.191-1.83 2.54-1.952.599-4.024.921-6.17.921s-4.219-.322-6.17-.921C2.694 12.73 2 11.665 2 10.539V7.07c0-1.322.947-2.489 2.294-2.676A41.047 41.047 0 016 4.193V3.75zm6.5 0v.325a41.622 41.622 0 00-5 0V3.75c0-.69.56-1.25 1.25-1.25h2.5c.69 0 1.25.56 1.25 1.25zM10 10a1 1 0 00-1 1v.01a1 1 0 001 1h.01a1 1 0 001-1V11a1 1 0 00-1-1H10z" clip-rule="evenodd"/><path d="M3 15.055v-.1c.91.283 1.854.514 2.826.7C7.068 15.899 8.53 16 10 16c1.47 0 2.933-.101 4.174-.345a29.88 29.88 0 002.826-.7v.1c0 1.294-.944 2.403-2.284 2.615A41.624 41.624 0 0110 18c-1.555 0-3.07-.108-4.516-.33C4.944 17.458 4 16.35 3 15.055z"/></svg>
-        <span class="nav-label">Jobs Overview</span>
-        <span class="nav-tag">Soon</span>
+        <span class="nav-label">Event Submission</span>
+        <span class="nav-badge">Live</span>
       </div>
       <div class="nav-item disabled" data-page="timesheets">
         <svg class="nav-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm.75-13a.75.75 0 00-1.5 0v5c0 .414.336.75.75.75h4a.75.75 0 000-1.5h-3.25V5z" clip-rule="evenodd"/></svg>
         <span class="nav-label">Timesheets</span>
         <span class="nav-tag">Soon</span>
       </div>
-
       <div class="nav-section-title">Admin</div>
       <div class="nav-item disabled" data-page="team">
         <svg class="nav-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M7 8a3 3 0 100-6 3 3 0 000 6zM14.5 9a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM1.615 16.428a1.224 1.224 0 01-.569-1.175 6.002 6.002 0 0111.908 0c.058.467-.172.92-.57 1.174A9.953 9.953 0 017 17a9.953 9.953 0 01-5.385-1.572zM14.5 16h-.106c.07-.297.088-.611.048-.933a7.47 7.47 0 00-1.588-3.755 4.502 4.502 0 015.874 2.636.818.818 0 01-.36.98A7.465 7.465 0 0114.5 16z"/></svg>
@@ -699,7 +624,6 @@ input.error-state { border-color: var(--error); }
         <span class="nav-tag">Soon</span>
       </div>
     </nav>
-
     <div class="sidebar-bottom">
       <button class="btn-logout" id="btn-logout">
         <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 4.25A2.25 2.25 0 015.25 2h5.5A2.25 2.25 0 0113 4.25v2a.75.75 0 01-1.5 0v-2a.75.75 0 00-.75-.75h-5.5a.75.75 0 00-.75.75v11.5c0 .414.336.75.75.75h5.5a.75.75 0 00.75-.75v-2a.75.75 0 011.5 0v2A2.25 2.25 0 0110.75 18h-5.5A2.25 2.25 0 013 15.75V4.25z" clip-rule="evenodd"/><path fill-rule="evenodd" d="M19 10a.75.75 0 00-.75-.75H8.704l1.048-1.08a.75.75 0 10-1.004-1.115l-2.5 2.568a.75.75 0 000 1.062l2.5 2.567a.75.75 0 101.004-1.115l-1.048-1.08h9.546A.75.75 0 0019 10z" clip-rule="evenodd"/></svg>
@@ -730,19 +654,18 @@ input.error-state { border-color: var(--error); }
 
     <main class="content-area">
 
-      <!-- ── DASHBOARD PAGE ── -->
+      <!-- ── DASHBOARD ── -->
       <div id="page-dashboard">
         <div class="dash-greeting">
           <div class="time-tag" id="dash-time-tag">Good Morning</div>
           <h2 id="dash-hello">Welcome, <em>Staff</em></h2>
           <p id="dash-sub">Here's a quick overview of your PrimeEdgeAI workspace.</p>
         </div>
-
         <div class="stats-row">
           <div class="stat-card">
             <div class="stat-icon">📋</div>
             <div class="stat-label">Active Modules</div>
-            <div class="stat-val">1</div>
+            <div class="stat-val">2</div>
             <div class="stat-sub">of 7 planned</div>
           </div>
           <div class="stat-card">
@@ -752,68 +675,55 @@ input.error-state { border-color: var(--error); }
             <div class="stat-sub">submitted this session</div>
           </div>
           <div class="stat-card">
+            <div class="stat-icon">📅</div>
+            <div class="stat-label">Events</div>
+            <div class="stat-val" id="dash-event-count">0</div>
+            <div class="stat-sub">submitted this session</div>
+          </div>
+          <div class="stat-card">
             <div class="stat-icon">👤</div>
             <div class="stat-label">Logged In As</div>
             <div class="stat-val" style="font-size:16px;padding-top:4px" id="dash-user-stat">—</div>
             <div class="stat-sub">verified via OTP</div>
           </div>
         </div>
-
         <div class="section-head"><h3>Your Modules</h3><div class="line"></div></div>
         <div class="module-grid">
           <div class="module-card" onclick="navigateTo('reccee')">
             <div class="module-icon">🗺️</div>
             <div class="module-title">Reccee Assessment</div>
             <div class="module-desc">Site visit form for evaluating venues — security, logistics, medical, and compliance.</div>
-            <div class="module-footer">
-              <span class="module-status status-active">Live</span>
-              <span class="module-arrow">→</span>
-            </div>
+            <div class="module-footer"><span class="module-status status-active">Live</span><span class="module-arrow">→</span></div>
+          </div>
+          <div class="module-card" onclick="navigateTo('event-submission')">
+            <div class="module-icon">📅</div>
+            <div class="module-title">Event Submission</div>
+            <div class="module-desc">Submit a new event for approval or update an existing event with new details.</div>
+            <div class="module-footer"><span class="module-status status-active">Live</span><span class="module-arrow">→</span></div>
           </div>
           <div class="module-card locked">
             <div class="module-icon">✅</div>
             <div class="module-title">Site Checklist</div>
             <div class="module-desc">Pre-event and post-event site checklists for crew verification.</div>
-            <div class="module-footer">
-              <span class="module-status status-soon">Coming Soon</span>
-              <span class="module-arrow">→</span>
-            </div>
+            <div class="module-footer"><span class="module-status status-soon">Coming Soon</span><span class="module-arrow">→</span></div>
           </div>
           <div class="module-card locked">
             <div class="module-icon">⚠️</div>
             <div class="module-title">Incident Report</div>
             <div class="module-desc">Log and escalate field incidents in real-time during events.</div>
-            <div class="module-footer">
-              <span class="module-status status-soon">Coming Soon</span>
-              <span class="module-arrow">→</span>
-            </div>
-          </div>
-          <div class="module-card locked">
-            <div class="module-icon">💼</div>
-            <div class="module-title">Jobs Overview</div>
-            <div class="module-desc">View all your assigned jobs, timelines, and client briefs.</div>
-            <div class="module-footer">
-              <span class="module-status status-soon">Coming Soon</span>
-              <span class="module-arrow">→</span>
-            </div>
+            <div class="module-footer"><span class="module-status status-soon">Coming Soon</span><span class="module-arrow">→</span></div>
           </div>
           <div class="module-card locked">
             <div class="module-icon">⏱️</div>
             <div class="module-title">Timesheets</div>
             <div class="module-desc">Clock in, clock out, and submit weekly timesheets for payroll.</div>
-            <div class="module-footer">
-              <span class="module-status status-locked">Locked</span>
-              <span class="module-arrow">→</span>
-            </div>
+            <div class="module-footer"><span class="module-status status-locked">Locked</span><span class="module-arrow">→</span></div>
           </div>
           <div class="module-card locked">
             <div class="module-icon">👥</div>
             <div class="module-title">Team</div>
             <div class="module-desc">Manage staff assignments, roles, and contact information.</div>
-            <div class="module-footer">
-              <span class="module-status status-locked">Locked</span>
-              <span class="module-arrow">→</span>
-            </div>
+            <div class="module-footer"><span class="module-status status-locked">Locked</span><span class="module-arrow">→</span></div>
           </div>
         </div>
       </div>
@@ -822,8 +732,6 @@ input.error-state { border-color: var(--error); }
       <div id="page-reccee" style="display:none">
         <div class="section-head" style="margin-bottom:8px"><h3>Reccee <em style="font-style:italic;color:var(--accent)">Assessment</em></h3><div class="line"></div></div>
         <p style="font-size:13px;color:var(--text-secondary);margin-bottom:28px">Complete the site assessment for your event. Your report will be submitted to the PrimeEdgeAI team.</p>
-
-        <!-- RECCEE PROGRESS -->
         <div class="r-progress" id="r-progress-bar">
           <div class="step-pip active" id="r-pip-1"><div class="pip-dot">1</div><div class="pip-label">Verify</div></div>
           <div class="pip-line" id="r-line-1"></div>
@@ -839,8 +747,7 @@ input.error-state { border-color: var(--error); }
         </div>
 
         <div class="form-card" id="r-form-card">
-
-          <!-- STEP 1: Verify email (pre-filled from login) -->
+          <!-- STEP 1 -->
           <div class="step-panel active" id="r-step-1">
             <div class="r-section-label">Project Lead Verification</div>
             <div class="r-info-box" id="r-step1-info">Enter your email to find your assigned jobs.</div>
@@ -853,14 +760,10 @@ input.error-state { border-color: var(--error); }
             <div class="error-banner" id="r-err-1"></div>
             <div class="btn-row">
               <span class="step-hint">Step 1 of 6</span>
-              <button class="btn-next" id="r-next-1">
-                <span class="btn-text">Find My Jobs →</span>
-                <div class="btn-spinner"></div>
-              </button>
+              <button class="btn-next" id="r-next-1"><span class="btn-text">Find My Jobs →</span><div class="btn-spinner"></div></button>
             </div>
           </div>
-
-          <!-- STEP 2: Job Selection -->
+          <!-- STEP 2 -->
           <div class="step-panel" id="r-step-2">
             <div class="r-section-label">Select Job to Assess</div>
             <div class="r-info-box" id="r-jobs-info"></div>
@@ -882,8 +785,7 @@ input.error-state { border-color: var(--error); }
               <button class="btn-next" id="r-next-2">Continue →</button>
             </div>
           </div>
-
-          <!-- STEP 3: Venue & Date -->
+          <!-- STEP 3 -->
           <div class="step-panel" id="r-step-3">
             <div class="r-section-label">Venue &amp; Dates</div>
             <div class="r-field-row">
@@ -926,8 +828,7 @@ input.error-state { border-color: var(--error); }
               <button class="btn-next" id="r-next-3">Continue →</button>
             </div>
           </div>
-
-          <!-- STEP 4: Security & Medical -->
+          <!-- STEP 4 -->
           <div class="step-panel" id="r-step-4">
             <div class="r-section-label">Security Assessment</div>
             <div class="r-field"><label class="r-label">Are there residential settlements near the venue?</label><div class="radio-group inline"><div class="radio-item" data-rg="residential" data-rv="Yes"><span class="rpip"></span><span>Yes</span></div><div class="radio-item" data-rg="residential" data-rv="No"><span class="rpip"></span><span>No</span></div></div></div>
@@ -953,8 +854,7 @@ input.error-state { border-color: var(--error); }
               <button class="btn-next" id="r-next-4">Continue →</button>
             </div>
           </div>
-
-          <!-- STEP 5: Logistics -->
+          <!-- STEP 5 -->
           <div class="step-panel" id="r-step-5">
             <div class="r-section-label">Event Logistics</div>
             <div class="r-field"><label class="r-label">Entry &amp; Exit details</label><textarea class="r-textarea" id="r-entry-exit" placeholder="Describe entry/exit points, crowd flow, vehicle access…"></textarea></div>
@@ -973,8 +873,7 @@ input.error-state { border-color: var(--error); }
               <button class="btn-next" id="r-next-5">Review &amp; Submit →</button>
             </div>
           </div>
-
-          <!-- STEP 6: Review -->
+          <!-- STEP 6 -->
           <div class="step-panel" id="r-step-6">
             <div class="r-section-label" style="margin-top:0">Full Assessment Recap</div>
             <div class="recap-section"><div class="recap-section-title">Project Information</div><div class="recap-grid"><div class="recap-item"><div class="recap-label">Email</div><div class="recap-val" id="rv-email">—</div></div><div class="recap-item"><div class="recap-label">Job ID</div><div class="recap-val" id="rv-job-id">—</div></div><div class="recap-item"><div class="recap-label">Client</div><div class="recap-val" id="rv-client">—</div></div><div class="recap-item"><div class="recap-label">Description</div><div class="recap-val" id="rv-desc">—</div></div></div></div>
@@ -993,10 +892,9 @@ input.error-state { border-color: var(--error); }
               <span class="step-hint">Step 6 of 6</span>
             </div>
           </div>
+        </div>
 
-        </div><!-- /form-card -->
-
-        <!-- SUCCESS -->
+        <!-- RECCEE SUCCESS -->
         <div class="form-card r-success" id="r-success-screen">
           <div class="r-success-icon">✓</div>
           <h2>Assessment Submitted!</h2>
@@ -1009,7 +907,129 @@ input.error-state { border-color: var(--error); }
         </div>
       </div>
 
-      <!-- ── COMING SOON (shared) ── -->
+      <!-- ── EVENT SUBMISSION PAGE ── -->
+      <div id="page-event-submission" style="display:none">
+        <div class="section-head" style="margin-bottom:8px"><h3>Event <em style="font-style:italic;color:var(--accent)">Submission</em></h3><div class="line"></div></div>
+        <p style="font-size:13px;color:var(--text-secondary);margin-bottom:28px">Submit a new event for approval or update an existing one. Once submitted, your entry will be reviewed and you will receive a confirmation email from PrimeEdgeAI.</p>
+
+        <div class="evt-form-card" id="evt-main-card">
+          <div class="update-banner" id="evt-update-banner">Update Mode — editing an existing event</div>
+          <div class="e-section-label">Event Info</div>
+
+          <div class="e-field" id="efield-client">
+            <label>Client <span class="req">*</span></label>
+            <input type="text" class="e-input" id="e-client" placeholder="e.g., Jumia" autocomplete="off" />
+            <div class="e-field-error">Client name is required.</div>
+          </div>
+
+          <div class="e-field" id="efield-status">
+            <label>Status <span class="req">*</span></label>
+            <div class="e-select-wrap">
+              <select class="e-select" id="e-status">
+                <option value="">Select status…</option>
+                <option value="Event Creation">Event Creation</option>
+                <option value="Event Update">Event Update</option>
+              </select>
+            </div>
+            <div class="e-field-error">Please select a status.</div>
+          </div>
+
+          <!-- LOOKUP PANEL -->
+          <div class="lookup-panel" id="lookup-panel">
+            <div class="lookup-title">Find Event to Update</div>
+            <div class="lookup-row">
+              <div><label>Filter by Start Date</label><input type="date" id="filter-start" /></div>
+              <div><label>Filter by End Date</label><input type="date" id="filter-end" /></div>
+            </div>
+            <div class="lookup-bottom">
+              <button class="btn-load" id="btn-fetch" type="button"><span id="fetch-label">Load Events</span></button>
+              <div class="evt-select-wrap">
+                <select id="event-select"><option value="">— select an event —</option></select>
+              </div>
+            </div>
+            <div class="loader-text" id="loader-text"></div>
+          </div>
+
+          <input type="hidden" id="e-job-id" value="" />
+
+          <div class="e-field" id="efield-description">
+            <label>Description <span class="req">*</span></label>
+            <textarea class="e-textarea" id="e-description" placeholder="e.g., KCB VS Police FC"></textarea>
+            <div class="e-field-error">Description is required.</div>
+          </div>
+
+          <div class="e-section-label">Contacts</div>
+          <div class="e-field-row">
+            <div class="e-field" id="efield-client-lead">
+              <label>Client Lead</label>
+              <input type="text" class="e-input" id="e-client-lead" placeholder="Name" />
+            </div>
+            <div class="e-field" id="efield-agency-lead">
+              <label>Project Lead <span class="req">*</span></label>
+              <input type="text" class="e-input" id="e-agency-lead" placeholder="Name" />
+              <div class="e-field-error">Project Lead is required.</div>
+            </div>
+          </div>
+
+          <div class="e-field" id="efield-email">
+            <label>Email <span class="req">*</span></label>
+            <input type="email" class="e-input" id="e-email" placeholder="e.g., john@gmail.com" />
+            <div class="e-field-error">A valid email is required.</div>
+          </div>
+
+          <!-- Project Assistants -->
+          <div class="assistants-section" id="assistants-section">
+            <div class="e-section-label">Project Assistants</div>
+            <div class="assistant-col-labels">
+              <span>Name</span><span>Email</span><span></span>
+            </div>
+            <div id="assistants-list"></div>
+            <button type="button" class="btn-add-assistant" id="btn-add-assistant">+ Add Assistant</button>
+          </div>
+
+          <div class="e-section-label">Location &amp; Dates</div>
+          <div class="e-field" id="efield-location">
+            <label>Event Location <span class="req">*</span></label>
+            <input type="text" class="e-input" id="e-location" placeholder="Where is the event?" />
+            <div class="e-field-error">Event location is required.</div>
+          </div>
+          <div class="e-field-row">
+            <div class="e-field" id="efield-start-date">
+              <label>Start Date <span class="req">*</span></label>
+              <input type="date" class="e-input" id="e-start-date" />
+              <div class="e-field-error">Start date is required.</div>
+            </div>
+            <div class="e-field" id="efield-end-date">
+              <label>End Date <span class="req">*</span></label>
+              <input type="date" class="e-input" id="e-end-date" />
+              <div class="e-field-error">End date is required.</div>
+            </div>
+          </div>
+
+          <div class="evt-submit-row">
+            <span class="evt-submit-note">* required fields</span>
+            <button class="btn-evt-submit" id="evt-submit-btn">
+              <span class="btn-text">Submit Event</span>
+              <div class="btn-spinner"></div>
+            </button>
+          </div>
+          <div class="evt-error-banner" id="evt-error-banner"></div>
+        </div>
+
+        <!-- EVENT SUCCESS -->
+        <div class="evt-form-card evt-success-screen" id="evt-success-screen">
+          <div class="evt-success-icon" id="evt-success-icon">✓</div>
+          <h2 id="evt-success-title">Event Submitted!</h2>
+          <p id="evt-success-msg">Your submission has been received and is on its way. The team will review it shortly and follow up with next steps.</p>
+          <div class="evt-success-ref" id="evt-success-ref">REF — —</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">
+            <button class="btn-evt-new" id="btn-evt-new">Submit another Event</button>
+            <button class="btn-go-dash" onclick="navigateTo('dashboard')">← Back to Dashboard</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── COMING SOON ── -->
       <div id="page-coming-soon" style="display:none">
         <div class="coming-soon">
           <div class="cs-icon">🔧</div>
@@ -1023,40 +1043,38 @@ input.error-state { border-color: var(--error); }
   </div>
 </div>
 
-<!-- Hidden PDF target -->
+<!-- PDF target -->
 <div id="pdf-preview"></div>
 
 <script>
-/* ═══════════════════════════════════════════════════════
+/* ═══════════════════════════════════════════════
    CONFIG
-═══════════════════════════════════════════════════════ */
+═══════════════════════════════════════════════ */
 const OTP_REQUEST_URL = 'https://chux.app.n8n.cloud/webhook/otp-auth';
 const OTP_VERIFY_URL  = 'https://chux.app.n8n.cloud/webhook/otp-auth';
 const SHEET_ID        = '1AO-06SYVS_uVnBWkM5smUFeSoTWUeq0GbFvX7tJr3oE';
 const SHEET_GID       = '0';
 const SHEET_CSV_URL   = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${SHEET_GID}`;
 const RECCEE_WEBHOOK  = 'https://chux.app.n8n.cloud/webhook/reccee-assessment';
+const EVENT_WEBHOOK   = 'https://chux.app.n8n.cloud/webhook/event-registration';
+const EVT_SHEET_URL   = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQzV51evXd43ebjxahF57b6j4MTDnI0tcEjBNzLjoqdP84_vujazI5cLRD12tzJ9fLl30hYT3zEMyyU/pub?output=csv';
 const OTP_LIFETIME    = 5 * 60;
 
-/* ═══════════════════════════════════════════════════════
+/* ═══════════════════════════════════════════════
    AUTH STATE
-═══════════════════════════════════════════════════════ */
-let authEmail = '';
-let authName  = '';
-let timerInterval = null, timerLeft = OTP_LIFETIME;
-let recceeCount = 0;
+═══════════════════════════════════════════════ */
+let authEmail = '', authName = '', timerInterval = null, timerLeft = OTP_LIFETIME;
+let recceeCount = 0, eventCount = 0;
 
-/* ═══════════════════════════════════════════════════════
+/* ═══════════════════════════════════════════════
    LOGIN FLOW
-═══════════════════════════════════════════════════════ */
+═══════════════════════════════════════════════ */
 function lSetStep(n) {
   document.getElementById('lstep1').className = 'lstep ' + (n===1?'active':'done');
   document.getElementById('lstep2').className = 'lstep ' + (n===2?'active':'');
   document.getElementById('lpanel-email').className = 'lpanel ' + (n===1?'active':'');
   document.getElementById('lpanel-otp').className   = 'lpanel ' + (n===2?'active':'');
 }
-
-// OTP timer
 function startTimer() {
   clearInterval(timerInterval); timerLeft = OTP_LIFETIME;
   document.getElementById('l-btn-resend').disabled = true;
@@ -1070,8 +1088,6 @@ function updateTimer() {
   el.textContent=`Expires in ${m}:${s}`;
   el.className='timer'+(timerLeft<=60?' warn':'');
 }
-
-// OTP boxes
 const lBoxes = Array.from({length:6},(_,i)=>document.getElementById(`l-otp-${i}`));
 lBoxes.forEach((box,idx)=>{
   box.addEventListener('keydown',e=>{
@@ -1087,7 +1103,6 @@ function lFilled(){lBoxes.forEach(b=>b.classList.toggle('filled',!!b.value));}
 function lGetOtp(){return lBoxes.map(b=>b.value).join('');}
 function lClearOtp(err=false){lBoxes.forEach(b=>{b.value='';b.classList.remove('filled');b.classList.toggle('error-state',err);}); if(err)setTimeout(()=>lBoxes.forEach(b=>b.classList.remove('error-state')),700);}
 
-// Send OTP
 document.getElementById('l-btn-send').addEventListener('click', sendOtp);
 document.getElementById('l-email').addEventListener('keydown',e=>{if(e.key==='Enter')sendOtp();});
 async function sendOtp(){
@@ -1110,8 +1125,6 @@ async function sendOtp(){
   } catch{emailEl.classList.add('error-state'); errEl.textContent='Network error. Please check your connection.'; errEl.classList.add('visible');}
   finally{btn.classList.remove('loading');}
 }
-
-// Verify OTP
 document.getElementById('l-btn-verify').addEventListener('click', verifyOtp);
 async function verifyOtp(){
   const otp=lGetOtp(), errEl=document.getElementById('l-otp-err'), btn=document.getElementById('l-btn-verify');
@@ -1132,8 +1145,6 @@ async function verifyOtp(){
   } catch{errEl.textContent='Network error. Please try again.'; errEl.classList.add('visible'); lClearOtp(true);}
   finally{btn.classList.remove('loading');}
 }
-
-// Resend
 document.getElementById('l-btn-resend').addEventListener('click', async()=>{
   const btn=document.getElementById('l-btn-resend'); btn.disabled=true; btn.textContent='Sending…';
   lClearOtp(); document.getElementById('l-otp-err').classList.remove('visible');
@@ -1144,46 +1155,36 @@ document.getElementById('l-btn-resend').addEventListener('click', async()=>{
   }catch{document.getElementById('l-otp-err').textContent='Network error.';document.getElementById('l-otp-err').classList.add('visible');btn.disabled=false;}
   finally{btn.textContent='Resend OTP';}
 });
-
 document.getElementById('l-btn-back').addEventListener('click',()=>{clearInterval(timerInterval);lClearOtp();document.getElementById('l-otp-err').classList.remove('visible');lSetStep(1);});
 
-/* ═══════════════════════════════════════════════════════
+/* ═══════════════════════════════════════════════
    ENTER APP
-═══════════════════════════════════════════════════════ */
+═══════════════════════════════════════════════ */
 function enterApp(){
-  // Derive display name from email
   const parts=authEmail.split('@')[0].replace(/[._]/g,' ').split(' ');
   authName=parts.map(p=>p.charAt(0).toUpperCase()+p.slice(1)).join(' ');
-
-  // Populate sidebar
   document.getElementById('sb-avatar').textContent=authName.charAt(0).toUpperCase();
   document.getElementById('sb-name').textContent=authName;
   document.getElementById('sb-email').textContent=authEmail;
   document.getElementById('dash-hello').innerHTML=`Welcome, <em>${authName.split(' ')[0]}</em>`;
   document.getElementById('dash-user-stat').textContent=authName.split(' ')[0];
-
-  // Hide login, show app
   document.getElementById('login-page').classList.add('hidden');
   document.getElementById('app-shell').classList.add('visible');
-
-  // Set greeting
   const h=new Date().getHours();
   const greet=h<12?'Good Morning':h<17?'Good Afternoon':'Good Evening';
   document.getElementById('dash-time-tag').textContent=greet;
   document.getElementById('dash-sub').textContent=`${greet}, ${authName.split(' ')[0]}! Here's your PrimeEdgeAI workspace.`;
-
-  // Pre-fill reccee email and auto-verify
   document.getElementById('r-project-email').value=authEmail;
   document.getElementById('r-step1-info').textContent=`Logged in as ${authEmail}. Click below to load your assigned jobs.`;
-
+  // Pre-fill event email
+  document.getElementById('e-email').value=authEmail;
   startClock();
 }
 
-/* ═══════════════════════════════════════════════════════
+/* ═══════════════════════════════════════════════
    SIDEBAR + NAVIGATION
-═══════════════════════════════════════════════════════ */
+═══════════════════════════════════════════════ */
 let sidebarOpen = true;
-
 document.getElementById('sb-toggle').addEventListener('click',()=>{
   const sb=document.getElementById('sidebar'), mw=document.getElementById('main-wrap'), ov=document.getElementById('sb-overlay');
   const mobile=window.innerWidth<=768;
@@ -1194,51 +1195,34 @@ document.getElementById('sb-overlay').addEventListener('click',()=>{
   document.getElementById('sidebar').classList.remove('open');
   document.getElementById('sb-overlay').classList.remove('visible');
 });
-
 document.querySelectorAll('.nav-item[data-page]').forEach(item=>{
-  item.addEventListener('click',()=>{
-    if(item.classList.contains('disabled'))return;
-    navigateTo(item.dataset.page);
-  });
+  item.addEventListener('click',()=>{if(item.classList.contains('disabled'))return;navigateTo(item.dataset.page);});
 });
-
 const pageNames = {
-  dashboard:'Dashboard', reccee:'Reccee Assessment',
+  dashboard:'Dashboard', reccee:'Reccee Assessment', 'event-submission':'Event Submission',
   'site-checklist':'Site Checklist','incident-report':'Incident Report',
-  jobs:'Jobs Overview',timesheets:'Timesheets',team:'Team',reports:'Reports'
+  timesheets:'Timesheets',team:'Team',reports:'Reports'
 };
-
 function navigateTo(page){
-  // Update nav
   document.querySelectorAll('.nav-item[data-page]').forEach(i=>i.classList.remove('active'));
   const activeNav=document.querySelector(`.nav-item[data-page="${page}"]`);
   if(activeNav)activeNav.classList.add('active');
-
-  // Update breadcrumb
   document.getElementById('topbar-bc').textContent=pageNames[page]||page;
-
-  // Show/hide pages
   document.getElementById('page-dashboard').style.display='none';
   document.getElementById('page-reccee').style.display='none';
+  document.getElementById('page-event-submission').style.display='none';
   document.getElementById('page-coming-soon').style.display='none';
-
   if(page==='dashboard')document.getElementById('page-dashboard').style.display='';
   else if(page==='reccee')document.getElementById('page-reccee').style.display='';
+  else if(page==='event-submission')document.getElementById('page-event-submission').style.display='';
   else document.getElementById('page-coming-soon').style.display='';
-
-  // Close mobile sidebar
-  if(window.innerWidth<=768){
-    document.getElementById('sidebar').classList.remove('open');
-    document.getElementById('sb-overlay').classList.remove('visible');
-  }
+  if(window.innerWidth<=768){document.getElementById('sidebar').classList.remove('open');document.getElementById('sb-overlay').classList.remove('visible');}
   window.scrollTo({top:0,behavior:'smooth'});
 }
-
 document.getElementById('btn-logout').addEventListener('click',()=>{
-  authEmail=''; authName=''; recceeCount=0;
+  authEmail=''; authName=''; recceeCount=0; eventCount=0;
   document.getElementById('app-shell').classList.remove('visible');
   document.getElementById('login-page').classList.remove('hidden');
-  // reset login
   document.getElementById('l-email').value='';
   document.getElementById('l-email').classList.remove('error-state');
   document.getElementById('l-email-err').classList.remove('visible');
@@ -1249,26 +1233,21 @@ document.getElementById('btn-logout').addEventListener('click',()=>{
   lSetStep(1);
   clearInterval(timerInterval);
   rResetAll();
+  evtResetAll();
 });
 
-/* ═══════════════════════════════════════════════════════
-   CLOCK
-═══════════════════════════════════════════════════════ */
+/* CLOCK */
 function startClock(){
-  function tick(){
-    const now=new Date();
-    document.getElementById('topbar-time').textContent=now.toLocaleTimeString('en-KE',{hour:'2-digit',minute:'2-digit'});
-  }
+  function tick(){document.getElementById('topbar-time').textContent=new Date().toLocaleTimeString('en-KE',{hour:'2-digit',minute:'2-digit'});}
   tick(); setInterval(tick,30000);
 }
 
-/* ═══════════════════════════════════════════════════════
+/* ═══════════════════════════════════════════════
    RECCEE MODULE
-═══════════════════════════════════════════════════════ */
+═══════════════════════════════════════════════ */
 let rEmail='',rPLName='',rJobs=[],rSelectedJob=null,rCurrentStep=1,rSubmitting=false;
 const R_TOTAL=6;
 
-// Radio/checkbox delegation for reccee
 document.addEventListener('click',function(e){
   const ri=e.target.closest('.radio-item[data-rg]');
   if(ri){const g=ri.dataset.rg;document.querySelectorAll(`.radio-item[data-rg="${g}"]`).forEach(i=>i.classList.remove('selected'));ri.classList.add('selected');return;}
@@ -1293,7 +1272,6 @@ function rGoStep(n){
   document.getElementById('r-form-card').scrollIntoView({behavior:'smooth',block:'start'});
 }
 
-// CSV
 function parseCSV(text){
   const rows=[];let row=[],field='',inQ=false;
   for(let i=0;i<text.length;i++){const ch=text[i],nx=text[i+1];
@@ -1320,7 +1298,6 @@ function nameFor(email,row){
   return '';
 }
 
-// Step 1: find jobs
 document.getElementById('r-next-1').addEventListener('click',async()=>{
   const emailEl=document.getElementById('r-project-email'),errEl=document.getElementById('r-err-1'),btn=document.getElementById('r-next-1');
   const email=emailEl.value.trim().toLowerCase();
@@ -1375,7 +1352,6 @@ function rValidate(n){
   if(n===5){const v=document.getElementById('r-challenges').value.trim();rSetErr('challenges',!v);if(!v)ok=false;}
   return ok;
 }
-
 function rv(v){return v||'—';}
 function rBuildRecap(){
   const am=rGetChecks('amenities');
@@ -1404,7 +1380,6 @@ function rBuildRecap(){
   document.querySelectorAll('.recap-val').forEach(el=>el.classList.toggle('empty',el.textContent==='—'));
 }
 
-// PDF
 function buildPDFHTML(){
   const am=rGetChecks('amenities'),jobId=rSelectedJob['Job_ID']||'N/A';
   const now=new Date().toLocaleString('en-KE',{dateStyle:'full',timeStyle:'short'});
@@ -1493,12 +1468,184 @@ function rResetAll(){
   document.getElementById('r-progress-bar').style.display='';
   rClearErrors();
   rJobs=[];rSelectedJob=null;rSubmitting=false;rCurrentStep=1;
-  // Re-fill email from login
   document.getElementById('r-project-email').value=authEmail;
-  // reset panels
   document.querySelectorAll('[id^="r-step-"]').forEach(p=>p.classList.remove('active'));
   document.getElementById('r-step-1').classList.add('active');
   rUpdateProgress(1);
+}
+
+/* ═══════════════════════════════════════════════
+   EVENT SUBMISSION MODULE
+═══════════════════════════════════════════════ */
+let evtAllEvents=[], evtIsUpdateMode=false, evtAssistantCount=0;
+
+function evtAddAssistant(name='',email=''){
+  evtAssistantCount++;
+  const id=evtAssistantCount;
+  const list=document.getElementById('assistants-list');
+  const entry=document.createElement('div');entry.className='assistant-entry';entry.id=`assistant-${id}`;
+  entry.innerHTML=`<input type="text" class="e-input" placeholder="Name" id="asst-name-${id}" value="${name}" /><input type="email" class="e-input" placeholder="email@example.com" id="asst-email-${id}" value="${email}" /><button type="button" class="btn-remove" onclick="evtRemoveAssistant(${id})">Remove</button>`;
+  list.appendChild(entry);
+}
+function evtRemoveAssistant(id){const el=document.getElementById(`assistant-${id}`);if(el)el.remove();}
+function evtGetAssistants(){
+  const entries=document.querySelectorAll('.assistant-entry'), result=[];
+  entries.forEach(entry=>{
+    const nameEl=entry.querySelector('input[type="text"]'), emailEl=entry.querySelector('input[type="email"]');
+    if(nameEl&&emailEl&&(nameEl.value.trim()||emailEl.value.trim()))result.push({name:nameEl.value.trim(),email:emailEl.value.trim()});
+  });
+  return result;
+}
+function evtClearAssistants(){document.getElementById('assistants-list').innerHTML='';evtAssistantCount=0;}
+
+document.getElementById('btn-add-assistant').addEventListener('click',()=>evtAddAssistant());
+
+document.getElementById('e-status').addEventListener('change',function(){
+  evtIsUpdateMode=this.value==='Event Update';
+  document.getElementById('lookup-panel').classList.toggle('visible',evtIsUpdateMode);
+  document.getElementById('evt-update-banner').classList.toggle('visible',evtIsUpdateMode);
+  document.getElementById('evt-main-card').classList.toggle('update-mode',evtIsUpdateMode);
+  const btn=document.getElementById('evt-submit-btn');
+  btn.classList.toggle('update-submit',evtIsUpdateMode);
+  document.querySelector('#evt-submit-btn .btn-text').textContent=evtIsUpdateMode?'Update Event':'Submit Event';
+  if(!evtIsUpdateMode){document.getElementById('e-job-id').value='';document.getElementById('event-select').value='';}
+});
+
+function evtParseCSV(text){
+  const lines=text.trim().split('\n');if(lines.length<2)return[];
+  const headers=lines[0].split(',').map(h=>h.trim().replace(/^"|"$/g,''));
+  return lines.slice(1).map(line=>{
+    const cols=[];let cur='',inQ=false;
+    for(let i=0;i<line.length;i++){if(line[i]==='"')inQ=!inQ;else if(line[i]===','&&!inQ){cols.push(cur.trim());cur='';}else cur+=line[i];}
+    cols.push(cur.trim());
+    const obj={};headers.forEach((h,i)=>{obj[h]=(cols[i]||'').replace(/^"|"$/g,'').trim();});return obj;
+  }).filter(r=>r['Job_ID']||r['Description']);
+}
+function evtNormDate(s){if(!s)return'';const d=new Date(s);if(!isNaN(d))return d.toISOString().slice(0,10);return s;}
+
+document.getElementById('btn-fetch').addEventListener('click',async()=>{
+  const btn=document.getElementById('btn-fetch'),lbl=document.getElementById('fetch-label'),lt=document.getElementById('loader-text'),sel=document.getElementById('event-select');
+  btn.disabled=true;lbl.textContent='Loading…';lt.textContent='Fetching events…';
+  try{
+    const res=await fetch(EVT_SHEET_URL);if(!res.ok)throw new Error(`Could not reach the sheet (${res.status}).`);
+    const csv=await res.text();evtAllEvents=evtParseCSV(csv);
+    const fs=document.getElementById('filter-start').value,fe=document.getElementById('filter-end').value;
+    const filtered=evtAllEvents.filter(ev=>{
+      const sd=evtNormDate(ev['Start Date']||ev['StartDate']||''),ed=evtNormDate(ev['End Date']||ev['EndDate']||'');
+      if(fs&&sd&&sd<fs)return false;if(fe&&ed&&ed>fe)return false;return true;
+    });
+    sel.innerHTML='<option value="">— select an event —</option>';
+    if(!filtered.length){lt.textContent=`No events found${fs||fe?' for that date range':''}. Try clearing the filters.`;}
+    else{
+      filtered.forEach(ev=>{
+        const label=[ev['Job_ID'],ev['Description'],ev['Client']].filter(Boolean).join(' · ');
+        const opt=document.createElement('option');opt.value=evtAllEvents.indexOf(ev);opt.textContent=label;sel.appendChild(opt);
+      });
+      lt.textContent=`${filtered.length} event${filtered.length!==1?'s':''} loaded — select one to prefill.`;
+    }
+  }catch(err){lt.textContent='Error: '+err.message;}
+  finally{btn.disabled=false;lbl.textContent='Load Events';}
+});
+
+document.getElementById('event-select').addEventListener('change',function(){
+  if(this.value==='')return;
+  const ev=evtAllEvents[+this.value];if(!ev)return;
+  const map={'e-client':ev['Client']||'','e-description':ev['Description']||'','e-client-lead':ev['Client Lead']||'','e-agency-lead':ev['Project Lead']||'','e-email':ev['Email']||'','e-location':ev['Where']||'','e-start-date':evtNormDate(ev['Start Date']||ev['StartDate']||''),'e-end-date':evtNormDate(ev['End Date']||ev['EndDate']||'')};
+  document.getElementById('e-job-id').value=(ev['Job_ID']||'').trim();
+  Object.entries(map).forEach(([id,val])=>{
+    const el=document.getElementById(id);el.value=val;
+    el.style.transition='background 0s';el.style.background='rgba(249,115,22,0.12)';
+    setTimeout(()=>{el.style.transition='background 0.7s';el.style.background='';},60);
+  });
+  document.getElementById('loader-text').textContent=`Prefilled: ${ev['Description']||ev['Job_ID']} — Job ID: ${ev['Job_ID']||'n/a'}`;
+});
+
+function evtSetErr(id,show){const el=document.getElementById('efield-'+id);if(el)el.classList.toggle('has-error',show);}
+function evtValidate(){
+  let ok=true;
+  [['client',()=>document.getElementById('e-client').value.trim()],
+   ['status',()=>document.getElementById('e-status').value],
+   ['description',()=>document.getElementById('e-description').value.trim()],
+   ['agency-lead',()=>document.getElementById('e-agency-lead').value.trim()],
+   ['location',()=>document.getElementById('e-location').value.trim()],
+   ['start-date',()=>document.getElementById('e-start-date').value],
+   ['end-date',()=>document.getElementById('e-end-date').value],
+  ].forEach(([id,fn])=>{const v=!!fn();evtSetErr(id,!v);if(!v)ok=false;});
+  const emailOk=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(document.getElementById('e-email').value.trim());
+  evtSetErr('email',!emailOk);if(!emailOk)ok=false;
+  return ok;
+}
+
+function evtShowSuccess(client){
+  const ref='REF-'+Date.now().toString(36).toUpperCase();
+  document.getElementById('evt-success-ref').textContent=`${ref} · ${client}`;
+  const icon=document.getElementById('evt-success-icon');
+  if(evtIsUpdateMode){
+    icon.classList.add('update-icon');
+    document.getElementById('evt-success-title').textContent='Update Submitted';
+    document.getElementById('evt-success-msg').textContent='Your update has been submitted. PrimeEdgeAI will review the changes and follow up by email.';
+  } else {
+    icon.classList.remove('update-icon');
+    document.getElementById('evt-success-title').textContent='Submission Received';
+    document.getElementById('evt-success-msg').textContent='Your submission is pending approval. You will receive an email from PrimeEdgeAI once it has been reviewed.';
+  }
+  document.getElementById('evt-success-screen').classList.add('visible');
+  document.getElementById('evt-main-card').style.display='none';
+  eventCount++;
+  document.getElementById('dash-event-count').textContent=eventCount;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+document.getElementById('evt-submit-btn').addEventListener('click',async()=>{
+  if(!evtValidate())return;
+  const btn=document.getElementById('evt-submit-btn');btn.classList.add('loading');
+  document.getElementById('evt-error-banner').classList.remove('visible');
+  const clientVal=document.getElementById('e-client').value.trim();
+  const payload={
+    client:clientVal,status:document.getElementById('e-status').value,
+    description:document.getElementById('e-description').value.trim(),
+    client_lead:document.getElementById('e-client-lead').value.trim(),
+    agency_lead:document.getElementById('e-agency-lead').value.trim(),
+    email:document.getElementById('e-email').value.trim(),
+    event_location:document.getElementById('e-location').value.trim(),
+    start_date:document.getElementById('e-start-date').value,
+    end_date:document.getElementById('e-end-date').value,
+  };
+  const jid=document.getElementById('e-job-id').value;if(jid)payload.job_id=jid;
+  const assistants=evtGetAssistants();if(assistants.length)payload.assistants=assistants;
+  try{
+    const res=await fetch(EVENT_WEBHOOK,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+    if(res.ok||res.status===200||res.status===201||res.status===202){evtShowSuccess(clientVal);}
+    else throw new Error(`Server returned ${res.status}`);
+  }catch(err){
+    document.getElementById('evt-error-banner').textContent=`Submission failed: ${err.message}. Please try again.`;
+    document.getElementById('evt-error-banner').classList.add('visible');
+  }finally{btn.classList.remove('loading');}
+});
+
+document.getElementById('btn-evt-new').addEventListener('click',evtResetAll);
+function evtResetAll(){
+  ['e-client','e-description','e-client-lead','e-agency-lead','e-email','e-location','e-start-date','e-end-date'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('e-status').value='';
+  document.getElementById('e-job-id').value='';
+  document.getElementById('event-select').innerHTML='<option value="">— select an event —</option>';
+  document.getElementById('loader-text').textContent='';
+  document.getElementById('filter-start').value='';
+  document.getElementById('filter-end').value='';
+  evtClearAssistants();
+  document.getElementById('lookup-panel').classList.remove('visible');
+  document.getElementById('evt-update-banner').classList.remove('visible');
+  document.getElementById('evt-main-card').classList.remove('update-mode');
+  document.getElementById('evt-main-card').style.display='';
+  const sbtn=document.getElementById('evt-submit-btn');sbtn.classList.remove('update-submit');
+  document.querySelector('#evt-submit-btn .btn-text').textContent='Submit Event';
+  evtIsUpdateMode=false;
+  document.getElementById('evt-error-banner').classList.remove('visible');
+  document.getElementById('evt-success-screen').classList.remove('visible');
+  // Re-fill email from login
+  document.getElementById('e-email').value=authEmail;
+  // Clear field errors
+  document.querySelectorAll('.e-field.has-error').forEach(f=>f.classList.remove('has-error'));
 }
 
 /* INIT */
