@@ -649,74 +649,19 @@ select option { background: #1e2318; }
 /* ─────────────────────────────────────────
    CONFIG
 ───────────────────────────────────────── */
-const SHEET_ID  = '1AO-06SYVS_uVnBWkM5smUFeSoTWUeq0GbFvX7tJr3oE';
-// Fetch all columns; gid=0 is the Events sheet
-const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&gid=0`;
-const WEBHOOK   = 'https://kevinmongare.app.n8n.cloud/webhook/reccee-assessment';
+// All sheet access goes through n8n (sheet is private — direct browser fetch blocked by CORS/auth)
+const VERIFY_WEBHOOK = 'https://kevinmongare.app.n8n.cloud/webhook/reccee-verify-email';
+const WEBHOOK        = 'https://kevinmongare.app.n8n.cloud/webhook/reccee-assessment';
 
 /* ─────────────────────────────────────────
    STATE
 ───────────────────────────────────────── */
-let allEvents   = [];  // all rows from Events sheet
 let userEmail   = '';
 let projectLeadName = '';
 let userJobs    = [];  // rows matching verified email
 let selectedJob = null;
 let currentStep = 1;
 const TOTAL_STEPS = 6;
-
-/* ─────────────────────────────────────────
-   CSV PARSER
-   Handles quoted fields, embedded commas, newlines
-───────────────────────────────────────── */
-function parseCSV(text) {
-  const lines = text.trim().split('\n');
-  if (lines.length < 2) return [];
-  const headers = splitCSVLine(lines[0]).map(h => h.replace(/^"|"$/g, '').trim());
-  const rows = [];
-  for (let i = 1; i < lines.length; i++) {
-    const cols = splitCSVLine(lines[i]);
-    const obj = {};
-    headers.forEach((h, idx) => { obj[h] = (cols[idx] || '').replace(/^"|"$/g, '').trim(); });
-    if (Object.values(obj).some(v => v)) rows.push(obj);
-  }
-  return rows;
-}
-
-function splitCSVLine(line) {
-  const cols = []; let cur = '', inQ = false;
-  for (let i = 0; i < line.length; i++) {
-    if (line[i] === '"') { inQ = !inQ; }
-    else if (line[i] === ',' && !inQ) { cols.push(cur); cur = ''; }
-    else { cur += line[i]; }
-  }
-  cols.push(cur);
-  return cols;
-}
-
-/* ─────────────────────────────────────────
-   FIND EMAIL COLUMN
-   Tries various possible column names
-───────────────────────────────────────── */
-function findEmailColumn(rows) {
-  if (!rows.length) return null;
-  const candidates = ['Email', 'Project Lead Email', 'ProjectLeadEmail', 'email', 'project_lead_email', 'Lead Email'];
-  const keys = Object.keys(rows[0]);
-  for (const c of candidates) {
-    if (keys.includes(c)) return c;
-  }
-  // fuzzy: find a key that includes 'email' (case-insensitive)
-  const fuzzy = keys.find(k => k.toLowerCase().includes('email'));
-  return fuzzy || null;
-}
-
-function findNameColumn(rows) {
-  if (!rows.length) return null;
-  const candidates = ['Project Lead', 'ProjectLead', 'Lead Name', 'project_lead', 'Project Manager', 'Name'];
-  const keys = Object.keys(rows[0]);
-  for (const c of candidates) { if (keys.includes(c)) return c; }
-  return null;
-}
 
 /* ─────────────────────────────────────────
    RADIO / CHECKBOX WIDGET
@@ -809,7 +754,9 @@ function validateStep(n) {
 
 /* ─────────────────────────────────────────
    STEP 1 — EMAIL VERIFICATION
-   Checks email against the 'Email' column in Events sheet
+   Calls n8n verify-email webhook — n8n reads the private Google Sheet
+   and returns the matching jobs as JSON. The browser never touches the
+   sheet directly (avoids CORS / Google login redirect).
 ───────────────────────────────────────── */
 document.getElementById('next-1').addEventListener('click', async () => {
   if (!validateStep(1)) return;
@@ -821,36 +768,34 @@ document.getElementById('next-1').addEventListener('click', async () => {
   document.getElementById('verified-badge-wrap').innerHTML = '';
 
   try {
-    const res = await fetch(SHEET_URL);
-    if (!res.ok) throw new Error(`Could not load the events sheet (HTTP ${res.status}).`);
+    const res = await fetch(VERIFY_WEBHOOK, {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify({ email: userEmail }),
+    });
 
-    const csvText = await res.text();
-    allEvents = parseCSV(csvText);
+    // n8n returns 200 with { verified: true, jobs: [...], name: '...' }
+    // or { verified: false, message: '...' }
+    let data;
+    try { data = await res.json(); }
+    catch (_) { throw new Error('Unexpected response from the verification service. Please try again.'); }
 
-    if (allEvents.length === 0) throw new Error('No events found in the sheet. Please contact the PrimeEdgeAI team.');
+    if (!res.ok || data.verified === false) {
+      throw new Error(data.message || `No jobs found for "${userEmail}". Please check your email or contact the PrimeEdgeAI team.`);
+    }
 
-    const emailCol = findEmailColumn(allEvents);
-    if (!emailCol) throw new Error('Email column not found in the events sheet. Please contact support.');
-
-    const nameCol = findNameColumn(allEvents);
-
-    // Filter jobs where the Email column matches the entered email
-    userJobs = allEvents.filter(row => (row[emailCol] || '').trim().toLowerCase() === userEmail);
-
+    userJobs = data.jobs || [];
     if (userJobs.length === 0) {
-      throw new Error(`No jobs found for "${userEmail}". Please check your email or contact the PrimeEdgeAI team.`);
+      throw new Error(`No jobs assigned to "${userEmail}". Please contact the PrimeEdgeAI team.`);
     }
 
-    // Extract project lead name if column exists
-    if (nameCol && userJobs[0][nameCol]) {
-      projectLeadName = userJobs[0][nameCol].trim();
-    }
+    projectLeadName = data.name || '';
 
     // Show verified badge
     document.getElementById('verified-badge-wrap').innerHTML =
       `<div class="verified-pill">${userEmail} — ${userJobs.length} job${userJobs.length !== 1 ? 's' : ''} found</div>`;
 
-    // Build job cards
+    // Build job cards for step 2
     buildJobCards(userJobs);
     document.getElementById('jobs-info-box').textContent =
       `Verified: ${userEmail} · ${userJobs.length} assigned job${userJobs.length !== 1 ? 's' : ''} found. Select one to continue.`;
