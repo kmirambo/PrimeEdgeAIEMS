@@ -314,12 +314,16 @@ input.error-state { border-color: var(--error); }
 .job-card { background: var(--input-bg); border: 1px solid var(--border); border-radius: 8px; padding: 16px 18px; cursor: pointer; transition: border-color .2s, background .2s; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
 .job-card:hover { border-color: rgba(200,230,60,.4); background: rgba(200,230,60,.03); }
 .job-card.selected { border-color: var(--accent); background: rgba(200,230,60,.06); }
+.job-card.purple-job-card:hover { border-color: rgba(167,139,250,.4); background: rgba(167,139,250,.03); }
+.job-card.purple-job-card.selected { border-color: var(--purple); background: rgba(167,139,250,.06); }
 .job-card-left { flex: 1; }
 .job-card-id { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--accent); letter-spacing: .1em; margin-bottom: 4px; }
+.job-card.purple-job-card .job-card-id { color: var(--purple); }
 .job-card-desc { font-size: 13px; color: var(--text-primary); font-weight: 500; margin-bottom: 3px; }
 .job-card-meta { font-size: 11px; color: var(--text-secondary); }
 .job-card-check { width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--border); flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all .2s; font-size: 11px; }
 .job-card.selected .job-card-check { border-color: var(--accent); background: var(--accent); color: #0C0F0A; font-weight: 700; }
+.job-card.purple-job-card.selected .job-card-check { border-color: var(--purple); background: var(--purple); color: #0C0F0A; font-weight: 700; }
 .radio-group, .check-group { display: flex; flex-direction: column; gap: 10px; }
 .radio-group.inline { flex-direction: row; gap: 12px; flex-wrap: wrap; }
 .radio-item, .check-item { display: flex; align-items: center; gap: 10px; background: var(--input-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 10px 14px; cursor: pointer; transition: border-color .2s, background .2s; user-select: none; }
@@ -332,6 +336,10 @@ input.error-state { border-color: var(--error); }
 .check-item.selected .rpip::after { content: '✓'; font-size: 10px; color: #0C0F0A; font-weight: 700; }
 .radio-item span:last-child, .check-item span:last-child { font-size: 13px; color: var(--text-secondary); }
 .radio-item.selected span:last-child, .check-item.selected span:last-child { color: var(--text-primary); }
+/* purple radio variants for requisitions */
+.radio-item.purple-radio.selected { border-color: var(--purple); background: rgba(167,139,250,0.1); }
+.radio-item.purple-radio.selected .rpip { border-color: var(--purple); background: var(--purple); box-shadow: inset 0 0 0 3px var(--input-bg); }
+.radio-item.purple-radio.selected span:last-child { color: var(--text-primary); }
 .verified-pill { display: inline-flex; align-items: center; gap: 7px; background: rgba(102,187,106,.1); border: 1px solid rgba(102,187,106,.3); color: var(--success); font-family: 'DM Mono', monospace; font-size: 11px; padding: 6px 14px; border-radius: 100px; margin-top: 10px; animation: rise .3s ease both; }
 .verified-pill::before { content: '✓'; font-weight: 700; font-size: 13px; }
 .r-info-box { background: var(--accent-dim); border: 1px solid var(--accent-border); border-radius: 8px; padding: 14px 16px; margin-bottom: 20px; font-size: 12px; color: var(--text-secondary); line-height: 1.6; }
@@ -492,6 +500,29 @@ input.error-state { border-color: var(--error); }
 .req-field.has-error .req-input, .req-field.has-error .req-select, .req-field.has-error .req-textarea { border-color: var(--error); }
 .req-field.has-error .req-field-error { display: block; }
 .req-field-error { font-size: 11px; color: var(--error); margin-top: 5px; font-family: 'DM Mono', monospace; display: none; }
+.req-input[readonly] { opacity: .65; cursor: default; background: rgba(167,139,250,0.04); border-color: rgba(167,139,250,0.2); }
+
+/* JOB LOOKUP — purple themed */
+.req-job-lookup { background: rgba(167,139,250,0.04); border: 1px solid rgba(167,139,250,0.2); border-radius: 8px; padding: 20px; margin-bottom: 28px; }
+.req-lookup-title { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: rgba(167,139,250,0.7); margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+.req-lookup-title::after { content: ''; flex: 1; height: 1px; background: rgba(167,139,250,.2); }
+.req-lookup-row { display: flex; align-items: flex-end; gap: 12px; flex-wrap: wrap; }
+.req-lookup-email-wrap { flex: 1; min-width: 200px; }
+.req-lookup-email-wrap label { font-size: 11px; color: var(--text-secondary); margin-bottom: 6px; display: block; }
+.req-lookup-email-input { width: 100%; background: var(--input-bg); border: 1px solid rgba(167,139,250,0.2); border-radius: var(--radius); color: var(--text-primary); font-family: 'DM Sans', sans-serif; font-size: 13px; padding: 10px 12px; outline: none; transition: border-color .2s; }
+.req-lookup-email-input:focus { border-color: var(--purple); box-shadow: 0 0 0 3px rgba(167,139,250,.1); }
+.btn-req-load { display: flex; align-items: center; gap: 8px; background: var(--purple); color: #0C0F0A; border: none; border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; padding: 10px 20px; cursor: pointer; white-space: nowrap; transition: background .2s, transform .15s; }
+.btn-req-load:hover { background: #c4b5fd; transform: translateY(-1px); }
+.btn-req-load:disabled { opacity: .5; pointer-events: none; }
+.req-loader-text { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-muted); margin-top: 10px; min-height: 16px; }
+.req-job-cards { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
+.req-job-cards:empty { display: none; }
+.req-verified-badge { display: none; margin-top: 10px; }
+.req-verified-badge.visible { display: block; animation: rise .3s ease both; }
+.req-verified-badge-inner { display: inline-flex; align-items: center; gap: 7px; background: rgba(167,139,250,.1); border: 1px solid rgba(167,139,250,.3); color: var(--purple); font-family: 'DM Mono', monospace; font-size: 11px; padding: 6px 14px; border-radius: 100px; }
+.req-verified-badge-inner::before { content: '✓'; font-weight: 700; font-size: 13px; }
+.req-lookup-err { font-size: 11px; color: var(--error); margin-top: 8px; font-family: 'DM Mono', monospace; display: none; }
+.req-lookup-err.visible { display: block; }
 
 /* LINE ITEMS */
 .line-items-table { width: 100%; border-collapse: collapse; margin-bottom: 12px; }
@@ -741,81 +772,21 @@ input.error-state { border-color: var(--error); }
           <p id="dash-sub">Here's a quick overview of your PrimeEdgeAI workspace.</p>
         </div>
         <div class="stats-row">
-          <div class="stat-card">
-            <div class="stat-icon"></div>
-            <div class="stat-label">Active Modules</div>
-            <div class="stat-val">3</div>
-            <div class="stat-sub">of 7 planned</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-icon"></div>
-            <div class="stat-label">Reccees</div>
-            <div class="stat-val" id="dash-reccee-count">0</div>
-            <div class="stat-sub">submitted this session</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-icon"></div>
-            <div class="stat-label">Events</div>
-            <div class="stat-val" id="dash-event-count">0</div>
-            <div class="stat-sub">submitted this session</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-icon"></div>
-            <div class="stat-label">Requisitions</div>
-            <div class="stat-val" id="dash-req-count">0</div>
-            <div class="stat-sub">submitted this session</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-icon"></div>
-            <div class="stat-label">Logged In As</div>
-            <div class="stat-val" style="font-size:16px;padding-top:4px" id="dash-user-stat">—</div>
-            <div class="stat-sub">verified via OTP</div>
-          </div>
+          <div class="stat-card"><div class="stat-icon"></div><div class="stat-label">Active Modules</div><div class="stat-val">3</div><div class="stat-sub">of 7 planned</div></div>
+          <div class="stat-card"><div class="stat-icon"></div><div class="stat-label">Reccees</div><div class="stat-val" id="dash-reccee-count">0</div><div class="stat-sub">submitted this session</div></div>
+          <div class="stat-card"><div class="stat-icon"></div><div class="stat-label">Events</div><div class="stat-val" id="dash-event-count">0</div><div class="stat-sub">submitted this session</div></div>
+          <div class="stat-card"><div class="stat-icon"></div><div class="stat-label">Requisitions</div><div class="stat-val" id="dash-req-count">0</div><div class="stat-sub">submitted this session</div></div>
+          <div class="stat-card"><div class="stat-icon"></div><div class="stat-label">Logged In As</div><div class="stat-val" style="font-size:16px;padding-top:4px" id="dash-user-stat">—</div><div class="stat-sub">verified via OTP</div></div>
         </div>
         <div class="section-head"><h3>Your Modules</h3><div class="line"></div></div>
         <div class="module-grid">
-          <div class="module-card" onclick="navigateTo('reccee')">
-            <div class="module-icon">🗺️</div>
-            <div class="module-title">Reccee Assessment</div>
-            <div class="module-desc">Site visit form for evaluating venues — security, logistics, medical, and compliance.</div>
-            <div class="module-footer"><span class="module-status status-active">Live</span><span class="module-arrow">→</span></div>
-          </div>
-          <div class="module-card" onclick="navigateTo('event-submission')">
-            <div class="module-icon">📋</div>
-            <div class="module-title">Event Submission</div>
-            <div class="module-desc">Submit a new event for approval or update an existing event with new details.</div>
-            <div class="module-footer"><span class="module-status status-active">Live</span><span class="module-arrow">→</span></div>
-          </div>
-          <div class="module-card purple-card" onclick="navigateTo('requisitions')">
-            <div class="module-icon">🧾</div>
-            <div class="module-title">Requisitions</div>
-            <div class="module-desc">Submit procurement requests for event supplies, services, and equipment with itemised costing.</div>
-            <div class="module-footer"><span class="module-status status-new">New</span><span class="module-arrow">→</span></div>
-          </div>
-          <div class="module-card locked">
-            <div class="module-icon">✅</div>
-            <div class="module-title">Site Checklist</div>
-            <div class="module-desc">Pre-event and post-event site checklists for crew verification.</div>
-            <div class="module-footer"><span class="module-status status-soon">Coming Soon</span><span class="module-arrow">→</span></div>
-          </div>
-          <div class="module-card locked">
-            <div class="module-icon">⚠️</div>
-            <div class="module-title">Incident Report</div>
-            <div class="module-desc">Log and escalate field incidents in real-time during events.</div>
-            <div class="module-footer"><span class="module-status status-soon">Coming Soon</span><span class="module-arrow">→</span></div>
-          </div>
-          <div class="module-card locked">
-            <div class="module-icon">🕐</div>
-            <div class="module-title">Timesheets</div>
-            <div class="module-desc">Clock in, clock out, and submit weekly timesheets for payroll.</div>
-            <div class="module-footer"><span class="module-status status-locked">Locked</span><span class="module-arrow">→</span></div>
-          </div>
-          <div class="module-card locked">
-            <div class="module-icon">👥</div>
-            <div class="module-title">Team</div>
-            <div class="module-desc">Manage staff assignments, roles, and contact information.</div>
-            <div class="module-footer"><span class="module-status status-locked">Locked</span><span class="module-arrow">→</span></div>
-          </div>
+          <div class="module-card" onclick="navigateTo('reccee')"><div class="module-icon">🗺️</div><div class="module-title">Reccee Assessment</div><div class="module-desc">Site visit form for evaluating venues — security, logistics, medical, and compliance.</div><div class="module-footer"><span class="module-status status-active">Live</span><span class="module-arrow">→</span></div></div>
+          <div class="module-card" onclick="navigateTo('event-submission')"><div class="module-icon">📋</div><div class="module-title">Event Submission</div><div class="module-desc">Submit a new event for approval or update an existing event with new details.</div><div class="module-footer"><span class="module-status status-active">Live</span><span class="module-arrow">→</span></div></div>
+          <div class="module-card purple-card" onclick="navigateTo('requisitions')"><div class="module-icon">🧾</div><div class="module-title">Requisitions</div><div class="module-desc">Submit procurement requests for event supplies, services, and equipment with itemised costing.</div><div class="module-footer"><span class="module-status status-new">New</span><span class="module-arrow">→</span></div></div>
+          <div class="module-card locked"><div class="module-icon">✅</div><div class="module-title">Site Checklist</div><div class="module-desc">Pre-event and post-event site checklists for crew verification.</div><div class="module-footer"><span class="module-status status-soon">Coming Soon</span><span class="module-arrow">→</span></div></div>
+          <div class="module-card locked"><div class="module-icon">⚠️</div><div class="module-title">Incident Report</div><div class="module-desc">Log and escalate field incidents in real-time during events.</div><div class="module-footer"><span class="module-status status-soon">Coming Soon</span><span class="module-arrow">→</span></div></div>
+          <div class="module-card locked"><div class="module-icon">🕐</div><div class="module-title">Timesheets</div><div class="module-desc">Clock in, clock out, and submit weekly timesheets for payroll.</div><div class="module-footer"><span class="module-status status-locked">Locked</span><span class="module-arrow">→</span></div></div>
+          <div class="module-card locked"><div class="module-icon">👥</div><div class="module-title">Team</div><div class="module-desc">Manage staff assignments, roles, and contact information.</div><div class="module-footer"><span class="module-status status-locked">Locked</span><span class="module-arrow">→</span></div></div>
         </div>
       </div>
 
@@ -880,44 +851,14 @@ input.error-state { border-color: var(--error); }
           <div class="step-panel" id="r-step-3">
             <div class="r-section-label">Venue &amp; Dates</div>
             <div class="r-field-row">
-              <div class="r-field" id="r-field-reccee-date">
-                <label class="r-label">Reccee Date <span class="req">*</span></label>
-                <input type="date" class="r-input" id="r-date" />
-                <div class="r-field-error">Date is required.</div>
-              </div>
-              <div class="r-field" id="r-field-location">
-                <label class="r-label">Venue / Location <span class="req">*</span></label>
-                <input type="text" class="r-input" id="r-location" placeholder="Where will the event take place?" />
-                <div class="r-field-error">Location is required.</div>
-              </div>
+              <div class="r-field" id="r-field-reccee-date"><label class="r-label">Reccee Date <span class="req">*</span></label><input type="date" class="r-input" id="r-date" /><div class="r-field-error">Date is required.</div></div>
+              <div class="r-field" id="r-field-location"><label class="r-label">Venue / Location <span class="req">*</span></label><input type="text" class="r-input" id="r-location" placeholder="Where will the event take place?" /><div class="r-field-error">Location is required.</div></div>
             </div>
-            <div class="r-field" id="r-field-attendees">
-              <label class="r-label">Reccee Attendees <span class="req">*</span></label>
-              <textarea class="r-textarea" id="r-attendees" placeholder="List all attendees…"></textarea>
-              <div class="r-field-error">Attendees is required.</div>
-            </div>
+            <div class="r-field" id="r-field-attendees"><label class="r-label">Reccee Attendees <span class="req">*</span></label><textarea class="r-textarea" id="r-attendees" placeholder="List all attendees…"></textarea><div class="r-field-error">Attendees is required.</div></div>
             <div class="r-section-label">Access &amp; Transport</div>
-            <div class="r-field">
-              <label class="r-label">How far is the venue from the main town?</label>
-              <div class="radio-group inline">
-                <div class="radio-item" data-rg="distance" data-rv="≤ 15 min"><span class="rpip"></span><span>≤ 15 min</span></div>
-                <div class="radio-item" data-rg="distance" data-rv="≤ 30 min"><span class="rpip"></span><span>≤ 30 min</span></div>
-                <div class="radio-item" data-rg="distance" data-rv="≤ 45 min"><span class="rpip"></span><span>≤ 45 min</span></div>
-                <div class="radio-item" data-rg="distance" data-rv="1 hour and above"><span class="rpip"></span><span>1 hr +</span></div>
-              </div>
-            </div>
-            <div class="r-field">
-              <label class="r-label">Is public transport available?</label>
-              <div class="radio-group inline">
-                <div class="radio-item" data-rg="transport" data-rv="Yes"><span class="rpip"></span><span>Yes</span></div>
-                <div class="radio-item" data-rg="transport" data-rv="No"><span class="rpip"></span><span>No</span></div>
-              </div>
-            </div>
-            <div class="btn-row">
-              <button class="btn-back" onclick="rGoStep(2)">← Back</button>
-              <span class="step-hint">Step 3 of 6</span>
-              <button class="btn-next" id="r-next-3">Continue →</button>
-            </div>
+            <div class="r-field"><label class="r-label">How far is the venue from the main town?</label><div class="radio-group inline"><div class="radio-item" data-rg="distance" data-rv="≤ 15 min"><span class="rpip"></span><span>≤ 15 min</span></div><div class="radio-item" data-rg="distance" data-rv="≤ 30 min"><span class="rpip"></span><span>≤ 30 min</span></div><div class="radio-item" data-rg="distance" data-rv="≤ 45 min"><span class="rpip"></span><span>≤ 45 min</span></div><div class="radio-item" data-rg="distance" data-rv="1 hour and above"><span class="rpip"></span><span>1 hr +</span></div></div></div>
+            <div class="r-field"><label class="r-label">Is public transport available?</label><div class="radio-group inline"><div class="radio-item" data-rg="transport" data-rv="Yes"><span class="rpip"></span><span>Yes</span></div><div class="radio-item" data-rg="transport" data-rv="No"><span class="rpip"></span><span>No</span></div></div></div>
+            <div class="btn-row"><button class="btn-back" onclick="rGoStep(2)">← Back</button><span class="step-hint">Step 3 of 6</span><button class="btn-next" id="r-next-3">Continue →</button></div>
           </div>
           <!-- STEP 4 -->
           <div class="step-panel" id="r-step-4">
@@ -930,20 +871,9 @@ input.error-state { border-color: var(--error); }
             <div class="r-section-label">Medical &amp; Facilities</div>
             <div class="r-field"><label class="r-label">Are there medical facilities within 30 min?</label><div class="radio-group inline"><div class="radio-item" data-rg="medical" data-rv="Yes"><span class="rpip"></span><span>Yes</span></div><div class="radio-item" data-rg="medical" data-rv="No"><span class="rpip"></span><span>No</span></div></div></div>
             <div class="r-field"><label class="r-label">Medical facility details</label><textarea class="r-textarea" id="r-medical-notes" placeholder="Name, distance, type of facility…"></textarea></div>
-            <div class="r-field">
-              <label class="r-label">Available facilities &amp; amenities <span style="font-size:11px;color:var(--text-muted)">(select all that apply)</span></label>
-              <div class="check-group" id="r-amenities-group">
-                <div class="check-item" data-rcg="amenities" data-rcv="Adequate toilets"><span class="rpip"></span><span>Adequate toilets</span></div>
-                <div class="check-item" data-rcg="amenities" data-rcv="Water supply"><span class="rpip"></span><span>Water supply</span></div>
-                <div class="check-item" data-rcg="amenities" data-rcv="3-phase electricity points"><span class="rpip"></span><span>3-phase electricity points</span></div>
-              </div>
-            </div>
+            <div class="r-field"><label class="r-label">Available facilities &amp; amenities <span style="font-size:11px;color:var(--text-muted)">(select all that apply)</span></label><div class="check-group" id="r-amenities-group"><div class="check-item" data-rcg="amenities" data-rcv="Adequate toilets"><span class="rpip"></span><span>Adequate toilets</span></div><div class="check-item" data-rcg="amenities" data-rcv="Water supply"><span class="rpip"></span><span>Water supply</span></div><div class="check-item" data-rcg="amenities" data-rcv="3-phase electricity points"><span class="rpip"></span><span>3-phase electricity points</span></div></div></div>
             <div class="r-field"><label class="r-label">Other facilities needed</label><textarea class="r-textarea" id="r-other-facilities" placeholder="Any other infrastructure requirements…"></textarea></div>
-            <div class="btn-row">
-              <button class="btn-back" onclick="rGoStep(3)">← Back</button>
-              <span class="step-hint">Step 4 of 6</span>
-              <button class="btn-next" id="r-next-4">Continue →</button>
-            </div>
+            <div class="btn-row"><button class="btn-back" onclick="rGoStep(3)">← Back</button><span class="step-hint">Step 4 of 6</span><button class="btn-next" id="r-next-4">Continue →</button></div>
           </div>
           <!-- STEP 5 -->
           <div class="step-panel" id="r-step-5">
@@ -953,16 +883,8 @@ input.error-state { border-color: var(--error); }
             <div class="r-section-label">Compliance</div>
             <div class="r-field"><label class="r-label">Permits required</label><textarea class="r-textarea" id="r-permits" placeholder="List all permits needed (county, noise, liquor, etc.)…"></textarea></div>
             <div class="r-section-label">Summary Notes</div>
-            <div class="r-field" id="r-field-challenges">
-              <label class="r-label">Challenges &amp; Recommendations <span class="req">*</span></label>
-              <textarea class="r-textarea" id="r-challenges" placeholder="Key issues and your recommendations…" style="min-height:110px"></textarea>
-              <div class="r-field-error">Please fill in challenges &amp; recommendations.</div>
-            </div>
-            <div class="btn-row">
-              <button class="btn-back" onclick="rGoStep(4)">← Back</button>
-              <span class="step-hint">Step 5 of 6</span>
-              <button class="btn-next" id="r-next-5">Review &amp; Submit →</button>
-            </div>
+            <div class="r-field" id="r-field-challenges"><label class="r-label">Challenges &amp; Recommendations <span class="req">*</span></label><textarea class="r-textarea" id="r-challenges" placeholder="Key issues and your recommendations…" style="min-height:110px"></textarea><div class="r-field-error">Please fill in challenges &amp; recommendations.</div></div>
+            <div class="btn-row"><button class="btn-back" onclick="rGoStep(4)">← Back</button><span class="step-hint">Step 5 of 6</span><button class="btn-next" id="r-next-5">Review &amp; Submit →</button></div>
           </div>
           <!-- STEP 6 -->
           <div class="step-panel" id="r-step-6">
@@ -978,10 +900,7 @@ input.error-state { border-color: var(--error); }
               <button class="btn-download" id="r-download-btn"><span class="btn-text">📥 Download PDF Report</span><div class="btn-spinner"></div></button>
               <button class="btn-submit" id="r-submit-btn"><span class="btn-text">✓ Submit Assessment to PrimeEdgeAI</span><div class="btn-spinner"></div></button>
             </div>
-            <div class="btn-row" style="margin-top:16px">
-              <button class="btn-back" onclick="rGoStep(5)">← Back</button>
-              <span class="step-hint">Step 6 of 6</span>
-            </div>
+            <div class="btn-row" style="margin-top:16px"><button class="btn-back" onclick="rGoStep(5)">← Back</button><span class="step-hint">Step 6 of 6</span></div>
           </div>
         </div>
 
@@ -1001,117 +920,53 @@ input.error-state { border-color: var(--error); }
       <!-- ── EVENT SUBMISSION PAGE ── -->
       <div id="page-event-submission" style="display:none">
         <div class="section-head" style="margin-bottom:8px"><h3>Event <em style="font-style:italic;color:var(--accent)">Submission</em></h3><div class="line"></div></div>
-        <p style="font-size:13px;color:var(--text-secondary);margin-bottom:28px">Submit a new event for approval or update an existing one. Once submitted, your entry will be reviewed and you will receive a confirmation email from PrimeEdgeAI.</p>
+        <p style="font-size:13px;color:var(--text-secondary);margin-bottom:28px">Submit a new event for approval or update an existing one.</p>
 
         <div class="evt-form-card" id="evt-main-card">
           <div class="update-banner" id="evt-update-banner">Update Mode — editing an existing event</div>
           <div class="e-section-label">Event Info</div>
-
-          <div class="e-field" id="efield-client">
-            <label>Client <span class="req">*</span></label>
-            <input type="text" class="e-input" id="e-client" placeholder="e.g., Jumia" autocomplete="off" />
-            <div class="e-field-error">Client name is required.</div>
-          </div>
-
-          <div class="e-field" id="efield-status">
-            <label>Status <span class="req">*</span></label>
-            <div class="e-select-wrap">
-              <select class="e-select" id="e-status">
-                <option value="">Select status…</option>
-                <option value="Event Creation">Event Creation</option>
-                <option value="Event Update">Event Update</option>
-              </select>
-            </div>
-            <div class="e-field-error">Please select a status.</div>
-          </div>
-
-          <!-- LOOKUP PANEL -->
+          <div class="e-field" id="efield-client"><label>Client <span class="req">*</span></label><input type="text" class="e-input" id="e-client" placeholder="e.g., Jumia" autocomplete="off" /><div class="e-field-error">Client name is required.</div></div>
+          <div class="e-field" id="efield-status"><label>Status <span class="req">*</span></label><div class="e-select-wrap"><select class="e-select" id="e-status"><option value="">Select status…</option><option value="Event Creation">Event Creation</option><option value="Event Update">Event Update</option></select></div><div class="e-field-error">Please select a status.</div></div>
           <div class="lookup-panel" id="lookup-panel">
             <div class="lookup-title">Find Event to Update</div>
-            <div class="lookup-row">
-              <div><label>Filter by Start Date</label><input type="date" id="filter-start" /></div>
-              <div><label>Filter by End Date</label><input type="date" id="filter-end" /></div>
-            </div>
+            <div class="lookup-row"><div><label>Filter by Start Date</label><input type="date" id="filter-start" /></div><div><label>Filter by End Date</label><input type="date" id="filter-end" /></div></div>
             <div class="lookup-bottom">
               <button class="btn-load" id="btn-fetch" type="button"><span id="fetch-label">Load Events</span></button>
-              <div class="evt-select-wrap">
-                <select id="event-select"><option value="">— select an event —</option></select>
-              </div>
+              <div class="evt-select-wrap"><select id="event-select"><option value="">— select an event —</option></select></div>
             </div>
             <div class="loader-text" id="loader-text"></div>
           </div>
-
           <input type="hidden" id="e-job-id" value="" />
-
-          <div class="e-field" id="efield-description">
-            <label>Description <span class="req">*</span></label>
-            <textarea class="e-textarea" id="e-description" placeholder="e.g., KCB VS Police FC"></textarea>
-            <div class="e-field-error">Description is required.</div>
-          </div>
-
+          <div class="e-field" id="efield-description"><label>Description <span class="req">*</span></label><textarea class="e-textarea" id="e-description" placeholder="e.g., KCB VS Police FC"></textarea><div class="e-field-error">Description is required.</div></div>
           <div class="e-section-label">Contacts</div>
           <div class="e-field-row">
-            <div class="e-field" id="efield-client-lead">
-              <label>Client Lead</label>
-              <input type="text" class="e-input" id="e-client-lead" placeholder="Name" />
-            </div>
-            <div class="e-field" id="efield-agency-lead">
-              <label>Project Lead <span class="req">*</span></label>
-              <input type="text" class="e-input" id="e-agency-lead" placeholder="Name" />
-              <div class="e-field-error">Project Lead is required.</div>
-            </div>
+            <div class="e-field" id="efield-client-lead"><label>Client Lead</label><input type="text" class="e-input" id="e-client-lead" placeholder="Name" /></div>
+            <div class="e-field" id="efield-agency-lead"><label>Project Lead <span class="req">*</span></label><input type="text" class="e-input" id="e-agency-lead" placeholder="Name" /><div class="e-field-error">Project Lead is required.</div></div>
           </div>
-
-          <div class="e-field" id="efield-email">
-            <label>Email <span class="req">*</span></label>
-            <input type="email" class="e-input" id="e-email" placeholder="e.g., john@gmail.com" />
-            <div class="e-field-error">A valid email is required.</div>
-          </div>
-
-          <!-- Project Assistants -->
+          <div class="e-field" id="efield-email"><label>Email <span class="req">*</span></label><input type="email" class="e-input" id="e-email" placeholder="e.g., john@gmail.com" /><div class="e-field-error">A valid email is required.</div></div>
           <div class="assistants-section" id="assistants-section">
             <div class="e-section-label">Project Assistants</div>
-            <div class="assistant-col-labels">
-              <span>Name</span><span>Email</span><span></span>
-            </div>
+            <div class="assistant-col-labels"><span>Name</span><span>Email</span><span></span></div>
             <div id="assistants-list"></div>
             <button type="button" class="btn-add-assistant" id="btn-add-assistant">+ Add Assistant</button>
           </div>
-
           <div class="e-section-label">Location &amp; Dates</div>
-          <div class="e-field" id="efield-location">
-            <label>Event Location <span class="req">*</span></label>
-            <input type="text" class="e-input" id="e-location" placeholder="Where is the event?" />
-            <div class="e-field-error">Event location is required.</div>
-          </div>
+          <div class="e-field" id="efield-location"><label>Event Location <span class="req">*</span></label><input type="text" class="e-input" id="e-location" placeholder="Where is the event?" /><div class="e-field-error">Event location is required.</div></div>
           <div class="e-field-row">
-            <div class="e-field" id="efield-start-date">
-              <label>Start Date <span class="req">*</span></label>
-              <input type="date" class="e-input" id="e-start-date" />
-              <div class="e-field-error">Start date is required.</div>
-            </div>
-            <div class="e-field" id="efield-end-date">
-              <label>End Date <span class="req">*</span></label>
-              <input type="date" class="e-input" id="e-end-date" />
-              <div class="e-field-error">End date is required.</div>
-            </div>
+            <div class="e-field" id="efield-start-date"><label>Start Date <span class="req">*</span></label><input type="date" class="e-input" id="e-start-date" /><div class="e-field-error">Start date is required.</div></div>
+            <div class="e-field" id="efield-end-date"><label>End Date <span class="req">*</span></label><input type="date" class="e-input" id="e-end-date" /><div class="e-field-error">End date is required.</div></div>
           </div>
-
           <div class="evt-submit-row">
             <span class="evt-submit-note">* required fields</span>
-            <button class="btn-evt-submit" id="evt-submit-btn">
-              <span class="btn-text">Submit Event</span>
-              <div class="btn-spinner"></div>
-            </button>
+            <button class="btn-evt-submit" id="evt-submit-btn"><span class="btn-text">Submit Event</span><div class="btn-spinner"></div></button>
           </div>
           <div class="evt-error-banner" id="evt-error-banner"></div>
         </div>
 
-        <!-- EVENT SUCCESS -->
         <div class="evt-form-card evt-success-screen" id="evt-success-screen">
           <div class="evt-success-icon" id="evt-success-icon">✓</div>
           <h2 id="evt-success-title">Event Submitted!</h2>
-          <p id="evt-success-msg">Your submission has been received and is on its way. The team will review it shortly and follow up with next steps.</p>
+          <p id="evt-success-msg">Your submission has been received and is on its way.</p>
           <div class="evt-success-ref" id="evt-success-ref">REF — —</div>
           <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">
             <button class="btn-evt-new" id="btn-evt-new">Submit another Event</button>
@@ -1126,33 +981,56 @@ input.error-state { border-color: var(--error); }
           <h3>Requisition <em style="font-style:italic;color:var(--purple)">Request</em></h3>
           <div class="line"></div>
         </div>
-        <p style="font-size:13px;color:var(--text-secondary);margin-bottom:28px">Submit a procurement request for supplies, services, or equipment. Your requisition will be reviewed and approved by the PrimeEdgeAI team before processing.</p>
+        <p style="font-size:13px;color:var(--text-secondary);margin-bottom:28px">Submit a procurement request for supplies, services, or equipment. Look up your job to pre-fill key details, then complete the form.</p>
 
         <div class="req-form-card" id="req-main-card">
-          <div class="req-section-label">Job Reference</div>
-          <div class="req-info-box">
-            Link this requisition to a job by entering the Job ID and details below. The system will route it to the correct approver.
+
+          <!-- ── JOB LOOKUP ── -->
+          <div class="req-section-label" style="margin-top:0">Job Lookup</div>
+          <div class="req-info-box">Enter your email to load your assigned jobs, then select one to auto-fill the requisition details.</div>
+
+          <div class="req-job-lookup">
+            <div class="req-lookup-title">Find Your Job</div>
+            <div class="req-lookup-row">
+              <div class="req-lookup-email-wrap">
+                <label>Your Email Address</label>
+                <input type="email" class="req-lookup-email-input" id="rq-lookup-email" placeholder="your.email@company.com" />
+              </div>
+              <button class="btn-req-load" id="btn-req-load-jobs" type="button">
+                <span id="req-load-label">Load Jobs</span>
+              </button>
+            </div>
+            <div class="req-loader-text" id="req-loader-text"></div>
+            <div class="req-lookup-err" id="req-lookup-err"></div>
+            <div class="req-job-cards" id="req-job-cards"></div>
+            <div class="req-verified-badge" id="req-verified-badge">
+              <div class="req-verified-badge-inner" id="req-verified-badge-inner"></div>
+            </div>
           </div>
+
+          <!-- ── JOB REFERENCE (pre-filled, readonly) ── -->
+          <div class="req-section-label">Job Reference</div>
 
           <div class="req-field-row">
             <div class="req-field" id="rqfield-job-id">
               <label>Job ID <span class="req">*</span></label>
-              <input type="text" class="req-input" id="rq-job-id" placeholder="e.g., JOB-001" autocomplete="off" />
-              <div class="req-field-error">Job ID is required.</div>
+              <input type="text" class="req-input" id="rq-job-id" placeholder="Select a job above to fill" readonly />
+              <div class="req-field-error">Job ID is required — select a job above.</div>
             </div>
             <div class="req-field" id="rqfield-client">
               <label>Client <span class="req">*</span></label>
-              <input type="text" class="req-input" id="rq-client" placeholder="e.g., Safaricom" autocomplete="off" />
+              <input type="text" class="req-input" id="rq-client" placeholder="Auto-filled from job" readonly />
               <div class="req-field-error">Client is required.</div>
             </div>
           </div>
 
           <div class="req-field" id="rqfield-event-description">
             <label>Event / Project Description <span class="req">*</span></label>
-            <input type="text" class="req-input" id="rq-event-desc" placeholder="e.g., Safaricom Jazz Festival 2025" />
+            <input type="text" class="req-input" id="rq-event-desc" placeholder="Auto-filled from job" readonly />
             <div class="req-field-error">Event description is required.</div>
           </div>
 
+          <!-- ── REQUESTOR DETAILS (pre-filled from auth, editable) ── -->
           <div class="req-section-label">Requestor Details</div>
 
           <div class="req-field-row">
@@ -1180,6 +1058,7 @@ input.error-state { border-color: var(--error); }
             </div>
           </div>
 
+          <!-- ── PROCUREMENT DETAILS ── -->
           <div class="req-section-label">Procurement Details</div>
 
           <div class="req-field-row">
@@ -1244,10 +1123,10 @@ input.error-state { border-color: var(--error); }
           <div class="req-field" id="rqfield-urgency">
             <label>Urgency Level <span class="req">*</span></label>
             <div class="radio-group inline" id="req-urgency-group">
-              <div class="radio-item" data-rg="req-urgency" data-rv="Low"><span class="rpip"></span><span>Low</span></div>
-              <div class="radio-item" data-rg="req-urgency" data-rv="Medium"><span class="rpip"></span><span>Medium</span></div>
-              <div class="radio-item" data-rg="req-urgency" data-rv="High"><span class="rpip"></span><span>High</span></div>
-              <div class="radio-item" data-rg="req-urgency" data-rv="Urgent"><span class="rpip"></span><span>Urgent</span></div>
+              <div class="radio-item purple-radio" data-rg="req-urgency" data-rv="Low"><span class="rpip"></span><span>Low</span></div>
+              <div class="radio-item purple-radio" data-rg="req-urgency" data-rv="Medium"><span class="rpip"></span><span>Medium</span></div>
+              <div class="radio-item purple-radio" data-rg="req-urgency" data-rv="High"><span class="rpip"></span><span>High</span></div>
+              <div class="radio-item purple-radio" data-rg="req-urgency" data-rv="Urgent"><span class="rpip"></span><span>Urgent</span></div>
             </div>
             <div class="req-field-error" id="rq-urgency-err" style="display:none;font-size:11px;color:var(--error);margin-top:5px;font-family:'DM Mono',monospace">Please select an urgency level.</div>
           </div>
@@ -1294,7 +1173,7 @@ input.error-state { border-color: var(--error); }
 
 <script>
 /* ═══════════════════════════════════════════════
-   CONFIG — Webhook endpoints
+   CONFIG
 ═══════════════════════════════════════════════ */
 const OTP_REQUEST_URL     = 'https://chux.app.n8n.cloud/webhook/otp-auth';
 const OTP_VERIFY_URL      = 'https://chux.app.n8n.cloud/webhook/otp-auth';
@@ -1303,7 +1182,7 @@ const SHEET_GID           = '0';
 const SHEET_CSV_URL       = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${SHEET_GID}`;
 const RECCEE_WEBHOOK      = 'https://chux.app.n8n.cloud/webhook/reccee-assessment';
 const EVENT_WEBHOOK       = 'https://chux.app.n8n.cloud/webhook/event-registration';
-const REQUISITION_WEBHOOK = 'https://chux.app.n8n.cloud/webhook/requisition-submission';
+const REQUISITION_WEBHOOK = 'https://chux.app.n8n.cloud/webhook/requisition-request';
 const EVT_SHEET_URL       = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQzV51evXd43ebjxahF57b6j4MTDnI0tcEjBNzLjoqdP84_vujazI5cLRD12tzJ9fLl30hYT3zEMyyU/pub?output=csv';
 const OTP_LIFETIME        = 5 * 60;
 
@@ -1426,8 +1305,9 @@ function enterApp(){
   document.getElementById('e-email').value=authEmail;
   document.getElementById('rq-requestor-email').value=authEmail;
   document.getElementById('rq-requestor-name').value=authName;
+  // pre-fill lookup email with auth email
+  document.getElementById('rq-lookup-email').value=authEmail;
   startClock();
-  // ensure at least one line item in requisitions
   if(document.getElementById('line-items-body').children.length===0) addLineItem();
 }
 
@@ -1487,7 +1367,6 @@ document.getElementById('btn-logout').addEventListener('click',()=>{
   reqResetAll();
 });
 
-/* CLOCK */
 function startClock(){
   function tick(){document.getElementById('topbar-time').textContent=new Date().toLocaleTimeString('en-KE',{hour:'2-digit',minute:'2-digit'});}
   tick(); setInterval(tick,30000);
@@ -1903,7 +1782,111 @@ function evtResetAll(){
    REQUISITIONS MODULE
 ═══════════════════════════════════════════════ */
 let lineItemCount = 0;
+let reqJobs = [], reqSelectedJob = null;
 
+/* ── JOB LOOKUP ── */
+document.getElementById('btn-req-load-jobs').addEventListener('click', async () => {
+  const emailVal = document.getElementById('rq-lookup-email').value.trim().toLowerCase();
+  const errEl = document.getElementById('req-lookup-err');
+  const loaderEl = document.getElementById('req-loader-text');
+  const btn = document.getElementById('btn-req-load-jobs');
+  const lbl = document.getElementById('req-load-label');
+  const badgeWrap = document.getElementById('req-verified-badge');
+  const badgeInner = document.getElementById('req-verified-badge-inner');
+  const cardsEl = document.getElementById('req-job-cards');
+
+  errEl.classList.remove('visible');
+  badgeWrap.classList.remove('visible');
+  cardsEl.innerHTML = '';
+  reqSelectedJob = null;
+  clearReqJobFields();
+
+  const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal);
+  if (!valid) {
+    errEl.textContent = 'Please enter a valid email address.';
+    errEl.classList.add('visible');
+    return;
+  }
+
+  btn.disabled = true;
+  lbl.textContent = 'Loading…';
+  loaderEl.textContent = 'Fetching your assigned jobs…';
+
+  try {
+    const res = await fetch(SHEET_CSV_URL);
+    if (!res.ok) throw new Error('Could not fetch the jobs sheet.');
+    const rows = parseCSV(await res.text());
+    const all = csvToObj(rows);
+    const matched = all.filter(r => emailMatch(emailVal, r));
+    if (!matched.length) throw new Error(`No jobs found for "${emailVal}". Please check your email or contact the PrimeEdgeAI team.`);
+
+    reqJobs = matched;
+    loaderEl.textContent = `${matched.length} job${matched.length !== 1 ? 's' : ''} found — select one below.`;
+    badgeInner.textContent = `${emailVal} — ${matched.length} job${matched.length !== 1 ? 's' : ''} found`;
+    badgeWrap.classList.add('visible');
+
+    // Build job cards
+    matched.forEach(job => {
+      const card = document.createElement('div');
+      card.className = 'job-card purple-job-card';
+      const id = job['Job_ID'] || '', desc = job['Description'] || '(no description)', client = job['Client'] || '';
+      const where = job['Where'] || '', start = job['Start Date'] || '', end = job['End Date'] || '';
+      const dateStr = start === end ? start : (start && end ? `${start} → ${end}` : start || end);
+      card.innerHTML = `<div class="job-card-left"><div class="job-card-id">${id}</div><div class="job-card-desc">${desc}</div><div class="job-card-meta">${client}${where ? ' · ' + where : ''}${dateStr ? ' · ' + dateStr : ''}</div></div><div class="job-card-check"></div>`;
+      card.addEventListener('click', () => {
+        document.querySelectorAll('#req-job-cards .job-card').forEach(c => { c.classList.remove('selected'); c.querySelector('.job-card-check').textContent = ''; });
+        card.classList.add('selected');
+        card.querySelector('.job-card-check').textContent = '✓';
+        reqSelectedJob = job;
+        prefillReqJobFields(job);
+        errEl.classList.remove('visible');
+        document.getElementById('req-error-banner').classList.remove('visible');
+      });
+      cardsEl.appendChild(card);
+    });
+  } catch (err) {
+    errEl.textContent = err.message;
+    errEl.classList.add('visible');
+    loaderEl.textContent = '';
+  } finally {
+    btn.disabled = false;
+    lbl.textContent = 'Load Jobs';
+  }
+});
+
+function prefillReqJobFields(job) {
+  const flash = el => {
+    el.style.transition = 'background 0s';
+    el.style.background = 'rgba(167,139,250,0.15)';
+    setTimeout(() => { el.style.transition = 'background 0.7s'; el.style.background = ''; }, 60);
+  };
+
+  const jobIdEl = document.getElementById('rq-job-id');
+  const clientEl = document.getElementById('rq-client');
+  const descEl = document.getElementById('rq-event-desc');
+
+  jobIdEl.value = job['Job_ID'] || '';
+  clientEl.value = job['Client'] || '';
+  descEl.value = job['Description'] || '';
+
+  [jobIdEl, clientEl, descEl].forEach(el => {
+    // temporarily make editable to allow flash, keep readonly
+    flash(el);
+  });
+
+  // clear validation errors on those fields
+  document.getElementById('rqfield-job-id').classList.remove('has-error');
+  document.getElementById('rqfield-client').classList.remove('has-error');
+  document.getElementById('rqfield-event-description').classList.remove('has-error');
+}
+
+function clearReqJobFields() {
+  document.getElementById('rq-job-id').value = '';
+  document.getElementById('rq-client').value = '';
+  document.getElementById('rq-event-desc').value = '';
+}
+
+/* ── LINE ITEMS ── */
 function addLineItem(desc='', qty=1, unitCost=0) {
   lineItemCount++;
   const id = lineItemCount;
@@ -1963,6 +1946,7 @@ function getLineItems() {
 
 document.getElementById('btn-add-line-item').addEventListener('click', () => addLineItem());
 
+/* ── VALIDATION ── */
 function reqSetErr(id, show) {
   const el = document.getElementById('rqfield-' + id);
   if (el) el.classList.toggle('has-error', show);
@@ -1974,21 +1958,38 @@ function reqClearErrors() {
 function reqValidate() {
   reqClearErrors();
   let ok = true;
-  [['job-id', () => document.getElementById('rq-job-id').value.trim()],
-   ['client', () => document.getElementById('rq-client').value.trim()],
-   ['event-description', () => document.getElementById('rq-event-desc').value.trim()],
-   ['requestor-name', () => document.getElementById('rq-requestor-name').value.trim()],
+
+  // Job reference fields (must be filled via lookup)
+  const jobIdVal = document.getElementById('rq-job-id').value.trim();
+  reqSetErr('job-id', !jobIdVal); if (!jobIdVal) ok = false;
+  const clientVal = document.getElementById('rq-client').value.trim();
+  reqSetErr('client', !clientVal); if (!clientVal) ok = false;
+  const descVal = document.getElementById('rq-event-desc').value.trim();
+  reqSetErr('event-description', !descVal); if (!descVal) ok = false;
+
+  // Requestor + other required fields
+  [['requestor-name', () => document.getElementById('rq-requestor-name').value.trim()],
    ['date-required', () => document.getElementById('rq-date-required').value],
    ['category', () => document.getElementById('rq-category').value],
    ['justification', () => document.getElementById('rq-justification').value.trim()],
   ].forEach(([id, fn]) => { const v = !!fn(); reqSetErr(id, !v); if (!v) ok = false; });
+
   const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(document.getElementById('rq-requestor-email').value.trim());
   reqSetErr('requestor-email', !emailOk); if (!emailOk) ok = false;
+
   const urgency = rGetRadio('req-urgency');
   if (!urgency) { document.getElementById('rq-urgency-err').style.display = 'block'; ok = false; }
+
+  // Show hint if job not selected
+  if (!jobIdVal) {
+    document.getElementById('req-error-banner').textContent = 'Please load and select a job from the Job Lookup section above before submitting.';
+    document.getElementById('req-error-banner').classList.add('visible');
+  }
+
   return ok;
 }
 
+/* ── SUBMIT ── */
 document.getElementById('req-submit-btn').addEventListener('click', async () => {
   if (!reqValidate()) return;
   const btn = document.getElementById('req-submit-btn');
@@ -2050,7 +2051,20 @@ function reqShowSuccess(payload) {
 
 document.getElementById('btn-req-new').addEventListener('click', reqResetAll);
 function reqResetAll() {
-  ['rq-job-id','rq-client','rq-event-desc','rq-requestor-name','rq-requestor-email','rq-department','rq-date-required','rq-supplier','rq-justification','rq-notes'].forEach(id => {
+  // clear job lookup
+  document.getElementById('rq-lookup-email').value = authEmail;
+  document.getElementById('req-loader-text').textContent = '';
+  document.getElementById('req-lookup-err').classList.remove('visible');
+  document.getElementById('req-verified-badge').classList.remove('visible');
+  document.getElementById('req-job-cards').innerHTML = '';
+  reqJobs = [];
+  reqSelectedJob = null;
+
+  // clear readonly job fields
+  clearReqJobFields();
+
+  // clear other fields
+  ['rq-requestor-name','rq-requestor-email','rq-department','rq-date-required','rq-supplier','rq-justification','rq-notes'].forEach(id => {
     const el = document.getElementById(id); if (el) el.value = '';
   });
   document.getElementById('rq-category').value = '';
