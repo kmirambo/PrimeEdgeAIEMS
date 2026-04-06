@@ -9,6 +9,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
+/* ═══════════════════════════════════════════════
+   TOKENS
+═══════════════════════════════════════════════ */
 :root {
   --bg: #0C0F0A;
   --surface: #141710;
@@ -39,7 +42,9 @@ body {
   overflow-x: hidden;
 }
 
-/* LOGIN */
+/* ═══════════════════════════════════════════════
+   LOGIN PAGE
+═══════════════════════════════════════════════ */
 #login-page {
   min-height: 100vh;
   display: flex;
@@ -57,14 +62,24 @@ body {
 .login-wrap { width: 100%; max-width: 440px; }
 .login-header { text-align: center; margin-bottom: 36px; }
 .logo { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 24px; }
-.logo-mark { width: 36px; height: 36px; background: var(--accent); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-family: 'DM Serif Display', serif; font-size: 18px; color: #0C0F0A; }
+.logo-mark {
+  width: 36px; height: 36px; background: var(--accent); border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'DM Serif Display', serif; font-size: 18px; color: #0C0F0A;
+}
 .logo-text { font-family: 'DM Mono', monospace; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-secondary); }
 .login-header h1 { font-family: 'DM Serif Display', serif; font-size: clamp(26px,5vw,34px); font-weight: 400; line-height: 1.15; margin-bottom: 10px; }
 .login-header h1 em { font-style: italic; color: var(--accent); }
 .login-header p { font-size: 13px; color: var(--text-secondary); line-height: 1.65; }
 
-.lcard { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 40px; position: relative; overflow: hidden; }
-.lcard::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--accent), transparent); opacity: 0.6; }
+.lcard {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+  padding: 40px; position: relative; overflow: hidden;
+}
+.lcard::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent); opacity: 0.6;
+}
 .lstep-bar { display: flex; align-items: center; margin-bottom: 32px; }
 .lstep { display: flex; align-items: center; gap: 8px; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); transition: color 0.3s; }
 .lstep.active { color: var(--accent); }
@@ -75,17 +90,31 @@ body {
 .lstep-line { flex: 1; height: 1px; background: var(--border); margin: 0 10px; }
 .lpanel { display: none; }
 .lpanel.active { display: block; animation: rise .35s ease both; }
-.section-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+.section-label {
+  font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--text-muted); margin-bottom: 20px;
+  display: flex; align-items: center; gap: 12px;
+}
 .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 .field { margin-bottom: 20px; }
 label { display: block; font-size: 12px; font-weight: 500; color: var(--text-secondary); letter-spacing: 0.04em; margin-bottom: 8px; }
-input[type="email"], input[type="text"] { width: 100%; background: var(--input-bg); border: 1px solid var(--border); border-radius: var(--radius); color: var(--text-primary); font-family: 'DM Sans', sans-serif; font-size: 14px; padding: 12px 14px; outline: none; transition: border-color .2s, box-shadow .2s; -webkit-appearance: none; }
+input[type="email"], input[type="text"] {
+  width: 100%; background: var(--input-bg); border: 1px solid var(--border);
+  border-radius: var(--radius); color: var(--text-primary); font-family: 'DM Sans', sans-serif;
+  font-size: 14px; padding: 12px 14px; outline: none; transition: border-color .2s, box-shadow .2s;
+  -webkit-appearance: none;
+}
 input::placeholder { color: var(--text-muted); }
 input:focus { border-color: var(--border-focus); box-shadow: 0 0 0 3px var(--accent-dim); }
 input.error-state { border-color: var(--error); }
 
 .otp-group { display: flex; gap: 10px; justify-content: center; margin: 8px 0 4px; }
-.otp-box { width: 52px; height: 58px; background: var(--input-bg); border: 1px solid var(--border); border-radius: var(--radius); color: var(--text-primary); font-family: 'DM Serif Display', serif; font-size: 24px; text-align: center; outline: none; transition: border-color .2s, box-shadow .2s, background .2s; caret-color: var(--accent); }
+.otp-box {
+  width: 52px; height: 58px; background: var(--input-bg); border: 1px solid var(--border);
+  border-radius: var(--radius); color: var(--text-primary); font-family: 'DM Serif Display', serif;
+  font-size: 24px; text-align: center; outline: none; transition: border-color .2s, box-shadow .2s, background .2s;
+  caret-color: var(--accent);
+}
 .otp-box:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-dim); background: rgba(200,230,60,0.04); }
 .otp-box.filled { border-color: rgba(200,230,60,0.4); background: rgba(200,230,60,0.04); }
 .otp-box.error-state { border-color: var(--error); animation: shake .35s ease; }
@@ -100,11 +129,20 @@ input.error-state { border-color: var(--error); }
 .field-error { font-size: 11px; color: var(--error); margin-top: 6px; font-family: 'DM Mono', monospace; display: none; }
 .field-error.visible { display: block; }
 
-.info-box { background: var(--accent-dim); border: 1px solid var(--accent-border); border-radius: var(--radius); padding: 12px 14px; margin-bottom: 24px; font-size: 12px; color: var(--text-secondary); line-height: 1.6; font-family: 'DM Mono', monospace; }
+.info-box {
+  background: var(--accent-dim); border: 1px solid var(--accent-border);
+  border-radius: var(--radius); padding: 12px 14px; margin-bottom: 24px;
+  font-size: 12px; color: var(--text-secondary); line-height: 1.6; font-family: 'DM Mono', monospace;
+}
 .info-box strong { color: var(--accent); }
 
 .submit-row { margin-top: 28px; }
-.btn-primary { width: 100%; background: var(--accent); color: #0C0F0A; border: none; border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; padding: 14px 32px; cursor: pointer; transition: background .2s, transform .15s, box-shadow .2s; display: flex; align-items: center; justify-content: center; gap: 10px; }
+.btn-primary {
+  width: 100%; background: var(--accent); color: #0C0F0A; border: none; border-radius: var(--radius);
+  font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; padding: 14px 32px;
+  cursor: pointer; transition: background .2s, transform .15s, box-shadow .2s;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+}
 .btn-primary:hover:not(:disabled) { background: #d8f04e; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(200,230,60,0.2); }
 .btn-primary:disabled,.btn-primary.loading { opacity: .65; pointer-events: none; }
 .btn-spinner { width: 16px; height: 16px; border: 2px solid rgba(0,0,0,0.25); border-top-color: currentColor; border-radius: 50%; animation: spin .7s linear infinite; display: none; }
@@ -130,11 +168,19 @@ input.error-state { border-color: var(--error); }
 @keyframes pulse { 0%,80%,100%{opacity:.3;transform:scale(.8)} 40%{opacity:1;transform:scale(1)} }
 .login-footer { text-align: center; margin-top: 28px; font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-muted); letter-spacing: .1em; }
 
-/* APP SHELL */
+/* ═══════════════════════════════════════════════
+   APP SHELL
+═══════════════════════════════════════════════ */
 #app-shell { display: none; min-height: 100vh; }
 #app-shell.visible { display: flex; }
 
-.sidebar { width: var(--sidebar-w); min-height: 100vh; background: var(--surface); border-right: 1px solid var(--border); display: flex; flex-direction: column; position: fixed; left: 0; top: 0; bottom: 0; z-index: 100; transition: transform .3s cubic-bezier(.4,0,.2,1); }
+/* SIDEBAR */
+.sidebar {
+  width: var(--sidebar-w); min-height: 100vh; background: var(--surface);
+  border-right: 1px solid var(--border); display: flex; flex-direction: column;
+  position: fixed; left: 0; top: 0; bottom: 0; z-index: 100;
+  transition: transform .3s cubic-bezier(.4,0,.2,1);
+}
 .sidebar.collapsed { transform: translateX(calc(-1 * var(--sidebar-w))); }
 .sidebar-logo { padding: 20px 20px 16px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; }
 .sidebar-logo-mark { width: 32px; height: 32px; background: var(--accent); border-radius: 7px; display: flex; align-items: center; justify-content: center; font-family: 'DM Serif Display', serif; font-size: 16px; color: #0C0F0A; flex-shrink: 0; }
@@ -147,7 +193,12 @@ input.error-state { border-color: var(--error); }
 .user-badge { margin-left: auto; font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: .08em; color: var(--accent); background: var(--accent-dim); border: 1px solid var(--accent-border); border-radius: 100px; padding: 2px 8px; flex-shrink: 0; }
 .sidebar-nav { flex: 1; overflow-y: auto; padding: 12px 0; }
 .nav-section-title { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: .2em; text-transform: uppercase; color: var(--text-muted); padding: 10px 20px 6px; margin-top: 4px; }
-.nav-item { display: flex; align-items: center; gap: 10px; padding: 10px 16px; margin: 2px 8px; border-radius: 8px; cursor: pointer; transition: background .15s, color .15s; text-decoration: none; position: relative; }
+.nav-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 16px; margin: 2px 8px; border-radius: 8px;
+  cursor: pointer; transition: background .15s, color .15s;
+  text-decoration: none; position: relative;
+}
 .nav-item:hover { background: rgba(255,255,255,0.04); }
 .nav-item.active { background: var(--accent-dim); }
 .nav-item.active::before { content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%); height: 60%; width: 3px; background: var(--accent); border-radius: 0 3px 3px 0; }
@@ -166,6 +217,7 @@ input.error-state { border-color: var(--error); }
 .btn-logout svg { opacity: .5; transition: opacity .15s; }
 .btn-logout:hover svg { opacity: 1; }
 
+/* MAIN */
 .main-wrap { margin-left: var(--sidebar-w); flex: 1; min-height: 100vh; display: flex; flex-direction: column; transition: margin-left .3s cubic-bezier(.4,0,.2,1); }
 .main-wrap.full { margin-left: 0; }
 .topbar { height: var(--topbar-h); background: var(--surface); border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 12px; padding: 0 24px; position: sticky; top: 0; z-index: 50; }
@@ -190,9 +242,12 @@ input.error-state { border-color: var(--error); }
 .stats-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 14px; margin-bottom: 32px; }
 .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; position: relative; overflow: hidden; transition: border-color .2s; }
 .stat-card:hover { border-color: var(--accent-border); }
+.stat-card::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--accent), transparent); opacity: 0; transition: opacity .2s; }
+.stat-card:hover::after { opacity: .5; }
 .stat-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .15em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px; }
 .stat-val { font-family: 'DM Serif Display', serif; font-size: 28px; font-weight: 400; color: var(--text-primary); }
 .stat-sub { font-size: 11px; color: var(--text-muted); margin-top: 4px; }
+.stat-icon { position: absolute; right: 16px; top: 16px; font-size: 18px; opacity: .3; }
 .module-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
 .module-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; cursor: pointer; transition: border-color .2s, transform .15s, box-shadow .2s; position: relative; overflow: hidden; }
 .module-card:hover { border-color: var(--accent-border); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
@@ -218,7 +273,9 @@ input.error-state { border-color: var(--error); }
 .section-head h3 { font-family: 'DM Serif Display', serif; font-size: 20px; font-weight: 400; }
 .section-head .line { flex: 1; height: 1px; background: var(--border); }
 
-/* RECCEE */
+/* ═══════════════════════════════════════════════
+   RECCEE MODULE
+═══════════════════════════════════════════════ */
 .reccee-wrap { width: 100%; }
 .r-progress { display: flex; align-items: center; margin-bottom: 28px; }
 .step-pip { display: flex; flex-direction: column; align-items: center; gap: 6px; flex: 1; }
@@ -243,7 +300,11 @@ input.error-state { border-color: var(--error); }
 @media (max-width: 560px) { .r-field-row { grid-template-columns: 1fr; } }
 .r-label { display: block; font-size: 12px; font-weight: 500; color: var(--text-secondary); letter-spacing: .04em; margin-bottom: 8px; }
 .r-label .req { color: var(--error); margin-left: 3px; }
-.r-input, .r-textarea, .r-select { width: 100%; background: var(--input-bg); border: 1px solid var(--border); border-radius: var(--radius); color: var(--text-primary); font-family: 'DM Sans', sans-serif; font-size: 14px; padding: 12px 14px; outline: none; transition: border-color .2s, box-shadow .2s; -webkit-appearance: none; }
+.r-input, .r-textarea, .r-select {
+  width: 100%; background: var(--input-bg); border: 1px solid var(--border); border-radius: var(--radius);
+  color: var(--text-primary); font-family: 'DM Sans', sans-serif; font-size: 14px; padding: 12px 14px;
+  outline: none; transition: border-color .2s, box-shadow .2s; -webkit-appearance: none;
+}
 .r-input::placeholder, .r-textarea::placeholder { color: var(--text-muted); }
 .r-input:focus, .r-textarea:focus, .r-select:focus { border-color: var(--border-focus); box-shadow: 0 0 0 3px var(--accent-dim); }
 .r-textarea { min-height: 90px; resize: vertical; line-height: 1.6; }
@@ -275,6 +336,7 @@ input.error-state { border-color: var(--error); }
 .check-item.selected .rpip::after { content: '✓'; font-size: 10px; color: #0C0F0A; font-weight: 700; }
 .radio-item span:last-child, .check-item span:last-child { font-size: 13px; color: var(--text-secondary); }
 .radio-item.selected span:last-child, .check-item.selected span:last-child { color: var(--text-primary); }
+/* purple radio variants for requisitions */
 .radio-item.purple-radio.selected { border-color: var(--purple); background: rgba(167,139,250,0.1); }
 .radio-item.purple-radio.selected .rpip { border-color: var(--purple); background: var(--purple); box-shadow: inset 0 0 0 3px var(--input-bg); }
 .radio-item.purple-radio.selected span:last-child { color: var(--text-primary); }
@@ -327,7 +389,9 @@ input.error-state { border-color: var(--error); }
 .btn-go-dash { background: var(--accent); color: #0C0F0A; border: none; border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; padding: 10px 22px; cursor: pointer; transition: all .2s; margin: 4px; }
 .btn-go-dash:hover { background: #d8f04e; }
 
-/* EVENT SUBMISSION */
+/* ═══════════════════════════════════════════════
+   EVENT SUBMISSION MODULE
+═══════════════════════════════════════════════ */
 .evt-form-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 40px; position: relative; overflow: hidden; }
 .evt-form-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--accent), transparent); opacity: .6; transition: background .4s; }
 .evt-form-card.update-mode::before { background: linear-gradient(90deg, transparent, var(--orange), transparent); }
@@ -361,7 +425,11 @@ input.error-state { border-color: var(--error); }
 .e-field { margin-bottom: 20px; }
 .e-field label { display: block; font-size: 12px; font-weight: 500; color: var(--text-secondary); letter-spacing: .04em; margin-bottom: 8px; }
 .e-field label .req { color: var(--error); margin-left: 3px; }
-.e-input, .e-textarea, .e-select { width: 100%; background: var(--input-bg); border: 1px solid var(--border); border-radius: var(--radius); color: var(--text-primary); font-family: 'DM Sans', sans-serif; font-size: 14px; padding: 12px 14px; outline: none; transition: border-color .2s, box-shadow .2s, background .4s; -webkit-appearance: none; appearance: none; }
+.e-input, .e-textarea, .e-select {
+  width: 100%; background: var(--input-bg); border: 1px solid var(--border); border-radius: var(--radius);
+  color: var(--text-primary); font-family: 'DM Sans', sans-serif; font-size: 14px; padding: 12px 14px;
+  outline: none; transition: border-color .2s, box-shadow .2s, background .4s; -webkit-appearance: none; appearance: none;
+}
 .e-input::placeholder, .e-textarea::placeholder { color: var(--text-muted); }
 .e-input:focus, .e-textarea:focus, .e-select:focus { border-color: var(--border-focus); box-shadow: 0 0 0 3px var(--accent-dim); }
 .e-textarea { min-height: 100px; resize: vertical; line-height: 1.6; }
@@ -374,6 +442,7 @@ input.error-state { border-color: var(--error); }
 .assistants-section { display: block; margin-top: 28px; }
 .assistant-entry { display: grid; grid-template-columns: 1fr 1fr auto; gap: 10px; align-items: end; margin-bottom: 12px; animation: rise .25s ease both; }
 @media (max-width: 520px) { .assistant-entry { grid-template-columns: 1fr; } .assistant-entry .btn-remove { width: 100%; } }
+.assistant-entry .e-input { margin-bottom: 0; }
 .btn-remove { background: rgba(255,95,82,.08); border: 1px solid rgba(255,95,82,.2); color: var(--error); border-radius: var(--radius); font-family: 'DM Mono', monospace; font-size: 11px; padding: 11px 14px; cursor: pointer; white-space: nowrap; transition: background .2s, border-color .2s; height: 44px; }
 .btn-remove:hover { background: rgba(255,95,82,.15); border-color: rgba(255,95,82,.4); }
 .btn-add-assistant { display: inline-flex; align-items: center; gap: 8px; background: transparent; border: 1px dashed var(--border); color: var(--text-secondary); border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 13px; padding: 10px 18px; cursor: pointer; margin-top: 4px; transition: border-color .2s, color .2s; width: 100%; justify-content: center; }
@@ -404,127 +473,95 @@ input.error-state { border-color: var(--error); }
 .btn-evt-new:hover { border-color: var(--accent); color: var(--accent); }
 
 /* ═══════════════════════════════════════════════
-   REQUISITION MODULE — REDESIGNED
+   REQUISITION MODULE
 ═══════════════════════════════════════════════ */
 .req-form-card { background: var(--surface); border: 1px solid rgba(167,139,250,0.2); border-radius: 12px; padding: 40px; position: relative; overflow: hidden; }
 .req-form-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--purple), transparent); opacity: .7; }
 @media (max-width: 600px) { .req-form-card { padding: 24px 18px; } }
-
 .req-section-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: rgba(167,139,250,0.6); margin-bottom: 20px; margin-top: 32px; display: flex; align-items: center; gap: 12px; }
 .req-section-label::after { content: ''; flex: 1; height: 1px; background: rgba(167,139,250,0.15); }
 .req-section-label:first-child { margin-top: 0; }
-
-/* JOB LOOKUP — purple inline style */
-.req-job-lookup-box { background: rgba(167,139,250,0.04); border: 1px solid rgba(167,139,250,0.2); border-radius: 10px; padding: 24px; margin-bottom: 8px; }
-.req-lookup-title { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: rgba(167,139,250,0.7); margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
-.req-lookup-title::after { content: ''; flex: 1; height: 1px; background: rgba(167,139,250,.2); }
-
-.req-email-row { display: flex; align-items: flex-end; gap: 12px; flex-wrap: wrap; }
-.req-email-field { flex: 1; min-width: 220px; }
-.req-email-field label { font-size: 11px; color: var(--text-secondary); margin-bottom: 6px; display: block; letter-spacing: .04em; }
-.req-email-input { width: 100%; background: var(--input-bg); border: 1px solid rgba(167,139,250,0.25); border-radius: var(--radius); color: var(--text-primary); font-family: 'DM Sans', sans-serif; font-size: 14px; padding: 11px 14px; outline: none; transition: border-color .2s, box-shadow .2s; }
-.req-email-input:focus { border-color: var(--purple); box-shadow: 0 0 0 3px rgba(167,139,250,.1); }
-.req-email-input::placeholder { color: var(--text-muted); }
-
-.btn-req-load { display: flex; align-items: center; gap: 8px; background: var(--purple); color: #0C0F0A; border: none; border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; padding: 11px 22px; cursor: pointer; white-space: nowrap; transition: background .2s, transform .15s, box-shadow .2s; flex-shrink: 0; }
-.btn-req-load:hover { background: #c4b5fd; transform: translateY(-1px); box-shadow: 0 6px 18px rgba(167,139,250,.25); }
-.btn-req-load:disabled { opacity: .5; pointer-events: none; }
-.btn-req-load .btn-spinner { width: 14px; height: 14px; border: 2px solid rgba(0,0,0,.2); border-top-color: #0C0F0A; border-radius: 50%; animation: spin .7s linear infinite; display: none; }
-.btn-req-load.loading .btn-spinner { display: block; }
-.btn-req-load.loading .lbl-text { opacity: .5; }
-
-.req-loader-msg { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-muted); margin-top: 12px; min-height: 16px; transition: color .2s; }
-.req-loader-msg.success { color: rgba(167,139,250,0.8); }
-.req-loader-msg.error-msg { color: var(--error); }
-
-.req-job-cards { display: flex; flex-direction: column; gap: 8px; margin-top: 16px; }
-.req-job-cards:empty { display: none; }
-
-/* Pre-filled readonly fields */
-.req-prefilled-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 4px; }
-@media (max-width: 560px) { .req-prefilled-grid { grid-template-columns: 1fr; } }
 .req-field { margin-bottom: 20px; }
 .req-field label { display: block; font-size: 12px; font-weight: 500; color: var(--text-secondary); letter-spacing: .04em; margin-bottom: 8px; }
 .req-field label .req { color: var(--error); margin-left: 3px; }
-.req-input, .req-textarea, .req-select { width: 100%; background: var(--input-bg); border: 1px solid var(--border); border-radius: var(--radius); color: var(--text-primary); font-family: 'DM Sans', sans-serif; font-size: 14px; padding: 12px 14px; outline: none; transition: border-color .2s, box-shadow .2s; -webkit-appearance: none; appearance: none; }
+.req-input, .req-textarea, .req-select {
+  width: 100%; background: var(--input-bg); border: 1px solid var(--border); border-radius: var(--radius);
+  color: var(--text-primary); font-family: 'DM Sans', sans-serif; font-size: 14px; padding: 12px 14px;
+  outline: none; transition: border-color .2s, box-shadow .2s; -webkit-appearance: none; appearance: none;
+}
 .req-input::placeholder, .req-textarea::placeholder { color: var(--text-muted); }
-.req-input:focus, .req-textarea:focus, .req-select:focus { border-color: var(--purple); box-shadow: 0 0 0 3px rgba(167,139,250,.12); }
+.req-input:focus, .req-textarea:focus, .req-select:focus { border-color: var(--purple); box-shadow: 0 0 0 3px rgba(167,139,250,0.12); }
 .req-textarea { min-height: 90px; resize: vertical; line-height: 1.6; }
 .req-select-wrap { position: relative; }
 .req-select-wrap::after { content: ''; position: absolute; right: 14px; top: 50%; transform: translateY(-50%); width: 10px; height: 10px; background: var(--text-muted); clip-path: polygon(0 30%,50% 80%,100% 30%); pointer-events: none; }
-.req-input[readonly] { opacity: .65; cursor: default; background: rgba(167,139,250,0.05); border-color: rgba(167,139,250,0.2); color: var(--text-secondary); }
+.req-input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(.5); cursor: pointer; }
 .req-field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 @media (max-width: 520px) { .req-field-row { grid-template-columns: 1fr; } }
 .req-field.has-error .req-input, .req-field.has-error .req-select, .req-field.has-error .req-textarea { border-color: var(--error); }
 .req-field.has-error .req-field-error { display: block; }
 .req-field-error { font-size: 11px; color: var(--error); margin-top: 5px; font-family: 'DM Mono', monospace; display: none; }
-.req-info-box { background: rgba(167,139,250,0.07); border: 1px solid rgba(167,139,250,0.18); border-radius: 8px; padding: 14px 16px; margin-bottom: 20px; font-size: 12px; color: var(--text-secondary); line-height: 1.6; }
+.req-input[readonly] { opacity: .65; cursor: default; background: rgba(167,139,250,0.04); border-color: rgba(167,139,250,0.2); }
 
-/* ── LINE ITEMS TABLE — redesigned with Category + Days ── */
-.line-items-wrapper { overflow-x: auto; margin-bottom: 4px; border-radius: 8px; border: 1px solid rgba(167,139,250,0.15); }
-.line-items-table { width: 100%; border-collapse: collapse; min-width: 700px; }
-.line-items-table thead tr { background: rgba(167,139,250,0.08); border-bottom: 1px solid rgba(167,139,250,0.15); }
-.line-items-table th { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: .15em; text-transform: uppercase; color: rgba(167,139,250,0.7); padding: 10px 10px; text-align: left; white-space: nowrap; }
-.line-items-table th:last-child { text-align: center; width: 52px; }
-.line-item-row { border-bottom: 1px solid rgba(167,139,250,0.08); transition: background .15s; }
-.line-item-row:last-child { border-bottom: none; }
-.line-item-row:hover { background: rgba(167,139,250,0.03); }
-.line-item-row td { padding: 8px 6px 8px 8px; vertical-align: middle; }
-.line-item-row td:last-child { text-align: center; padding-right: 10px; }
+/* JOB LOOKUP — purple themed */
+.req-job-lookup { background: rgba(167,139,250,0.04); border: 1px solid rgba(167,139,250,0.2); border-radius: 8px; padding: 20px; margin-bottom: 28px; }
+.req-lookup-title { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: rgba(167,139,250,0.7); margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+.req-lookup-title::after { content: ''; flex: 1; height: 1px; background: rgba(167,139,250,.2); }
+.req-lookup-row { display: flex; align-items: flex-end; gap: 12px; flex-wrap: wrap; }
+.req-lookup-email-wrap { flex: 1; min-width: 200px; }
+.req-lookup-email-wrap label { font-size: 11px; color: var(--text-secondary); margin-bottom: 6px; display: block; }
+.req-lookup-email-input { width: 100%; background: var(--input-bg); border: 1px solid rgba(167,139,250,0.2); border-radius: var(--radius); color: var(--text-primary); font-family: 'DM Sans', sans-serif; font-size: 13px; padding: 10px 12px; outline: none; transition: border-color .2s; }
+.req-lookup-email-input:focus { border-color: var(--purple); box-shadow: 0 0 0 3px rgba(167,139,250,.1); }
+.btn-req-load { display: flex; align-items: center; gap: 8px; background: var(--purple); color: #0C0F0A; border: none; border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; padding: 10px 20px; cursor: pointer; white-space: nowrap; transition: background .2s, transform .15s; }
+.btn-req-load:hover { background: #c4b5fd; transform: translateY(-1px); }
+.btn-req-load:disabled { opacity: .5; pointer-events: none; }
+.req-loader-text { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-muted); margin-top: 10px; min-height: 16px; }
+.req-job-cards { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
+.req-job-cards:empty { display: none; }
+.req-verified-badge { display: none; margin-top: 10px; }
+.req-verified-badge.visible { display: block; animation: rise .3s ease both; }
+.req-verified-badge-inner { display: inline-flex; align-items: center; gap: 7px; background: rgba(167,139,250,.1); border: 1px solid rgba(167,139,250,.3); color: var(--purple); font-family: 'DM Mono', monospace; font-size: 11px; padding: 6px 14px; border-radius: 100px; }
+.req-verified-badge-inner::before { content: '✓'; font-weight: 700; font-size: 13px; }
+.req-lookup-err { font-size: 11px; color: var(--error); margin-top: 8px; font-family: 'DM Mono', monospace; display: none; }
+.req-lookup-err.visible { display: block; }
 
-/* inputs inside table */
-.li-input { width: 100%; background: transparent; border: 1px solid transparent; border-radius: 5px; color: var(--text-primary); font-family: 'DM Sans', sans-serif; font-size: 13px; padding: 7px 9px; outline: none; transition: border-color .2s, background .15s; }
-.li-input:hover { border-color: var(--border); background: var(--input-bg); }
-.li-input:focus { border-color: var(--purple); background: var(--input-bg); box-shadow: 0 0 0 2px rgba(167,139,250,0.1); }
+/* LINE ITEMS */
+.line-items-table { width: 100%; border-collapse: collapse; margin-bottom: 12px; }
+.line-items-table th { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: .15em; text-transform: uppercase; color: var(--text-muted); padding: 0 0 10px; text-align: left; }
+.line-items-table th:last-child { text-align: right; width: 80px; }
+.line-item-row td { padding: 4px 6px 4px 0; vertical-align: top; }
+.line-item-row td:last-child { text-align: right; vertical-align: middle; }
+.li-input { width: 100%; background: var(--input-bg); border: 1px solid var(--border); border-radius: 5px; color: var(--text-primary); font-family: 'DM Sans', sans-serif; font-size: 13px; padding: 9px 11px; outline: none; transition: border-color .2s; }
+.li-input:focus { border-color: var(--purple); box-shadow: 0 0 0 2px rgba(167,139,250,0.1); }
 .li-input::placeholder { color: var(--text-muted); }
 .li-input[type="number"] { -moz-appearance: textfield; }
 .li-input[type="number"]::-webkit-outer-spin-button, .li-input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; }
+.btn-rm-line { background: rgba(255,95,82,.07); border: 1px solid rgba(255,95,82,.2); color: var(--error); border-radius: 5px; font-size: 13px; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background .2s; flex-shrink: 0; }
+.btn-rm-line:hover { background: rgba(255,95,82,.15); }
+.line-total-row { display: flex; align-items: center; justify-content: space-between; margin-top: 4px; padding: 10px 0; border-top: 1px solid var(--border); }
+.line-total-label { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-muted); }
+.line-total-val { font-family: 'DM Serif Display', serif; font-size: 20px; color: var(--purple); }
+.btn-add-line { display: inline-flex; align-items: center; gap: 8px; background: transparent; border: 1px dashed rgba(167,139,250,0.3); color: rgba(167,139,250,0.7); border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 13px; padding: 10px 18px; cursor: pointer; margin-top: 8px; transition: border-color .2s, color .2s; width: 100%; justify-content: center; }
+.btn-add-line:hover { border-color: var(--purple); color: var(--purple); }
 
-/* category select inside table */
-.li-cat-select { width: 100%; background: transparent; border: 1px solid transparent; border-radius: 5px; color: var(--text-primary); font-family: 'DM Sans', sans-serif; font-size: 12px; padding: 7px 26px 7px 9px; outline: none; -webkit-appearance: none; appearance: none; transition: border-color .2s, background .15s; cursor: pointer; }
-.li-cat-select:hover { border-color: var(--border); background: var(--input-bg); }
-.li-cat-select:focus { border-color: var(--purple); background: var(--input-bg); box-shadow: 0 0 0 2px rgba(167,139,250,0.1); }
-.li-cat-select option { background: #1a1f16; }
-.li-cat-wrap { position: relative; }
-.li-cat-wrap::after { content: ''; position: absolute; right: 9px; top: 50%; transform: translateY(-50%); width: 8px; height: 8px; background: var(--text-muted); clip-path: polygon(0 30%,50% 80%,100% 30%); pointer-events: none; }
-
-/* row total cell */
-.li-row-total { font-family: 'DM Mono', monospace; font-size: 12px; color: rgba(167,139,250,0.8); text-align: right; padding-right: 10px; white-space: nowrap; min-width: 80px; }
-
-.btn-rm-line { background: transparent; border: 1px solid transparent; color: var(--text-muted); border-radius: 5px; font-size: 14px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all .2s; flex-shrink: 0; }
-.btn-rm-line:hover { background: rgba(255,95,82,.1); border-color: rgba(255,95,82,.3); color: var(--error); }
-
-/* totals footer */
-.line-totals-footer { display: flex; align-items: center; justify-content: flex-end; gap: 24px; padding: 14px 16px; background: rgba(167,139,250,0.05); border-top: 1px solid rgba(167,139,250,0.15); border-radius: 0 0 8px 8px; flex-wrap: wrap; }
-.lt-item { display: flex; align-items: center; gap: 10px; }
-.lt-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: .15em; text-transform: uppercase; color: var(--text-muted); }
-.lt-val { font-family: 'DM Serif Display', serif; font-size: 18px; color: var(--purple); }
-.lt-val.grand { font-size: 22px; color: var(--purple); }
-
-.btn-add-line { display: inline-flex; align-items: center; gap: 8px; background: transparent; border: 1px dashed rgba(167,139,250,0.3); color: rgba(167,139,250,0.7); border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 13px; padding: 10px 18px; cursor: pointer; margin-top: 12px; transition: border-color .2s, color .2s, background .2s; width: 100%; justify-content: center; }
-.btn-add-line:hover { border-color: var(--purple); color: var(--purple); background: rgba(167,139,250,0.05); }
-
-/* submit */
 .req-submit-row { margin-top: 32px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 .req-submit-note { font-size: 11px; color: var(--text-muted); font-family: 'DM Mono', monospace; }
-.btn-req-submit { background: var(--purple); color: #0C0F0A; border: none; border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; padding: 14px 32px; cursor: pointer; transition: background .2s, transform .15s, box-shadow .2s; display: flex; align-items: center; gap: 10px; }
-.btn-req-submit:hover { background: #c4b5fd; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(167,139,250,.3); }
+.btn-req-submit { background: var(--purple); color: #0C0F0A; border: none; border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; padding: 14px 32px; cursor: pointer; transition: background .2s, transform .15s, box-shadow .2s; display: flex; align-items: center; gap: 10px; }
+.btn-req-submit:hover { background: #c4b5fd; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(167,139,250,.25); }
 .btn-req-submit.loading { pointer-events: none; opacity: .7; }
 .btn-req-submit .btn-spinner { width: 16px; height: 16px; border: 2px solid rgba(0,0,0,.25); border-top-color: #0C0F0A; border-radius: 50%; animation: spin .7s linear infinite; display: none; }
 .btn-req-submit.loading .btn-spinner { display: block; }
 .btn-req-submit.loading .btn-text { opacity: .5; }
 .req-error-banner { display: none; background: rgba(255,95,82,.08); border: 1px solid rgba(255,95,82,.3); border-radius: var(--radius); padding: 14px 18px; margin-top: 20px; font-size: 12px; color: var(--error); font-family: 'DM Mono', monospace; }
 .req-error-banner.visible { display: block; }
-
-/* success screen */
 .req-success-screen { display: none; flex-direction: column; align-items: center; text-align: center; padding: 60px 40px; animation: rise .5s ease both; }
 .req-success-screen.visible { display: flex; }
-.req-success-icon { width: 80px; height: 80px; background: rgba(167,139,250,.12); border: 2px solid var(--purple); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 34px; margin-bottom: 28px; animation: popIn .4s cubic-bezier(.175,.885,.32,1.275) both .1s; }
+.req-success-icon { width: 72px; height: 72px; background: rgba(167,139,250,.12); border: 2px solid var(--purple); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; margin-bottom: 28px; animation: popIn .4s cubic-bezier(.175,.885,.32,1.275) both .1s; }
 .req-success-screen h2 { font-family: 'DM Serif Display', serif; font-size: 28px; font-weight: 400; margin-bottom: 12px; }
 .req-success-screen p { font-size: 14px; color: var(--text-secondary); line-height: 1.7; max-width: 420px; margin-bottom: 28px; }
 .req-success-ref { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--purple); background: rgba(167,139,250,.08); border: 1px solid rgba(167,139,250,.2); border-radius: 100px; padding: 6px 16px; margin-bottom: 28px; letter-spacing: .08em; }
 .btn-req-new { background: transparent; border: 1px solid var(--border); color: var(--text-secondary); border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 13px; padding: 11px 24px; cursor: pointer; transition: border-color .2s, color .2s; }
 .btn-req-new:hover { border-color: var(--purple); color: var(--purple); }
+.req-info-box { background: rgba(167,139,250,0.07); border: 1px solid rgba(167,139,250,0.18); border-radius: 8px; padding: 14px 16px; margin-bottom: 20px; font-size: 12px; color: var(--text-secondary); line-height: 1.6; }
 
 /* COMING SOON */
 .coming-soon { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; min-height: 400px; padding: 40px; }
@@ -533,7 +570,7 @@ input.error-state { border-color: var(--error); }
 .coming-soon p { font-size: 13px; color: var(--text-secondary); line-height: 1.7; max-width: 380px; }
 .coming-soon .cs-tag { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .15em; text-transform: uppercase; color: var(--orange); background: rgba(249,115,22,.1); border: 1px solid rgba(249,115,22,.25); padding: 4px 12px; border-radius: 100px; margin-top: 20px; display: inline-block; }
 
-/* PDF */
+/* PDF hidden */
 #pdf-preview { position: fixed; left: -9999px; top: 0; background: #fff; color: #111; padding: 36px 40px; font-family: 'Segoe UI', Arial, sans-serif; font-size: 12px; line-height: 1.6; width: 794px; }
 #pdf-preview .pdf-header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 3px solid #111; padding-bottom: 16px; margin-bottom: 24px; }
 #pdf-preview .pdf-title { font-size: 22px; font-weight: 700; }
@@ -564,7 +601,7 @@ input.error-state { border-color: var(--error); }
 </head>
 <body>
 
-<!-- LOGIN PAGE -->
+<!-- ═══════════════ LOGIN PAGE ═══════════════ -->
 <div id="login-page">
   <div class="login-wrap">
     <div class="login-header">
@@ -630,9 +667,10 @@ input.error-state { border-color: var(--error); }
   </div>
 </div>
 
-<!-- APP SHELL -->
+<!-- ═══════════════ APP SHELL ═══════════════ -->
 <div id="app-shell">
   <div class="sidebar-overlay" id="sb-overlay"></div>
+
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-logo">
       <div class="sidebar-logo-mark">P</div>
@@ -704,6 +742,7 @@ input.error-state { border-color: var(--error); }
     </div>
   </aside>
 
+  <!-- MAIN -->
   <div class="main-wrap" id="main-wrap">
     <header class="topbar">
       <button class="topbar-toggle" id="sb-toggle" title="Toggle sidebar">
@@ -725,7 +764,7 @@ input.error-state { border-color: var(--error); }
 
     <main class="content-area">
 
-      <!-- DASHBOARD -->
+      <!-- ── DASHBOARD ── -->
       <div id="page-dashboard">
         <div class="dash-greeting">
           <div class="time-tag" id="dash-time-tag">Good Morning</div>
@@ -733,25 +772,25 @@ input.error-state { border-color: var(--error); }
           <p id="dash-sub">Here's a quick overview of your PrimeEdgeAI workspace.</p>
         </div>
         <div class="stats-row">
-          <div class="stat-card"><div class="stat-label">Active Modules</div><div class="stat-val">3</div><div class="stat-sub">of 7 planned</div></div>
-          <div class="stat-card"><div class="stat-label">Reccees</div><div class="stat-val" id="dash-reccee-count">0</div><div class="stat-sub">submitted this session</div></div>
-          <div class="stat-card"><div class="stat-label">Events</div><div class="stat-val" id="dash-event-count">0</div><div class="stat-sub">submitted this session</div></div>
-          <div class="stat-card"><div class="stat-label">Requisitions</div><div class="stat-val" id="dash-req-count">0</div><div class="stat-sub">submitted this session</div></div>
-          <div class="stat-card"><div class="stat-label">Logged In As</div><div class="stat-val" style="font-size:16px;padding-top:4px" id="dash-user-stat">—</div><div class="stat-sub">verified via OTP</div></div>
+          <div class="stat-card"><div class="stat-icon"></div><div class="stat-label">Active Modules</div><div class="stat-val">3</div><div class="stat-sub">of 7 planned</div></div>
+          <div class="stat-card"><div class="stat-icon"></div><div class="stat-label">Reccees</div><div class="stat-val" id="dash-reccee-count">0</div><div class="stat-sub">submitted this session</div></div>
+          <div class="stat-card"><div class="stat-icon"></div><div class="stat-label">Events</div><div class="stat-val" id="dash-event-count">0</div><div class="stat-sub">submitted this session</div></div>
+          <div class="stat-card"><div class="stat-icon"></div><div class="stat-label">Requisitions</div><div class="stat-val" id="dash-req-count">0</div><div class="stat-sub">submitted this session</div></div>
+          <div class="stat-card"><div class="stat-icon"></div><div class="stat-label">Logged In As</div><div class="stat-val" style="font-size:16px;padding-top:4px" id="dash-user-stat">—</div><div class="stat-sub">verified via OTP</div></div>
         </div>
         <div class="section-head"><h3>Your Modules</h3><div class="line"></div></div>
         <div class="module-grid">
-          <div class="module-card" onclick="navigateTo('reccee')"><div class="module-icon"></div><div class="module-title">Reccee Assessment</div><div class="module-desc">Site visit form for evaluating venues — security, logistics, medical, and compliance.</div><div class="module-footer"><span class="module-status status-active">Live</span><span class="module-arrow">→</span></div></div>
-          <div class="module-card" onclick="navigateTo('event-submission')"><div class="module-icon"></div><div class="module-title">Event Submission</div><div class="module-desc">Submit a new event for approval or update an existing event with new details.</div><div class="module-footer"><span class="module-status status-active">Live</span><span class="module-arrow">→</span></div></div>
-          <div class="module-card purple-card" onclick="navigateTo('requisitions')"><div class="module-icon"></div><div class="module-title">Requisitions</div><div class="module-desc">Submit procurement requests for event supplies, services, and equipment with itemised costing.</div><div class="module-footer"><span class="module-status status-new">New</span><span class="module-arrow">→</span></div></div>
-          <div class="module-card locked"><div class="module-icon"></div><div class="module-title">Site Checklist</div><div class="module-desc">Pre-event and post-event site checklists for crew verification.</div><div class="module-footer"><span class="module-status status-soon">Coming Soon</span><span class="module-arrow">→</span></div></div>
-          <div class="module-card locked"><div class="module-icon"></div><div class="module-title">Incident Report</div><div class="module-desc">Log and escalate field incidents in real-time during events.</div><div class="module-footer"><span class="module-status status-soon">Coming Soon</span><span class="module-arrow">→</span></div></div>
-          <div class="module-card locked"><div class="module-icon"></div><div class="module-title">Timesheets</div><div class="module-desc">Clock in, clock out, and submit weekly timesheets for payroll.</div><div class="module-footer"><span class="module-status status-locked">Locked</span><span class="module-arrow">→</span></div></div>
-          <div class="module-card locked"><div class="module-icon"></div><div class="module-title">Team</div><div class="module-desc">Manage staff assignments, roles, and contact information.</div><div class="module-footer"><span class="module-status status-locked">Locked</span><span class="module-arrow">→</span></div></div>
+          <div class="module-card" onclick="navigateTo('reccee')"><div class="module-icon">🗺️</div><div class="module-title">Reccee Assessment</div><div class="module-desc">Site visit form for evaluating venues — security, logistics, medical, and compliance.</div><div class="module-footer"><span class="module-status status-active">Live</span><span class="module-arrow">→</span></div></div>
+          <div class="module-card" onclick="navigateTo('event-submission')"><div class="module-icon">📋</div><div class="module-title">Event Submission</div><div class="module-desc">Submit a new event for approval or update an existing event with new details.</div><div class="module-footer"><span class="module-status status-active">Live</span><span class="module-arrow">→</span></div></div>
+          <div class="module-card purple-card" onclick="navigateTo('requisitions')"><div class="module-icon">🧾</div><div class="module-title">Requisitions</div><div class="module-desc">Submit procurement requests for event supplies, services, and equipment with itemised costing.</div><div class="module-footer"><span class="module-status status-new">New</span><span class="module-arrow">→</span></div></div>
+          <div class="module-card locked"><div class="module-icon">✅</div><div class="module-title">Site Checklist</div><div class="module-desc">Pre-event and post-event site checklists for crew verification.</div><div class="module-footer"><span class="module-status status-soon">Coming Soon</span><span class="module-arrow">→</span></div></div>
+          <div class="module-card locked"><div class="module-icon">⚠️</div><div class="module-title">Incident Report</div><div class="module-desc">Log and escalate field incidents in real-time during events.</div><div class="module-footer"><span class="module-status status-soon">Coming Soon</span><span class="module-arrow">→</span></div></div>
+          <div class="module-card locked"><div class="module-icon">🕐</div><div class="module-title">Timesheets</div><div class="module-desc">Clock in, clock out, and submit weekly timesheets for payroll.</div><div class="module-footer"><span class="module-status status-locked">Locked</span><span class="module-arrow">→</span></div></div>
+          <div class="module-card locked"><div class="module-icon">👥</div><div class="module-title">Team</div><div class="module-desc">Manage staff assignments, roles, and contact information.</div><div class="module-footer"><span class="module-status status-locked">Locked</span><span class="module-arrow">→</span></div></div>
         </div>
       </div>
 
-      <!-- RECCEE PAGE -->
+      <!-- ── RECCEE PAGE ── -->
       <div id="page-reccee" style="display:none">
         <div class="section-head" style="margin-bottom:8px"><h3>Reccee <em style="font-style:italic;color:var(--accent)">Assessment</em></h3><div class="line"></div></div>
         <p style="font-size:13px;color:var(--text-secondary);margin-bottom:28px">Complete the site assessment for your event. Your report will be submitted to the PrimeEdgeAI team.</p>
@@ -768,7 +807,9 @@ input.error-state { border-color: var(--error); }
           <div class="pip-line" id="r-line-5"></div>
           <div class="step-pip" id="r-pip-6"><div class="pip-dot">6</div><div class="pip-label">Review</div></div>
         </div>
+
         <div class="form-card" id="r-form-card">
+          <!-- STEP 1 -->
           <div class="step-panel active" id="r-step-1">
             <div class="r-section-label">Project Lead Verification</div>
             <div class="r-info-box" id="r-step1-info">Enter your email to find your assigned jobs.</div>
@@ -784,6 +825,7 @@ input.error-state { border-color: var(--error); }
               <button class="btn-next" id="r-next-1"><span class="btn-text">Find My Jobs →</span><div class="btn-spinner"></div></button>
             </div>
           </div>
+          <!-- STEP 2 -->
           <div class="step-panel" id="r-step-2">
             <div class="r-section-label">Select Job to Assess</div>
             <div class="r-info-box" id="r-jobs-info"></div>
@@ -805,6 +847,7 @@ input.error-state { border-color: var(--error); }
               <button class="btn-next" id="r-next-2">Continue →</button>
             </div>
           </div>
+          <!-- STEP 3 -->
           <div class="step-panel" id="r-step-3">
             <div class="r-section-label">Venue &amp; Dates</div>
             <div class="r-field-row">
@@ -817,6 +860,7 @@ input.error-state { border-color: var(--error); }
             <div class="r-field"><label class="r-label">Is public transport available?</label><div class="radio-group inline"><div class="radio-item" data-rg="transport" data-rv="Yes"><span class="rpip"></span><span>Yes</span></div><div class="radio-item" data-rg="transport" data-rv="No"><span class="rpip"></span><span>No</span></div></div></div>
             <div class="btn-row"><button class="btn-back" onclick="rGoStep(2)">← Back</button><span class="step-hint">Step 3 of 6</span><button class="btn-next" id="r-next-3">Continue →</button></div>
           </div>
+          <!-- STEP 4 -->
           <div class="step-panel" id="r-step-4">
             <div class="r-section-label">Security Assessment</div>
             <div class="r-field"><label class="r-label">Are there residential settlements near the venue?</label><div class="radio-group inline"><div class="radio-item" data-rg="residential" data-rv="Yes"><span class="rpip"></span><span>Yes</span></div><div class="radio-item" data-rg="residential" data-rv="No"><span class="rpip"></span><span>No</span></div></div></div>
@@ -831,6 +875,7 @@ input.error-state { border-color: var(--error); }
             <div class="r-field"><label class="r-label">Other facilities needed</label><textarea class="r-textarea" id="r-other-facilities" placeholder="Any other infrastructure requirements…"></textarea></div>
             <div class="btn-row"><button class="btn-back" onclick="rGoStep(3)">← Back</button><span class="step-hint">Step 4 of 6</span><button class="btn-next" id="r-next-4">Continue →</button></div>
           </div>
+          <!-- STEP 5 -->
           <div class="step-panel" id="r-step-5">
             <div class="r-section-label">Event Logistics</div>
             <div class="r-field"><label class="r-label">Entry &amp; Exit details</label><textarea class="r-textarea" id="r-entry-exit" placeholder="Describe entry/exit points, crowd flow, vehicle access…"></textarea></div>
@@ -841,6 +886,7 @@ input.error-state { border-color: var(--error); }
             <div class="r-field" id="r-field-challenges"><label class="r-label">Challenges &amp; Recommendations <span class="req">*</span></label><textarea class="r-textarea" id="r-challenges" placeholder="Key issues and your recommendations…" style="min-height:110px"></textarea><div class="r-field-error">Please fill in challenges &amp; recommendations.</div></div>
             <div class="btn-row"><button class="btn-back" onclick="rGoStep(4)">← Back</button><span class="step-hint">Step 5 of 6</span><button class="btn-next" id="r-next-5">Review &amp; Submit →</button></div>
           </div>
+          <!-- STEP 6 -->
           <div class="step-panel" id="r-step-6">
             <div class="r-section-label" style="margin-top:0">Full Assessment Recap</div>
             <div class="recap-section"><div class="recap-section-title">Project Information</div><div class="recap-grid"><div class="recap-item"><div class="recap-label">Email</div><div class="recap-val" id="rv-email">—</div></div><div class="recap-item"><div class="recap-label">Job ID</div><div class="recap-val" id="rv-job-id">—</div></div><div class="recap-item"><div class="recap-label">Client</div><div class="recap-val" id="rv-client">—</div></div><div class="recap-item"><div class="recap-label">Description</div><div class="recap-val" id="rv-desc">—</div></div></div></div>
@@ -857,6 +903,8 @@ input.error-state { border-color: var(--error); }
             <div class="btn-row" style="margin-top:16px"><button class="btn-back" onclick="rGoStep(5)">← Back</button><span class="step-hint">Step 6 of 6</span></div>
           </div>
         </div>
+
+        <!-- RECCEE SUCCESS -->
         <div class="form-card r-success" id="r-success-screen">
           <div class="r-success-icon">✓</div>
           <h2>Assessment Submitted!</h2>
@@ -869,10 +917,11 @@ input.error-state { border-color: var(--error); }
         </div>
       </div>
 
-      <!-- EVENT SUBMISSION PAGE -->
+      <!-- ── EVENT SUBMISSION PAGE ── -->
       <div id="page-event-submission" style="display:none">
         <div class="section-head" style="margin-bottom:8px"><h3>Event <em style="font-style:italic;color:var(--accent)">Submission</em></h3><div class="line"></div></div>
         <p style="font-size:13px;color:var(--text-secondary);margin-bottom:28px">Submit a new event for approval or update an existing one.</p>
+
         <div class="evt-form-card" id="evt-main-card">
           <div class="update-banner" id="evt-update-banner">Update Mode — editing an existing event</div>
           <div class="e-section-label">Event Info</div>
@@ -913,6 +962,7 @@ input.error-state { border-color: var(--error); }
           </div>
           <div class="evt-error-banner" id="evt-error-banner"></div>
         </div>
+
         <div class="evt-form-card evt-success-screen" id="evt-success-screen">
           <div class="evt-success-icon" id="evt-success-icon">✓</div>
           <h2 id="evt-success-title">Event Submitted!</h2>
@@ -925,138 +975,164 @@ input.error-state { border-color: var(--error); }
         </div>
       </div>
 
-      <!-- REQUISITIONS PAGE -->
+      <!-- ── REQUISITIONS PAGE ── -->
       <div id="page-requisitions" style="display:none">
         <div class="section-head" style="margin-bottom:8px">
           <h3>Requisition <em style="font-style:italic;color:var(--purple)">Request</em></h3>
           <div class="line"></div>
         </div>
-        <p style="font-size:13px;color:var(--text-secondary);margin-bottom:28px">Submit a procurement request for supplies, services, or equipment. Select your job to auto-fill key details, then build your line items.</p>
+        <p style="font-size:13px;color:var(--text-secondary);margin-bottom:28px">Submit a procurement request for supplies, services, or equipment. Look up your job to pre-fill key details, then complete the form.</p>
 
         <div class="req-form-card" id="req-main-card">
 
-          <!-- JOB LOOKUP -->
+          <!-- ── JOB LOOKUP ── -->
           <div class="req-section-label" style="margin-top:0">Job Lookup</div>
+          <div class="req-info-box">Enter your email to load your assigned jobs, then select one to auto-fill the requisition details.</div>
 
-          <div class="req-job-lookup-box">
-            <div class="req-lookup-title">Find Your Assigned Job</div>
-            <div class="req-email-row">
-              <div class="req-email-field">
-                <label>Your email address</label>
-                <input type="email" class="req-email-input" id="rq-lookup-email" placeholder="your.email@company.com" />
+          <div class="req-job-lookup">
+            <div class="req-lookup-title">Find Your Job</div>
+            <div class="req-lookup-row">
+              <div class="req-lookup-email-wrap">
+                <label>Your Email Address</label>
+                <input type="email" class="req-lookup-email-input" id="rq-lookup-email" placeholder="your.email@company.com" />
               </div>
               <button class="btn-req-load" id="btn-req-load-jobs" type="button">
-                <span class="lbl-text">Load Jobs</span>
-                <div class="btn-spinner"></div>
+                <span id="req-load-label">Load Jobs</span>
               </button>
             </div>
-            <div class="req-loader-msg" id="req-loader-msg"></div>
+            <div class="req-loader-text" id="req-loader-text"></div>
+            <div class="req-lookup-err" id="req-lookup-err"></div>
             <div class="req-job-cards" id="req-job-cards"></div>
+            <div class="req-verified-badge" id="req-verified-badge">
+              <div class="req-verified-badge-inner" id="req-verified-badge-inner"></div>
+            </div>
           </div>
 
-          <!-- AUTO-FILLED JOB REFERENCE -->
+          <!-- ── JOB REFERENCE (pre-filled, readonly) ── -->
           <div class="req-section-label">Job Reference</div>
-          <div class="req-prefilled-grid">
-            <div class="req-field" id="rqf-job-id">
+
+          <div class="req-field-row">
+            <div class="req-field" id="rqfield-job-id">
               <label>Job ID <span class="req">*</span></label>
-              <input type="text" class="req-input" id="rq-job-id" placeholder="Select a job above" readonly />
-              <div class="req-field-error">Select a job from the lookup above.</div>
+              <input type="text" class="req-input" id="rq-job-id" placeholder="Select a job above to fill" readonly />
+              <div class="req-field-error">Job ID is required — select a job above.</div>
             </div>
-            <div class="req-field" id="rqf-client">
+            <div class="req-field" id="rqfield-client">
               <label>Client <span class="req">*</span></label>
               <input type="text" class="req-input" id="rq-client" placeholder="Auto-filled from job" readonly />
               <div class="req-field-error">Client is required.</div>
             </div>
           </div>
-          <div class="req-field" id="rqf-event-desc">
+
+          <div class="req-field" id="rqfield-event-description">
             <label>Event / Project Description <span class="req">*</span></label>
             <input type="text" class="req-input" id="rq-event-desc" placeholder="Auto-filled from job" readonly />
             <div class="req-field-error">Event description is required.</div>
           </div>
 
-          <!-- REQUESTOR -->
+          <!-- ── REQUESTOR DETAILS (pre-filled from auth, editable) ── -->
           <div class="req-section-label">Requestor Details</div>
+
           <div class="req-field-row">
-            <div class="req-field" id="rqf-requestor-name">
+            <div class="req-field" id="rqfield-requestor-name">
               <label>Your Name <span class="req">*</span></label>
               <input type="text" class="req-input" id="rq-requestor-name" placeholder="Full name" />
               <div class="req-field-error">Your name is required.</div>
             </div>
-            <div class="req-field" id="rqf-requestor-email">
+            <div class="req-field" id="rqfield-requestor-email">
               <label>Your Email <span class="req">*</span></label>
               <input type="email" class="req-input" id="rq-requestor-email" placeholder="your.email@company.com" />
               <div class="req-field-error">A valid email is required.</div>
             </div>
           </div>
-          <div class="req-field" id="rqf-date-required">
-            <label>Date Required <span class="req">*</span></label>
-            <input type="date" class="req-input" id="rq-date-required" style="max-width:260px" />
-            <div class="req-field-error">Date required is needed.</div>
+
+          <div class="req-field-row">
+            <div class="req-field" id="rqfield-department">
+              <label>Department</label>
+              <input type="text" class="req-input" id="rq-department" placeholder="e.g., Operations, Production" />
+            </div>
+            <div class="req-field" id="rqfield-date-required">
+              <label>Date Required <span class="req">*</span></label>
+              <input type="date" class="req-input" id="rq-date-required" />
+              <div class="req-field-error">Date required is needed.</div>
+            </div>
           </div>
 
-          <!-- PREFERRED SUPPLIER -->
-          <div class="req-field">
-            <label>Preferred Supplier <span style="font-size:11px;color:var(--text-muted);font-weight:400">(optional)</span></label>
-            <input type="text" class="req-input" id="rq-supplier" placeholder="Supplier name if known" style="max-width:400px" />
+          <!-- ── PROCUREMENT DETAILS ── -->
+          <div class="req-section-label">Procurement Details</div>
+
+          <div class="req-field-row">
+            <div class="req-field" id="rqfield-category">
+              <label>Category <span class="req">*</span></label>
+              <div class="req-select-wrap">
+                <select class="req-select" id="rq-category">
+                  <option value="">Select category…</option>
+                  <option value="Equipment">Equipment</option>
+                  <option value="Supplies & Materials">Supplies &amp; Materials</option>
+                  <option value="Services">Services</option>
+                  <option value="Transport & Logistics">Transport &amp; Logistics</option>
+                  <option value="Catering">Catering</option>
+                  <option value="Marketing & Print">Marketing &amp; Print</option>
+                  <option value="Venue">Venue</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+              <div class="req-field-error">Please select a category.</div>
+            </div>
+            <div class="req-field" id="rqfield-supplier">
+              <label>Preferred Supplier</label>
+              <input type="text" class="req-input" id="rq-supplier" placeholder="Supplier name (if known)" />
+            </div>
           </div>
 
           <!-- LINE ITEMS -->
           <div class="req-section-label">Line Items</div>
-          <div class="req-info-box">Add each item or service. Select a category per line, enter quantity, number of days, and unit cost — the row total and estimated grand total update automatically.</div>
+          <div class="req-info-box" style="margin-bottom:16px;">Add each item or service being requested. Include quantity and estimated unit cost.</div>
 
-          <div class="line-items-wrapper">
-            <table class="line-items-table">
-              <thead>
-                <tr>
-                  <th style="width:26%">Description</th>
-                  <th style="width:18%">Category</th>
-                  <th style="width:8%">Qty</th>
-                  <th style="width:8%">Days</th>
-                  <th style="width:16%">Unit Cost (KES)</th>
-                  <th style="width:14%;text-align:right;padding-right:10px">Row Total</th>
-                  <th style="width:52px"></th>
-                </tr>
-              </thead>
-              <tbody id="line-items-body"></tbody>
-            </table>
-            <div class="line-totals-footer">
-              <div class="lt-item">
-                <span class="lt-label">Sub-total</span>
-                <span class="lt-val" id="req-subtotal">KES 0.00</span>
-              </div>
-              <div class="lt-item" style="opacity:.4;font-family:'DM Mono',monospace;font-size:18px;">|</div>
-              <div class="lt-item">
-                <span class="lt-label">Estimated Total</span>
-                <span class="lt-val grand" id="req-total">KES 0.00</span>
-              </div>
-            </div>
+          <table class="line-items-table">
+            <thead>
+              <tr>
+                <th style="width:40%">Description</th>
+                <th style="width:15%">Qty</th>
+                <th style="width:20%">Unit Cost (KES)</th>
+                <th style="width:15%">Total</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="line-items-body"></tbody>
+          </table>
+          <div class="line-total-row">
+            <span class="line-total-label">ESTIMATED TOTAL</span>
+            <span class="line-total-val" id="req-total">KES 0.00</span>
           </div>
           <button type="button" class="btn-add-line" id="btn-add-line-item">+ Add Line Item</button>
 
-          <!-- JUSTIFICATION -->
-          <div class="req-section-label" style="margin-top:28px">Justification &amp; Urgency</div>
-          <div class="req-field" id="rqf-justification">
+          <div class="req-section-label" style="margin-top:28px">Justification &amp; Notes</div>
+
+          <div class="req-field" id="rqfield-justification">
             <label>Business Justification <span class="req">*</span></label>
             <textarea class="req-textarea" id="rq-justification" placeholder="Explain why this procurement is needed and how it supports the event/project…"></textarea>
             <div class="req-field-error">Business justification is required.</div>
           </div>
+
           <div class="req-field">
-            <label>Additional Notes <span style="font-size:11px;color:var(--text-muted);font-weight:400">(optional)</span></label>
-            <textarea class="req-textarea" id="rq-notes" placeholder="Special instructions, delivery requirements, alternative options…"></textarea>
+            <label>Additional Notes</label>
+            <textarea class="req-textarea" id="rq-notes" placeholder="Any special instructions, delivery requirements, or alternative options…"></textarea>
           </div>
-          <div class="req-field" id="rqf-urgency">
+
+          <div class="req-field" id="rqfield-urgency">
             <label>Urgency Level <span class="req">*</span></label>
-            <div class="radio-group inline">
+            <div class="radio-group inline" id="req-urgency-group">
               <div class="radio-item purple-radio" data-rg="req-urgency" data-rv="Low"><span class="rpip"></span><span>Low</span></div>
               <div class="radio-item purple-radio" data-rg="req-urgency" data-rv="Medium"><span class="rpip"></span><span>Medium</span></div>
               <div class="radio-item purple-radio" data-rg="req-urgency" data-rv="High"><span class="rpip"></span><span>High</span></div>
               <div class="radio-item purple-radio" data-rg="req-urgency" data-rv="Urgent"><span class="rpip"></span><span>Urgent</span></div>
             </div>
-            <div class="req-field-error" id="rq-urgency-err" style="display:none">Please select an urgency level.</div>
+            <div class="req-field-error" id="rq-urgency-err" style="display:none;font-size:11px;color:var(--error);margin-top:5px;font-family:'DM Mono',monospace">Please select an urgency level.</div>
           </div>
 
           <div class="req-submit-row">
-            <span class="req-submit-note">* required · amounts in KES · total = qty × days × unit cost</span>
+            <span class="req-submit-note">* required fields · amounts in KES</span>
             <button class="btn-req-submit" id="req-submit-btn">
               <span class="btn-text">Submit Requisition</span>
               <div class="btn-spinner"></div>
@@ -1078,7 +1154,7 @@ input.error-state { border-color: var(--error); }
         </div>
       </div>
 
-      <!-- COMING SOON -->
+      <!-- ── COMING SOON ── -->
       <div id="page-coming-soon" style="display:none">
         <div class="coming-soon">
           <div class="cs-icon">🔧</div>
@@ -1092,6 +1168,7 @@ input.error-state { border-color: var(--error); }
   </div>
 </div>
 
+<!-- PDF target -->
 <div id="pdf-preview"></div>
 
 <script>
@@ -1108,12 +1185,6 @@ const EVENT_WEBHOOK       = 'https://chux.app.n8n.cloud/webhook/event-registrati
 const REQUISITION_WEBHOOK = 'https://chux.app.n8n.cloud/webhook/requisition-request';
 const EVT_SHEET_URL       = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQzV51evXd43ebjxahF57b6j4MTDnI0tcEjBNzLjoqdP84_vujazI5cLRD12tzJ9fLl30hYT3zEMyyU/pub?output=csv';
 const OTP_LIFETIME        = 5 * 60;
-
-const LINE_ITEM_CATEGORIES = [
-  'Equipment', 'Supplies & Materials', 'Services',
-  'Transport & Logistics', 'Catering', 'Marketing & Print',
-  'Venue', 'Staffing', 'Other'
-];
 
 /* ═══════════════════════════════════════════════
    AUTH STATE
@@ -1232,10 +1303,10 @@ function enterApp(){
   document.getElementById('r-project-email').value=authEmail;
   document.getElementById('r-step1-info').textContent=`Logged in as ${authEmail}. Click below to load your assigned jobs.`;
   document.getElementById('e-email').value=authEmail;
-  // Requisition pre-fills
-  document.getElementById('rq-lookup-email').value=authEmail;
   document.getElementById('rq-requestor-email').value=authEmail;
   document.getElementById('rq-requestor-name').value=authName;
+  // pre-fill lookup email with auth email
+  document.getElementById('rq-lookup-email').value=authEmail;
   startClock();
   if(document.getElementById('line-items-body').children.length===0) addLineItem();
 }
@@ -1295,38 +1366,10 @@ document.getElementById('btn-logout').addEventListener('click',()=>{
   evtResetAll();
   reqResetAll();
 });
+
 function startClock(){
   function tick(){document.getElementById('topbar-time').textContent=new Date().toLocaleTimeString('en-KE',{hour:'2-digit',minute:'2-digit'});}
   tick(); setInterval(tick,30000);
-}
-
-/* ═══════════════════════════════════════════════
-   SHARED: CSV PARSING + EMAIL MATCHING
-═══════════════════════════════════════════════ */
-function parseCSV(text){
-  const rows=[];let row=[],field='',inQ=false;
-  for(let i=0;i<text.length;i++){const ch=text[i],nx=text[i+1];
-    if(inQ){if(ch==='"'&&nx==='"'){field+='"';i++;}else if(ch==='"'){inQ=false;}else{field+=ch;}}
-    else{if(ch==='"'){inQ=true;}else if(ch===','){row.push(field.trim());field='';}else if(ch==='\n'){row.push(field.trim());rows.push(row);row=[];field='';}else if(ch!=='\r'){field+=ch;}}
-  }
-  if(field||row.length){row.push(field.trim());rows.push(row);}return rows;
-}
-function csvToObj(rows){
-  if(rows.length<2)return[];const h=rows[0];
-  return rows.slice(1).filter(r=>r.some(c=>c)).map(r=>{const o={};h.forEach((k,i)=>{o[k.trim()]=(r[i]||'').trim();});return o;});
-}
-function emailMatch(email,row){
-  const n=email.toLowerCase();
-  if((row['Email']||'').toLowerCase().split(',').map(e=>e.trim()).includes(n))return true;
-  if((row['Project Assistant Email']||'').toLowerCase().split(',').map(e=>e.trim()).includes(n))return true;
-  return false;
-}
-function nameFor(email,row){
-  const n=email.toLowerCase();
-  if((row['Email']||'').toLowerCase().split(',').map(e=>e.trim()).includes(n))return row['Project Lead']||'';
-  const ae=(row['Project Assistant Email']||'').toLowerCase().split(',').map(e=>e.trim());
-  if(ae.includes(n)){const an=(row['Project Assistant']||'').split(',').map(x=>x.trim());return an[ae.indexOf(n)]||'';}
-  return '';
 }
 
 /* ═══════════════════════════════════════════════
@@ -1357,6 +1400,32 @@ function rGoStep(n){
   document.getElementById(`r-step-${rCurrentStep}`).classList.add('active');
   rUpdateProgress(rCurrentStep);
   document.getElementById('r-form-card').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function parseCSV(text){
+  const rows=[];let row=[],field='',inQ=false;
+  for(let i=0;i<text.length;i++){const ch=text[i],nx=text[i+1];
+    if(inQ){if(ch==='"'&&nx==='"'){field+='"';i++;}else if(ch==='"'){inQ=false;}else{field+=ch;}}
+    else{if(ch==='"'){inQ=true;}else if(ch===','){row.push(field.trim());field='';}else if(ch==='\n'){row.push(field.trim());rows.push(row);row=[];field='';}else if(ch!=='\r'){field+=ch;}}
+  }
+  if(field||row.length){row.push(field.trim());rows.push(row);}return rows;
+}
+function csvToObj(rows){
+  if(rows.length<2)return[];const h=rows[0];
+  return rows.slice(1).filter(r=>r.some(c=>c)).map(r=>{const o={};h.forEach((k,i)=>{o[k.trim()]=(r[i]||'').trim();});return o;});
+}
+function emailMatch(email,row){
+  const n=email.toLowerCase();
+  if((row['Email']||'').toLowerCase().split(',').map(e=>e.trim()).includes(n))return true;
+  if((row['Project Assistant Email']||'').toLowerCase().split(',').map(e=>e.trim()).includes(n))return true;
+  return false;
+}
+function nameFor(email,row){
+  const n=email.toLowerCase();
+  if((row['Email']||'').toLowerCase().split(',').map(e=>e.trim()).includes(n))return row['Project Lead']||'';
+  const ae=(row['Project Assistant Email']||'').toLowerCase().split(',').map(e=>e.trim());
+  if(ae.includes(n)){const an=(row['Project Assistant']||'').split(',').map(x=>x.trim());return an[ae.indexOf(n)]||'';}
+  return '';
 }
 
 document.getElementById('r-next-1').addEventListener('click',async()=>{
@@ -1558,6 +1627,7 @@ function evtGetAssistants(){
   return result;
 }
 function evtClearAssistants(){document.getElementById('assistants-list').innerHTML='';evtAssistantCount=0;}
+
 document.getElementById('btn-add-assistant').addEventListener('click',()=>evtAddAssistant());
 
 document.getElementById('e-status').addEventListener('change',function(){
@@ -1635,6 +1705,7 @@ function evtValidate(){
   evtSetErr('email',!emailOk);if(!emailOk)ok=false;
   return ok;
 }
+
 function evtShowSuccess(client){
   const ref='REF-'+Date.now().toString(36).toUpperCase();
   document.getElementById('evt-success-ref').textContent=`${ref} · ${client}`;
@@ -1708,165 +1779,139 @@ function evtResetAll(){
 }
 
 /* ═══════════════════════════════════════════════
-   REQUISITIONS MODULE — REDESIGNED
+   REQUISITIONS MODULE
 ═══════════════════════════════════════════════ */
 let lineItemCount = 0;
 let reqJobs = [], reqSelectedJob = null;
 
 /* ── JOB LOOKUP ── */
-document.getElementById('btn-req-load-jobs').addEventListener('click', loadReqJobs);
-
-async function loadReqJobs() {
+document.getElementById('btn-req-load-jobs').addEventListener('click', async () => {
   const emailVal = document.getElementById('rq-lookup-email').value.trim().toLowerCase();
-  const msgEl    = document.getElementById('req-loader-msg');
-  const btn      = document.getElementById('btn-req-load-jobs');
-  const cardsEl  = document.getElementById('req-job-cards');
+  const errEl = document.getElementById('req-lookup-err');
+  const loaderEl = document.getElementById('req-loader-text');
+  const btn = document.getElementById('btn-req-load-jobs');
+  const lbl = document.getElementById('req-load-label');
+  const badgeWrap = document.getElementById('req-verified-badge');
+  const badgeInner = document.getElementById('req-verified-badge-inner');
+  const cardsEl = document.getElementById('req-job-cards');
 
-  msgEl.className = 'req-loader-msg';
+  errEl.classList.remove('visible');
+  badgeWrap.classList.remove('visible');
   cardsEl.innerHTML = '';
   reqSelectedJob = null;
   clearReqJobFields();
 
   const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal);
   if (!valid) {
-    msgEl.className = 'req-loader-msg error-msg';
-    msgEl.textContent = 'Please enter a valid email address first.';
+    errEl.textContent = 'Please enter a valid email address.';
+    errEl.classList.add('visible');
     return;
   }
 
-  btn.classList.add('loading');
   btn.disabled = true;
-  msgEl.textContent = 'Fetching your assigned jobs…';
+  lbl.textContent = 'Loading…';
+  loaderEl.textContent = 'Fetching your assigned jobs…';
 
   try {
     const res = await fetch(SHEET_CSV_URL);
     if (!res.ok) throw new Error('Could not fetch the jobs sheet.');
     const rows = parseCSV(await res.text());
-    const all  = csvToObj(rows);
+    const all = csvToObj(rows);
     const matched = all.filter(r => emailMatch(emailVal, r));
-
-    if (!matched.length) {
-      msgEl.className = 'req-loader-msg error-msg';
-      msgEl.textContent = `No jobs found for "${emailVal}". Check your email or contact the PrimeEdgeAI team.`;
-      return;
-    }
+    if (!matched.length) throw new Error(`No jobs found for "${emailVal}". Please check your email or contact the PrimeEdgeAI team.`);
 
     reqJobs = matched;
-    msgEl.className = 'req-loader-msg success';
-    msgEl.textContent = `${matched.length} job${matched.length !== 1 ? 's' : ''} found — tap one to select it.`;
-    buildReqJobCards(matched);
+    loaderEl.textContent = `${matched.length} job${matched.length !== 1 ? 's' : ''} found — select one below.`;
+    badgeInner.textContent = `${emailVal} — ${matched.length} job${matched.length !== 1 ? 's' : ''} found`;
+    badgeWrap.classList.add('visible');
 
-  } catch (err) {
-    msgEl.className = 'req-loader-msg error-msg';
-    msgEl.textContent = 'Error: ' + err.message;
-  } finally {
-    btn.classList.remove('loading');
-    btn.disabled = false;
-  }
-}
-
-function buildReqJobCards(jobs) {
-  const container = document.getElementById('req-job-cards');
-  container.innerHTML = '';
-  jobs.forEach(job => {
-    const card = document.createElement('div');
-    card.className = 'job-card purple-job-card';
-    const id     = job['Job_ID'] || '';
-    const desc   = job['Description'] || '(no description)';
-    const client = job['Client'] || '';
-    const where  = job['Where'] || '';
-    const start  = job['Start Date'] || '';
-    const end    = job['End Date'] || '';
-    const dateStr = start === end ? start : (start && end ? `${start} → ${end}` : start || end);
-    card.innerHTML = `
-      <div class="job-card-left">
-        <div class="job-card-id">${id}</div>
-        <div class="job-card-desc">${desc}</div>
-        <div class="job-card-meta">${[client, where, dateStr].filter(Boolean).join(' · ')}</div>
-      </div>
-      <div class="job-card-check"></div>`;
-    card.addEventListener('click', () => {
-      document.querySelectorAll('#req-job-cards .job-card').forEach(c => {
-        c.classList.remove('selected');
-        c.querySelector('.job-card-check').textContent = '';
+    // Build job cards
+    matched.forEach(job => {
+      const card = document.createElement('div');
+      card.className = 'job-card purple-job-card';
+      const id = job['Job_ID'] || '', desc = job['Description'] || '(no description)', client = job['Client'] || '';
+      const where = job['Where'] || '', start = job['Start Date'] || '', end = job['End Date'] || '';
+      const dateStr = start === end ? start : (start && end ? `${start} → ${end}` : start || end);
+      card.innerHTML = `<div class="job-card-left"><div class="job-card-id">${id}</div><div class="job-card-desc">${desc}</div><div class="job-card-meta">${client}${where ? ' · ' + where : ''}${dateStr ? ' · ' + dateStr : ''}</div></div><div class="job-card-check"></div>`;
+      card.addEventListener('click', () => {
+        document.querySelectorAll('#req-job-cards .job-card').forEach(c => { c.classList.remove('selected'); c.querySelector('.job-card-check').textContent = ''; });
+        card.classList.add('selected');
+        card.querySelector('.job-card-check').textContent = '✓';
+        reqSelectedJob = job;
+        prefillReqJobFields(job);
+        errEl.classList.remove('visible');
+        document.getElementById('req-error-banner').classList.remove('visible');
       });
-      card.classList.add('selected');
-      card.querySelector('.job-card-check').textContent = '✓';
-      reqSelectedJob = job;
-      prefillReqJobFields(job);
-      document.getElementById('req-error-banner').classList.remove('visible');
-      // clear validation errors on those fields
-      ['rqf-job-id','rqf-client','rqf-event-desc'].forEach(id => {
-        document.getElementById(id).classList.remove('has-error');
-      });
+      cardsEl.appendChild(card);
     });
-    container.appendChild(card);
-  });
-}
+  } catch (err) {
+    errEl.textContent = err.message;
+    errEl.classList.add('visible');
+    loaderEl.textContent = '';
+  } finally {
+    btn.disabled = false;
+    lbl.textContent = 'Load Jobs';
+  }
+});
 
 function prefillReqJobFields(job) {
   const flash = el => {
     el.style.transition = 'background 0s';
-    el.style.background = 'rgba(167,139,250,0.2)';
-    setTimeout(() => { el.style.transition = 'background 0.8s'; el.style.background = ''; }, 60);
+    el.style.background = 'rgba(167,139,250,0.15)';
+    setTimeout(() => { el.style.transition = 'background 0.7s'; el.style.background = ''; }, 60);
   };
+
   const jobIdEl = document.getElementById('rq-job-id');
   const clientEl = document.getElementById('rq-client');
   const descEl = document.getElementById('rq-event-desc');
-  jobIdEl.value  = job['Job_ID'] || '';
+
+  jobIdEl.value = job['Job_ID'] || '';
   clientEl.value = job['Client'] || '';
-  descEl.value   = job['Description'] || '';
-  [jobIdEl, clientEl, descEl].forEach(flash);
+  descEl.value = job['Description'] || '';
+
+  [jobIdEl, clientEl, descEl].forEach(el => {
+    // temporarily make editable to allow flash, keep readonly
+    flash(el);
+  });
+
+  // clear validation errors on those fields
+  document.getElementById('rqfield-job-id').classList.remove('has-error');
+  document.getElementById('rqfield-client').classList.remove('has-error');
+  document.getElementById('rqfield-event-description').classList.remove('has-error');
 }
 
 function clearReqJobFields() {
-  document.getElementById('rq-job-id').value  = '';
-  document.getElementById('rq-client').value  = '';
+  document.getElementById('rq-job-id').value = '';
+  document.getElementById('rq-client').value = '';
   document.getElementById('rq-event-desc').value = '';
 }
 
 /* ── LINE ITEMS ── */
-function makeCatOptions(selectedVal='') {
-  return LINE_ITEM_CATEGORIES.map(c =>
-    `<option value="${c}"${c===selectedVal?' selected':''}>${c}</option>`
-  ).join('');
-}
-
-function addLineItem(desc='', cat='', qty=1, days=1, unitCost=0) {
+function addLineItem(desc='', qty=1, unitCost=0) {
   lineItemCount++;
   const id = lineItemCount;
   const tbody = document.getElementById('line-items-body');
   const tr = document.createElement('tr');
   tr.className = 'line-item-row';
   tr.id = `li-row-${id}`;
+  const total = (qty * unitCost).toFixed(2);
   tr.innerHTML = `
-    <td><input type="text" class="li-input" id="li-desc-${id}" placeholder="Describe item or service…" value="${desc}" /></td>
-    <td>
-      <div class="li-cat-wrap">
-        <select class="li-cat-select" id="li-cat-${id}" onchange="updateLineTotal(${id})">
-          <option value="">Category…</option>
-          ${makeCatOptions(cat)}
-        </select>
-      </div>
-    </td>
-    <td><input type="number" class="li-input" id="li-qty-${id}" placeholder="1" min="0" value="${qty}" oninput="updateLineTotal(${id})" style="text-align:center" /></td>
-    <td><input type="number" class="li-input" id="li-days-${id}" placeholder="1" min="0" value="${days}" oninput="updateLineTotal(${id})" style="text-align:center" /></td>
+    <td><input type="text" class="li-input" id="li-desc-${id}" placeholder="Item or service description" value="${desc}" oninput="recalcTotal()" /></td>
+    <td><input type="number" class="li-input" id="li-qty-${id}" placeholder="1" min="0" value="${qty}" oninput="updateLineTotal(${id})" /></td>
     <td><input type="number" class="li-input" id="li-cost-${id}" placeholder="0.00" min="0" step="0.01" value="${unitCost||''}" oninput="updateLineTotal(${id})" /></td>
-    <td class="li-row-total" id="li-total-${id}">—</td>
-    <td><button type="button" class="btn-rm-line" onclick="removeLineItem(${id})" title="Remove">✕</button></td>`;
+    <td style="text-align:right;font-family:'DM Mono',monospace;font-size:12px;color:var(--text-secondary);padding-right:6px;white-space:nowrap" id="li-total-${id}">${total !== '0.00' ? total : '—'}</td>
+    <td><button type="button" class="btn-rm-line" onclick="removeLineItem(${id})">✕</button></td>
+  `;
   tbody.appendChild(tr);
-  updateLineTotal(id);
+  recalcTotal();
 }
 
 function updateLineTotal(id) {
-  const qty  = parseFloat(document.getElementById(`li-qty-${id}`)?.value)  || 0;
-  const days = parseFloat(document.getElementById(`li-days-${id}`)?.value) || 0;
+  const qty = parseFloat(document.getElementById(`li-qty-${id}`)?.value) || 0;
   const cost = parseFloat(document.getElementById(`li-cost-${id}`)?.value) || 0;
-  const tot  = qty * days * cost;
-  const el   = document.getElementById(`li-total-${id}`);
-  if (el) el.textContent = tot > 0
-    ? 'KES ' + tot.toLocaleString('en-KE', {minimumFractionDigits:2, maximumFractionDigits:2})
-    : '—';
+  const tot = qty * cost;
+  const el = document.getElementById(`li-total-${id}`);
+  if (el) el.textContent = tot > 0 ? tot.toLocaleString('en-KE', {minimumFractionDigits:2,maximumFractionDigits:2}) : '—';
   recalcTotal();
 }
 
@@ -1879,27 +1924,22 @@ function removeLineItem(id) {
 function recalcTotal() {
   let total = 0;
   document.querySelectorAll('.line-item-row').forEach(row => {
-    const id   = row.id.replace('li-row-', '');
-    const qty  = parseFloat(document.getElementById(`li-qty-${id}`)?.value)  || 0;
-    const days = parseFloat(document.getElementById(`li-days-${id}`)?.value) || 0;
+    const id = row.id.replace('li-row-','');
+    const qty = parseFloat(document.getElementById(`li-qty-${id}`)?.value) || 0;
     const cost = parseFloat(document.getElementById(`li-cost-${id}`)?.value) || 0;
-    total += qty * days * cost;
+    total += qty * cost;
   });
-  const fmt = v => 'KES ' + v.toLocaleString('en-KE', {minimumFractionDigits:2, maximumFractionDigits:2});
-  document.getElementById('req-subtotal').textContent = fmt(total);
-  document.getElementById('req-total').textContent    = fmt(total);
+  document.getElementById('req-total').textContent = `KES ${total.toLocaleString('en-KE', {minimumFractionDigits:2,maximumFractionDigits:2})}`;
 }
 
 function getLineItems() {
   const items = [];
   document.querySelectorAll('.line-item-row').forEach(row => {
-    const id   = row.id.replace('li-row-', '');
+    const id = row.id.replace('li-row-','');
     const desc = document.getElementById(`li-desc-${id}`)?.value.trim() || '';
-    const cat  = document.getElementById(`li-cat-${id}`)?.value || '';
-    const qty  = parseFloat(document.getElementById(`li-qty-${id}`)?.value)  || 0;
-    const days = parseFloat(document.getElementById(`li-days-${id}`)?.value) || 0;
+    const qty = parseFloat(document.getElementById(`li-qty-${id}`)?.value) || 0;
     const cost = parseFloat(document.getElementById(`li-cost-${id}`)?.value) || 0;
-    if (desc || qty || cost) items.push({ description:desc, category:cat, quantity:qty, days:days, unit_cost:cost, total: qty*days*cost });
+    if (desc || qty || cost) items.push({ description: desc, quantity: qty, unit_cost: cost, total: qty * cost });
   });
   return items;
 }
@@ -1908,7 +1948,7 @@ document.getElementById('btn-add-line-item').addEventListener('click', () => add
 
 /* ── VALIDATION ── */
 function reqSetErr(id, show) {
-  const el = document.getElementById(id);
+  const el = document.getElementById('rqfield-' + id);
   if (el) el.classList.toggle('has-error', show);
 }
 function reqClearErrors() {
@@ -1919,30 +1959,30 @@ function reqValidate() {
   reqClearErrors();
   let ok = true;
 
+  // Job reference fields (must be filled via lookup)
   const jobIdVal = document.getElementById('rq-job-id').value.trim();
-  reqSetErr('rqf-job-id',   !jobIdVal); if (!jobIdVal) ok = false;
+  reqSetErr('job-id', !jobIdVal); if (!jobIdVal) ok = false;
   const clientVal = document.getElementById('rq-client').value.trim();
-  reqSetErr('rqf-client',   !clientVal); if (!clientVal) ok = false;
+  reqSetErr('client', !clientVal); if (!clientVal) ok = false;
   const descVal = document.getElementById('rq-event-desc').value.trim();
-  reqSetErr('rqf-event-desc', !descVal); if (!descVal) ok = false;
+  reqSetErr('event-description', !descVal); if (!descVal) ok = false;
 
-  const nameOk = !!document.getElementById('rq-requestor-name').value.trim();
-  reqSetErr('rqf-requestor-name', !nameOk); if (!nameOk) ok = false;
+  // Requestor + other required fields
+  [['requestor-name', () => document.getElementById('rq-requestor-name').value.trim()],
+   ['date-required', () => document.getElementById('rq-date-required').value],
+   ['category', () => document.getElementById('rq-category').value],
+   ['justification', () => document.getElementById('rq-justification').value.trim()],
+  ].forEach(([id, fn]) => { const v = !!fn(); reqSetErr(id, !v); if (!v) ok = false; });
+
   const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(document.getElementById('rq-requestor-email').value.trim());
-  reqSetErr('rqf-requestor-email', !emailOk); if (!emailOk) ok = false;
-  const dateOk = !!document.getElementById('rq-date-required').value;
-  reqSetErr('rqf-date-required', !dateOk); if (!dateOk) ok = false;
-  const justOk = !!document.getElementById('rq-justification').value.trim();
-  reqSetErr('rqf-justification', !justOk); if (!justOk) ok = false;
+  reqSetErr('requestor-email', !emailOk); if (!emailOk) ok = false;
 
   const urgency = rGetRadio('req-urgency');
-  if (!urgency) {
-    document.getElementById('rq-urgency-err').style.display = 'block';
-    ok = false;
-  }
+  if (!urgency) { document.getElementById('rq-urgency-err').style.display = 'block'; ok = false; }
 
+  // Show hint if job not selected
   if (!jobIdVal) {
-    document.getElementById('req-error-banner').textContent = 'Please load and select a job from the Job Lookup section before submitting.';
+    document.getElementById('req-error-banner').textContent = 'Please load and select a job from the Job Lookup section above before submitting.';
     document.getElementById('req-error-banner').classList.add('visible');
   }
 
@@ -1956,25 +1996,27 @@ document.getElementById('req-submit-btn').addEventListener('click', async () => 
   btn.classList.add('loading');
   document.getElementById('req-error-banner').classList.remove('visible');
 
-  const lineItems  = getLineItems();
-  const totalAmt   = lineItems.reduce((s, i) => s + i.total, 0);
+  const lineItems = getLineItems();
+  const totalAmt = lineItems.reduce((s, i) => s + i.total, 0);
 
   const payload = {
-    job_id:            document.getElementById('rq-job-id').value.trim(),
-    client:            document.getElementById('rq-client').value.trim(),
+    job_id: document.getElementById('rq-job-id').value.trim(),
+    client: document.getElementById('rq-client').value.trim(),
     event_description: document.getElementById('rq-event-desc').value.trim(),
-    requestor_name:    document.getElementById('rq-requestor-name').value.trim(),
-    requestor_email:   document.getElementById('rq-requestor-email').value.trim(),
-    date_required:     document.getElementById('rq-date-required').value,
-    supplier:          document.getElementById('rq-supplier').value.trim(),
-    line_items:        lineItems,
-    total_amount:      totalAmt,
-    justification:     document.getElementById('rq-justification').value.trim(),
-    notes:             document.getElementById('rq-notes').value.trim(),
-    urgency:           rGetRadio('req-urgency'),
-    submitted_by:      authEmail,
+    requestor_name: document.getElementById('rq-requestor-name').value.trim(),
+    requestor_email: document.getElementById('rq-requestor-email').value.trim(),
+    department: document.getElementById('rq-department').value.trim(),
+    date_required: document.getElementById('rq-date-required').value,
+    category: document.getElementById('rq-category').value,
+    supplier: document.getElementById('rq-supplier').value.trim(),
+    line_items: lineItems,
+    total_amount: totalAmt,
+    justification: document.getElementById('rq-justification').value.trim(),
+    notes: document.getElementById('rq-notes').value.trim(),
+    urgency: rGetRadio('req-urgency'),
+    submitted_by: authEmail,
     submitted_by_name: authName,
-    submitted_at:      new Date().toISOString()
+    submitted_at: new Date().toISOString()
   };
 
   try {
@@ -1997,8 +2039,8 @@ document.getElementById('req-submit-btn').addEventListener('click', async () => 
 });
 
 function reqShowSuccess(payload) {
-  const ref   = 'REQ-' + Date.now().toString(36).toUpperCase();
-  const total = 'KES ' + payload.total_amount.toLocaleString('en-KE', {minimumFractionDigits:2});
+  const ref = 'REQ-' + Date.now().toString(36).toUpperCase();
+  const total = `KES ${payload.total_amount.toLocaleString('en-KE', {minimumFractionDigits:2})}`;
   document.getElementById('req-success-ref').textContent = `${ref} · ${payload.client} · ${total}`;
   document.getElementById('req-success-screen').classList.add('visible');
   document.getElementById('req-main-card').style.display = 'none';
@@ -2009,17 +2051,23 @@ function reqShowSuccess(payload) {
 
 document.getElementById('btn-req-new').addEventListener('click', reqResetAll);
 function reqResetAll() {
+  // clear job lookup
   document.getElementById('rq-lookup-email').value = authEmail;
-  document.getElementById('req-loader-msg').textContent = '';
-  document.getElementById('req-loader-msg').className = 'req-loader-msg';
+  document.getElementById('req-loader-text').textContent = '';
+  document.getElementById('req-lookup-err').classList.remove('visible');
+  document.getElementById('req-verified-badge').classList.remove('visible');
   document.getElementById('req-job-cards').innerHTML = '';
   reqJobs = [];
   reqSelectedJob = null;
+
+  // clear readonly job fields
   clearReqJobFields();
 
-  ['rq-requestor-name','rq-requestor-email','rq-date-required','rq-supplier','rq-justification','rq-notes'].forEach(id => {
+  // clear other fields
+  ['rq-requestor-name','rq-requestor-email','rq-department','rq-date-required','rq-supplier','rq-justification','rq-notes'].forEach(id => {
     const el = document.getElementById(id); if (el) el.value = '';
   });
+  document.getElementById('rq-category').value = '';
   document.querySelectorAll('.radio-item[data-rg="req-urgency"].selected').forEach(el => el.classList.remove('selected'));
   document.getElementById('line-items-body').innerHTML = '';
   lineItemCount = 0;
@@ -2028,9 +2076,9 @@ function reqResetAll() {
   document.getElementById('req-error-banner').classList.remove('visible');
   document.getElementById('req-success-screen').classList.remove('visible');
   document.getElementById('req-main-card').style.display = '';
-
+  // re-fill auth info
   document.getElementById('rq-requestor-email').value = authEmail;
-  document.getElementById('rq-requestor-name').value  = authName;
+  document.getElementById('rq-requestor-name').value = authName;
   addLineItem();
 }
 
