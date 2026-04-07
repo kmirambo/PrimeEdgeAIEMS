@@ -997,10 +997,10 @@ input.error-state { border-color: var(--error); }
           </div>
 
           <!-- PREFERRED SUPPLIER -->
-          <!-- <div class="req-field">
+          <div class="req-field">
             <label>Preferred Supplier <span style="font-size:11px;color:var(--text-muted);font-weight:400">(optional)</span></label>
             <input type="text" class="req-input" id="rq-supplier" placeholder="Supplier name if known" style="max-width:400px" />
-          </div> -->
+          </div>
 
           <!-- LINE ITEMS -->
           <div class="req-section-label">Line Items</div>
@@ -1009,9 +1009,11 @@ input.error-state { border-color: var(--error); }
           <div class="line-items-wrapper">
             <table class="line-items-table">
               <thead>
+                <label>Preferred Supplier <span style="font-size:11px;color:var(--text-muted);font-weight:400">(optional)</span></label>
+            <input type="text" class="req-input" id="rq-supplier" placeholder="Supplier name if known" style="max-width:400px" />
                 <tr>
                   <th style="width:26%">Description</th>
-                  <th style="width:26%">Preferred Supplier</th>
+                                                  
                   <th style="width:18%">Category</th>
                   <th style="width:8%">Qty</th>
                   <th style="width:8%">Days</th>
