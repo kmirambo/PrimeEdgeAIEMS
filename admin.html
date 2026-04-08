@@ -2626,18 +2626,18 @@ async function loadRequisitionsForApproval() {
     btn.disabled = false;
   }
 }
-document.addEventListener('DOMContentLoaded', function() {
-  const loadBtn = document.getElementById('btn-load-approvals');
-  if (loadBtn) {
-    loadBtn.addEventListener('click', loadRequisitionsForApproval);
-  }
-  const emailField = document.getElementById('approver-email');
-  if (emailField) {
-    emailField.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') loadRequisitionsForApproval();
-    });
-  }
-});
+// document.addEventListener('DOMContentLoaded', function() {
+//   const loadBtn = document.getElementById('btn-load-approvals');
+//   if (loadBtn) {
+//     loadBtn.addEventListener('click', loadRequisitionsForApproval);
+//   }
+//   const emailField = document.getElementById('approver-email');
+//   if (emailField) {
+//     emailField.addEventListener('keydown', (e) => {
+//       if (e.key === 'Enter') loadRequisitionsForApproval();
+//     });
+//   }
+// });
 
 </script>
 </body>
