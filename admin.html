@@ -2351,7 +2351,7 @@ function reqResetAll() {
 /* INIT */
 rUpdateProgress(1);
 // NEW: URL to fetch requisitions (replace with your actual CSV or API endpoint)
-const REQUISITIONS_SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQzV51evXd43ebjxahF57b6j4MTDnI0tcEjBNzLjoqdP84_vujazI5cLRD12tzJ9fLl30hYT3zEMyyU/pub?output=csv'; // replace with actual sheet ID
+const REQUISITIONS_SHEET_URL1 = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQzV51evXd43ebjxahF57b6j4MTDnI0tcEjBNzLjoqdP84_vujazI5cLRD12tzJ9fLl30hYT3zEMyyU/pub?output=csv'; // replace with actual sheet ID
 
 let approvalsData = [];
 
@@ -2362,7 +2362,7 @@ async function loadRequisitionsForApproval() {
   try {
     let reqList = [];
     try {
-      const res = await fetch(REQUISITIONS_SHEET_URL);
+      const res = await fetch(REQUISITIONS_SHEET_URL1);
       if (res.ok) {
         const csvText = await res.text();
         const rows = parseCSV(csvText);
@@ -2568,6 +2568,76 @@ async function approveRequisition(reqId, button) {
   }
 }
 
+async function loadRequisitionsForApproval() {
+  const emailInput = document.getElementById('approver-email');
+  const msgEl = document.getElementById('loader-msg');
+  const btn = document.getElementById('btn-load-approvals');
+  const container = document.getElementById('approvals-container');
+  const card = document.getElementById('approvals-card');
+
+  if (!emailInput) return;
+  
+  const email = emailInput.value.trim().toLowerCase();
+  msgEl.className = 'loader-msg';
+  msgEl.textContent = '';
+  card.classList.add('hidden');
+
+  const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  if (!valid) {
+    msgEl.className = 'loader-msg error';
+    msgEl.textContent = 'Please enter a valid email address.';
+    return;
+  }
+
+  approverEmail = email;
+  btn.classList.add('loading');
+  btn.disabled = true;
+  msgEl.textContent = 'Loading requisitions...';
+  container.innerHTML = '<div class="approvals-loader">Loading requisitions...</div>';
+  card.classList.remove('hidden');
+
+  try {
+    const res = await fetch(REQUISITIONS_SHEET_URL);
+    if (!res.ok) throw new Error('Could not fetch requisitions sheet.');
+    
+    const csvText = await res.text();
+    const rows = parseCSV(csvText);
+    const allReqs = csvToObj(rows);
+
+    approvalsData = allReqs.filter(r => 
+      (r.status || r.Status || '').toLowerCase() !== 'approved'
+    );
+
+    if (!approvalsData.length) {
+      container.innerHTML = '<div class="approvals-loader">No pending requisitions found.</div>';
+      msgEl.className = 'loader-msg';
+      msgEl.textContent = 'No pending requisitions at this time.';
+    } else {
+      renderApprovalsTable();
+      msgEl.className = 'loader-msg success';
+      msgEl.textContent = `${approvalsData.length} pending requisition${approvalsData.length !== 1 ? 's' : ''} loaded.`;
+    }
+  } catch (err) {
+    container.innerHTML = `<div class="approvals-loader" style="color:var(--error)">Failed to load: ${err.message}</div>`;
+    msgEl.className = 'loader-msg error';
+    msgEl.textContent = 'Error: ' + err.message;
+  } finally {
+    btn.classList.remove('loading');
+    btn.disabled = false;
+  }
+}
+document.addEventListener('DOMContentLoaded', function() {
+  const loadBtn = document.getElementById('btn-load-approvals');
+  if (loadBtn) {
+    loadBtn.addEventListener('click', loadRequisitionsForApproval);
+  }
+  const emailField = document.getElementById('approver-email');
+  if (emailField) {
+    emailField.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') loadRequisitionsForApproval();
+    });
+  }
+});
 
 </script>
 </body>
