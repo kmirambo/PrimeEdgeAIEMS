@@ -2351,7 +2351,7 @@ function reqResetAll() {
 /* INIT */
 rUpdateProgress(1);
 // NEW: URL to fetch requisitions (replace with your actual CSV or API endpoint)
-const REQUISITIONS_SHEET_URL1 = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQzV51evXd43ebjxahF57b6j4MTDnI0tcEjBNzLjoqdP84_vujazI5cLRD12tzJ9fLl30hYT3zEMyyU/pub?output=csv'; // replace with actual sheet ID
+const REQUISITIONS_SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQzV51evXd43ebjxahF57b6j4MTDnI0tcEjBNzLjoqdP84_vujazI5cLRD12tzJ9fLl30hYT3zEMyyU/pub?output=csv'; // replace with actual sheet ID
 
 let approvalsData = [];
 
@@ -2362,7 +2362,7 @@ async function loadRequisitionsForApproval() {
   try {
     let reqList = [];
     try {
-      const res = await fetch(REQUISITIONS_SHEET_URL1);
+      const res = await fetch(REQUISITIONS_SHEET_URL);
       if (res.ok) {
         const csvText = await res.text();
         const rows = parseCSV(csvText);
@@ -2466,178 +2466,178 @@ async function approveRequisition(reqId) {
     button.textContent = 'Approve';
   }
 }
-// Requisition Approvals Module
-const REQUISITIONS_SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQzV51evXd43ebjxahF57b6j4MTDnI0tcEjBNzLjoqdP84_vujazI5cLRD12tzJ9fLl30hYT3zEMyyU/pub?output=csv';
-const APPROVAL_WEBHOOK = 'https://chux.app.n8n.cloud/webhook/requisition-approve';
+// // Requisition Approvals Module
+// const REQUISITIONS_SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQzV51evXd43ebjxahF57b6j4MTDnI0tcEjBNzLjoqdP84_vujazI5cLRD12tzJ9fLl30hYT3zEMyyU/pub?output=csv';
+// const APPROVAL_WEBHOOK = 'https://chux.app.n8n.cloud/webhook/requisition-approve';
 
-let approvalsData = [];
-let approverEmail = '';
+// let approvalsData = [];
+// let approverEmail = '';
 
-function formatCurrency(amount) {
-  const num = parseFloat(amount) || 0;
-  return 'KES ' + num.toLocaleString('en-KE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-}
+// function formatCurrency(amount) {
+//   const num = parseFloat(amount) || 0;
+//   return 'KES ' + num.toLocaleString('en-KE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+// }
 
-function renderApprovalsTable() {
-  const container = document.getElementById('approvals-container');
-  if (!container) return;
+// function renderApprovalsTable() {
+//   const container = document.getElementById('approvals-container');
+//   if (!container) return;
   
-  const table = document.createElement('table');
-  table.className = 'approvals-table';
-  table.innerHTML = `
-    <thead><tr>
-      <th>Req ID</th><th>Client</th><th>Event</th><th>Requestor</th><th>Total (KES)</th><th>Submitted</th><th>Status</th><th>Action</th>
-    </tr></thead>
-    <tbody id="approvals-tbody"></tbody>
-  `;
+//   const table = document.createElement('table');
+//   table.className = 'approvals-table';
+//   table.innerHTML = `
+//     <thead><tr>
+//       <th>Req ID</th><th>Client</th><th>Event</th><th>Requestor</th><th>Total (KES)</th><th>Submitted</th><th>Status</th><th>Action</th>
+//     </tr></thead>
+//     <tbody id="approvals-tbody"></tbody>
+//   `;
 
-  const tbody = table.querySelector('#approvals-tbody');
+//   const tbody = table.querySelector('#approvals-tbody');
   
-  approvalsData.forEach(req => {
-    const reqId = req.id || req.requisition_id || req['Requisition ID'] || '—';
-    const client = req.client || req.Client || '—';
-    const eventDesc = req.event_desc || req.event_description || req['Event Description'] || req.description || '—';
-    const requestor = req.requestor || req.requestor_name || req['Requestor Name'] || '—';
-    const total = req.total || req.total_amount || req['Total Amount'] || '0';
-    const submitted = req.submitted_at || req['Submitted At'] || '—';
-    const status = req.status || req.Status || 'pending';
+//   approvalsData.forEach(req => {
+//     const reqId = req.id || req.requisition_id || req['Requisition ID'] || '—';
+//     const client = req.client || req.Client || '—';
+//     const eventDesc = req.event_desc || req.event_description || req['Event Description'] || req.description || '—';
+//     const requestor = req.requestor || req.requestor_name || req['Requestor Name'] || '—';
+//     const total = req.total || req.total_amount || req['Total Amount'] || '0';
+//     const submitted = req.submitted_at || req['Submitted At'] || '—';
+//     const status = req.status || req.Status || 'pending';
 
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td><strong>${escapeHtml(reqId)}</strong></td>
-      <td>${escapeHtml(client)}</td>
-      <td>${escapeHtml(eventDesc)}</td>
-      <td>${escapeHtml(requestor)}</td>
-      <td>${formatCurrency(total)}</td>
-      <td>${escapeHtml(submitted)}</td>
-      <td><span class="status-badge">${escapeHtml(status)}</span></td>
-      <td><button class="btn-approve" data-id="${escapeHtml(reqId)}">Approve</button></td>
-    `;
-    tbody.appendChild(tr);
-  });
+//     const tr = document.createElement('tr');
+//     tr.innerHTML = `
+//       <td><strong>${escapeHtml(reqId)}</strong></td>
+//       <td>${escapeHtml(client)}</td>
+//       <td>${escapeHtml(eventDesc)}</td>
+//       <td>${escapeHtml(requestor)}</td>
+//       <td>${formatCurrency(total)}</td>
+//       <td>${escapeHtml(submitted)}</td>
+//       <td><span class="status-badge">${escapeHtml(status)}</span></td>
+//       <td><button class="btn-approve" data-id="${escapeHtml(reqId)}">Approve</button></td>
+//     `;
+//     tbody.appendChild(tr);
+//   });
 
-  container.innerHTML = '';
-  container.appendChild(table);
+//   container.innerHTML = '';
+//   container.appendChild(table);
 
-  // Attach event listeners
-  document.querySelectorAll('.btn-approve').forEach(btn => {
-    btn.addEventListener('click', async () => {
-      const reqId = btn.getAttribute('data-id');
-      await approveRequisition(reqId, btn);
-    });
-  });
-}
+//   // Attach event listeners
+//   document.querySelectorAll('.btn-approve').forEach(btn => {
+//     btn.addEventListener('click', async () => {
+//       const reqId = btn.getAttribute('data-id');
+//       await approveRequisition(reqId, btn);
+//     });
+//   });
+// }
 
-async function approveRequisition(reqId, button) {
-  if (!button) return;
-  button.disabled = true;
-  button.textContent = 'Approving...';
+// async function approveRequisition(reqId, button) {
+//   if (!button) return;
+//   button.disabled = true;
+//   button.textContent = 'Approving...';
 
-  try {
-    const payload = {
-      requisition_id: reqId,
-      approved_by: approverEmail,
-      approved_at: new Date().toISOString()
-    };
+//   try {
+//     const payload = {
+//       requisition_id: reqId,
+//       approved_by: approverEmail,
+//       approved_at: new Date().toISOString()
+//     };
 
-    const response = await fetch(APPROVAL_WEBHOOK, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    });
+//     const response = await fetch(APPROVAL_WEBHOOK, {
+//       method: 'POST',
+//       headers: { 'Content-Type': 'application/json' },
+//       body: JSON.stringify(payload)
+//     });
 
-    if (response.ok || [200, 201, 202].includes(response.status)) {
-      approvalsData = approvalsData.filter(r => 
-        (r.id || r.requisition_id || r['Requisition ID']) !== reqId
-      );
+//     if (response.ok || [200, 201, 202].includes(response.status)) {
+//       approvalsData = approvalsData.filter(r => 
+//         (r.id || r.requisition_id || r['Requisition ID']) !== reqId
+//       );
       
-      if (approvalsData.length) {
-        renderApprovalsTable();
-      } else {
-        document.getElementById('approvals-container').innerHTML = 
-          '<div class="approvals-loader">No more pending requisitions.</div>';
-      }
-      alert(`✓ Requisition ${reqId} approved.`);
-    } else {
-      throw new Error(`Server responded with ${response.status}`);
-    }
-  } catch (err) {
-    alert(`Approval failed: ${err.message}`);
-    button.disabled = false;
-    button.textContent = 'Approve';
-  }
-}
+//       if (approvalsData.length) {
+//         renderApprovalsTable();
+//       } else {
+//         document.getElementById('approvals-container').innerHTML = 
+//           '<div class="approvals-loader">No more pending requisitions.</div>';
+//       }
+//       alert(`✓ Requisition ${reqId} approved.`);
+//     } else {
+//       throw new Error(`Server responded with ${response.status}`);
+//     }
+//   } catch (err) {
+//     alert(`Approval failed: ${err.message}`);
+//     button.disabled = false;
+//     button.textContent = 'Approve';
+//   }
+// }
 
-async function loadRequisitionsForApproval() {
-  const emailInput = document.getElementById('approver-email');
-  const msgEl = document.getElementById('loader-msg');
-  const btn = document.getElementById('btn-load-approvals');
-  const container = document.getElementById('approvals-container');
-  const card = document.getElementById('approvals-card');
+// async function loadRequisitionsForApproval() {
+//   const emailInput = document.getElementById('approver-email');
+//   const msgEl = document.getElementById('loader-msg');
+//   const btn = document.getElementById('btn-load-approvals');
+//   const container = document.getElementById('approvals-container');
+//   const card = document.getElementById('approvals-card');
 
-  if (!emailInput) return;
+//   if (!emailInput) return;
   
-  const email = emailInput.value.trim().toLowerCase();
-  msgEl.className = 'loader-msg';
-  msgEl.textContent = '';
-  card.classList.add('hidden');
+//   const email = emailInput.value.trim().toLowerCase();
+//   msgEl.className = 'loader-msg';
+//   msgEl.textContent = '';
+//   card.classList.add('hidden');
 
-  const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  if (!valid) {
-    msgEl.className = 'loader-msg error';
-    msgEl.textContent = 'Please enter a valid email address.';
-    return;
-  }
+//   const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+//   if (!valid) {
+//     msgEl.className = 'loader-msg error';
+//     msgEl.textContent = 'Please enter a valid email address.';
+//     return;
+//   }
 
-  approverEmail = email;
-  btn.classList.add('loading');
-  btn.disabled = true;
-  msgEl.textContent = 'Loading requisitions...';
-  container.innerHTML = '<div class="approvals-loader">Loading requisitions...</div>';
-  card.classList.remove('hidden');
+//   approverEmail = email;
+//   btn.classList.add('loading');
+//   btn.disabled = true;
+//   msgEl.textContent = 'Loading requisitions...';
+//   container.innerHTML = '<div class="approvals-loader">Loading requisitions...</div>';
+//   card.classList.remove('hidden');
 
-  try {
-    const res = await fetch(REQUISITIONS_SHEET_URL);
-    if (!res.ok) throw new Error('Could not fetch requisitions sheet.');
+//   try {
+//     const res = await fetch(REQUISITIONS_SHEET_URL);
+//     if (!res.ok) throw new Error('Could not fetch requisitions sheet.');
     
-    const csvText = await res.text();
-    const rows = parseCSV(csvText);
-    const allReqs = csvToObj(rows);
+//     const csvText = await res.text();
+//     const rows = parseCSV(csvText);
+//     const allReqs = csvToObj(rows);
 
-    approvalsData = allReqs.filter(r => 
-      (r.status || r.Status || '').toLowerCase() !== 'approved'
-    );
+//     approvalsData = allReqs.filter(r => 
+//       (r.status || r.Status || '').toLowerCase() !== 'approved'
+//     );
 
-    if (!approvalsData.length) {
-      container.innerHTML = '<div class="approvals-loader">No pending requisitions found.</div>';
-      msgEl.className = 'loader-msg';
-      msgEl.textContent = 'No pending requisitions at this time.';
-    } else {
-      renderApprovalsTable();
-      msgEl.className = 'loader-msg success';
-      msgEl.textContent = `${approvalsData.length} pending requisition${approvalsData.length !== 1 ? 's' : ''} loaded.`;
-    }
-  } catch (err) {
-    container.innerHTML = `<div class="approvals-loader" style="color:var(--error)">Failed to load: ${err.message}</div>`;
-    msgEl.className = 'loader-msg error';
-    msgEl.textContent = 'Error: ' + err.message;
-  } finally {
-    btn.classList.remove('loading');
-    btn.disabled = false;
-  }
-}
-document.addEventListener('DOMContentLoaded', function() {
-  const loadBtn = document.getElementById('btn-load-approvals');
-  if (loadBtn) {
-    loadBtn.addEventListener('click', loadRequisitionsForApproval);
-  }
-  const emailField = document.getElementById('approver-email');
-  if (emailField) {
-    emailField.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') loadRequisitionsForApproval();
-    });
-  }
-});
+//     if (!approvalsData.length) {
+//       container.innerHTML = '<div class="approvals-loader">No pending requisitions found.</div>';
+//       msgEl.className = 'loader-msg';
+//       msgEl.textContent = 'No pending requisitions at this time.';
+//     } else {
+//       renderApprovalsTable();
+//       msgEl.className = 'loader-msg success';
+//       msgEl.textContent = `${approvalsData.length} pending requisition${approvalsData.length !== 1 ? 's' : ''} loaded.`;
+//     }
+//   } catch (err) {
+//     container.innerHTML = `<div class="approvals-loader" style="color:var(--error)">Failed to load: ${err.message}</div>`;
+//     msgEl.className = 'loader-msg error';
+//     msgEl.textContent = 'Error: ' + err.message;
+//   } finally {
+//     btn.classList.remove('loading');
+//     btn.disabled = false;
+//   }
+// }
+// document.addEventListener('DOMContentLoaded', function() {
+//   const loadBtn = document.getElementById('btn-load-approvals');
+//   if (loadBtn) {
+//     loadBtn.addEventListener('click', loadRequisitionsForApproval);
+//   }
+//   const emailField = document.getElementById('approver-email');
+//   if (emailField) {
+//     emailField.addEventListener('keydown', (e) => {
+//       if (e.key === 'Enter') loadRequisitionsForApproval();
+//     });
+//   }
+// });
 
 </script>
 </body>
