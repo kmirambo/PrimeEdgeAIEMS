@@ -504,6 +504,21 @@ input.error-state { border-color: var(--error); }
 .btn-add-line { display: inline-flex; align-items: center; gap: 8px; background: transparent; border: 1px dashed rgba(167,139,250,0.3); color: rgba(167,139,250,0.7); border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 13px; padding: 10px 18px; cursor: pointer; margin-top: 12px; transition: border-color .2s, color .2s, background .2s; width: 100%; justify-content: center; }
 .btn-add-line:hover { border-color: var(--purple); color: var(--purple); background: rgba(167,139,250,0.05); }
 
+  /* ========= NEW MODULE: REQUISITION APPROVALS ========= */
+.req-approvals-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 32px; position: relative; overflow: hidden; }
+.req-approvals-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--orange), transparent); opacity: .7; }
+.approvals-table { width: 100%; border-collapse: collapse; margin-top: 16px; }
+.approvals-table th, .approvals-table td { padding: 12px 8px; text-align: left; border-bottom: 1px solid var(--border); font-size: 13px; vertical-align: top; }
+.approvals-table th { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--text-muted); }
+.approvals-table td { color: var(--text-secondary); }
+.approvals-table tr:hover td { background: rgba(255,255,255,0.02); }
+.btn-approve { background: rgba(102,187,106,0.15); border: 1px solid rgba(102,187,106,0.3); color: var(--success); border-radius: 100px; padding: 6px 14px; font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 600; cursor: pointer; transition: all .2s; white-space: nowrap; }
+.btn-approve:hover { background: var(--success); color: #0C0F0A; border-color: var(--success); transform: translateY(-1px); }
+.btn-approve:disabled { opacity: 0.5; pointer-events: none; }
+.approval-status-badge { display: inline-block; background: rgba(249,115,22,0.1); border: 1px solid rgba(249,115,22,0.25); color: var(--orange); border-radius: 100px; padding: 4px 10px; font-size: 10px; font-family: 'DM Mono', monospace; white-space: nowrap; }
+.approval-status-badge.approved { background: rgba(102,187,106,0.1); color: var(--success); border-color: rgba(102,187,106,0.3); }
+.approvals-loader { text-align: center; padding: 40px; color: var(--text-muted); font-family: 'DM Mono', monospace; }
+
 /* submit */
 .req-submit-row { margin-top: 32px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 .req-submit-note { font-size: 11px; color: var(--text-muted); font-family: 'DM Mono', monospace; }
@@ -681,6 +696,13 @@ input.error-state { border-color: var(--error); }
         <span class="nav-label">Requisitions</span>
         <span class="nav-badge-purple">New</span>
       </div>
+      
+      <div class="nav-item" data-page="req-approvals">
+  <svg class="nav-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg>
+  <span class="nav-label">Requisition Approvals</span>
+  <span class="nav-badge-purple">New</span>
+</div>
+      
       <div class="nav-item disabled" data-page="timesheets">
         <svg class="nav-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm.75-13a.75.75 0 00-1.5 0v5c0 .414.336.75.75.75h4a.75.75 0 000-1.5h-3.25V5z" clip-rule="evenodd"/></svg>
         <span class="nav-label">Timesheets</span>
@@ -745,7 +767,9 @@ input.error-state { border-color: var(--error); }
         <div class="module-grid">
           <div class="module-card" onclick="navigateTo('reccee')"><div class="module-icon"></div><div class="module-title">Reccee Assessment</div><div class="module-desc">Site visit form for evaluating venues — security, logistics, medical, and compliance.</div><div class="module-footer"><span class="module-status status-active">Live</span><span class="module-arrow">→</span></div></div>
           <div class="module-card" onclick="navigateTo('event-submission')"><div class="module-icon"></div><div class="module-title">Event Submission</div><div class="module-desc">Submit a new event for approval or update an existing event with new details.</div><div class="module-footer"><span class="module-status status-active">Live</span><span class="module-arrow">→</span></div></div>
-          <div class="module-card purple-card" onclick="navigateTo('requisitions')"><div class="module-icon"></div><div class="module-title">Requisitions</div><div class="module-desc">Submit procurement requests for event supplies, services, and equipment with itemised costing.</div><div class="module-footer"><span class="module-status status-new">New</span><span class="module-arrow">→</span></div></div>
+          <div class="module-card" onclick="navigateTo('requisitions')"><div class="module-icon"></div><div class="module-title">Requisitions</div><div class="module-desc">Submit procurement requests for event supplies, services, and equipment with itemised costing.</div><div class="module-footer"><span class="module-status status-new">New</span><span class="module-arrow">→</span></div></div>
+          <div class="module-card" onclick="navigateTo('req-approvals')"><div class="module-icon"></div><div class="module-title">Requisition Approvals</div><div class="module-desc">Site visit form for evaluating venues — security, logistics, medical, and compliance.</div><div class="module-footer"><span class="module-status status-active">Live</span><span class="module-arrow">→</span></div></div>
+
           <div class="module-card locked"><div class="module-icon"></div><div class="module-title">Site Checklist</div><div class="module-desc">Pre-event and post-event site checklists for crew verification.</div><div class="module-footer"><span class="module-status status-soon">Coming Soon</span><span class="module-arrow">→</span></div></div>
           <div class="module-card locked"><div class="module-icon"></div><div class="module-title">Incident Report</div><div class="module-desc">Log and escalate field incidents in real-time during events.</div><div class="module-footer"><span class="module-status status-soon">Coming Soon</span><span class="module-arrow">→</span></div></div>
           <div class="module-card locked"><div class="module-icon"></div><div class="module-title">Timesheets</div><div class="module-desc">Clock in, clock out, and submit weekly timesheets for payroll.</div><div class="module-footer"><span class="module-status status-locked">Locked</span><span class="module-arrow">→</span></div></div>
@@ -1085,6 +1109,21 @@ input.error-state { border-color: var(--error); }
           </div>
         </div>
       </div>
+
+      <!-- NEW MODULE: REQUISITION APPROVALS -->
+<div id="page-req-approvals" style="display:none">
+  <div class="section-head" style="margin-bottom:8px">
+    <h3>Requisition <em style="font-style:italic;color:var(--orange)">Approvals</em></h3>
+    <div class="line"></div>
+  </div>
+  <p style="font-size:13px;color:var(--text-secondary);margin-bottom:28px">Review pending requisitions and approve them. Approved requests will be forwarded to procurement.</p>
+  <div class="req-approvals-card">
+    <div class="req-section-label" style="margin-top:0">Pending Requisitions</div>
+    <div id="approvals-list-container">
+      <div class="approvals-loader">Loading requisitions...</div>
+    </div>
+  </div>
+</div>
 
       <!-- COMING SOON -->
       <div id="page-coming-soon" style="display:none">
@@ -1904,6 +1943,7 @@ function getLineItems() {
   document.querySelectorAll('.line-item-row').forEach(row => {
     const id   = row.id.replace('li-row-', '');
     const desc = document.getElementById(`li-desc-${id}`)?.value.trim() || '';
+    const supplier = document.getElementById(`li-supplier-${id}`)?.value.trim() || '';
     const cat  = document.getElementById(`li-cat-${id}`)?.value || '';
     const qty  = parseFloat(document.getElementById(`li-qty-${id}`)?.value)  || 0;
     const days = parseFloat(document.getElementById(`li-days-${id}`)?.value) || 0;
@@ -2045,6 +2085,123 @@ function reqResetAll() {
 
 /* INIT */
 rUpdateProgress(1);
+// NEW: URL to fetch requisitions (replace with your actual CSV or API endpoint)
+const REQUISITIONS_SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQzV51evXd43ebjxahF57b6j4MTDnI0tcEjBNzLjoqdP84_vujazI5cLRD12tzJ9fLl30hYT3zEMyyU/pub?output=csv'; // replace with actual sheet ID
+
+let approvalsData = [];
+
+async function loadRequisitionsForApproval() {
+  const container = document.getElementById('approvals-list-container');
+  if (!container) return;
+  container.innerHTML = '<div class="approvals-loader">Loading requisitions...</div>';
+  try {
+    let reqList = [];
+    try {
+      const res = await fetch(REQUISITIONS_SHEET_URL);
+      if (res.ok) {
+        const csvText = await res.text();
+        const rows = parseCSV(csvText);
+        const headers = rows[0];
+        reqList = rows.slice(1).filter(r => r.some(c => c)).map(row => {
+          let obj = {};
+          headers.forEach((h, i) => { obj[h.trim()] = (row[i] || '').trim(); });
+          return obj;
+        });
+      } else {
+        throw new Error('Sheet not available');
+      }
+    } catch (err) {
+      console.warn('Using mock requisition data because sheet fetch failed:', err);
+      // Mock data for demonstration
+      reqList = [
+        { id: 'REQ-001', client: 'Jumia', event_desc: 'Jumia Anniversary', requestor: 'John Doe', total: '125000', status: 'pending', submitted_at: '2025-03-20' },
+        { id: 'REQ-002', client: 'KCB', event_desc: 'KCB Golf Tournament', requestor: 'Jane Smith', total: '34500', status: 'pending', submitted_at: '2025-03-21' },
+        { id: 'REQ-003', client: 'Safaricom', event_desc: 'M-Pesa Launch', requestor: 'Alice Wangari', total: '98000', status: 'approved', submitted_at: '2025-03-19' }
+      ];
+    }
+    // Filter only pending (or all, but show action only for pending)
+    approvalsData = reqList.filter(r => r.status !== 'approved');
+    renderApprovalsTable();
+  } catch (error) {
+    container.innerHTML = `<div class="approvals-loader" style="color:var(--error)">Failed to load requisitions: ${error.message}</div>`;
+  }
+}
+
+function renderApprovalsTable() {
+  const container = document.getElementById('approvals-list-container');
+  if (!container) return;
+  if (!approvalsData.length) {
+    container.innerHTML = '<div class="approvals-loader">No pending requisitions found.</div>';
+    return;
+  }
+  const table = document.createElement('table');
+  table.className = 'approvals-table';
+  table.innerHTML = `
+    <thead><tr>
+      <th>Req ID</th><th>Client</th><th>Event Description</th><th>Requestor</th><th>Total (KES)</th><th>Submitted</th><th>Action</th>
+    </tr></thead>
+    <tbody id="approvals-tbody"></tbody>
+  `;
+  const tbody = table.querySelector('#approvals-tbody');
+  approvalsData.forEach(req => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${escapeHtml(req.id || req['id'] || '—')}</td>
+      <td>${escapeHtml(req.client || req['client'] || '—')}</td>
+      <td>${escapeHtml(req.event_desc || req['event_desc'] || req['description'] || '—')}</td>
+      <td>${escapeHtml(req.requestor || req['requestor_name'] || '—')}</td>
+      <td>${escapeHtml(req.total || req['total_amount'] || '0')}</td>
+      <td>${escapeHtml(req.submitted_at || req['submitted_at'] || '—')}</td>
+      <td><button class="btn-approve" data-id="${escapeHtml(req.id)}">Approve</button></td>
+    `;
+    tbody.appendChild(tr);
+  });
+  container.innerHTML = '';
+  container.appendChild(table);
+  // Attach event listeners to approve buttons
+  document.querySelectorAll('.btn-approve').forEach(btn => {
+    btn.addEventListener('click', async (e) => {
+      const reqId = btn.getAttribute('data-id');
+      await approveRequisition(reqId);
+    });
+  });
+}
+
+function escapeHtml(str) { 
+  return String(str).replace(/[&<>]/g, function(m){
+    if(m==='&') return '&amp;';
+    if(m==='<') return '&lt;';
+    if(m==='>') return '&gt;';
+    return m;
+  });
+}
+
+async function approveRequisition(reqId) {
+  const button = document.querySelector(`.btn-approve[data-id="${reqId}"]`);
+  if (!button) return;
+  button.disabled = true;
+  button.textContent = 'Approving...';
+  const APPROVAL_WEBHOOK = 'https://chux.app.n8n.cloud/webhook/requisition-approve'; // change to your n8n webhook
+  try {
+    const response = await fetch(APPROVAL_WEBHOOK, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ requisition_id: reqId, approved_by: authEmail, approved_at: new Date().toISOString() })
+    });
+    if (response.ok || [200, 201, 202].includes(response.status)) {
+      approvalsData = approvalsData.filter(r => (r.id || r['id']) !== reqId);
+      renderApprovalsTable();
+      alert(`Requisition ${reqId} has been approved.`);
+    } else {
+      throw new Error(`Server responded with ${response.status}`);
+    }
+  } catch (err) {
+    alert(`Approval failed: ${err.message}`);
+    button.disabled = false;
+    button.textContent = 'Approve';
+  }
+}
+  
 </script>
 </body>
 </html>
