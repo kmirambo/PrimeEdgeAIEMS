@@ -218,193 +218,8 @@ input.error-state { border-color: var(--error); }
 .section-head h3 { font-family: 'DM Serif Display', serif; font-size: 20px; font-weight: 400; }
 .section-head .line { flex: 1; height: 1px; background: var(--border); }
 
-/* RECCEE */
-.reccee-wrap { width: 100%; }
-.r-progress { display: flex; align-items: center; margin-bottom: 28px; }
-.step-pip { display: flex; flex-direction: column; align-items: center; gap: 6px; flex: 1; }
-.pip-dot { width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--border); background: var(--input-bg); display: flex; align-items: center; justify-content: center; font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-muted); transition: all .3s; position: relative; z-index: 1; }
-.pip-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: var(--text-muted); text-align: center; transition: color .3s; }
-.step-pip.active .pip-dot { border-color: var(--accent); background: var(--accent-dim); color: var(--accent); }
-.step-pip.active .pip-label { color: var(--accent); }
-.step-pip.done .pip-dot { border-color: var(--accent); background: var(--accent); color: #0C0F0A; }
-.step-pip.done .pip-label { color: var(--text-secondary); }
-.pip-line { flex: 1; height: 1px; background: var(--border); margin-top: -22px; position: relative; z-index: 0; transition: background .3s; }
-.pip-line.done { background: var(--accent); }
-.form-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 36px; position: relative; overflow: hidden; }
-.form-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--accent), transparent); opacity: .6; }
-@media (max-width: 600px) { .form-card { padding: 24px 18px; } }
-.step-panel { display: none; animation: rise .35s ease both; }
-.step-panel.active { display: block; }
-.r-section-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 20px; margin-top: 32px; display: flex; align-items: center; gap: 12px; }
-.r-section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-.r-section-label:first-child { margin-top: 0; }
-.r-field { margin-bottom: 20px; }
-.r-field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-@media (max-width: 560px) { .r-field-row { grid-template-columns: 1fr; } }
-.r-label { display: block; font-size: 12px; font-weight: 500; color: var(--text-secondary); letter-spacing: .04em; margin-bottom: 8px; }
-.r-label .req { color: var(--error); margin-left: 3px; }
-.r-input, .r-textarea, .r-select { width: 100%; background: var(--input-bg); border: 1px solid var(--border); border-radius: var(--radius); color: var(--text-primary); font-family: 'DM Sans', sans-serif; font-size: 14px; padding: 12px 14px; outline: none; transition: border-color .2s, box-shadow .2s; -webkit-appearance: none; }
-.r-input::placeholder, .r-textarea::placeholder { color: var(--text-muted); }
-.r-input:focus, .r-textarea:focus, .r-select:focus { border-color: var(--border-focus); box-shadow: 0 0 0 3px var(--accent-dim); }
-.r-textarea { min-height: 90px; resize: vertical; line-height: 1.6; }
-.r-input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(.5); cursor: pointer; }
-.r-input[readonly] { opacity: .7; cursor: default; }
-.job-cards { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
-.job-card { background: var(--input-bg); border: 1px solid var(--border); border-radius: 8px; padding: 16px 18px; cursor: pointer; transition: border-color .2s, background .2s; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
-.job-card:hover { border-color: rgba(200,230,60,.4); background: rgba(200,230,60,.03); }
-.job-card.selected { border-color: var(--accent); background: rgba(200,230,60,.06); }
-.job-card.purple-job-card:hover { border-color: rgba(167,139,250,.4); background: rgba(167,139,250,.03); }
-.job-card.purple-job-card.selected { border-color: var(--purple); background: rgba(167,139,250,.06); }
-.job-card-left { flex: 1; }
-.job-card-id { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--accent); letter-spacing: .1em; margin-bottom: 4px; }
-.job-card.purple-job-card .job-card-id { color: var(--purple); }
-.job-card-desc { font-size: 13px; color: var(--text-primary); font-weight: 500; margin-bottom: 3px; }
-.job-card-meta { font-size: 11px; color: var(--text-secondary); }
-.job-card-check { width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--border); flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all .2s; font-size: 11px; }
-.job-card.selected .job-card-check { border-color: var(--accent); background: var(--accent); color: #0C0F0A; font-weight: 700; }
-.job-card.purple-job-card.selected .job-card-check { border-color: var(--purple); background: var(--purple); color: #0C0F0A; font-weight: 700; }
-.radio-group, .check-group { display: flex; flex-direction: column; gap: 10px; }
-.radio-group.inline { flex-direction: row; gap: 12px; flex-wrap: wrap; }
-.radio-item, .check-item { display: flex; align-items: center; gap: 10px; background: var(--input-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 10px 14px; cursor: pointer; transition: border-color .2s, background .2s; user-select: none; }
-.radio-item:hover, .check-item:hover { border-color: var(--border-focus); }
-.radio-item .rpip, .check-item .rpip { width: 16px; height: 16px; border-radius: 50%; border: 2px solid var(--border); flex-shrink: 0; transition: all .2s; display: flex; align-items: center; justify-content: center; }
-.check-item .rpip { border-radius: 4px; }
-.radio-item.selected, .check-item.selected { border-color: var(--accent); background: var(--accent-dim); }
-.radio-item.selected .rpip { border-color: var(--accent); background: var(--accent); box-shadow: inset 0 0 0 3px var(--input-bg); }
-.check-item.selected .rpip { border-color: var(--accent); background: var(--accent); }
-.check-item.selected .rpip::after { content: '✓'; font-size: 10px; color: #0C0F0A; font-weight: 700; }
-.radio-item span:last-child, .check-item span:last-child { font-size: 13px; color: var(--text-secondary); }
-.radio-item.selected span:last-child, .check-item.selected span:last-child { color: var(--text-primary); }
-.radio-item.purple-radio.selected { border-color: var(--purple); background: rgba(167,139,250,0.1); }
-.radio-item.purple-radio.selected .rpip { border-color: var(--purple); background: var(--purple); box-shadow: inset 0 0 0 3px var(--input-bg); }
-.radio-item.purple-radio.selected span:last-child { color: var(--text-primary); }
-.verified-pill { display: inline-flex; align-items: center; gap: 7px; background: rgba(102,187,106,.1); border: 1px solid rgba(102,187,106,.3); color: var(--success); font-family: 'DM Mono', monospace; font-size: 11px; padding: 6px 14px; border-radius: 100px; margin-top: 10px; animation: rise .3s ease both; }
-.verified-pill::before { content: '✓'; font-weight: 700; font-size: 13px; }
-.r-info-box { background: var(--accent-dim); border: 1px solid var(--accent-border); border-radius: 8px; padding: 14px 16px; margin-bottom: 20px; font-size: 12px; color: var(--text-secondary); line-height: 1.6; }
-.r-field-error { font-size: 11px; color: var(--error); margin-top: 5px; font-family: 'DM Mono', monospace; display: none; }
-.r-field.has-error .r-input, .r-field.has-error .r-textarea { border-color: var(--error); }
-.r-field.has-error .r-field-error { display: block; }
-.error-banner { display: none; background: rgba(255,95,82,.08); border: 1px solid rgba(255,95,82,.3); border-radius: var(--radius); padding: 14px 18px; margin-top: 20px; font-size: 12px; color: var(--error); font-family: 'DM Mono', monospace; }
-.error-banner.visible { display: block; }
-.btn-row { margin-top: 32px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
-.btn-back { background: transparent; border: 1px solid var(--border); color: var(--text-secondary); border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 13px; padding: 11px 20px; cursor: pointer; transition: border-color .2s, color .2s; }
-.btn-back:hover { border-color: var(--accent); color: var(--accent); }
-.btn-next { background: var(--accent); color: #0C0F0A; border: none; border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; padding: 12px 28px; cursor: pointer; transition: background .2s, transform .15s, box-shadow .2s; display: flex; align-items: center; gap: 10px; margin-left: auto; }
-.btn-next:hover { background: #d8f04e; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(200,230,60,.2); }
-.btn-next.loading { pointer-events: none; opacity: .7; }
-.btn-next .btn-spinner { width: 16px; height: 16px; border: 2px solid rgba(0,0,0,.25); border-top-color: #0C0F0A; border-radius: 50%; animation: spin .7s linear infinite; display: none; }
-.btn-next.loading .btn-spinner { display: block; }
-.btn-next.loading .btn-text { opacity: .5; }
-.step-hint { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-muted); }
-.submit-area { display: flex; flex-direction: column; gap: 12px; margin-top: 32px; }
-.btn-download { background: var(--accent); color: #0C0F0A; border: none; border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; padding: 13px 28px; cursor: pointer; transition: background .2s; display: flex; align-items: center; gap: 10px; justify-content: center; width: 100%; }
-.btn-download:hover { background: #d8f04e; }
-.btn-submit { background: var(--success); color: #fff; border: none; border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; padding: 13px 28px; cursor: pointer; transition: background .2s; display: flex; align-items: center; gap: 10px; justify-content: center; width: 100%; }
-.btn-submit:hover { background: #81c784; }
-.btn-download.loading, .btn-submit.loading { pointer-events: none; opacity: .7; }
-.btn-download .btn-spinner { width: 16px; height: 16px; border: 2px solid rgba(0,0,0,.25); border-top-color: #0C0F0A; border-radius: 50%; animation: spin .7s linear infinite; display: none; }
-.btn-submit .btn-spinner { width: 16px; height: 16px; border: 2px solid rgba(255,255,255,.3); border-top-color: #fff; border-radius: 50%; animation: spin .7s linear infinite; display: none; }
-.btn-download.loading .btn-spinner, .btn-submit.loading .btn-spinner { display: block; }
-.btn-download.loading .btn-text, .btn-submit.loading .btn-text { opacity: .5; }
-.recap-section { margin-bottom: 24px; }
-.recap-section-title { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
-.recap-section-title::after { content: ''; flex: 1; height: 1px; background: var(--accent-border); }
-.recap-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-@media (max-width: 520px) { .recap-grid { grid-template-columns: 1fr; } }
-.recap-item { background: var(--input-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 14px; }
-.recap-item.full { grid-column: 1 / -1; }
-.recap-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: .15em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 5px; }
-.recap-val { font-size: 13px; color: var(--text-primary); word-break: break-word; white-space: pre-wrap; line-height: 1.5; }
-.recap-val.empty { color: var(--text-muted); font-style: italic; }
-.r-success { display: none; flex-direction: column; align-items: center; text-align: center; padding: 48px 32px; }
-.r-success.visible { display: flex; animation: rise .4s ease both; }
-.r-success-icon { width: 72px; height: 72px; background: rgba(102,187,106,.1); border: 2px solid var(--success); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; margin-bottom: 24px; animation: popIn .4s cubic-bezier(.175,.885,.32,1.275) both .1s; }
-.r-success h2 { font-family: 'DM Serif Display', serif; font-size: 26px; font-weight: 400; margin-bottom: 10px; }
-.r-success p { font-size: 13px; color: var(--text-secondary); line-height: 1.7; max-width: 380px; margin-bottom: 24px; }
-.r-success-ref { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-muted); background: var(--input-bg); border: 1px solid var(--border); border-radius: 100px; padding: 6px 16px; margin-bottom: 24px; letter-spacing: .08em; }
-.btn-new-rec { background: transparent; border: 1px solid var(--border); color: var(--text-secondary); border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 13px; padding: 10px 22px; cursor: pointer; transition: all .2s; margin: 4px; }
-.btn-new-rec:hover { border-color: var(--accent); color: var(--accent); }
-.btn-go-dash { background: var(--accent); color: #0C0F0A; border: none; border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; padding: 10px 22px; cursor: pointer; transition: all .2s; margin: 4px; }
-.btn-go-dash:hover { background: #d8f04e; }
-
-/* EVENT SUBMISSION */
-.evt-form-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 40px; position: relative; overflow: hidden; }
-.evt-form-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--accent), transparent); opacity: .6; transition: background .4s; }
-.evt-form-card.update-mode::before { background: linear-gradient(90deg, transparent, var(--orange), transparent); }
-@media (max-width: 600px) { .evt-form-card { padding: 24px 18px; } }
-.update-banner { display: none; background: rgba(249,115,22,0.08); border: 1px solid rgba(249,115,22,0.25); border-radius: var(--radius); padding: 12px 16px; margin-bottom: 24px; font-size: 12px; color: var(--orange); font-family: 'DM Mono', monospace; letter-spacing: .04em; align-items: center; gap: 10px; }
-.update-banner.visible { display: flex; }
-.e-section-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 20px; margin-top: 32px; display: flex; align-items: center; gap: 12px; }
-.e-section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-.e-section-label:first-child { margin-top: 0; }
-.lookup-panel { display: none; background: rgba(249,115,22,0.04); border: 1px solid rgba(249,115,22,0.2); border-radius: 8px; padding: 20px; margin-bottom: 28px; animation: rise .3s ease both; }
-.lookup-panel.visible { display: block; }
-.lookup-title { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--orange); margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
-.lookup-title::after { content: ''; flex: 1; height: 1px; background: rgba(249,115,22,.2); }
-.lookup-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
-@media (max-width: 520px) { .lookup-row { grid-template-columns: 1fr; } }
-.lookup-panel label { font-size: 11px; color: var(--text-secondary); margin-bottom: 6px; display: block; }
-.lookup-panel input[type="date"] { width: 100%; background: var(--input-bg); border: 1px solid rgba(249,115,22,0.2); border-radius: var(--radius); color: var(--text-primary); font-family: 'DM Sans', sans-serif; font-size: 13px; padding: 10px 12px; outline: none; transition: border-color .2s; -webkit-appearance: none; }
-.lookup-panel input[type="date"]:focus { border-color: var(--orange); box-shadow: 0 0 0 3px rgba(249,115,22,.1); }
-.lookup-bottom { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
-.btn-load { display: flex; align-items: center; gap: 8px; background: var(--orange); color: #fff; border: none; border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; padding: 10px 20px; cursor: pointer; white-space: nowrap; transition: background .2s, transform .15s; }
-.btn-load:hover { background: #ea6c0a; transform: translateY(-1px); }
-.btn-load:disabled { opacity: .5; pointer-events: none; }
-.evt-select-wrap { flex: 1; min-width: 180px; position: relative; }
-.evt-select-wrap::after { content: ''; position: absolute; right: 12px; top: 50%; transform: translateY(-50%); width: 9px; height: 9px; background: var(--text-muted); clip-path: polygon(0 30%,50% 80%,100% 30%); pointer-events: none; }
-#event-select { width: 100%; background: var(--input-bg); border: 1px solid rgba(249,115,22,0.2); border-radius: var(--radius); color: var(--text-primary); font-family: 'DM Sans', sans-serif; font-size: 13px; padding: 10px 32px 10px 12px; outline: none; -webkit-appearance: none; appearance: none; transition: border-color .2s; }
-#event-select:focus { border-color: var(--orange); box-shadow: 0 0 0 3px rgba(249,115,22,.1); }
-#event-select option { background: #1e2318; }
-.loader-text { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-muted); margin-top: 10px; min-height: 16px; }
-.e-field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-@media (max-width: 520px) { .e-field-row { grid-template-columns: 1fr; } }
-.e-field { margin-bottom: 20px; }
-.e-field label { display: block; font-size: 12px; font-weight: 500; color: var(--text-secondary); letter-spacing: .04em; margin-bottom: 8px; }
-.e-field label .req { color: var(--error); margin-left: 3px; }
-.e-input, .e-textarea, .e-select { width: 100%; background: var(--input-bg); border: 1px solid var(--border); border-radius: var(--radius); color: var(--text-primary); font-family: 'DM Sans', sans-serif; font-size: 14px; padding: 12px 14px; outline: none; transition: border-color .2s, box-shadow .2s, background .4s; -webkit-appearance: none; appearance: none; }
-.e-input::placeholder, .e-textarea::placeholder { color: var(--text-muted); }
-.e-input:focus, .e-textarea:focus, .e-select:focus { border-color: var(--border-focus); box-shadow: 0 0 0 3px var(--accent-dim); }
-.e-textarea { min-height: 100px; resize: vertical; line-height: 1.6; }
-.e-select-wrap { position: relative; }
-.e-select-wrap::after { content: ''; position: absolute; right: 14px; top: 50%; transform: translateY(-50%); width: 10px; height: 10px; background: var(--text-muted); clip-path: polygon(0 30%,50% 80%,100% 30%); pointer-events: none; }
-.e-input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(.5); cursor: pointer; }
-.e-field.has-error .e-input, .e-field.has-error .e-select, .e-field.has-error .e-textarea { border-color: var(--error); }
-.e-field.has-error .e-field-error { display: block; }
-.e-field-error { font-size: 11px; color: var(--error); margin-top: 5px; font-family: 'DM Mono', monospace; display: none; }
-.assistants-section { display: block; margin-top: 28px; }
-.assistant-entry { display: grid; grid-template-columns: 1fr 1fr auto; gap: 10px; align-items: end; margin-bottom: 12px; animation: rise .25s ease both; }
-@media (max-width: 520px) { .assistant-entry { grid-template-columns: 1fr; } .assistant-entry .btn-remove { width: 100%; } }
-.btn-remove { background: rgba(255,95,82,.08); border: 1px solid rgba(255,95,82,.2); color: var(--error); border-radius: var(--radius); font-family: 'DM Mono', monospace; font-size: 11px; padding: 11px 14px; cursor: pointer; white-space: nowrap; transition: background .2s, border-color .2s; height: 44px; }
-.btn-remove:hover { background: rgba(255,95,82,.15); border-color: rgba(255,95,82,.4); }
-.btn-add-assistant { display: inline-flex; align-items: center; gap: 8px; background: transparent; border: 1px dashed var(--border); color: var(--text-secondary); border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 13px; padding: 10px 18px; cursor: pointer; margin-top: 4px; transition: border-color .2s, color .2s; width: 100%; justify-content: center; }
-.btn-add-assistant:hover { border-color: var(--orange); color: var(--orange); }
-.assistant-col-labels { display: grid; grid-template-columns: 1fr 1fr auto; gap: 10px; margin-bottom: 6px; }
-.assistant-col-labels span { font-size: 11px; color: var(--text-secondary); font-weight: 500; letter-spacing: .04em; }
-@media (max-width: 520px) { .assistant-col-labels { display: none; } }
-.evt-submit-row { margin-top: 32px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
-.evt-submit-note { font-size: 11px; color: var(--text-muted); font-family: 'DM Mono', monospace; }
-.btn-evt-submit { background: var(--accent); color: #0C0F0A; border: none; border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; padding: 14px 32px; cursor: pointer; transition: background .2s, transform .15s, box-shadow .2s; display: flex; align-items: center; gap: 10px; }
-.btn-evt-submit:hover { background: #d8f04e; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(200,230,60,.2); }
-.btn-evt-submit.update-submit { background: var(--orange); color: #fff; }
-.btn-evt-submit.update-submit:hover { background: #ea6c0a; box-shadow: 0 8px 24px rgba(249,115,22,.25); }
-.btn-evt-submit.loading { pointer-events: none; opacity: .7; }
-.btn-evt-submit .btn-spinner { width: 16px; height: 16px; border: 2px solid rgba(0,0,0,.25); border-top-color: currentColor; border-radius: 50%; animation: spin .7s linear infinite; display: none; }
-.btn-evt-submit.loading .btn-spinner { display: block; }
-.btn-evt-submit.loading .btn-text { opacity: .5; }
-.evt-error-banner { display: none; background: rgba(255,95,82,.08); border: 1px solid rgba(255,95,82,.3); border-radius: var(--radius); padding: 14px 18px; margin-top: 20px; font-size: 12px; color: var(--error); font-family: 'DM Mono', monospace; }
-.evt-error-banner.visible { display: block; }
-.evt-success-screen { display: none; flex-direction: column; align-items: center; text-align: center; padding: 60px 40px; animation: rise .5s ease both; }
-.evt-success-screen.visible { display: flex; }
-.evt-success-icon { width: 72px; height: 72px; background: var(--accent-dim); border: 2px solid var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; margin-bottom: 28px; animation: popIn .4s cubic-bezier(.175,.885,.32,1.275) both .1s; }
-.evt-success-icon.update-icon { background: rgba(249,115,22,.1); border-color: var(--orange); }
-.evt-success-screen h2 { font-family: 'DM Serif Display', serif; font-size: 28px; font-weight: 400; margin-bottom: 12px; }
-.evt-success-screen p { font-size: 14px; color: var(--text-secondary); line-height: 1.7; max-width: 380px; margin-bottom: 28px; }
-.evt-success-ref { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-muted); background: var(--input-bg); border: 1px solid var(--border); border-radius: 100px; padding: 6px 16px; margin-bottom: 28px; letter-spacing: .08em; }
-.btn-evt-new { background: transparent; border: 1px solid var(--border); color: var(--text-secondary); border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 13px; padding: 11px 24px; cursor: pointer; transition: border-color .2s, color .2s; }
-.btn-evt-new:hover { border-color: var(--accent); color: var(--accent); }
-
 /* ═══════════════════════════════════════════════
-   REQUISITION MODULE — REDESIGNED
+   PAY CLAIMS SPECIFIC STYLES
 ═══════════════════════════════════════════════ */
 .req-form-card { background: var(--surface); border: 1px solid rgba(167,139,250,0.2); border-radius: 12px; padding: 40px; position: relative; overflow: hidden; }
 .req-form-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--purple), transparent); opacity: .7; }
@@ -414,7 +229,6 @@ input.error-state { border-color: var(--error); }
 .req-section-label::after { content: ''; flex: 1; height: 1px; background: rgba(167,139,250,0.15); }
 .req-section-label:first-child { margin-top: 0; }
 
-/* JOB LOOKUP — purple inline style */
 .req-job-lookup-box { background: rgba(167,139,250,0.04); border: 1px solid rgba(167,139,250,0.2); border-radius: 10px; padding: 24px; margin-bottom: 8px; }
 .req-lookup-title { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: rgba(167,139,250,0.7); margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
 .req-lookup-title::after { content: ''; flex: 1; height: 1px; background: rgba(167,139,250,.2); }
@@ -440,333 +254,42 @@ input.error-state { border-color: var(--error); }
 .req-job-cards { display: flex; flex-direction: column; gap: 8px; margin-top: 16px; }
 .req-job-cards:empty { display: none; }
 
-/* Pre-filled readonly fields */
 .req-prefilled-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 4px; }
 @media (max-width: 560px) { .req-prefilled-grid { grid-template-columns: 1fr; } }
+
 .req-field { margin-bottom: 20px; }
 .req-field label { display: block; font-size: 12px; font-weight: 500; color: var(--text-secondary); letter-spacing: .04em; margin-bottom: 8px; }
 .req-field label .req { color: var(--error); margin-left: 3px; }
-.req-input, .req-textarea, .req-select { width: 100%; background: var(--input-bg); border: 1px solid var(--border); border-radius: var(--radius); color: var(--text-primary); font-family: 'DM Sans', sans-serif; font-size: 14px; padding: 12px 14px; outline: none; transition: border-color .2s, box-shadow .2s; -webkit-appearance: none; appearance: none; }
+.req-input, .req-textarea { width: 100%; background: var(--input-bg); border: 1px solid var(--border); border-radius: var(--radius); color: var(--text-primary); font-family: 'DM Sans', sans-serif; font-size: 14px; padding: 12px 14px; outline: none; transition: border-color .2s, box-shadow .2s; -webkit-appearance: none; }
 .req-input::placeholder, .req-textarea::placeholder { color: var(--text-muted); }
-.req-input:focus, .req-textarea:focus, .req-select:focus { border-color: var(--purple); box-shadow: 0 0 0 3px rgba(167,139,250,.12); }
+.req-input:focus, .req-textarea:focus { border-color: var(--purple); box-shadow: 0 0 0 3px rgba(167,139,250,.12); }
 .req-textarea { min-height: 90px; resize: vertical; line-height: 1.6; }
-.req-select-wrap { position: relative; }
-.req-select-wrap::after { content: ''; position: absolute; right: 14px; top: 50%; transform: translateY(-50%); width: 10px; height: 10px; background: var(--text-muted); clip-path: polygon(0 30%,50% 80%,100% 30%); pointer-events: none; }
 .req-input[readonly] { opacity: .65; cursor: default; background: rgba(167,139,250,0.05); border-color: rgba(167,139,250,0.2); color: var(--text-secondary); }
-.req-field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-@media (max-width: 520px) { .req-field-row { grid-template-columns: 1fr; } }
-.req-field.has-error .req-input, .req-field.has-error .req-select, .req-field.has-error .req-textarea { border-color: var(--error); }
+.req-field.has-error .req-input { border-color: var(--error); }
 .req-field.has-error .req-field-error { display: block; }
 .req-field-error { font-size: 11px; color: var(--error); margin-top: 5px; font-family: 'DM Mono', monospace; display: none; }
-.req-info-box { background: rgba(167,139,250,0.07); border: 1px solid rgba(167,139,250,0.18); border-radius: 8px; padding: 14px 16px; margin-bottom: 20px; font-size: 12px; color: var(--text-secondary); line-height: 1.6; }
 
-/* ── LINE ITEMS TABLE — redesigned with Category + Days ── */
-.line-items-wrapper { overflow-x: auto; margin-bottom: 4px; border-radius: 8px; border: 1px solid rgba(167,139,250,0.15); }
-.line-items-table { width: 100%; border-collapse: collapse; min-width: 700px; }
-.line-items-table thead tr { background: rgba(167,139,250,0.08); border-bottom: 1px solid rgba(167,139,250,0.15); }
-.line-items-table th { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: .15em; text-transform: uppercase; color: rgba(167,139,250,0.7); padding: 10px 10px; text-align: left; white-space: nowrap; }
-.line-items-table th:last-child { text-align: center; width: 52px; }
-.line-item-row { border-bottom: 1px solid rgba(167,139,250,0.08); transition: background .15s; }
-.line-item-row:last-child { border-bottom: none; }
-.line-item-row:hover { background: rgba(167,139,250,0.03); }
-.line-item-row td { padding: 8px 6px 8px 8px; vertical-align: middle; }
-.line-item-row td:last-child { text-align: center; padding-right: 10px; }
+.job-card { background: var(--input-bg); border: 1px solid var(--border); border-radius: 8px; padding: 16px 18px; cursor: pointer; transition: border-color .2s, background .2s; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.job-card:hover { border-color: rgba(167,139,250,.4); background: rgba(167,139,250,.03); }
+.job-card.selected { border-color: var(--purple); background: rgba(167,139,250,.06); }
+.job-card-left { flex: 1; }
+.job-card-id { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--purple); letter-spacing: .1em; margin-bottom: 4px; }
+.job-card-desc { font-size: 13px; color: var(--text-primary); font-weight: 500; margin-bottom: 3px; }
+.job-card-meta { font-size: 11px; color: var(--text-secondary); }
+.job-card-check { width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--border); flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all .2s; font-size: 11px; }
+.job-card.selected .job-card-check { border-color: var(--purple); background: var(--purple); color: #0C0F0A; font-weight: 700; }
 
-/* inputs inside table */
-.li-input { width: 100%; background: transparent; border: 1px solid transparent; border-radius: 5px; color: var(--text-primary); font-family: 'DM Sans', sans-serif; font-size: 13px; padding: 7px 9px; outline: none; transition: border-color .2s, background .15s; }
-.li-input:hover { border-color: var(--border); background: var(--input-bg); }
-.li-input:focus { border-color: var(--purple); background: var(--input-bg); box-shadow: 0 0 0 2px rgba(167,139,250,0.1); }
-.li-input::placeholder { color: var(--text-muted); }
-.li-input[type="number"] { -moz-appearance: textfield; }
-.li-input[type="number"]::-webkit-outer-spin-button, .li-input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; }
+/* Pay Display Box */
+.pc-pay-display { background: rgba(167,139,250,0.05); border: 1px solid rgba(167,139,250,0.15); border-radius: 8px; padding: 20px; margin-bottom: 20px; }
+.pc-pay-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.pc-pay-item { text-align: center; }
+.pc-pay-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px; display: block; }
+.pc-pay-value { font-family: 'DM Serif Display', serif; font-size: 32px; color: var(--purple); font-weight: 400; }
+.pc-pay-divider { border-top: 1px solid rgba(167,139,250,0.2); margin-top: 16px; padding-top: 16px; }
+.pc-total-item { text-align: center; }
+.pc-total-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px; display: block; }
+.pc-total-value { font-family: 'DM Serif Display', serif; font-size: 36px; color: var(--purple); font-weight: 400; }
 
-/* category select inside table */
-.li-cat-select { width: 100%; background: transparent; border: 1px solid transparent; border-radius: 5px; color: var(--text-primary); font-family: 'DM Sans', sans-serif; font-size: 12px; padding: 7px 26px 7px 9px; outline: none; -webkit-appearance: none; appearance: none; transition: border-color .2s, background .15s; cursor: pointer; }
-.li-cat-select:hover { border-color: var(--border); background: var(--input-bg); }
-.li-cat-select:focus { border-color: var(--purple); background: var(--input-bg); box-shadow: 0 0 0 2px rgba(167,139,250,0.1); }
-.li-cat-select option { background: #1a1f16; }
-.li-cat-wrap { position: relative; }
-.li-cat-wrap::after { content: ''; position: absolute; right: 9px; top: 50%; transform: translateY(-50%); width: 8px; height: 8px; background: var(--text-muted); clip-path: polygon(0 30%,50% 80%,100% 30%); pointer-events: none; }
-
-/* row total cell */
-.li-row-total { font-family: 'DM Mono', monospace; font-size: 12px; color: rgba(167,139,250,0.8); text-align: right; padding-right: 10px; white-space: nowrap; min-width: 80px; }
-
-.btn-rm-line { background: transparent; border: 1px solid transparent; color: var(--text-muted); border-radius: 5px; font-size: 14px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all .2s; flex-shrink: 0; }
-.btn-rm-line:hover { background: rgba(255,95,82,.1); border-color: rgba(255,95,82,.3); color: var(--error); }
-
-/* totals footer */
-.line-totals-footer { display: flex; align-items: center; justify-content: flex-end; gap: 24px; padding: 14px 16px; background: rgba(167,139,250,0.05); border-top: 1px solid rgba(167,139,250,0.15); border-radius: 0 0 8px 8px; flex-wrap: wrap; }
-.lt-item { display: flex; align-items: center; gap: 10px; }
-.lt-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: .15em; text-transform: uppercase; color: var(--text-muted); }
-.lt-val { font-family: 'DM Serif Display', serif; font-size: 18px; color: var(--purple); }
-.lt-val.grand { font-size: 22px; color: var(--purple); }
-
-.btn-add-line { display: inline-flex; align-items: center; gap: 8px; background: transparent; border: 1px dashed rgba(167,139,250,0.3); color: rgba(167,139,250,0.7); border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 13px; padding: 10px 18px; cursor: pointer; margin-top: 12px; transition: border-color .2s, color .2s, background .2s; width: 100%; justify-content: center; }
-.btn-add-line:hover { border-color: var(--purple); color: var(--purple); background: rgba(167,139,250,0.05); }
-
-  /* ========= NEW MODULE: REQUISITION APPROVALS ========= */
-.req-approvals-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 32px; position: relative; overflow: hidden; }
-.req-approvals-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--orange), transparent); opacity: .7; }
-.approvals-table { width: 100%; border-collapse: collapse; margin-top: 16px; }
-.approvals-table th, .approvals-table td { padding: 12px 8px; text-align: left; border-bottom: 1px solid var(--border); font-size: 13px; vertical-align: top; }
-.approvals-table th { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--text-muted); }
-.approvals-table td { color: var(--text-secondary); }
-.approvals-table tr:hover td { background: rgba(255,255,255,0.02); }
-.btn-approve { background: rgba(102,187,106,0.15); border: 1px solid rgba(102,187,106,0.3); color: var(--success); border-radius: 100px; padding: 6px 14px; font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 600; cursor: pointer; transition: all .2s; white-space: nowrap; }
-.btn-approve:hover { background: var(--success); color: #0C0F0A; border-color: var(--success); transform: translateY(-1px); }
-.btn-approve:disabled { opacity: 0.5; pointer-events: none; }
-.approval-status-badge { display: inline-block; background: rgba(249,115,22,0.1); border: 1px solid rgba(249,115,22,0.25); color: var(--orange); border-radius: 100px; padding: 4px 10px; font-size: 10px; font-family: 'DM Mono', monospace; white-space: nowrap; }
-.approval-status-badge.approved { background: rgba(102,187,106,0.1); color: var(--success); border-color: rgba(102,187,106,0.3); }
-.approvals-loader { text-align: center; padding: 40px; color: var(--text-muted); font-family: 'DM Mono', monospace; }
-/* Requisition Approvals Module */
-.email-section {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 32px;
-  margin-bottom: 32px;
-}
-
-.email-section.hidden { display: none; }
-
-.email-label {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  margin-bottom: 20px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-.email-label::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: var(--border);
-}
-
-.email-row {
-  display: flex;
-  gap: 12px;
-  align-items: flex-end;
-  flex-wrap: wrap;
-}
-.email-field {
-  flex: 1;
-  min-width: 250px;
-}
-.email-field label {
-  display: block;
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--text-secondary);
-  margin-bottom: 8px;
-}
-.email-input {
-  width: 100%;
-  background: var(--input-bg);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  color: var(--text-primary);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 14px;
-  padding: 12px 14px;
-  outline: none;
-  transition: border-color .2s, box-shadow .2s;
-}
-.email-input:focus {
-  border-color: var(--orange);
-  box-shadow: 0 0 0 3px rgba(249,115,22,0.1);
-}
-
-.btn-load {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: var(--orange);
-  color: #fff;
-  border: none;
-  border-radius: var(--radius);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 14px;
-  font-weight: 500;
-  padding: 13px 24px;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: background .2s, transform .15s, box-shadow .2s;
-  flex-shrink: 0;
-}
-.btn-load:hover {
-  background: #ea6c0a;
-  transform: translateY(-1px);
-  box-shadow: 0 6px 18px rgba(249,115,22,0.25);
-}
-.btn-load:disabled {
-  opacity: 0.5;
-  pointer-events: none;
-}
-.btn-load .btn-spinner {
-  width: 16px;
-  height: 16px;
-  border: 2px solid rgba(255,255,255,0.3);
-  border-top-color: #fff;
-  border-radius: 50%;
-  animation: spin 0.7s linear infinite;
-  display: none;
-}
-.btn-load.loading .btn-spinner {
-  display: block;
-}
-
-.loader-msg {
-  font-family: 'DM Mono', monospace;
-  font-size: 12px;
-  color: var(--text-muted);
-  margin-top: 12px;
-  min-height: 18px;
-}
-.loader-msg.success { color: var(--success); }
-.loader-msg.error { color: var(--error); }
-
-.approvals-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 32px;
-  position: relative;
-  overflow: hidden;
-}
-.approvals-card.hidden { display: none; }
-.approvals-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--orange), transparent);
-  opacity: 0.7;
-}
-
-.section-title {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  margin-bottom: 20px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-.section-title::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: var(--border);
-}
-
-.approvals-loader {
-  text-align: center;
-  padding: 60px 20px;
-  color: var(--text-muted);
-  font-family: 'DM Mono', monospace;
-  font-size: 13px;
-}
-
-.approvals-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 16px;
-}
-.approvals-table th,
-.approvals-table td {
-  padding: 14px 10px;
-  text-align: left;
-  border-bottom: 1px solid var(--border);
-  font-size: 13px;
-  vertical-align: middle;
-}
-.approvals-table th {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  background: rgba(249,115,22,0.04);
-}
-.approvals-table td {
-  color: var(--text-secondary);
-}
-.approvals-table tr:hover td {
-  background: rgba(255,255,255,0.02);
-}
-
-.btn-approve {
-  background: rgba(102,187,106,0.15);
-  border: 1px solid rgba(102,187,106,0.3);
-  color: var(--success);
-  border-radius: 100px;
-  padding: 7px 16px;
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all .2s;
-  white-space: nowrap;
-}
-.btn-approve:hover {
-  background: var(--success);
-  color: #0C0F0A;
-  border-color: var(--success);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(102,187,106,0.3);
-}
-.btn-approve:disabled {
-  opacity: 0.5;
-  pointer-events: none;
-}
-
-.status-badge {
-  display: inline-block;
-  background: rgba(249,115,22,0.1);
-  border: 1px solid rgba(249,115,22,0.25);
-  color: var(--orange);
-  border-radius: 100px;
-  padding: 4px 10px;
-  font-size: 10px;
-  font-family: 'DM Mono', monospace;
-  white-space: nowrap;
-}
-.status-badge.approved {
-  background: rgba(102,187,106,0.1);
-  color: var(--success);
-  border-color: rgba(102,187,106,0.3);
-}
-
-@media (max-width: 768px) {
-  .email-section,
-  .approvals-card {
-    padding: 20px 16px;
-  }
-  .email-row {
-    flex-direction: column;
-  }
-  .email-field {
-    width: 100%;
-  }
-  .btn-load {
-    width: 100%;
-    justify-content: center;
-  }
-  .approvals-table th,
-  .approvals-table td {
-    padding: 10px 6px;
-  }
-}
-/* submit */
 .req-submit-row { margin-top: 32px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 .req-submit-note { font-size: 11px; color: var(--text-muted); font-family: 'DM Mono', monospace; }
 .btn-req-submit { background: var(--purple); color: #0C0F0A; border: none; border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; padding: 14px 32px; cursor: pointer; transition: background .2s, transform .15s, box-shadow .2s; display: flex; align-items: center; gap: 10px; }
@@ -775,10 +298,10 @@ input.error-state { border-color: var(--error); }
 .btn-req-submit .btn-spinner { width: 16px; height: 16px; border: 2px solid rgba(0,0,0,.25); border-top-color: #0C0F0A; border-radius: 50%; animation: spin .7s linear infinite; display: none; }
 .btn-req-submit.loading .btn-spinner { display: block; }
 .btn-req-submit.loading .btn-text { opacity: .5; }
+
 .req-error-banner { display: none; background: rgba(255,95,82,.08); border: 1px solid rgba(255,95,82,.3); border-radius: var(--radius); padding: 14px 18px; margin-top: 20px; font-size: 12px; color: var(--error); font-family: 'DM Mono', monospace; }
 .req-error-banner.visible { display: block; }
 
-/* success screen */
 .req-success-screen { display: none; flex-direction: column; align-items: center; text-align: center; padding: 60px 40px; animation: rise .5s ease both; }
 .req-success-screen.visible { display: flex; }
 .req-success-icon { width: 80px; height: 80px; background: rgba(167,139,250,.12); border: 2px solid var(--purple); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 34px; margin-bottom: 28px; animation: popIn .4s cubic-bezier(.175,.885,.32,1.275) both .1s; }
@@ -788,26 +311,15 @@ input.error-state { border-color: var(--error); }
 .btn-req-new { background: transparent; border: 1px solid var(--border); color: var(--text-secondary); border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 13px; padding: 11px 24px; cursor: pointer; transition: border-color .2s, color .2s; }
 .btn-req-new:hover { border-color: var(--purple); color: var(--purple); }
 
+.btn-go-dash { background: var(--accent); color: #0C0F0A; border: none; border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; padding: 10px 22px; cursor: pointer; transition: all .2s; margin: 4px; }
+.btn-go-dash:hover { background: #d8f04e; }
+
 /* COMING SOON */
 .coming-soon { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; min-height: 400px; padding: 40px; }
 .coming-soon .cs-icon { font-size: 48px; margin-bottom: 24px; opacity: .5; }
 .coming-soon h3 { font-family: 'DM Serif Display', serif; font-size: 26px; font-weight: 400; margin-bottom: 10px; }
 .coming-soon p { font-size: 13px; color: var(--text-secondary); line-height: 1.7; max-width: 380px; }
 .coming-soon .cs-tag { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .15em; text-transform: uppercase; color: var(--orange); background: rgba(249,115,22,.1); border: 1px solid rgba(249,115,22,.25); padding: 4px 12px; border-radius: 100px; margin-top: 20px; display: inline-block; }
-
-/* PDF */
-#pdf-preview { position: fixed; left: -9999px; top: 0; background: #fff; color: #111; padding: 36px 40px; font-family: 'Segoe UI', Arial, sans-serif; font-size: 12px; line-height: 1.6; width: 794px; }
-#pdf-preview .pdf-header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 3px solid #111; padding-bottom: 16px; margin-bottom: 24px; }
-#pdf-preview .pdf-title { font-size: 22px; font-weight: 700; }
-#pdf-preview .pdf-meta { font-size: 10px; color: #666; text-align: right; }
-#pdf-preview .pdf-section { margin-bottom: 22px; }
-#pdf-preview .pdf-section-title { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #333; border-bottom: 1px solid #ddd; padding-bottom: 5px; margin-bottom: 12px; }
-#pdf-preview .pdf-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 24px; }
-#pdf-preview .pdf-field { margin-bottom: 4px; }
-#pdf-preview .pdf-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: #888; margin-bottom: 3px; }
-#pdf-preview .pdf-value { font-size: 12px; color: #222; background: #f7f7f7; padding: 6px 8px; border-radius: 3px; min-height: 22px; white-space: pre-wrap; word-break: break-word; }
-#pdf-preview .pdf-full { grid-column: 1 / -1; }
-#pdf-preview .pdf-footer { margin-top: 28px; padding-top: 12px; border-top: 1px solid #ccc; font-size: 9px; color: #aaa; display: flex; justify-content: space-between; }
 
 /* MOBILE */
 .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.6); z-index: 90; }
@@ -914,57 +426,26 @@ input.error-state { border-color: var(--error); }
         <svg class="nav-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M2 10a8 8 0 1116 0A8 8 0 012 10zm8-4a.75.75 0 01.75.75v3.5h2a.75.75 0 010 1.5h-2.75A.75.75 0 019.25 11V6.75A.75.75 0 0110 6z"/></svg>
         <span class="nav-label">Dashboard</span>
       </div>
-      <div class="nav-section-title">Field Operations</div>
-      
-      <div class="nav-item disabled" data-page="site-checklist">
-        <svg class="nav-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg>
-        <span class="nav-label">Site Checklist</span>
-        <span class="nav-tag">Soon</span>
-      </div>
-      <div class="nav-item disabled" data-page="incident-report">
-        <svg class="nav-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8.485 2.495c.673-1.167 2.357-1.167 3.03 0l6.28 10.875c.673 1.167-.17 2.625-1.516 2.625H3.72c-1.347 0-2.189-1.458-1.515-2.625L8.485 2.495zm.995 5.004a.75.75 0 01.75.75v2a.75.75 0 01-1.5 0v-2a.75.75 0 01.75-.75zm.75 4.5a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" clip-rule="evenodd"/></svg>
-        <span class="nav-label">Incident Report</span>
-        <span class="nav-tag">Soon</span>
-      </div>
-      <div class="nav-section-title">Projects</div>
-      
-      <div class="nav-item" data-page="event-submission">
-        <svg class="nav-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M6 3.75A2.75 2.75 0 018.75 1h2.5A2.75 2.75 0 0114 3.75v.443c.572.055 1.14.122 1.706.2C17.053 4.582 18 5.75 18 7.07v3.469c0 1.126-.694 2.191-1.83 2.54-1.952.599-4.024.921-6.17.921s-4.219-.322-6.17-.921C2.694 12.73 2 11.665 2 10.539V7.07c0-1.322.947-2.489 2.294-2.676A41.047 41.047 0 016 4.193V3.75zm6.5 0v.325a41.622 41.622 0 00-5 0V3.75c0-.69.56-1.25 1.25-1.25h2.5c.69 0 1.25.56 1.25 1.25zM10 10a1 1 0 00-1 1v.01a1 1 0 001 1h.01a1 1 0 001-1V11a1 1 0 00-1-1H10z" clip-rule="evenodd"/><path d="M3 15.055v-.1c.91.283 1.854.514 2.826.7C7.068 15.899 8.53 16 10 16c1.47 0 2.933-.101 4.174-.345a29.88 29.88 0 002.826-.7v.1c0 1.294-.944 2.403-2.284 2.615A41.624 41.624 0 0110 18c-1.555 0-3.07-.108-4.516-.33C4.944 17.458 4 16.35 3 15.055z"/></svg>
-        <span class="nav-label">Event Submission</span>
-        <span class="nav-badge">Live</span>
-      </div>
+      <div class="nav-section-title">Modules</div>
       <div class="nav-item" data-page="reccee">
         <svg class="nav-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8.157 2.175a1.5 1.5 0 00-1.147 0l-4.084 1.69A1.5 1.5 0 002 5.251v10.877a1.5 1.5 0 002.074 1.386l3.51-1.453 4.26 1.763a1.5 1.5 0 001.146 0l4.083-1.69A1.5 1.5 0 0018 14.748V3.873a1.5 1.5 0 00-2.073-1.386l-3.51 1.452-4.26-1.763zM7.5 4.5v11l5 2.07V6.57l-5-2.07z" clip-rule="evenodd"/></svg>
         <span class="nav-label">Reccee Assessment</span>
         <span class="nav-badge">Live</span>
       </div>
+      <div class="nav-item" data-page="event-submission">
+        <svg class="nav-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M6 3.75A2.75 2.75 0 018.75 1h2.5A2.75 2.75 0 0114 3.75v.443c.572.055 1.14.122 1.706.2C17.053 4.582 18 5.75 18 7.07v3.469c0 1.126-.694 2.191-1.83 2.54-1.952.599-4.024.921-6.17.921s-4.219-.322-6.17-.921C2.694 12.73 2 11.665 2 10.539V7.07c0-1.322.947-2.489 2.294-2.676A41.047 41.047 0 016 4.193V3.75zm6.5 0v.325a41.622 41.622 0 00-5 0V3.75c0-.69.56-1.25 1.25-1.25h2.5c.69 0 1.25.56 1.25 1.25zM10 10a1 1 0 00-1 1v.01a1 1 0 001 1h.01a1 1 0 001-1V11a1 1 0 00-1-1H10z" clip-rule="evenodd"/></svg>
+        <span class="nav-label">Event Submission</span>
+        <span class="nav-badge">Live</span>
+      </div>
       <div class="nav-item" data-page="requisitions">
         <svg class="nav-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M2.5 3A1.5 1.5 0 001 4.5v4A1.5 1.5 0 002.5 10h6A1.5 1.5 0 0010 8.5v-4A1.5 1.5 0 008.5 3h-6zM12 3a1 1 0 00-1 1v.667a1 1 0 001 1H18a1 1 0 001-1V4a1 1 0 00-1-1h-6zM12 9a1 1 0 00-1 1v.667a1 1 0 001 1H18a1 1 0 001-1V10a1 1 0 00-1-1h-6zM12 15a1 1 0 00-1 1v.667a1 1 0 001 1H18a1 1 0 001-1V16a1 1 0 00-1-1h-6zM1 12.5A1.5 1.5 0 002.5 14h6a1.5 1.5 0 001.5-1.5v-4A1.5 1.5 0 008.5 7h-6A1.5 1.5 0 001 8.5v4z"/></svg>
         <span class="nav-label">Requisitions</span>
-        <span class="nav-badge">New</span>
+        <span class="nav-badge">Live</span>
       </div>
-      
-      <div class="nav-item" data-page="req-approvals">
-  <svg class="nav-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg>
-  <span class="nav-label">Requisition Approvals</span>
-  <span class="nav-badge">New</span>
-</div>
-      
-      <div class="nav-item disabled" data-page="timesheets">
-        <svg class="nav-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm.75-13a.75.75 0 00-1.5 0v5c0 .414.336.75.75.75h4a.75.75 0 000-1.5h-3.25V5z" clip-rule="evenodd"/></svg>
-        <span class="nav-label">Timesheets</span>
-        <span class="nav-tag">Soon</span>
-      </div>
-      <div class="nav-section-title">Admin</div>
-      <div class="nav-item disabled" data-page="team">
-        <svg class="nav-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M7 8a3 3 0 100-6 3 3 0 000 6zM14.5 9a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM1.615 16.428a1.224 1.224 0 01-.569-1.175 6.002 6.002 0 0111.908 0c.058.467-.172.92-.57 1.174A9.953 9.953 0 017 17a9.953 9.953 0 01-5.385-1.572zM14.5 16h-.106c.07-.297.088-.611.048-.933a7.47 7.47 0 00-1.588-3.755 4.502 4.502 0 015.874 2.636.818.818 0 01-.36.98A7.465 7.465 0 0114.5 16z"/></svg>
-        <span class="nav-label">Team</span>
-        <span class="nav-tag">Soon</span>
-      </div>
-      <div class="nav-item disabled" data-page="reports">
-        <svg class="nav-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M15.988 3.012A2.25 2.25 0 0118 5.25v6.5A2.25 2.25 0 0115.75 14H13.5v-3.379a3 3 0 00-.879-2.121l-3.12-3.121a3 3 0 00-1.402-.791V2.25A2.25 2.25 0 0110.25 0h2.5a2.25 2.25 0 012.238 3.012zm-7.5 1.5V2.25A2.25 2.25 0 006.25 0H3.75A2.25 2.25 0 001.5 2.25v15A2.25 2.25 0 003.75 19.5h8.5A2.25 2.25 0 0014.5 17.25v-2.25h-2.25a4.5 4.5 0 01-4.5-4.5V5.25A2.25 2.25 0 006.25 3h2.238z" clip-rule="evenodd"/></svg>
-        <span class="nav-label">Reports</span>
-        <span class="nav-tag">Soon</span>
+      <div class="nav-item" data-page="pay-claims">
+        <svg class="nav-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M10.5 1.5H5.75A2.25 2.25 0 003.5 3.75v12.5A2.25 2.25 0 005.75 18.5h8.5a2.25 2.25 0 002.25-2.25V8.5m-11-5h8m-8 4h8m-8 4h5M13 1.5v4m0 0h4m-4 0L13 1.5"></path></svg>
+        <span class="nav-label">Pay Claims</span>
+        <span class="nav-badge-purple">New</span>
       </div>
     </nav>
     <div class="sidebar-bottom">
@@ -988,7 +469,7 @@ input.error-state { border-color: var(--error); }
       <div class="topbar-right">
         <span class="topbar-time" id="topbar-time"></span>
         <div class="topbar-notif" title="Notifications">
-          <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a6 6 0 00-6 6c0 1.887-.454 3.665-1.257 5.234a.75.75 0 00.515 1.076 32.91 32.91 0 003.256.508 3.5 3.5 0 006.972 0 32.91 32.91 0 003.256-.508.75.75 0 00.515-1.076A11.448 11.448 0 0116 8a6 6 0 00-6-6zm0 14.5a2 2 0 01-1.95-1.557 33.54 33.54 0 003.9 0A2 2 0 0110 16.5z" clip-rule="evenodd"/></svg>
+          <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a6 6 0 00-6 6c0 1.887-.454 3.665-1.257 5.234a.75.75 0 00.515 1.076 32.91 32.91 0 003.256.508 3.5 3.5 0 006.972 0 32.91 32.91 0 003.256-.508.75.75 0 00.515-1.076A11.448 11.448 0 0016 8a6 6 0 00-6-6zm0 14.5a2 2 0 01-1.95-1.557 33.54 33.54 0 003.9 0A2 2 0 0110 16.5z" clip-rule="evenodd"/></svg>
           <div class="notif-dot"></div>
         </div>
       </div>
@@ -1004,354 +485,122 @@ input.error-state { border-color: var(--error); }
           <p id="dash-sub">Here's a quick overview of your PrimeEdgeAI workspace.</p>
         </div>
         <div class="stats-row">
-          <div class="stat-card"><div class="stat-label">Active Modules</div><div class="stat-val">3</div><div class="stat-sub">of 7 planned</div></div>
+          <div class="stat-card"><div class="stat-label">Active Modules</div><div class="stat-val">4</div><div class="stat-sub">of 7 planned</div></div>
           <div class="stat-card"><div class="stat-label">Reccees</div><div class="stat-val" id="dash-reccee-count">0</div><div class="stat-sub">submitted this session</div></div>
           <div class="stat-card"><div class="stat-label">Events</div><div class="stat-val" id="dash-event-count">0</div><div class="stat-sub">submitted this session</div></div>
           <div class="stat-card"><div class="stat-label">Requisitions</div><div class="stat-val" id="dash-req-count">0</div><div class="stat-sub">submitted this session</div></div>
-          <div class="stat-card"><div class="stat-label">Logged In As</div><div class="stat-val" style="font-size:16px;padding-top:4px" id="dash-user-stat">—</div><div class="stat-sub">verified via OTP</div></div>
+          <div class="stat-card"><div class="stat-label">Pay Claims</div><div class="stat-val" id="dash-claims-count">0</div><div class="stat-sub">submitted this session</div></div>
         </div>
         <div class="section-head"><h3>Your Modules</h3><div class="line"></div></div>
         <div class="module-grid">
-          <div class="module-card" onclick="navigateTo('reccee')"><div class="module-icon"></div><div class="module-title">Reccee Assessment</div><div class="module-desc">Site visit form for evaluating venues — security, logistics, medical, and compliance.</div><div class="module-footer"><span class="module-status status-active">Live</span><span class="module-arrow">→</span></div></div>
-          <div class="module-card" onclick="navigateTo('event-submission')"><div class="module-icon"></div><div class="module-title">Event Submission</div><div class="module-desc">Submit a new event for approval or update an existing event with new details.</div><div class="module-footer"><span class="module-status status-active">Live</span><span class="module-arrow">→</span></div></div>
-          <div class="module-card" onclick="navigateTo('requisitions')"><div class="module-icon"></div><div class="module-title">Requisitions</div><div class="module-desc">Submit procurement requests for event supplies, services, and equipment with itemised costing.</div><div class="module-footer"><span class="module-status status-new">New</span><span class="module-arrow">→</span></div></div>
-          <div class="module-card" onclick="navigateTo('req-approvals')"><div class="module-icon"></div><div class="module-title">Requisition Approvals</div><div class="module-desc">Site visit form for evaluating venues — security, logistics, medical, and compliance.</div><div class="module-footer"><span class="module-status status-active">Live</span><span class="module-arrow">→</span></div></div>
-
-          <div class="module-card locked"><div class="module-icon"></div><div class="module-title">Site Checklist</div><div class="module-desc">Pre-event and post-event site checklists for crew verification.</div><div class="module-footer"><span class="module-status status-soon">Coming Soon</span><span class="module-arrow">→</span></div></div>
-          <div class="module-card locked"><div class="module-icon"></div><div class="module-title">Incident Report</div><div class="module-desc">Log and escalate field incidents in real-time during events.</div><div class="module-footer"><span class="module-status status-soon">Coming Soon</span><span class="module-arrow">→</span></div></div>
-          <div class="module-card locked"><div class="module-icon"></div><div class="module-title">Timesheets</div><div class="module-desc">Clock in, clock out, and submit weekly timesheets for payroll.</div><div class="module-footer"><span class="module-status status-locked">Locked</span><span class="module-arrow">→</span></div></div>
-          <div class="module-card locked"><div class="module-icon"></div><div class="module-title">Team</div><div class="module-desc">Manage staff assignments, roles, and contact information.</div><div class="module-footer"><span class="module-status status-locked">Locked</span><span class="module-arrow">→</span></div></div>
+          <div class="module-card" onclick="navigateTo('reccee')"><div class="module-icon">📍</div><div class="module-title">Reccee Assessment</div><div class="module-desc">Site visit form for evaluating venues — security, logistics, medical, and compliance.</div><div class="module-footer"><span class="module-status status-active">Live</span><span class="module-arrow">→</span></div></div>
+          <div class="module-card" onclick="navigateTo('event-submission')"><div class="module-icon">📅</div><div class="module-title">Event Submission</div><div class="module-desc">Submit a new event for approval or update an existing event with new details.</div><div class="module-footer"><span class="module-status status-active">Live</span><span class="module-arrow">→</span></div></div>
+          <div class="module-card" onclick="navigateTo('requisitions')"><div class="module-icon">📦</div><div class="module-title">Requisitions</div><div class="module-desc">Submit procurement requests for event supplies, services, and equipment with itemised costing.</div><div class="module-footer"><span class="module-status status-active">Live</span><span class="module-arrow">→</span></div></div>
+          <div class="module-card purple-card" onclick="navigateTo('pay-claims')"><div class="module-icon">💰</div><div class="module-title">Pay Claims</div><div class="module-desc">Submit pay claims based on days worked. Automatic calculation at KES 2,000 per day.</div><div class="module-footer"><span class="module-status status-new">New</span><span class="module-arrow">→</span></div></div>
         </div>
       </div>
 
-      <!-- RECCEE PAGE -->
-      <div id="page-reccee" style="display:none">
-        <div class="section-head" style="margin-bottom:8px"><h3>Reccee <em style="font-style:italic;color:var(--accent)">Assessment</em></h3><div class="line"></div></div>
-        <p style="font-size:13px;color:var(--text-secondary);margin-bottom:28px">Complete the site assessment for your event. Your report will be submitted to the PrimeEdgeAI team.</p>
-        <div class="r-progress" id="r-progress-bar">
-          <div class="step-pip active" id="r-pip-1"><div class="pip-dot">1</div><div class="pip-label">Verify</div></div>
-          <div class="pip-line" id="r-line-1"></div>
-          <div class="step-pip" id="r-pip-2"><div class="pip-dot">2</div><div class="pip-label">Job</div></div>
-          <div class="pip-line" id="r-line-2"></div>
-          <div class="step-pip" id="r-pip-3"><div class="pip-dot">3</div><div class="pip-label">Venue</div></div>
-          <div class="pip-line" id="r-line-3"></div>
-          <div class="step-pip" id="r-pip-4"><div class="pip-dot">4</div><div class="pip-label">Security</div></div>
-          <div class="pip-line" id="r-line-4"></div>
-          <div class="step-pip" id="r-pip-5"><div class="pip-dot">5</div><div class="pip-label">Logistics</div></div>
-          <div class="pip-line" id="r-line-5"></div>
-          <div class="step-pip" id="r-pip-6"><div class="pip-dot">6</div><div class="pip-label">Review</div></div>
-        </div>
-        <div class="form-card" id="r-form-card">
-          <div class="step-panel active" id="r-step-1">
-            <div class="r-section-label">Project Lead Verification</div>
-            <div class="r-info-box" id="r-step1-info">Enter your email to find your assigned jobs.</div>
-            <div class="r-field" id="r-field-project-email">
-              <label class="r-label">Your Email Address <span class="req">*</span></label>
-              <input type="email" class="r-input" id="r-project-email" placeholder="your.email@company.com" />
-              <div class="r-field-error">Please enter a valid email address.</div>
-            </div>
-            <div id="r-verified-badge-wrap"></div>
-            <div class="error-banner" id="r-err-1"></div>
-            <div class="btn-row">
-              <span class="step-hint">Step 1 of 6</span>
-              <button class="btn-next" id="r-next-1"><span class="btn-text">Find My Jobs →</span><div class="btn-spinner"></div></button>
-            </div>
-          </div>
-          <div class="step-panel" id="r-step-2">
-            <div class="r-section-label">Select Job to Assess</div>
-            <div class="r-info-box" id="r-jobs-info"></div>
-            <div class="job-cards" id="r-job-cards"></div>
-            <div id="r-job-detail" style="display:none">
-              <div class="r-field-row">
-                <div class="r-field"><label class="r-label">Client</label><input type="text" class="r-input" id="r-client" readonly /></div>
-                <div class="r-field"><label class="r-label">Event Description</label><input type="text" class="r-input" id="r-desc" readonly /></div>
-              </div>
-              <div class="r-field-row">
-                <div class="r-field"><label class="r-label">Project Lead</label><input type="text" class="r-input" id="r-pl-display" readonly /></div>
-                <div class="r-field"><label class="r-label">Venue</label><input type="text" class="r-input" id="r-venue-display" readonly /></div>
-              </div>
-            </div>
-            <div class="error-banner" id="r-err-2"></div>
-            <div class="btn-row">
-              <button class="btn-back" onclick="rGoStep(1)">← Back</button>
-              <span class="step-hint">Step 2 of 6</span>
-              <button class="btn-next" id="r-next-2">Continue →</button>
-            </div>
-          </div>
-          <div class="step-panel" id="r-step-3">
-            <div class="r-section-label">Venue &amp; Dates</div>
-            <div class="r-field-row">
-              <div class="r-field" id="r-field-reccee-date"><label class="r-label">Reccee Date <span class="req">*</span></label><input type="date" class="r-input" id="r-date" /><div class="r-field-error">Date is required.</div></div>
-              <div class="r-field" id="r-field-location"><label class="r-label">Venue / Location <span class="req">*</span></label><input type="text" class="r-input" id="r-location" placeholder="Where will the event take place?" /><div class="r-field-error">Location is required.</div></div>
-            </div>
-            <div class="r-field" id="r-field-attendees"><label class="r-label">Reccee Attendees <span class="req">*</span></label><textarea class="r-textarea" id="r-attendees" placeholder="List all attendees…"></textarea><div class="r-field-error">Attendees is required.</div></div>
-            <div class="r-section-label">Access &amp; Transport</div>
-            <div class="r-field"><label class="r-label">How far is the venue from the main town?</label><div class="radio-group inline"><div class="radio-item" data-rg="distance" data-rv="≤ 15 min"><span class="rpip"></span><span>≤ 15 min</span></div><div class="radio-item" data-rg="distance" data-rv="≤ 30 min"><span class="rpip"></span><span>≤ 30 min</span></div><div class="radio-item" data-rg="distance" data-rv="≤ 45 min"><span class="rpip"></span><span>≤ 45 min</span></div><div class="radio-item" data-rg="distance" data-rv="1 hour and above"><span class="rpip"></span><span>1 hr +</span></div></div></div>
-            <div class="r-field"><label class="r-label">Is public transport available?</label><div class="radio-group inline"><div class="radio-item" data-rg="transport" data-rv="Yes"><span class="rpip"></span><span>Yes</span></div><div class="radio-item" data-rg="transport" data-rv="No"><span class="rpip"></span><span>No</span></div></div></div>
-            <div class="btn-row"><button class="btn-back" onclick="rGoStep(2)">← Back</button><span class="step-hint">Step 3 of 6</span><button class="btn-next" id="r-next-3">Continue →</button></div>
-          </div>
-          <div class="step-panel" id="r-step-4">
-            <div class="r-section-label">Security Assessment</div>
-            <div class="r-field"><label class="r-label">Are there residential settlements near the venue?</label><div class="radio-group inline"><div class="radio-item" data-rg="residential" data-rv="Yes"><span class="rpip"></span><span>Yes</span></div><div class="radio-item" data-rg="residential" data-rv="No"><span class="rpip"></span><span>No</span></div></div></div>
-            <div class="r-field"><label class="r-label">Does the venue have a well-secured perimeter wall?</label><div class="radio-group inline"><div class="radio-item" data-rg="perimeter" data-rv="Yes"><span class="rpip"></span><span>Yes</span></div><div class="radio-item" data-rg="perimeter" data-rv="No"><span class="rpip"></span><span>No</span></div></div></div>
-            <div class="r-field"><label class="r-label">Is there a police station nearby?</label><div class="radio-group inline"><div class="radio-item" data-rg="police" data-rv="Yes"><span class="rpip"></span><span>Yes</span></div><div class="radio-item" data-rg="police" data-rv="No"><span class="rpip"></span><span>No</span></div></div></div>
-            <div class="r-field"><label class="r-label">Will additional security be needed?</label><div class="radio-group inline"><div class="radio-item" data-rg="extra-security" data-rv="Yes"><span class="rpip"></span><span>Yes</span></div><div class="radio-item" data-rg="extra-security" data-rv="No"><span class="rpip"></span><span>No</span></div></div></div>
-            <div class="r-field"><label class="r-label">Security details &amp; notes</label><textarea class="r-textarea" id="r-security-notes" placeholder="Describe access points, guard requirements, any known risks…"></textarea></div>
-            <div class="r-section-label">Medical &amp; Facilities</div>
-            <div class="r-field"><label class="r-label">Are there medical facilities within 30 min?</label><div class="radio-group inline"><div class="radio-item" data-rg="medical" data-rv="Yes"><span class="rpip"></span><span>Yes</span></div><div class="radio-item" data-rg="medical" data-rv="No"><span class="rpip"></span><span>No</span></div></div></div>
-            <div class="r-field"><label class="r-label">Medical facility details</label><textarea class="r-textarea" id="r-medical-notes" placeholder="Name, distance, type of facility…"></textarea></div>
-            <div class="r-field"><label class="r-label">Available facilities &amp; amenities <span style="font-size:11px;color:var(--text-muted)">(select all that apply)</span></label><div class="check-group" id="r-amenities-group"><div class="check-item" data-rcg="amenities" data-rcv="Adequate toilets"><span class="rpip"></span><span>Adequate toilets</span></div><div class="check-item" data-rcg="amenities" data-rcv="Water supply"><span class="rpip"></span><span>Water supply</span></div><div class="check-item" data-rcg="amenities" data-rcv="3-phase electricity points"><span class="rpip"></span><span>3-phase electricity points</span></div></div></div>
-            <div class="r-field"><label class="r-label">Other facilities needed</label><textarea class="r-textarea" id="r-other-facilities" placeholder="Any other infrastructure requirements…"></textarea></div>
-            <div class="btn-row"><button class="btn-back" onclick="rGoStep(3)">← Back</button><span class="step-hint">Step 4 of 6</span><button class="btn-next" id="r-next-4">Continue →</button></div>
-          </div>
-          <div class="step-panel" id="r-step-5">
-            <div class="r-section-label">Event Logistics</div>
-            <div class="r-field"><label class="r-label">Entry &amp; Exit details</label><textarea class="r-textarea" id="r-entry-exit" placeholder="Describe entry/exit points, crowd flow, vehicle access…"></textarea></div>
-            <div class="r-field"><label class="r-label">Event layout details</label><textarea class="r-textarea" id="r-event-layout" placeholder="Stage position, audience area, vendor zones, emergency routes…"></textarea></div>
-            <div class="r-section-label">Compliance</div>
-            <div class="r-field"><label class="r-label">Permits required</label><textarea class="r-textarea" id="r-permits" placeholder="List all permits needed (county, noise, liquor, etc.)…"></textarea></div>
-            <div class="r-section-label">Summary Notes</div>
-            <div class="r-field" id="r-field-challenges"><label class="r-label">Challenges &amp; Recommendations <span class="req">*</span></label><textarea class="r-textarea" id="r-challenges" placeholder="Key issues and your recommendations…" style="min-height:110px"></textarea><div class="r-field-error">Please fill in challenges &amp; recommendations.</div></div>
-            <div class="btn-row"><button class="btn-back" onclick="rGoStep(4)">← Back</button><span class="step-hint">Step 5 of 6</span><button class="btn-next" id="r-next-5">Review &amp; Submit →</button></div>
-          </div>
-          <div class="step-panel" id="r-step-6">
-            <div class="r-section-label" style="margin-top:0">Full Assessment Recap</div>
-            <div class="recap-section"><div class="recap-section-title">Project Information</div><div class="recap-grid"><div class="recap-item"><div class="recap-label">Email</div><div class="recap-val" id="rv-email">—</div></div><div class="recap-item"><div class="recap-label">Job ID</div><div class="recap-val" id="rv-job-id">—</div></div><div class="recap-item"><div class="recap-label">Client</div><div class="recap-val" id="rv-client">—</div></div><div class="recap-item"><div class="recap-label">Description</div><div class="recap-val" id="rv-desc">—</div></div></div></div>
-            <div class="recap-section"><div class="recap-section-title">Venue &amp; Date</div><div class="recap-grid"><div class="recap-item"><div class="recap-label">Reccee Date</div><div class="recap-val" id="rv-date">—</div></div><div class="recap-item"><div class="recap-label">Location</div><div class="recap-val" id="rv-location">—</div></div><div class="recap-item full"><div class="recap-label">Attendees</div><div class="recap-val" id="rv-attendees">—</div></div><div class="recap-item"><div class="recap-label">Distance from Town</div><div class="recap-val" id="rv-distance">—</div></div><div class="recap-item"><div class="recap-label">Public Transport</div><div class="recap-val" id="rv-transport">—</div></div></div></div>
-            <div class="recap-section"><div class="recap-section-title">Security Assessment</div><div class="recap-grid"><div class="recap-item"><div class="recap-label">Residential Nearby</div><div class="recap-val" id="rv-residential">—</div></div><div class="recap-item"><div class="recap-label">Perimeter Wall</div><div class="recap-val" id="rv-perimeter">—</div></div><div class="recap-item"><div class="recap-label">Police Nearby</div><div class="recap-val" id="rv-police">—</div></div><div class="recap-item"><div class="recap-label">Extra Security</div><div class="recap-val" id="rv-extra-security">—</div></div><div class="recap-item full"><div class="recap-label">Security Notes</div><div class="recap-val" id="rv-security-notes">—</div></div></div></div>
-            <div class="recap-section"><div class="recap-section-title">Medical &amp; Facilities</div><div class="recap-grid"><div class="recap-item"><div class="recap-label">Medical Nearby</div><div class="recap-val" id="rv-medical">—</div></div><div class="recap-item"><div class="recap-label">Amenities</div><div class="recap-val" id="rv-amenities">—</div></div><div class="recap-item full"><div class="recap-label">Medical Notes</div><div class="recap-val" id="rv-medical-notes">—</div></div><div class="recap-item full"><div class="recap-label">Other Facilities</div><div class="recap-val" id="rv-other-facilities">—</div></div></div></div>
-            <div class="recap-section"><div class="recap-section-title">Logistics &amp; Compliance</div><div class="recap-grid"><div class="recap-item full"><div class="recap-label">Entry &amp; Exit</div><div class="recap-val" id="rv-entry-exit">—</div></div><div class="recap-item full"><div class="recap-label">Event Layout</div><div class="recap-val" id="rv-event-layout">—</div></div><div class="recap-item full"><div class="recap-label">Permits</div><div class="recap-val" id="rv-permits">—</div></div></div></div>
-            <div class="recap-section"><div class="recap-section-title">Challenges &amp; Recommendations</div><div class="recap-grid"><div class="recap-item full"><div class="recap-label">Challenges</div><div class="recap-val" id="rv-challenges">—</div></div></div></div>
-            <div class="error-banner" id="r-err-6"></div>
-            <div class="submit-area">
-              <button class="btn-download" id="r-download-btn"><span class="btn-text"> Download PDF Report</span><div class="btn-spinner"></div></button>
-              <button class="btn-submit" id="r-submit-btn"><span class="btn-text">✓ Submit Assessment to PrimeEdgeAI</span><div class="btn-spinner"></div></button>
-            </div>
-            <div class="btn-row" style="margin-top:16px"><button class="btn-back" onclick="rGoStep(5)">← Back</button><span class="step-hint">Step 6 of 6</span></div>
-          </div>
-        </div>
-        <div class="form-card r-success" id="r-success-screen">
-          <div class="r-success-icon">✓</div>
-          <h2>Assessment Submitted!</h2>
-          <p>Your Reccee report has been sent to the PrimeEdgeAI team. You'll receive a confirmation email and next steps within 72 hours.</p>
-          <div class="r-success-ref" id="r-success-ref">REC — — —</div>
-          <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">
-            <button class="btn-new-rec" id="r-btn-new">Submit another assessment</button>
-            <button class="btn-go-dash" onclick="navigateTo('dashboard')">← Back to Dashboard</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- EVENT SUBMISSION PAGE -->
-      <div id="page-event-submission" style="display:none">
-        <div class="section-head" style="margin-bottom:8px"><h3>Event <em style="font-style:italic;color:var(--accent)">Submission</em></h3><div class="line"></div></div>
-        <p style="font-size:13px;color:var(--text-secondary);margin-bottom:28px">Submit a new event for approval or update an existing one.</p>
-        <div class="evt-form-card" id="evt-main-card">
-          <div class="update-banner" id="evt-update-banner">Update Mode — editing an existing event</div>
-          <div class="e-section-label">Event Info</div>
-          <div class="e-field" id="efield-client"><label>Client <span class="req">*</span></label><input type="text" class="e-input" id="e-client" placeholder="e.g., Jumia" autocomplete="off" /><div class="e-field-error">Client name is required.</div></div>
-          <div class="e-field" id="efield-status"><label>Status <span class="req">*</span></label><div class="e-select-wrap"><select class="e-select" id="e-status"><option value="">Select status…</option><option value="Event Creation">Event Creation</option><option value="Event Update">Event Update</option></select></div><div class="e-field-error">Please select a status.</div></div>
-          <div class="lookup-panel" id="lookup-panel">
-            <div class="lookup-title">Find Event to Update</div>
-            <div class="lookup-row"><div><label>Filter by Start Date</label><input type="date" id="filter-start" /></div><div><label>Filter by End Date</label><input type="date" id="filter-end" /></div></div>
-            <div class="lookup-bottom">
-              <button class="btn-load" id="btn-fetch" type="button"><span id="fetch-label">Load Events</span></button>
-              <div class="evt-select-wrap"><select id="event-select"><option value="">— select an event —</option></select></div>
-            </div>
-            <div class="loader-text" id="loader-text"></div>
-          </div>
-          <input type="hidden" id="e-job-id" value="" />
-          <div class="e-field" id="efield-description"><label>Description <span class="req">*</span></label><textarea class="e-textarea" id="e-description" placeholder="e.g., KCB VS Police FC"></textarea><div class="e-field-error">Description is required.</div></div>
-          <div class="e-section-label">Contacts</div>
-          <div class="e-field-row">
-            <div class="e-field" id="efield-client-lead"><label>Client Lead</label><input type="text" class="e-input" id="e-client-lead" placeholder="Name" /></div>
-            <div class="e-field" id="efield-agency-lead"><label>Project Lead <span class="req">*</span></label><input type="text" class="e-input" id="e-agency-lead" placeholder="Name" /><div class="e-field-error">Project Lead is required.</div></div>
-          </div>
-          <div class="e-field" id="efield-email"><label>Email <span class="req">*</span></label><input type="email" class="e-input" id="e-email" placeholder="e.g., john@gmail.com" /><div class="e-field-error">A valid email is required.</div></div>
-          <div class="assistants-section" id="assistants-section">
-            <div class="e-section-label">Project Assistants</div>
-            <div class="assistant-col-labels"><span>Name</span><span>Email</span><span></span></div>
-            <div id="assistants-list"></div>
-            <button type="button" class="btn-add-assistant" id="btn-add-assistant">+ Add Assistant</button>
-          </div>
-          <div class="e-section-label">Location &amp; Dates</div>
-          <div class="e-field" id="efield-location"><label>Event Location <span class="req">*</span></label><input type="text" class="e-input" id="e-location" placeholder="Where is the event?" /><div class="e-field-error">Event location is required.</div></div>
-          <div class="e-field-row">
-            <div class="e-field" id="efield-start-date"><label>Start Date <span class="req">*</span></label><input type="date" class="e-input" id="e-start-date" /><div class="e-field-error">Start date is required.</div></div>
-            <div class="e-field" id="efield-end-date"><label>End Date <span class="req">*</span></label><input type="date" class="e-input" id="e-end-date" /><div class="e-field-error">End date is required.</div></div>
-          </div>
-          <div class="evt-submit-row">
-            <span class="evt-submit-note">* required fields</span>
-            <button class="btn-evt-submit" id="evt-submit-btn"><span class="btn-text">Submit Event</span><div class="btn-spinner"></div></button>
-          </div>
-          <div class="evt-error-banner" id="evt-error-banner"></div>
-        </div>
-        <div class="evt-form-card evt-success-screen" id="evt-success-screen">
-          <div class="evt-success-icon" id="evt-success-icon">✓</div>
-          <h2 id="evt-success-title">Event Submitted!</h2>
-          <p id="evt-success-msg">Your submission has been received and is on its way.</p>
-          <div class="evt-success-ref" id="evt-success-ref">REF — —</div>
-          <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">
-            <button class="btn-evt-new" id="btn-evt-new">Submit another Event</button>
-            <button class="btn-go-dash" onclick="navigateTo('dashboard')">← Back to Dashboard</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- REQUISITIONS PAGE -->
-      <div id="page-requisitions" style="display:none">
+      <!-- PAY CLAIMS PAGE -->
+      <div id="page-pay-claims" style="display:none">
         <div class="section-head" style="margin-bottom:8px">
-          <h3>Requisition <em style="font-style:italic;color:var(--purple)">Request</em></h3>
+          <h3>Pay <em style="font-style:italic;color:var(--purple)">Claims</em></h3>
           <div class="line"></div>
         </div>
-        <p style="font-size:13px;color:var(--text-secondary);margin-bottom:28px">Submit a procurement request for supplies, services, or equipment. Select your job to auto-fill key details, then build your line items.</p>
+        <p style="font-size:13px;color:var(--text-secondary);margin-bottom:28px">Submit your pay claim. Select a job you worked on, and we'll calculate your total pay based on days worked at KES 2,000 per day.</p>
 
-        <div class="req-form-card" id="req-main-card">
-
-          <!-- JOB LOOKUP -->
-          <div class="req-section-label" style="margin-top:0">Job Lookup</div>
-
+        <div class="req-form-card" id="pay-main-card">
+          
+          <!-- JOB SELECTION -->
+          <div class="req-section-label" style="margin-top:0">Select Your Job</div>
           <div class="req-job-lookup-box">
-            <div class="req-lookup-title">Find Your Assigned Job</div>
+            <div class="req-lookup-title">Find a Job You Worked On</div>
             <div class="req-email-row">
               <div class="req-email-field">
                 <label>Your email address</label>
-                <input type="email" class="req-email-input" id="rq-lookup-email" placeholder="your.email@company.com" />
+                <input type="email" class="req-email-input" id="pc-email" placeholder="your.email@company.com" />
               </div>
-              <button class="btn-req-load" id="btn-req-load-jobs" type="button">
+              <button class="btn-req-load" id="btn-pc-load-jobs" type="button">
                 <span class="lbl-text">Load Jobs</span>
                 <div class="btn-spinner"></div>
               </button>
             </div>
-            <div class="req-loader-msg" id="req-loader-msg"></div>
-            <div class="req-job-cards" id="req-job-cards"></div>
+            <div class="req-loader-msg" id="pc-loader-msg"></div>
+            <div class="req-job-cards" id="pc-job-cards"></div>
           </div>
 
-          <!-- AUTO-FILLED JOB REFERENCE -->
-          <div class="req-section-label">Job Reference</div>
+          <!-- JOB DETAILS (auto-filled) -->
+          <div class="req-section-label">Job Details</div>
           <div class="req-prefilled-grid">
-            <div class="req-field" id="rqf-job-id">
+            <div class="req-field" id="pcf-job-id">
               <label>Job ID <span class="req">*</span></label>
-              <input type="text" class="req-input" id="rq-job-id" placeholder="Select a job above" readonly />
-              <div class="req-field-error">Select a job from the lookup above.</div>
+              <input type="text" class="req-input" id="pc-job-id" placeholder="Select a job above" readonly />
+              <div class="req-field-error">Select a job to continue.</div>
             </div>
-            <div class="req-field" id="rqf-client">
-              <label>Client <span class="req">*</span></label>
-              <input type="text" class="req-input" id="rq-client" placeholder="Auto-filled from job" readonly />
-              <div class="req-field-error">Client is required.</div>
-            </div>
-          </div>
-          <div class="req-field" id="rqf-event-desc">
-            <label>Event / Project Description <span class="req">*</span></label>
-            <input type="text" class="req-input" id="rq-event-desc" placeholder="Auto-filled from job" readonly />
-            <div class="req-field-error">Event description is required.</div>
-          </div>
-
-          <!-- REQUESTOR -->
-          <div class="req-section-label">Requestor Details</div>
-          <div class="req-field-row">
-            <div class="req-field" id="rqf-requestor-name">
-              <label>Your Name <span class="req">*</span></label>
-              <input type="text" class="req-input" id="rq-requestor-name" placeholder="Full name" />
-              <div class="req-field-error">Your name is required.</div>
-            </div>
-            <div class="req-field" id="rqf-requestor-email">
-              <label>Your Email <span class="req">*</span></label>
-              <input type="email" class="req-input" id="rq-requestor-email" placeholder="your.email@company.com" />
-              <div class="req-field-error">A valid email is required.</div>
+            <div class="req-field" id="pcf-description">
+              <label>Description</label>
+              <input type="text" class="req-input" id="pc-description" placeholder="Auto-filled" readonly />
             </div>
           </div>
-          <div class="req-field" id="rqf-date-required">
-            <label>Date Required <span class="req">*</span></label>
-            <input type="date" class="req-input" id="rq-date-required" style="max-width:260px" />
-            <div class="req-field-error">Date required is needed.</div>
+          <div class="req-field" id="pcf-project-lead">
+            <label>Project Lead</label>
+            <input type="text" class="req-input" id="pc-project-lead" placeholder="Auto-filled" readonly />
           </div>
 
-          <!-- PREFERRED SUPPLIER -->
-          <!-- <div class="req-field">
-            <label>Preferred Supplier <span style="font-size:11px;color:var(--text-muted);font-weight:400">(optional)</span></label>
-            <input type="text" class="req-input" id="rq-supplier" placeholder="Supplier name if known" style="max-width:400px" />
-          </div> -->
+          <!-- WORK PERIOD -->
+          <div class="req-section-label">Work Period</div>
+          <div class="req-prefilled-grid">
+            <div class="req-field" id="pcf-start-date">
+              <label>Start Date <span class="req">*</span></label>
+              <input type="date" class="req-input" id="pc-start-date" readonly />
+              <div class="req-field-error">Start date is required.</div>
+            </div>
+            <div class="req-field" id="pcf-end-date">
+              <label>End Date <span class="req">*</span></label>
+              <input type="date" class="req-input" id="pc-end-date" readonly />
+              <div class="req-field-error">End date is required.</div>
+            </div>
+          </div>
 
-          <!-- LINE ITEMS -->
-          <div class="req-section-label">Line Items</div>
-          <div class="req-info-box">Add each item or service. Select a category per line, enter quantity, number of days, and unit cost — the row total and estimated grand total update automatically.</div>
-
-          <div class="line-items-wrapper">
-            <table class="line-items-table">
-              <thead>
-                <tr>
-                  <!-- <div class="req-field">
-            <label>Preferred Supplier <span style="font-size:11px;color:var(--text-muted);font-weight:400">(optional)</span></label>
-            <input type="text" class="req-input" id="rq-supplier" placeholder="Supplier name if known" style="max-width:400px" />
-          </div> -->
-                  <th style="width:20%">Description</th>
-<th style="width:14%">Supplier (opt)</th>   <!-- new column -->
-<th style="width:14%"></th>
-<th style="width:7%">Qty</th>
-<th style="width:7%">Days</th>
-<th style="width:14%">Unit Cost (KES)</th>
-<th style="width:12%;text-align:right;padding-right:10px">Row Total</th>
-<th style="width:52px"></th>
-
-                </tr>
-              </thead>
-              <tbody id="line-items-body"></tbody>
-            </table>
-            <div class="line-totals-footer">
-              <div class="lt-item">
-                <span class="lt-label">Sub-total</span>
-                <span class="lt-val" id="req-subtotal">KES 0.00</span>
+          <!-- CALCULATION -->
+          <div class="req-section-label">Pay Calculation</div>
+          <div class="pc-pay-display">
+            <div class="pc-pay-grid">
+              <div class="pc-pay-item">
+                <span class="pc-pay-label">Days Worked</span>
+                <div class="pc-pay-value" id="pc-days-display">—</div>
               </div>
-              <div class="lt-item" style="opacity:.4;font-family:'DM Mono',monospace;font-size:18px;">|</div>
-              <div class="lt-item">
-                <span class="lt-label">Estimated Total</span>
-                <span class="lt-val grand" id="req-total">KES 0.00</span>
+              <div class="pc-pay-item">
+                <span class="pc-pay-label">Daily Rate</span>
+                <div class="pc-pay-value" style="font-size:24px">KES 2,000</div>
+              </div>
+            </div>
+            <div class="pc-pay-divider">
+              <div class="pc-total-item">
+                <span class="pc-total-label">Total Pay</span>
+                <div class="pc-total-value" id="pc-total-display">KES —</div>
               </div>
             </div>
           </div>
-          <button type="button" class="btn-add-line" id="btn-add-line-item">+ Add Line Item</button>
 
-          <!-- JUSTIFICATION -->
-          <div class="req-section-label" style="margin-top:28px">Justification &amp; Urgency</div>
-          <div class="req-field" id="rqf-justification">
-            <label>Business Justification <span class="req">*</span></label>
-            <textarea class="req-textarea" id="rq-justification" placeholder="Explain why this procurement is needed and how it supports the event/project…"></textarea>
-            <div class="req-field-error">Business justification is required.</div>
-          </div>
-          <div class="req-field">
-            <label>Additional Notes <span style="font-size:11px;color:var(--text-muted);font-weight:400">(optional)</span></label>
-            <textarea class="req-textarea" id="rq-notes" placeholder="Special instructions, delivery requirements, alternative options…"></textarea>
-          </div>
-          <div class="req-field" id="rqf-urgency">
-            <label>Urgency Level <span class="req">*</span></label>
-            <div class="radio-group inline">
-              <div class="radio-item purple-radio" data-rg="req-urgency" data-rv="Low"><span class="rpip"></span><span>Low</span></div>
-              <div class="radio-item purple-radio" data-rg="req-urgency" data-rv="Medium"><span class="rpip"></span><span>Medium</span></div>
-              <div class="radio-item purple-radio" data-rg="req-urgency" data-rv="High"><span class="rpip"></span><span>High</span></div>
-              <div class="radio-item purple-radio" data-rg="req-urgency" data-rv="Urgent"><span class="rpip"></span><span>Urgent</span></div>
-            </div>
-            <div class="req-field-error" id="rq-urgency-err" style="display:none">Please select an urgency level.</div>
-          </div>
-
+          <!-- SUBMISSION -->
           <div class="req-submit-row">
-            <span class="req-submit-note">* required · amounts in KES · total = qty × days × unit cost</span>
-            <button class="btn-req-submit" id="req-submit-btn">
-              <span class="btn-text">Submit Requisition</span>
+            <span class="req-submit-note">* days calculated automatically from job dates</span>
+            <button class="btn-req-submit" id="pc-submit-btn">
+              <span class="btn-text">Submit Pay Claim</span>
               <div class="btn-spinner"></div>
             </button>
           </div>
-          <div class="req-error-banner" id="req-error-banner"></div>
+          <div class="req-error-banner" id="pc-error-banner"></div>
         </div>
 
-        <!-- REQUISITION SUCCESS -->
-        <div class="req-form-card req-success-screen" id="req-success-screen">
-          <div class="req-success-icon">🧾</div>
-          <h2>Requisition Submitted!</h2>
-          <p>Your procurement request has been received and sent to the PrimeEdgeAI approvals team. You'll receive an email confirmation with next steps.</p>
-          <div class="req-success-ref" id="req-success-ref">REQ — — —</div>
+        <!-- SUCCESS SCREEN -->
+        <div class="req-form-card req-success-screen" id="pc-success-screen">
+          <div class="req-success-icon">✓</div>
+          <h2>Claim Submitted!</h2>
+          <p>Your pay claim has been submitted for approval. You'll receive confirmation and payment details via email.</p>
+          <div class="req-success-ref" id="pc-success-ref">CLAIM — —</div>
           <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">
-            <button class="btn-req-new" id="btn-req-new">Submit another Requisition</button>
+            <button class="btn-req-new" id="btn-pc-new">Submit another Claim</button>
             <button class="btn-go-dash" onclick="navigateTo('dashboard')">← Back to Dashboard</button>
           </div>
         </div>
@@ -1371,8 +620,6 @@ input.error-state { border-color: var(--error); }
   </div>
 </div>
 
-<div id="pdf-preview"></div>
-
 <script>
 /* ═══════════════════════════════════════════════
    CONFIG
@@ -1385,20 +632,36 @@ const SHEET_CSV_URL       = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/
 const RECCEE_WEBHOOK      = 'https://kmongare.app.n8n.cloud/webhook/reccee-assessment';
 const EVENT_WEBHOOK       = 'https://kmongare.app.n8n.cloud/webhook/event-registration';
 const REQUISITION_WEBHOOK = 'https://kmongare.app.n8n.cloud/webhook/requisition-request';
-const EVT_SHEET_URL       = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQzV51evXd43ebjxahF57b6j4MTDnI0tcEjBNzLjoqdP84_vujazI5cLRD12tzJ9fLl30hYT3zEMyyU/pub?output=csv';
+const PAY_CLAIM_WEBHOOK   = 'https://kmongare.app.n8n.cloud/webhook/pay-claim';
 const OTP_LIFETIME        = 5 * 60;
-
-const LINE_ITEM_CATEGORIES = [
-  'Equipment', 'Supplies & Materials', 'Services',
-  'Transport & Logistics', 'Catering', 'Marketing & Print',
-  'Venue', 'Staffing', 'Other'
-];
 
 /* ═══════════════════════════════════════════════
    AUTH STATE
 ═══════════════════════════════════════════════ */
 let authEmail = '', authName = '', timerInterval = null, timerLeft = OTP_LIFETIME;
-let recceeCount = 0, eventCount = 0, reqCount = 0;
+let recceeCount = 0, eventCount = 0, reqCount = 0, claimsCount = 0;
+
+/* ═══════════════════════════════════════════════
+   SHARED: CSV PARSING + EMAIL MATCHING
+═══════════════════════════════════════════════ */
+function parseCSV(text){
+  const rows=[];let row=[],field='',inQ=false;
+  for(let i=0;i<text.length;i++){const ch=text[i],nx=text[i+1];
+    if(inQ){if(ch==='"'&&nx==='"'){field+='"';i++;}else if(ch==='"'){inQ=false;}else{field+=ch;}}
+    else{if(ch==='"'){inQ=true;}else if(ch===','){row.push(field.trim());field='';}else if(ch==='\n'){row.push(field.trim());rows.push(row);row=[];field='';}else if(ch!=='\r'){field+=ch;}}
+  }
+  if(field||row.length){row.push(field.trim());rows.push(row);}return rows;
+}
+function csvToObj(rows){
+  if(rows.length<2)return[];const h=rows[0];
+  return rows.slice(1).filter(r=>r.some(c=>c)).map(r=>{const o={};h.forEach((k,i)=>{o[k.trim()]=(r[i]||'').trim();});return o;});
+}
+function emailMatch(email,row){
+  const n=email.toLowerCase();
+  if((row['Email']||'').toLowerCase().split(',').map(e=>e.trim()).includes(n))return true;
+  if((row['Project Assistant Email']||'').toLowerCase().split(',').map(e=>e.trim()).includes(n))return true;
+  return false;
+}
 
 /* ═══════════════════════════════════════════════
    LOGIN FLOW
@@ -1501,22 +764,16 @@ function enterApp(){
   document.getElementById('sb-name').textContent=authName;
   document.getElementById('sb-email').textContent=authEmail;
   document.getElementById('dash-hello').innerHTML=`Welcome, <em>${authName.split(' ')[0]}</em>`;
-  document.getElementById('dash-user-stat').textContent=authName.split(' ')[0];
   document.getElementById('login-page').classList.add('hidden');
   document.getElementById('app-shell').classList.add('visible');
   const h=new Date().getHours();
   const greet=h<12?'Good Morning':h<17?'Good Afternoon':'Good Evening';
   document.getElementById('dash-time-tag').textContent=greet;
   document.getElementById('dash-sub').textContent=`${greet}, ${authName.split(' ')[0]}! Here's your PrimeEdgeAI workspace.`;
-  document.getElementById('r-project-email').value=authEmail;
-  document.getElementById('r-step1-info').textContent=`Logged in as ${authEmail}. Click below to load your assigned jobs.`;
-  document.getElementById('e-email').value=authEmail;
-  // Requisition pre-fills
-  document.getElementById('rq-lookup-email').value=authEmail;
-  document.getElementById('rq-requestor-email').value=authEmail;
-  document.getElementById('rq-requestor-name').value=authName;
+  
+  // Pre-fill email for Pay Claims
+  document.getElementById('pc-email').value = authEmail;
   startClock();
-  if(document.getElementById('line-items-body').children.length===0) addLineItem();
 }
 
 /* ═══════════════════════════════════════════════
@@ -1538,28 +795,27 @@ document.querySelectorAll('.nav-item[data-page]').forEach(item=>{
 });
 const pageNames = {
   dashboard:'Dashboard', reccee:'Reccee Assessment', 'event-submission':'Event Submission',
-  requisitions:'Requisitions', 'site-checklist':'Site Checklist','incident-report':'Incident Report',
-  timesheets:'Timesheets',team:'Team',reports:'Reports'
+  requisitions:'Requisitions', 'pay-claims':'Pay Claims'
 };
 function navigateTo(page){
   document.querySelectorAll('.nav-item[data-page]').forEach(i=>i.classList.remove('active'));
   const activeNav=document.querySelector(`.nav-item[data-page="${page}"]`);
   if(activeNav)activeNav.classList.add('active');
   document.getElementById('topbar-bc').textContent=pageNames[page]||page;
-  ['dashboard','reccee','event-submission','requisitions','coming-soon'].forEach(p=>{
+  ['dashboard','reccee','event-submission','requisitions','pay-claims','coming-soon'].forEach(p=>{
     const el=document.getElementById('page-'+p);if(el)el.style.display='none';
   });
   if(page==='dashboard')document.getElementById('page-dashboard').style.display='';
   else if(page==='reccee')document.getElementById('page-reccee').style.display='';
   else if(page==='event-submission')document.getElementById('page-event-submission').style.display='';
   else if(page==='requisitions')document.getElementById('page-requisitions').style.display='';
-  else if(page==='req-approvals')document.getElementById('page-req-approvals').style.display='';
+  else if(page==='pay-claims')document.getElementById('page-pay-claims').style.display='';
   else document.getElementById('page-coming-soon').style.display='';
   if(window.innerWidth<=768){document.getElementById('sidebar').classList.remove('open');document.getElementById('sb-overlay').classList.remove('visible');}
   window.scrollTo({top:0,behavior:'smooth'});
 }
 document.getElementById('btn-logout').addEventListener('click',()=>{
-  authEmail=''; authName=''; recceeCount=0; eventCount=0; reqCount=0;
+  authEmail=''; authName=''; recceeCount=0; eventCount=0; reqCount=0; claimsCount=0;
   document.getElementById('app-shell').classList.remove('visible');
   document.getElementById('login-page').classList.remove('hidden');
   document.getElementById('l-email').value='';
@@ -1571,9 +827,7 @@ document.getElementById('btn-logout').addEventListener('click',()=>{
   document.querySelector('.lstep-bar').style.display='';
   lSetStep(1);
   clearInterval(timerInterval);
-  rResetAll();
-  evtResetAll();
-  reqResetAll();
+  pcResetAll();
 });
 function startClock(){
   function tick(){document.getElementById('topbar-time').textContent=new Date().toLocaleTimeString('en-KE',{hour:'2-digit',minute:'2-digit'});}
@@ -1581,431 +835,22 @@ function startClock(){
 }
 
 /* ═══════════════════════════════════════════════
-   SHARED: CSV PARSING + EMAIL MATCHING
+   PAY CLAIMS MODULE
 ═══════════════════════════════════════════════ */
-function parseCSV(text){
-  const rows=[];let row=[],field='',inQ=false;
-  for(let i=0;i<text.length;i++){const ch=text[i],nx=text[i+1];
-    if(inQ){if(ch==='"'&&nx==='"'){field+='"';i++;}else if(ch==='"'){inQ=false;}else{field+=ch;}}
-    else{if(ch==='"'){inQ=true;}else if(ch===','){row.push(field.trim());field='';}else if(ch==='\n'){row.push(field.trim());rows.push(row);row=[];field='';}else if(ch!=='\r'){field+=ch;}}
-  }
-  if(field||row.length){row.push(field.trim());rows.push(row);}return rows;
-}
-function csvToObj(rows){
-  if(rows.length<2)return[];const h=rows[0];
-  return rows.slice(1).filter(r=>r.some(c=>c)).map(r=>{const o={};h.forEach((k,i)=>{o[k.trim()]=(r[i]||'').trim();});return o;});
-}
-function emailMatch(email,row){
-  const n=email.toLowerCase();
-  if((row['Email']||'').toLowerCase().split(',').map(e=>e.trim()).includes(n))return true;
-  if((row['Project Assistant Email']||'').toLowerCase().split(',').map(e=>e.trim()).includes(n))return true;
-  return false;
-}
-function nameFor(email,row){
-  const n=email.toLowerCase();
-  if((row['Email']||'').toLowerCase().split(',').map(e=>e.trim()).includes(n))return row['Project Lead']||'';
-  const ae=(row['Project Assistant Email']||'').toLowerCase().split(',').map(e=>e.trim());
-  if(ae.includes(n)){const an=(row['Project Assistant']||'').split(',').map(x=>x.trim());return an[ae.indexOf(n)]||'';}
-  return '';
-}
+let pcJobs = [], pcSelectedJob = null;
 
-/* ═══════════════════════════════════════════════
-   RECCEE MODULE
-═══════════════════════════════════════════════ */
-let rEmail='',rPLName='',rJobs=[],rSelectedJob=null,rCurrentStep=1,rSubmitting=false;
-const R_TOTAL=6;
+document.getElementById('btn-pc-load-jobs').addEventListener('click', loadPCJobs);
 
-document.addEventListener('click',function(e){
-  const ri=e.target.closest('.radio-item[data-rg]');
-  if(ri){const g=ri.dataset.rg;document.querySelectorAll(`.radio-item[data-rg="${g}"]`).forEach(i=>i.classList.remove('selected'));ri.classList.add('selected');return;}
-  const ci=e.target.closest('.check-item[data-rcg]');
-  if(ci)ci.classList.toggle('selected');
-});
-function rGetRadio(g){const s=document.querySelector(`.radio-item[data-rg="${g}"].selected`);return s?s.dataset.rv:'';}
-function rGetChecks(g){return[...document.querySelectorAll(`.check-item[data-rcg="${g}"].selected`)].map(i=>i.dataset.rcv);}
-
-function rUpdateProgress(step){
-  for(let i=1;i<=R_TOTAL;i++){
-    const pip=document.getElementById(`r-pip-${i}`), line=document.getElementById(`r-line-${i}`);
-    if(pip){pip.classList.remove('active','done');if(i<step)pip.classList.add('done');if(i===step)pip.classList.add('active');}
-    if(line)line.classList.toggle('done',i<step);
-  }
-}
-function rGoStep(n){
-  document.getElementById(`r-step-${rCurrentStep}`).classList.remove('active');
-  rCurrentStep=n;
-  document.getElementById(`r-step-${rCurrentStep}`).classList.add('active');
-  rUpdateProgress(rCurrentStep);
-  document.getElementById('r-form-card').scrollIntoView({behavior:'smooth',block:'start'});
-}
-
-document.getElementById('r-next-1').addEventListener('click',async()=>{
-  const emailEl=document.getElementById('r-project-email'),errEl=document.getElementById('r-err-1'),btn=document.getElementById('r-next-1');
-  const email=emailEl.value.trim().toLowerCase();
-  const valid=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  document.getElementById('r-field-project-email').classList.toggle('has-error',!valid);
-  if(!valid)return;
-  btn.classList.add('loading');errEl.classList.remove('visible');document.getElementById('r-verified-badge-wrap').innerHTML='';
-  try{
-    const res=await fetch(SHEET_CSV_URL);if(!res.ok)throw new Error('Sheet fetch failed.');
-    const rows=parseCSV(await res.text());const all=csvToObj(rows);
-    const matched=all.filter(r=>emailMatch(email,r));
-    if(!matched.length)throw new Error(`No jobs found for "${email}". Please check your email or contact the PrimeEdgeAI team.`);
-    rJobs=matched;rEmail=email;rPLName=nameFor(email,matched[0])||authName||email;
-    document.getElementById('r-verified-badge-wrap').innerHTML=`<div class="verified-pill">${email} — ${rJobs.length} job${rJobs.length!==1?'s':''} found</div>`;
-    document.getElementById('r-jobs-info').textContent=`Hi ${rPLName} · ${rJobs.length} assigned job${rJobs.length!==1?'s':''} found. Select one to continue.`;
-    buildRJobCards(rJobs);rGoStep(2);
-  }catch(err){errEl.textContent=err.message;errEl.classList.add('visible');}
-  finally{btn.classList.remove('loading');}
-});
-
-function buildRJobCards(jobs){
-  const c=document.getElementById('r-job-cards');c.innerHTML='';
-  jobs.forEach(job=>{
-    const card=document.createElement('div');card.className='job-card';
-    const id=job['Job_ID']||'',desc=job['Description']||'(no description)',client=job['Client']||'',where=job['Where']||'',start=job['Start Date']||'',end=job['End Date']||'';
-    const dateStr=start===end?start:(start&&end?`${start} → ${end}`:start||end);
-    card.innerHTML=`<div class="job-card-left"><div class="job-card-id">${id}</div><div class="job-card-desc">${desc}</div><div class="job-card-meta">${client}${where?' · '+where:''}${dateStr?' · '+dateStr:''}</div></div><div class="job-card-check"></div>`;
-    card.addEventListener('click',()=>{
-      document.querySelectorAll('#r-job-cards .job-card').forEach(c=>{c.classList.remove('selected');c.querySelector('.job-card-check').textContent='';});
-      card.classList.add('selected');card.querySelector('.job-card-check').textContent='✓';rSelectedJob=job;
-      document.getElementById('r-client').value=client;document.getElementById('r-desc').value=desc;
-      document.getElementById('r-pl-display').value=job['Project Lead']||'';document.getElementById('r-venue-display').value=where;
-      document.getElementById('r-job-detail').style.display='block';document.getElementById('r-err-2').classList.remove('visible');
-    });
-    c.appendChild(card);
-  });
-}
-
-document.getElementById('r-next-2').addEventListener('click',()=>{
-  if(!rSelectedJob){const b=document.getElementById('r-err-2');b.textContent='Please select a job to continue.';b.classList.add('visible');return;}
-  rGoStep(3);
-});
-document.getElementById('r-next-3').addEventListener('click',()=>{if(rValidate(3))rGoStep(4);});
-document.getElementById('r-next-4').addEventListener('click',()=>rGoStep(5));
-document.getElementById('r-next-5').addEventListener('click',()=>{if(rValidate(5)){rBuildRecap();rGoStep(6);}});
-
-function rSetErr(id,show){const el=document.getElementById(`r-field-${id}`);if(el)el.classList.toggle('has-error',show);}
-function rClearErrors(){document.querySelectorAll('.r-field.has-error').forEach(f=>f.classList.remove('has-error'));}
-function rValidate(n){
-  rClearErrors();let ok=true;
-  if(n===3){[['reccee-date',()=>document.getElementById('r-date').value],['location',()=>document.getElementById('r-location').value.trim()],['attendees',()=>document.getElementById('r-attendees').value.trim()]].forEach(([id,fn])=>{const v=!!fn();rSetErr(id,!v);if(!v)ok=false;});}
-  if(n===5){const v=document.getElementById('r-challenges').value.trim();rSetErr('challenges',!v);if(!v)ok=false;}
-  return ok;
-}
-function rv(v){return v||'—';}
-function rBuildRecap(){
-  const am=rGetChecks('amenities');
-  document.getElementById('rv-email').textContent=rv(rEmail);
-  document.getElementById('rv-job-id').textContent=rv(rSelectedJob['Job_ID']);
-  document.getElementById('rv-client').textContent=rv(document.getElementById('r-client').value);
-  document.getElementById('rv-desc').textContent=rv(document.getElementById('r-desc').value);
-  document.getElementById('rv-date').textContent=rv(document.getElementById('r-date').value);
-  document.getElementById('rv-location').textContent=rv(document.getElementById('r-location').value);
-  document.getElementById('rv-attendees').textContent=rv(document.getElementById('r-attendees').value);
-  document.getElementById('rv-distance').textContent=rv(rGetRadio('distance'));
-  document.getElementById('rv-transport').textContent=rv(rGetRadio('transport'));
-  document.getElementById('rv-residential').textContent=rv(rGetRadio('residential'));
-  document.getElementById('rv-perimeter').textContent=rv(rGetRadio('perimeter'));
-  document.getElementById('rv-police').textContent=rv(rGetRadio('police'));
-  document.getElementById('rv-extra-security').textContent=rv(rGetRadio('extra-security'));
-  document.getElementById('rv-security-notes').textContent=rv(document.getElementById('r-security-notes').value);
-  document.getElementById('rv-medical').textContent=rv(rGetRadio('medical'));
-  document.getElementById('rv-amenities').textContent=am.length?am.join(', '):'—';
-  document.getElementById('rv-medical-notes').textContent=rv(document.getElementById('r-medical-notes').value);
-  document.getElementById('rv-other-facilities').textContent=rv(document.getElementById('r-other-facilities').value);
-  document.getElementById('rv-entry-exit').textContent=rv(document.getElementById('r-entry-exit').value);
-  document.getElementById('rv-event-layout').textContent=rv(document.getElementById('r-event-layout').value);
-  document.getElementById('rv-permits').textContent=rv(document.getElementById('r-permits').value);
-  document.getElementById('rv-challenges').textContent=rv(document.getElementById('r-challenges').value);
-  document.querySelectorAll('.recap-val').forEach(el=>el.classList.toggle('empty',el.textContent==='—'));
-}
-
-function buildPDFHTML(){
-  const am=rGetChecks('amenities'),jobId=rSelectedJob['Job_ID']||'N/A';
-  const now=new Date().toLocaleString('en-KE',{dateStyle:'full',timeStyle:'short'});
-  const f=(label,value,full)=>`<div class="pdf-field${full?' pdf-full':''}"><div class="pdf-label">${label}</div><div class="pdf-value">${value||'<span style="color:#bbb;font-style:italic">Not provided</span>'}</div></div>`;
-  return`<div class="pdf-header"><div><div class="pdf-title">Reccee Assessment Report</div><div style="font-size:12px;color:#555;margin-top:4px">PrimeEdgeAI — Site Assessment System</div></div><div class="pdf-meta"><div>Generated: ${now}</div><div>Job: ${jobId}</div></div></div>
-<div class="pdf-section"><div class="pdf-section-title">Project Information</div><div class="pdf-grid">${f('Project Lead Email',rEmail)}${f('Job ID',jobId)}${f('Client',document.getElementById('r-client').value)}${f('Event Description',document.getElementById('r-desc').value,true)}</div></div>
-<div class="pdf-section"><div class="pdf-section-title">Venue &amp; Date</div><div class="pdf-grid">${f('Reccee Date',document.getElementById('r-date').value)}${f('Location / Venue',document.getElementById('r-location').value)}${f('Attendees',document.getElementById('r-attendees').value,true)}${f('Distance from Town',rGetRadio('distance'))}${f('Public Transport',rGetRadio('transport'))}</div></div>
-<div class="pdf-section"><div class="pdf-section-title">Security Assessment</div><div class="pdf-grid">${f('Residential Nearby',rGetRadio('residential'))}${f('Perimeter Wall',rGetRadio('perimeter'))}${f('Police Nearby',rGetRadio('police'))}${f('Extra Security',rGetRadio('extra-security'))}${f('Security Notes',document.getElementById('r-security-notes').value,true)}</div></div>
-<div class="pdf-section"><div class="pdf-section-title">Medical &amp; Facilities</div><div class="pdf-grid">${f('Medical Nearby',rGetRadio('medical'))}${f('Amenities',am.length?am.join(', '):'',false)}${f('Medical Notes',document.getElementById('r-medical-notes').value,true)}${f('Other Facilities',document.getElementById('r-other-facilities').value,true)}</div></div>
-<div class="pdf-section"><div class="pdf-section-title">Event Logistics &amp; Compliance</div><div class="pdf-grid">${f('Entry &amp; Exit',document.getElementById('r-entry-exit').value,true)}${f('Event Layout',document.getElementById('r-event-layout').value,true)}${f('Permits',document.getElementById('r-permits').value,true)}</div></div>
-<div class="pdf-section"><div class="pdf-section-title">Challenges &amp; Recommendations</div><div class="pdf-grid">${f('Challenges &amp; Recommendations',document.getElementById('r-challenges').value,true)}</div></div>
-<div class="pdf-footer"><div>PrimeEdgeAI Reccee Assessment System</div><div>${now}</div></div>`;
-}
-
-document.getElementById('r-download-btn').addEventListener('click',async()=>{
-  const btn=document.getElementById('r-download-btn');btn.classList.add('loading');
-  document.getElementById('r-err-6').classList.remove('visible');
-  try{
-    const preview=document.getElementById('pdf-preview');preview.innerHTML=buildPDFHTML();
-    await new Promise(r=>setTimeout(r,100));
-    const canvas=await html2canvas(preview,{scale:2,useCORS:true,logging:false,backgroundColor:'#ffffff'});
-    const {jsPDF}=window.jspdf;const pdf=new jsPDF({orientation:'portrait',unit:'mm',format:'a4'});
-    const pageW=pdf.internal.pageSize.getWidth(),pageH=pdf.internal.pageSize.getHeight();
-    const imgW=pageW,imgH=(canvas.height*pageW)/canvas.width;
-    const imgData=canvas.toDataURL('image/jpeg',.95);
-    let y=0;while(y<imgH){if(y>0)pdf.addPage();pdf.addImage(imgData,'JPEG',0,-y,imgW,imgH);y+=pageH;}
-    pdf.save(`reccee-${rSelectedJob['Job_ID']||'report'}-${Date.now()}.pdf`);
-  }catch(err){document.getElementById('r-err-6').textContent='PDF generation failed: '+err.message;document.getElementById('r-err-6').classList.add('visible');}
-  finally{btn.classList.remove('loading');}
-});
-
-document.getElementById('r-submit-btn').addEventListener('click',async()=>{
-  if(rSubmitting)return;rSubmitting=true;
-  const btn=document.getElementById('r-submit-btn');btn.classList.add('loading');
-  document.getElementById('r-err-6').classList.remove('visible');
-  const payload={
-    email:rEmail,project_lead_name:rPLName,job_id:rSelectedJob['Job_ID']||'',
-    client:document.getElementById('r-client').value.trim(),description:document.getElementById('r-desc').value.trim(),
-    reccee_date:document.getElementById('r-date').value,location:document.getElementById('r-location').value.trim(),
-    attendees:document.getElementById('r-attendees').value.trim(),distance_from_town:rGetRadio('distance'),
-    public_transport:rGetRadio('transport'),residential_nearby:rGetRadio('residential'),perimeter_wall:rGetRadio('perimeter'),
-    police_nearby:rGetRadio('police'),extra_security:rGetRadio('extra-security'),
-    security_notes:document.getElementById('r-security-notes').value.trim(),medical_nearby:rGetRadio('medical'),
-    medical_notes:document.getElementById('r-medical-notes').value.trim(),amenities:rGetChecks('amenities'),
-    other_facilities:document.getElementById('r-other-facilities').value.trim(),entry_exit:document.getElementById('r-entry-exit').value.trim(),
-    event_layout:document.getElementById('r-event-layout').value.trim(),permits:document.getElementById('r-permits').value.trim(),
-    challenges:document.getElementById('r-challenges').value.trim()
-  };
-  try{
-    let res;
-    try{res=await fetch(RECCEE_WEBHOOK,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});}
-    catch(e){throw new Error('Could not reach the submission service.');}
-    let data=null;try{data=await res.json();}catch(_){}
-    if(res.ok){rShowSuccess(payload);}
-    else{
-      const msg=data?.message||`Server returned ${res.status}.`;
-      if(msg.toLowerCase().includes('unused')||msg.toLowerCase().includes('respond to webhook'))rShowSuccess(payload);
-      else throw new Error(msg);
-    }
-  }catch(err){document.getElementById('r-err-6').textContent='Submission failed: '+err.message;document.getElementById('r-err-6').classList.add('visible');rSubmitting=false;}
-  finally{btn.classList.remove('loading');}
-});
-
-function rShowSuccess(payload){
-  const ref='REC-'+Date.now().toString(36).toUpperCase();
-  document.getElementById('r-success-ref').textContent=`${ref} · ${payload.job_id} · ${payload.client}`;
-  document.getElementById('r-form-card').style.display='none';
-  document.getElementById('r-progress-bar').style.display='none';
-  document.getElementById('r-success-screen').classList.add('visible');
-  recceeCount++;
-  document.getElementById('dash-reccee-count').textContent=recceeCount;
-  window.scrollTo({top:0,behavior:'smooth'});
-}
-
-document.getElementById('r-btn-new').addEventListener('click',rResetAll);
-function rResetAll(){
-  ['r-date','r-location','r-attendees','r-security-notes','r-medical-notes','r-other-facilities','r-entry-exit','r-event-layout','r-permits','r-challenges'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
-  document.querySelectorAll('.radio-item[data-rg].selected,.check-item[data-rcg].selected').forEach(el=>el.classList.remove('selected'));
-  document.getElementById('r-job-cards').innerHTML='';
-  document.getElementById('r-job-detail').style.display='none';
-  ['r-client','r-desc','r-pl-display','r-venue-display'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
-  document.getElementById('r-verified-badge-wrap').innerHTML='';
-  ['r-err-1','r-err-2','r-err-6'].forEach(id=>document.getElementById(id).classList.remove('visible'));
-  document.getElementById('r-success-screen').classList.remove('visible');
-  document.getElementById('r-form-card').style.display='';
-  document.getElementById('r-progress-bar').style.display='';
-  rClearErrors();
-  rJobs=[];rSelectedJob=null;rSubmitting=false;rCurrentStep=1;
-  document.getElementById('r-project-email').value=authEmail;
-  document.querySelectorAll('[id^="r-step-"]').forEach(p=>p.classList.remove('active'));
-  document.getElementById('r-step-1').classList.add('active');
-  rUpdateProgress(1);
-}
-
-/* ═══════════════════════════════════════════════
-   EVENT SUBMISSION MODULE
-═══════════════════════════════════════════════ */
-let evtAllEvents=[], evtIsUpdateMode=false, evtAssistantCount=0;
-
-function evtAddAssistant(name='',email=''){
-  evtAssistantCount++;
-  const id=evtAssistantCount;
-  const list=document.getElementById('assistants-list');
-  const entry=document.createElement('div');entry.className='assistant-entry';entry.id=`assistant-${id}`;
-  entry.innerHTML=`<input type="text" class="e-input" placeholder="Name" id="asst-name-${id}" value="${name}" /><input type="email" class="e-input" placeholder="email@example.com" id="asst-email-${id}" value="${email}" /><button type="button" class="btn-remove" onclick="evtRemoveAssistant(${id})">Remove</button>`;
-  list.appendChild(entry);
-}
-function evtRemoveAssistant(id){const el=document.getElementById(`assistant-${id}`);if(el)el.remove();}
-function evtGetAssistants(){
-  const entries=document.querySelectorAll('.assistant-entry'), result=[];
-  entries.forEach(entry=>{
-    const nameEl=entry.querySelector('input[type="text"]'), emailEl=entry.querySelector('input[type="email"]');
-    if(nameEl&&emailEl&&(nameEl.value.trim()||emailEl.value.trim()))result.push({name:nameEl.value.trim(),email:emailEl.value.trim()});
-  });
-  return result;
-}
-function evtClearAssistants(){document.getElementById('assistants-list').innerHTML='';evtAssistantCount=0;}
-document.getElementById('btn-add-assistant').addEventListener('click',()=>evtAddAssistant());
-
-document.getElementById('e-status').addEventListener('change',function(){
-  evtIsUpdateMode=this.value==='Event Update';
-  document.getElementById('lookup-panel').classList.toggle('visible',evtIsUpdateMode);
-  document.getElementById('evt-update-banner').classList.toggle('visible',evtIsUpdateMode);
-  document.getElementById('evt-main-card').classList.toggle('update-mode',evtIsUpdateMode);
-  const btn=document.getElementById('evt-submit-btn');
-  btn.classList.toggle('update-submit',evtIsUpdateMode);
-  document.querySelector('#evt-submit-btn .btn-text').textContent=evtIsUpdateMode?'Update Event':'Submit Event';
-  if(!evtIsUpdateMode){document.getElementById('e-job-id').value='';document.getElementById('event-select').value='';}
-});
-
-function evtParseCSV(text){
-  const lines=text.trim().split('\n');if(lines.length<2)return[];
-  const headers=lines[0].split(',').map(h=>h.trim().replace(/^"|"$/g,''));
-  return lines.slice(1).map(line=>{
-    const cols=[];let cur='',inQ=false;
-    for(let i=0;i<line.length;i++){if(line[i]==='"')inQ=!inQ;else if(line[i]===','&&!inQ){cols.push(cur.trim());cur='';}else cur+=line[i];}
-    cols.push(cur.trim());
-    const obj={};headers.forEach((h,i)=>{obj[h]=(cols[i]||'').replace(/^"|"$/g,'').trim();});return obj;
-  }).filter(r=>r['Job_ID']||r['Description']);
-}
-function evtNormDate(s){if(!s)return'';const d=new Date(s);if(!isNaN(d))return d.toISOString().slice(0,10);return s;}
-
-document.getElementById('btn-fetch').addEventListener('click',async()=>{
-  const btn=document.getElementById('btn-fetch'),lbl=document.getElementById('fetch-label'),lt=document.getElementById('loader-text'),sel=document.getElementById('event-select');
-  btn.disabled=true;lbl.textContent='Loading…';lt.textContent='Fetching events…';
-  try{
-    const res=await fetch(EVT_SHEET_URL);if(!res.ok)throw new Error(`Could not reach the sheet (${res.status}).`);
-    const csv=await res.text();evtAllEvents=evtParseCSV(csv);
-    const fs=document.getElementById('filter-start').value,fe=document.getElementById('filter-end').value;
-    const filtered=evtAllEvents.filter(ev=>{
-      const sd=evtNormDate(ev['Start Date']||ev['StartDate']||''),ed=evtNormDate(ev['End Date']||ev['EndDate']||'');
-      if(fs&&sd&&sd<fs)return false;if(fe&&ed&&ed>fe)return false;return true;
-    });
-    sel.innerHTML='<option value="">— select an event —</option>';
-    if(!filtered.length){lt.textContent=`No events found${fs||fe?' for that date range':''}. Try clearing the filters.`;}
-    else{
-      filtered.forEach(ev=>{
-        const label=[ev['Job_ID'],ev['Description'],ev['Client']].filter(Boolean).join(' · ');
-        const opt=document.createElement('option');opt.value=evtAllEvents.indexOf(ev);opt.textContent=label;sel.appendChild(opt);
-      });
-      lt.textContent=`${filtered.length} event${filtered.length!==1?'s':''} loaded — select one to prefill.`;
-    }
-  }catch(err){lt.textContent='Error: '+err.message;}
-  finally{btn.disabled=false;lbl.textContent='Load Events';}
-});
-
-document.getElementById('event-select').addEventListener('change',function(){
-  if(this.value==='')return;
-  const ev=evtAllEvents[+this.value];if(!ev)return;
-  const map={'e-client':ev['Client']||'','e-description':ev['Description']||'','e-client-lead':ev['Client Lead']||'','e-agency-lead':ev['Project Lead']||'','e-email':ev['Email']||authEmail,'e-location':ev['Where']||'','e-start-date':evtNormDate(ev['Start Date']||ev['StartDate']||''),'e-end-date':evtNormDate(ev['End Date']||ev['EndDate']||'')};
-  document.getElementById('e-job-id').value=(ev['Job_ID']||'').trim();
-  Object.entries(map).forEach(([id,val])=>{
-    const el=document.getElementById(id);el.value=val;
-    el.style.transition='background 0s';el.style.background='rgba(249,115,22,0.12)';
-    setTimeout(()=>{el.style.transition='background 0.7s';el.style.background='';},60);
-  });
-  document.getElementById('loader-text').textContent=`Prefilled: ${ev['Description']||ev['Job_ID']} — Job ID: ${ev['Job_ID']||'n/a'}`;
-});
-
-function evtSetErr(id,show){const el=document.getElementById('efield-'+id);if(el)el.classList.toggle('has-error',show);}
-function evtValidate(){
-  let ok=true;
-  [['client',()=>document.getElementById('e-client').value.trim()],
-   ['status',()=>document.getElementById('e-status').value],
-   ['description',()=>document.getElementById('e-description').value.trim()],
-   ['agency-lead',()=>document.getElementById('e-agency-lead').value.trim()],
-   ['location',()=>document.getElementById('e-location').value.trim()],
-   ['start-date',()=>document.getElementById('e-start-date').value],
-   ['end-date',()=>document.getElementById('e-end-date').value],
-  ].forEach(([id,fn])=>{const v=!!fn();evtSetErr(id,!v);if(!v)ok=false;});
-  const emailOk=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(document.getElementById('e-email').value.trim());
-  evtSetErr('email',!emailOk);if(!emailOk)ok=false;
-  return ok;
-}
-function evtShowSuccess(client){
-  const ref='REF-'+Date.now().toString(36).toUpperCase();
-  document.getElementById('evt-success-ref').textContent=`${ref} · ${client}`;
-  const icon=document.getElementById('evt-success-icon');
-  if(evtIsUpdateMode){
-    icon.classList.add('update-icon');
-    document.getElementById('evt-success-title').textContent='Update Submitted';
-    document.getElementById('evt-success-msg').textContent='Your update has been submitted. PrimeEdgeAI will review the changes and follow up by email.';
-  } else {
-    icon.classList.remove('update-icon');
-    document.getElementById('evt-success-title').textContent='Submission Received';
-    document.getElementById('evt-success-msg').textContent='Your submission is pending approval. You will receive an email from PrimeEdgeAI once it has been reviewed.';
-  }
-  document.getElementById('evt-success-screen').classList.add('visible');
-  document.getElementById('evt-main-card').style.display='none';
-  eventCount++;
-  document.getElementById('dash-event-count').textContent=eventCount;
-  window.scrollTo({top:0,behavior:'smooth'});
-}
-
-document.getElementById('evt-submit-btn').addEventListener('click',async()=>{
-  if(!evtValidate())return;
-  const btn=document.getElementById('evt-submit-btn');btn.classList.add('loading');
-  document.getElementById('evt-error-banner').classList.remove('visible');
-  const clientVal=document.getElementById('e-client').value.trim();
-  const payload={
-    client:clientVal,status:document.getElementById('e-status').value,
-    description:document.getElementById('e-description').value.trim(),
-    client_lead:document.getElementById('e-client-lead').value.trim(),
-    agency_lead:document.getElementById('e-agency-lead').value.trim(),
-    email:document.getElementById('e-email').value.trim(),
-    event_location:document.getElementById('e-location').value.trim(),
-    start_date:document.getElementById('e-start-date').value,
-    end_date:document.getElementById('e-end-date').value,
-    submitted_by:authEmail,
-    submitted_by_name:authName
-  };
-  const jid=document.getElementById('e-job-id').value;if(jid)payload.job_id=jid;
-  const assistants=evtGetAssistants();if(assistants.length)payload.assistants=assistants;
-  try{
-    const res=await fetch(EVENT_WEBHOOK,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
-    if(res.ok||res.status===200||res.status===201||res.status===202){evtShowSuccess(clientVal);}
-    else throw new Error(`Server returned ${res.status}`);
-  }catch(err){
-    document.getElementById('evt-error-banner').textContent=`Submission failed: ${err.message}. Please try again.`;
-    document.getElementById('evt-error-banner').classList.add('visible');
-  }finally{btn.classList.remove('loading');}
-});
-
-document.getElementById('btn-evt-new').addEventListener('click',evtResetAll);
-function evtResetAll(){
-  ['e-client','e-description','e-client-lead','e-agency-lead','e-email','e-location','e-start-date','e-end-date'].forEach(id=>document.getElementById(id).value='');
-  document.getElementById('e-status').value='';
-  document.getElementById('e-job-id').value='';
-  document.getElementById('event-select').innerHTML='<option value="">— select an event —</option>';
-  document.getElementById('loader-text').textContent='';
-  document.getElementById('filter-start').value='';
-  document.getElementById('filter-end').value='';
-  evtClearAssistants();
-  document.getElementById('lookup-panel').classList.remove('visible');
-  document.getElementById('evt-update-banner').classList.remove('visible');
-  document.getElementById('evt-main-card').classList.remove('update-mode');
-  document.getElementById('evt-main-card').style.display='';
-  const sbtn=document.getElementById('evt-submit-btn');sbtn.classList.remove('update-submit');
-  document.querySelector('#evt-submit-btn .btn-text').textContent='Submit Event';
-  evtIsUpdateMode=false;
-  document.getElementById('evt-error-banner').classList.remove('visible');
-  document.getElementById('evt-success-screen').classList.remove('visible');
-  document.getElementById('e-email').value=authEmail;
-  document.querySelectorAll('.e-field.has-error').forEach(f=>f.classList.remove('has-error'));
-}
-
-/* ═══════════════════════════════════════════════
-   REQUISITIONS MODULE — REDESIGNED
-═══════════════════════════════════════════════ */
-let lineItemCount = 0;
-let reqJobs = [], reqSelectedJob = null;
-
-/* ── JOB LOOKUP ── */
-document.getElementById('btn-req-load-jobs').addEventListener('click', loadReqJobs);
-
-async function loadReqJobs() {
-  const emailVal = document.getElementById('rq-lookup-email').value.trim().toLowerCase();
-  const msgEl    = document.getElementById('req-loader-msg');
-  const btn      = document.getElementById('btn-req-load-jobs');
-  const cardsEl  = document.getElementById('req-job-cards');
+async function loadPCJobs() {
+  const emailVal = document.getElementById('pc-email').value.trim().toLowerCase();
+  const msgEl    = document.getElementById('pc-loader-msg');
+  const btn      = document.getElementById('btn-pc-load-jobs');
+  const cardsEl  = document.getElementById('pc-job-cards');
 
   msgEl.className = 'req-loader-msg';
   cardsEl.innerHTML = '';
-  reqSelectedJob = null;
-  clearReqJobFields();
+  pcSelectedJob = null;
+  clearPCJobFields();
 
   const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal);
   if (!valid) {
@@ -2016,7 +861,7 @@ async function loadReqJobs() {
 
   btn.classList.add('loading');
   btn.disabled = true;
-  msgEl.textContent = 'Fetching your assigned jobs…';
+  msgEl.textContent = 'Fetching your jobs…';
 
   try {
     const res = await fetch(SHEET_CSV_URL);
@@ -2031,10 +876,10 @@ async function loadReqJobs() {
       return;
     }
 
-    reqJobs = matched;
+    pcJobs = matched;
     msgEl.className = 'req-loader-msg success';
-    msgEl.textContent = `${matched.length} job${matched.length !== 1 ? 's' : ''} found — tap one to select it.`;
-    buildReqJobCards(matched);
+    msgEl.textContent = `${matched.length} job${matched.length !== 1 ? 's' : ''} found — tap one to claim pay.`;
+    buildPCJobCards(matched);
 
   } catch (err) {
     msgEl.className = 'req-loader-msg error-msg';
@@ -2045,16 +890,15 @@ async function loadReqJobs() {
   }
 }
 
-function buildReqJobCards(jobs) {
-  const container = document.getElementById('req-job-cards');
+function buildPCJobCards(jobs) {
+  const container = document.getElementById('pc-job-cards');
   container.innerHTML = '';
   jobs.forEach(job => {
     const card = document.createElement('div');
-    card.className = 'job-card purple-job-card';
+    card.className = 'job-card';
     const id     = job['Job_ID'] || '';
     const desc   = job['Description'] || '(no description)';
     const client = job['Client'] || '';
-    const where  = job['Where'] || '';
     const start  = job['Start Date'] || '';
     const end    = job['End Date'] || '';
     const dateStr = start === end ? start : (start && end ? `${start} → ${end}` : start || end);
@@ -2062,21 +906,21 @@ function buildReqJobCards(jobs) {
       <div class="job-card-left">
         <div class="job-card-id">${id}</div>
         <div class="job-card-desc">${desc}</div>
-        <div class="job-card-meta">${[client, where, dateStr].filter(Boolean).join(' · ')}</div>
+        <div class="job-card-meta">${[client, dateStr].filter(Boolean).join(' · ')}</div>
       </div>
       <div class="job-card-check"></div>`;
     card.addEventListener('click', () => {
-      document.querySelectorAll('#req-job-cards .job-card').forEach(c => {
+      document.querySelectorAll('#pc-job-cards .job-card').forEach(c => {
         c.classList.remove('selected');
         c.querySelector('.job-card-check').textContent = '';
       });
       card.classList.add('selected');
       card.querySelector('.job-card-check').textContent = '✓';
-      reqSelectedJob = job;
-      prefillReqJobFields(job);
-      document.getElementById('req-error-banner').classList.remove('visible');
-      // clear validation errors on those fields
-      ['rqf-job-id','rqf-client','rqf-event-desc'].forEach(id => {
+      pcSelectedJob = job;
+      prefillPCJobFields(job);
+      calculatePCPay(job);
+      document.getElementById('pc-error-banner').classList.remove('visible');
+      ['pcf-job-id','pcf-description','pcf-project-lead','pcf-start-date','pcf-end-date'].forEach(id => {
         document.getElementById(id).classList.remove('has-error');
       });
     });
@@ -2084,241 +928,146 @@ function buildReqJobCards(jobs) {
   });
 }
 
-function prefillReqJobFields(job) {
+function prefillPCJobFields(job) {
   const flash = el => {
     el.style.transition = 'background 0s';
     el.style.background = 'rgba(167,139,250,0.2)';
     setTimeout(() => { el.style.transition = 'background 0.8s'; el.style.background = ''; }, 60);
   };
-  const jobIdEl = document.getElementById('rq-job-id');
-  const clientEl = document.getElementById('rq-client');
-  const descEl = document.getElementById('rq-event-desc');
+  const jobIdEl = document.getElementById('pc-job-id');
+  const descEl = document.getElementById('pc-description');
+  const leadEl = document.getElementById('pc-project-lead');
+  const startEl = document.getElementById('pc-start-date');
+  const endEl = document.getElementById('pc-end-date');
   jobIdEl.value  = job['Job_ID'] || '';
-  clientEl.value = job['Client'] || '';
   descEl.value   = job['Description'] || '';
-  [jobIdEl, clientEl, descEl].forEach(flash);
+  leadEl.value   = job['Project Lead'] || '';
+  startEl.value  = job['Start Date'] || '';
+  endEl.value    = job['End Date'] || '';
+  [jobIdEl, descEl, leadEl, startEl, endEl].forEach(flash);
 }
 
-function clearReqJobFields() {
-  document.getElementById('rq-job-id').value  = '';
-  document.getElementById('rq-client').value  = '';
-  document.getElementById('rq-event-desc').value = '';
+function clearPCJobFields() {
+  document.getElementById('pc-job-id').value  = '';
+  document.getElementById('pc-description').value = '';
+  document.getElementById('pc-project-lead').value = '';
+  document.getElementById('pc-start-date').value = '';
+  document.getElementById('pc-end-date').value = '';
+  document.getElementById('pc-days-display').textContent = '—';
+  document.getElementById('pc-total-display').textContent = 'KES —';
 }
 
-/* ── LINE ITEMS ── */
-function makeCatOptions(selectedVal='') {
-  return LINE_ITEM_CATEGORIES.map(c =>
-    `<option value="${c}"${c===selectedVal?' selected':''}>${c}</option>`
-  ).join('');
+function calculatePCPay(job) {
+  const startStr = job['Start Date'];
+  const endStr = job['End Date'];
+  
+  if (!startStr || !endStr) return;
+
+  const start = new Date(startStr);
+  const end = new Date(endStr);
+  const daysWorked = Math.ceil((end - start) / (1000 * 60 * 60 * 24)) + 1;
+  const dailyRate = 2000;
+  const totalPay = daysWorked * dailyRate;
+
+  document.getElementById('pc-days-display').textContent = daysWorked;
+  document.getElementById('pc-total-display').textContent = `KES ${totalPay.toLocaleString('en-KE')}`;
 }
 
-function addLineItem(desc='', supplier='',cat='', qty=1, days=1, unitCost=0) {
-  lineItemCount++;
-  const id = lineItemCount;
-  const tbody = document.getElementById('line-items-body');
-  const tr = document.createElement('tr');
-  tr.className = 'line-item-row';
-  tr.id = `li-row-${id}`;
-  tr.innerHTML = `
-  <td><input type="text" class="li-input" id="li-desc-${id}" placeholder="Describe item or service…" value="${desc}" /></td>
-  <td><input type="text" class="li-input" id="li-supplier-${id}" placeholder="Supplier (optional)" value="${supplier}" /></td>
-  <td>
-    <div class="li-cat-wrap">
-      <select class="li-cat-select" id="li-cat-${id}" onchange="updateLineTotal(${id})">
-        <option value="">Category…</option>
-        ${makeCatOptions(cat)}
-      </select>
-    </div>
-  </td>
-  <td><input type="number" class="li-input" id="li-qty-${id}" placeholder="1" min="0" value="${qty}" oninput="updateLineTotal(${id})" style="text-align:center" /></td>
-  <td><input type="number" class="li-input" id="li-days-${id}" placeholder="1" min="0" value="${days}" oninput="updateLineTotal(${id})" style="text-align:center" /></td>
-  <td><input type="number" class="li-input" id="li-cost-${id}" placeholder="0.00" min="0" step="0.01" value="${unitCost||''}" oninput="updateLineTotal(${id})" /></td>
-  <td class="li-row-total" id="li-total-${id}">—</td>
-  <td><button type="button" class="btn-rm-line" onclick="removeLineItem(${id})" title="Remove">✕</button></td>`;
-  tbody.appendChild(tr);
-  updateLineTotal(id);
-}
-
-function updateLineTotal(id) {
-  const qty  = parseFloat(document.getElementById(`li-qty-${id}`)?.value)  || 0;
-  const days = parseFloat(document.getElementById(`li-days-${id}`)?.value) || 0;
-  const cost = parseFloat(document.getElementById(`li-cost-${id}`)?.value) || 0;
-  const tot  = qty * days * cost;
-  const el   = document.getElementById(`li-total-${id}`);
-  if (el) el.textContent = tot > 0
-    ? 'KES ' + tot.toLocaleString('en-KE', {minimumFractionDigits:2, maximumFractionDigits:2})
-    : '—';
-  recalcTotal();
-}
-
-function removeLineItem(id) {
-  const row = document.getElementById(`li-row-${id}`);
-  if (row) row.remove();
-  recalcTotal();
-}
-
-function recalcTotal() {
-  let total = 0;
-  document.querySelectorAll('.line-item-row').forEach(row => {
-    const id   = row.id.replace('li-row-', '');
-    const qty  = parseFloat(document.getElementById(`li-qty-${id}`)?.value)  || 0;
-    const days = parseFloat(document.getElementById(`li-days-${id}`)?.value) || 0;
-    const cost = parseFloat(document.getElementById(`li-cost-${id}`)?.value) || 0;
-    total += qty * days * cost;
-  });
-  const fmt = v => 'KES ' + v.toLocaleString('en-KE', {minimumFractionDigits:2, maximumFractionDigits:2});
-  document.getElementById('req-subtotal').textContent = fmt(total);
-  document.getElementById('req-total').textContent    = fmt(total);
-}
-
-function getLineItems() {
-  const items = [];
-  document.querySelectorAll('.line-item-row').forEach(row => {
-    const id   = row.id.replace('li-row-', '');
-    const desc = document.getElementById(`li-desc-${id}`)?.value.trim() || '';
-    const supplier = document.getElementById(`li-supplier-${id}`)?.value.trim() || '';
-    const cat  = document.getElementById(`li-cat-${id}`)?.value || '';
-    const qty  = parseFloat(document.getElementById(`li-qty-${id}`)?.value)  || 0;
-    const days = parseFloat(document.getElementById(`li-days-${id}`)?.value) || 0;
-    const cost = parseFloat(document.getElementById(`li-cost-${id}`)?.value) || 0;
-    if (desc || qty || cost) items.push({ description:desc, supplier: supplier, category:cat, quantity:qty, days:days, unit_cost:cost, total: qty*days*cost });
-  });
-  return items;
-}
-
-document.getElementById('btn-add-line-item').addEventListener('click', () => addLineItem());
-
-/* ── VALIDATION ── */
-function reqSetErr(id, show) {
+function pcSetErr(id, show) {
   const el = document.getElementById(id);
   if (el) el.classList.toggle('has-error', show);
 }
-function reqClearErrors() {
-  document.querySelectorAll('.req-field.has-error').forEach(f => f.classList.remove('has-error'));
-  document.getElementById('rq-urgency-err').style.display = 'none';
-}
-function reqValidate() {
-  reqClearErrors();
+
+function pcValidate() {
   let ok = true;
+  const jobIdVal = document.getElementById('pc-job-id').value.trim();
+  pcSetErr('pcf-job-id', !jobIdVal);
+  if (!jobIdVal) ok = false;
 
-  const jobIdVal = document.getElementById('rq-job-id').value.trim();
-  reqSetErr('rqf-job-id',   !jobIdVal); if (!jobIdVal) ok = false;
-  const clientVal = document.getElementById('rq-client').value.trim();
-  reqSetErr('rqf-client',   !clientVal); if (!clientVal) ok = false;
-  const descVal = document.getElementById('rq-event-desc').value.trim();
-  reqSetErr('rqf-event-desc', !descVal); if (!descVal) ok = false;
+  const startVal = document.getElementById('pc-start-date').value;
+  pcSetErr('pcf-start-date', !startVal);
+  if (!startVal) ok = false;
 
-  const nameOk = !!document.getElementById('rq-requestor-name').value.trim();
-  reqSetErr('rqf-requestor-name', !nameOk); if (!nameOk) ok = false;
-  const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(document.getElementById('rq-requestor-email').value.trim());
-  reqSetErr('rqf-requestor-email', !emailOk); if (!emailOk) ok = false;
-  const dateOk = !!document.getElementById('rq-date-required').value;
-  reqSetErr('rqf-date-required', !dateOk); if (!dateOk) ok = false;
-  const justOk = !!document.getElementById('rq-justification').value.trim();
-  reqSetErr('rqf-justification', !justOk); if (!justOk) ok = false;
-
-  const urgency = rGetRadio('req-urgency');
-  if (!urgency) {
-    document.getElementById('rq-urgency-err').style.display = 'block';
-    ok = false;
-  }
+  const endVal = document.getElementById('pc-end-date').value;
+  pcSetErr('pcf-end-date', !endVal);
+  if (!endVal) ok = false;
 
   if (!jobIdVal) {
-    document.getElementById('req-error-banner').textContent = 'Please load and select a job from the Job Lookup section before submitting.';
-    document.getElementById('req-error-banner').classList.add('visible');
+    document.getElementById('pc-error-banner').textContent = 'Please select a job from the list above.';
+    document.getElementById('pc-error-banner').classList.add('visible');
   }
-
   return ok;
 }
 
-/* ── SUBMIT ── */
-document.getElementById('req-submit-btn').addEventListener('click', async () => {
-  if (!reqValidate()) return;
-  const btn = document.getElementById('req-submit-btn');
+document.getElementById('pc-submit-btn').addEventListener('click', async () => {
+  if (!pcValidate()) return;
+  const btn = document.getElementById('pc-submit-btn');
   btn.classList.add('loading');
-  document.getElementById('req-error-banner').classList.remove('visible');
+  document.getElementById('pc-error-banner').classList.remove('visible');
 
-  const lineItems  = getLineItems();
-  const totalAmt   = lineItems.reduce((s, i) => s + i.total, 0);
+  const startStr = document.getElementById('pc-start-date').value;
+  const endStr = document.getElementById('pc-end-date').value;
+  const start = new Date(startStr);
+  const end = new Date(endStr);
+  const daysWorked = Math.ceil((end - start) / (1000 * 60 * 60 * 24)) + 1;
+  const totalPay = daysWorked * 2000;
 
   const payload = {
-    job_id:            document.getElementById('rq-job-id').value.trim(),
-    client:            document.getElementById('rq-client').value.trim(),
-    event_description: document.getElementById('rq-event-desc').value.trim(),
-    requestor_name:    document.getElementById('rq-requestor-name').value.trim(),
-    requestor_email:   document.getElementById('rq-requestor-email').value.trim(),
-    date_required:     document.getElementById('rq-date-required').value,
-    // supplier:          document.getElementById('rq-supplier').value.trim(),
-    line_items:        lineItems,
-    total_amount:      totalAmt,
-    justification:     document.getElementById('rq-justification').value.trim(),
-    notes:             document.getElementById('rq-notes').value.trim(),
-    urgency:           rGetRadio('req-urgency'),
-    submitted_by:      authEmail,
-    submitted_by_name: authName,
-    submitted_at:      new Date().toISOString()
+    job_id:       document.getElementById('pc-job-id').value.trim(),
+    description:  document.getElementById('pc-description').value.trim(),
+    project_lead: document.getElementById('pc-project-lead').value.trim(),
+    email:        document.getElementById('pc-email').value.trim(),
+    start_date:   startStr,
+    end_date:     endStr,
+    days_worked:  daysWorked,
+    total_pay:    totalPay,
+    submitted_by: authEmail,
+    submitted_at: new Date().toISOString()
   };
 
   try {
-    const res = await fetch(REQUISITION_WEBHOOK, {
+    const res = await fetch(PAY_CLAIM_WEBHOOK, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
     });
     if (res.ok || [200, 201, 202].includes(res.status)) {
-      reqShowSuccess(payload);
+      pcShowSuccess(payload);
     } else {
       throw new Error(`Server returned ${res.status}`);
     }
   } catch (err) {
-    document.getElementById('req-error-banner').textContent = `Submission failed: ${err.message}. Please try again.`;
-    document.getElementById('req-error-banner').classList.add('visible');
+    document.getElementById('pc-error-banner').textContent = `Submission failed: ${err.message}. Please try again.`;
+    document.getElementById('pc-error-banner').classList.add('visible');
   } finally {
     btn.classList.remove('loading');
   }
 });
 
-function reqShowSuccess(payload) {
-  const ref   = 'REQ-' + Date.now().toString(36).toUpperCase();
-  const total = 'KES ' + payload.total_amount.toLocaleString('en-KE', {minimumFractionDigits:2});
-  document.getElementById('req-success-ref').textContent = `${ref} · ${payload.client} · ${total}`;
-  document.getElementById('req-success-screen').classList.add('visible');
-  document.getElementById('req-main-card').style.display = 'none';
-  reqCount++;
-  document.getElementById('dash-req-count').textContent = reqCount;
+function pcShowSuccess(payload) {
+  const ref = 'CLAIM-' + Date.now().toString(36).toUpperCase();
+  document.getElementById('pc-success-ref').textContent = `${ref} · ${payload.job_id} · KES ${payload.total_pay.toLocaleString('en-KE')}`;
+  document.getElementById('pc-success-screen').classList.add('visible');
+  document.getElementById('pay-main-card').style.display = 'none';
+  claimsCount++;
+  document.getElementById('dash-claims-count').textContent = claimsCount;
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-document.getElementById('btn-req-new').addEventListener('click', reqResetAll);
-function reqResetAll() {
-  document.getElementById('rq-lookup-email').value = authEmail;
-  document.getElementById('req-loader-msg').textContent = '';
-  document.getElementById('req-loader-msg').className = 'req-loader-msg';
-  document.getElementById('req-job-cards').innerHTML = '';
-  reqJobs = [];
-  reqSelectedJob = null;
-  clearReqJobFields();
-
-  ['rq-requestor-name','rq-requestor-email','rq-date-required','rq-supplier','rq-justification','rq-notes'].forEach(id => {
-    const el = document.getElementById(id); if (el) el.value = '';
-  });
-  document.querySelectorAll('.radio-item[data-rg="req-urgency"].selected').forEach(el => el.classList.remove('selected'));
-  document.getElementById('line-items-body').innerHTML = '';
-  lineItemCount = 0;
-  recalcTotal();
-  reqClearErrors();
-  document.getElementById('req-error-banner').classList.remove('visible');
-  document.getElementById('req-success-screen').classList.remove('visible');
-  document.getElementById('req-main-card').style.display = '';
-
-  document.getElementById('rq-requestor-email').value = authEmail;
-  document.getElementById('rq-requestor-name').value  = authName;
-  addLineItem();
+document.getElementById('btn-pc-new').addEventListener('click', pcResetAll);
+function pcResetAll() {
+  document.getElementById('pc-email').value = authEmail;
+  document.getElementById('pc-loader-msg').textContent = '';
+  document.getElementById('pc-loader-msg').className = 'req-loader-msg';
+  document.getElementById('pc-job-cards').innerHTML = '';
+  pcJobs = [];
+  pcSelectedJob = null;
+  clearPCJobFields();
+  document.getElementById('pc-error-banner').classList.remove('visible');
+  document.getElementById('pc-success-screen').classList.remove('visible');
+  document.getElementById('pay-main-card').style.display = '';
+  document.querySelectorAll('.req-field.has-error').forEach(f => f.classList.remove('has-error'));
 }
-
-/* INIT */
-rUpdateProgress(1);
-
 </script>
 </body>
 </html>
