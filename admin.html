@@ -1655,7 +1655,7 @@ document.querySelectorAll('.nav-item[data-page]').forEach(item=>{
   item.addEventListener('click',()=>{if(item.classList.contains('disabled'))return;navigateTo(item.dataset.page);});
 });
 const pageNames = {
-  dashboard:'Dashboard', reccee:'Reccee Assessment', 'event-submission':'Event Submission',pay-claims':'Pay Claims',
+  dashboard:'Dashboard', reccee:'Reccee Assessment', 'event-submission':'Event Submission','pay-claims':'Pay Claims',
   requisitions:'Requisitions', 'site-checklist':'Site Checklist','incident-report':'Incident Report',
   timesheets:'Timesheets',team:'Team',reports:'Reports'
 };
