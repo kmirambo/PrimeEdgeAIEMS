@@ -2447,7 +2447,7 @@ async function approveRequisition(reqId) {
   if (!button) return;
   button.disabled = true;
   button.textContent = 'Approving...';
-  const APPROVAL_WEBHOOK = 'https://chux.app.n8n.cloud/webhook/requisition-approve'; // change to your n8n webhook
+  const APPROVAL_WEBHOOK = 'https://kmongare.app.n8n.cloud/webhook/requisition-approve'; // change to your n8n webhook
   try {
     const response = await fetch(APPROVAL_WEBHOOK, {
       method: 'POST',
@@ -2469,7 +2469,7 @@ async function approveRequisition(reqId) {
 }
 // // Requisition Approvals Module
 // const REQUISITIONS_SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQzV51evXd43ebjxahF57b6j4MTDnI0tcEjBNzLjoqdP84_vujazI5cLRD12tzJ9fLl30hYT3zEMyyU/pub?output=csv';
-// const APPROVAL_WEBHOOK = 'https://chux.app.n8n.cloud/webhook/requisition-approve';
+// const APPROVAL_WEBHOOK = 'https://kmongare.app.n8n.cloud/webhook/requisition-approve';
 
 // let approvalsData = [];
 // let approverEmail = '';
