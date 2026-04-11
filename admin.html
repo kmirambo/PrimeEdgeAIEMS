@@ -1365,22 +1365,24 @@ input.error-state { border-color: var(--error); }
   </div>
   <p style="font-size:13px;color:var(--text-secondary);margin-bottom:28px">Enter your email to load pending requisitions. Review and approve procurement requests.</p>
 
-  <!-- Email Input Section (styled to match platform) -->
+<!-- Sheet Selection Section -->
   <div class="email-section" id="email-section">
-    <div class="email-label">Your Email</div>
+    <div class="email-label">Select Sheet</div>
     <div class="email-row">
-      <div class="email-field">
-        <label>Approver Email Address</label>
-        <input type="email" class="email-input" id="approver-email" placeholder="your.email@company.com" />
+      <div class="selector-dropdown" style="flex: 1;">
+        <label>Available Requisition Sheets</label>
+        <select id="sheet-selector" disabled>
+          <option value="">Loading sheets...</option>
+        </select>
       </div>
-      <button class="btn-load" id="btn-load-approvals" type="button">
-        <span id="load-text">Load Requisitions</span>
+      <button class="btn-load" id="btn-load-approvals" type="button" disabled>
+        <span id="load-text">Load Sheet</span>
         <div class="btn-spinner"></div>
       </button>
     </div>
     <div class="loader-msg" id="loader-msg"></div>
   </div>
-
+  
   <!-- Approvals Table Card -->
   <div class="approvals-card hidden" id="approvals-card">
     <div class="section-title">Pending Requisitions</div>
@@ -2351,113 +2353,218 @@ function reqResetAll() {
 
 /* INIT */
 rUpdateProgress(1);
-// NEW: URL to fetch requisitions (replace with your actual CSV or API endpoint)
-const REQUISITIONS_SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQzV51evXd43ebjxahF57b6j4MTDnI0tcEjBNzLjoqdP84_vujazI5cLRD12tzJ9fLl30hYT3zEMyyU/pub?output=csv'; // replace with actual sheet ID
+const SPREADSHEET_ID = '1R1h-GM79sMyO1uXafiF1wnlS4CX9roRvyAnTZ8p65U8';
+const APPROVAL_WEBHOOK = 'https://chux.app.n8n.cloud/webhook/requisition-approve';
 
 let approvalsData = [];
+let selectedSheetGid = '';
+let allSheets = [];
 
-async function loadRequisitionsForApproval() {
-  const container = document.getElementById('approvals-list-container');
-  if (!container) return;
-  container.innerHTML = '<div class="approvals-loader">Loading requisitions...</div>';
+async function loadAllSheets() {
   try {
-    let reqList = [];
-    try {
-      const res = await fetch(REQUISITIONS_SHEET_URL);
-      if (res.ok) {
-        const csvText = await res.text();
-        const rows = parseCSV(csvText);
-        const headers = rows[0];
-        reqList = rows.slice(1).filter(r => r.some(c => c)).map(row => {
-          let obj = {};
-          headers.forEach((h, i) => { obj[h.trim()] = (row[i] || '').trim(); });
-          return obj;
-        });
-      } else {
-        throw new Error('Sheet not available');
-      }
-    } catch (err) {
-      console.warn('Using mock requisition data because sheet fetch failed:', err);
-      // Mock data for demonstration
-      reqList = [
-        { id: 'REQ-001', client: 'Jumia', event_desc: 'Jumia Anniversary', requestor: 'John Doe', total: '125000', status: 'pending', submitted_at: '2025-03-20' },
-        { id: 'REQ-002', client: 'KCB', event_desc: 'KCB Golf Tournament', requestor: 'Jane Smith', total: '34500', status: 'pending', submitted_at: '2025-03-21' },
-        { id: 'REQ-003', client: 'Safaricom', event_desc: 'M-Pesa Launch', requestor: 'Alice Wangari', total: '98000', status: 'approved', submitted_at: '2025-03-19' }
-      ];
+    const msgEl = document.getElementById('loader-msg');
+    msgEl.textContent = 'Loading available sheets...';
+    msgEl.className = 'loader-msg';
+
+    const apiUrl = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}?key=AIzaSyDDI4NhLGOkT8SzH3PmJLEL1_uI3uFDcf8&fields=sheets.properties`;
+    
+    const response = await fetch(apiUrl);
+    if (!response.ok) {
+      throw new Error('Failed to load sheet metadata');
     }
-    // Filter only pending (or all, but show action only for pending)
-    approvalsData = reqList.filter(r => r.status !== 'approved');
-    renderApprovalsTable();
-  } catch (error) {
-    container.innerHTML = `<div class="approvals-loader" style="color:var(--error)">Failed to load requisitions: ${error.message}</div>`;
+
+    const data = await response.json();
+    allSheets = data.sheets || [];
+
+    if (allSheets.length === 0) {
+      msgEl.className = 'loader-msg error';
+      msgEl.textContent = 'No sheets found in this spreadsheet.';
+      return;
+    }
+
+    const selector = document.getElementById('sheet-selector');
+    selector.innerHTML = '<option value="">-- Select a sheet --</option>';
+    
+    allSheets.forEach(sheet => {
+      const option = document.createElement('option');
+      const sheetTitle = sheet.properties.title;
+      const sheetGid = sheet.properties.sheetId;
+      option.value = sheetGid;
+      option.textContent = sheetTitle;
+      selector.appendChild(option);
+    });
+
+    selector.disabled = false;
+    msgEl.textContent = `${allSheets.length} sheet${allSheets.length !== 1 ? 's' : ''} loaded. Select one to proceed.`;
+    msgEl.className = 'loader-msg success';
+
+  } catch (err) {
+    console.error('Error loading sheets:', err);
+    const msgEl = document.getElementById('loader-msg');
+    msgEl.className = 'loader-msg error';
+    msgEl.textContent = 'Error: Could not load sheets from spreadsheet. Make sure it is publicly accessible.';
+    
+    const selector = document.getElementById('sheet-selector');
+    selector.innerHTML = `
+      <option value="">-- Error: Check Sharing Settings --</option>
+      <option value="530187145">GID 530187145 (Manual)</option>
+    `;
+    selector.disabled = false;
+  }
+}
+
+loadAllSheets();
+
+document.getElementById('sheet-selector').addEventListener('change', (e) => {
+  selectedSheetGid = e.target.value;
+  const btn = document.getElementById('btn-load-approvals');
+  btn.disabled = !selectedSheetGid;
+});
+
+document.getElementById('btn-load-approvals').addEventListener('click', loadRequisitions);
+
+async function loadRequisitions() {
+  const msgEl = document.getElementById('loader-msg');
+  const btn = document.getElementById('btn-load-approvals');
+  const container = document.getElementById('approvals-container');
+  const card = document.getElementById('approvals-card');
+
+  msgEl.className = 'loader-msg';
+  msgEl.textContent = '';
+  card.classList.add('hidden');
+
+  if (!selectedSheetGid) {
+    msgEl.className = 'loader-msg error';
+    msgEl.textContent = 'Please select a sheet.';
+    return;
+  }
+
+  btn.classList.add('loading');
+  btn.disabled = true;
+  msgEl.textContent = 'Loading requisitions...';
+  container.innerHTML = '<div class="approvals-loader">Loading requisitions...</div>';
+  card.classList.remove('hidden');
+
+  try {
+    const csvUrl = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/export?format=csv&gid=${selectedSheetGid}`;
+    
+    const res = await fetch(csvUrl);
+    if (!res.ok) throw new Error('Could not fetch requisitions sheet.');
+    
+    const csvText = await res.text();
+    const rows = parseCSV(csvText);
+    const allReqs = csvToObj(rows);
+
+    approvalsData = allReqs.filter(r => r && Object.keys(r).length > 0);
+
+    if (!approvalsData.length) {
+      container.innerHTML = '<div class="approvals-loader">No requisitions found on this sheet.</div>';
+      msgEl.className = 'loader-msg';
+      msgEl.textContent = 'No requisitions on this sheet.';
+    } else {
+      renderApprovalsTable();
+      msgEl.className = 'loader-msg success';
+      msgEl.textContent = `${approvalsData.length} requisition${approvalsData.length !== 1 ? 's' : ''} loaded.`;
+    }
+
+  } catch (err) {
+    console.error('Load error:', err);
+    container.innerHTML = `<div class="approvals-loader" style="color:var(--error)">Failed to load: ${err.message}</div>`;
+    msgEl.className = 'loader-msg error';
+    msgEl.textContent = 'Error: ' + err.message;
+  } finally {
+    btn.classList.remove('loading');
+    btn.disabled = false;
   }
 }
 
 function renderApprovalsTable() {
-  const container = document.getElementById('approvals-list-container');
-  if (!container) return;
-  if (!approvalsData.length) {
-    container.innerHTML = '<div class="approvals-loader">No pending requisitions found.</div>';
-    return;
-  }
+  const container = document.getElementById('approvals-container');
+  
   const table = document.createElement('table');
   table.className = 'approvals-table';
   table.innerHTML = `
     <thead><tr>
-      <th>Req ID</th><th>Client</th><th>Event Description</th><th>Requestor</th><th>Total (KES)</th><th>Submitted</th><th>Action</th>
+      <th>Req ID</th>
+      <th>Client</th>
+      <th>Event</th>
+      <th>Requestor</th>
+      <th>Total (KES)</th>
+      <th>Submitted</th>
+      <th>Status</th>
+      <th>Action</th>
     </tr></thead>
     <tbody id="approvals-tbody"></tbody>
   `;
+
   const tbody = table.querySelector('#approvals-tbody');
+  
   approvalsData.forEach(req => {
     const tr = document.createElement('tr');
+    const reqId = req.id || req.requisition_id || req['Requisition ID'] || req['ID'] || '—';
+    const client = req.client || req.Client || req['Client'] || '—';
+    const eventDesc = req.event_desc || req.event_description || req['Event Description'] || req.description || req['Description'] || '—';
+    const requestor = req.requestor || req.requestor_name || req['Requestor Name'] || req['Requestor'] || '—';
+    const total = req.total || req.total_amount || req['Total Amount'] || req['Total'] || '0';
+    const submitted = req.submitted_at || req['Submitted At'] || req['Submitted'] || '—';
+    const status = (req.status || req.Status || req['Status'] || 'pending').toLowerCase();
+
     tr.innerHTML = `
-      <td>${escapeHtml(req.id || req['id'] || '—')}</td>
-      <td>${escapeHtml(req.client || req['client'] || '—')}</td>
-      <td>${escapeHtml(req.event_desc || req['event_desc'] || req['description'] || '—')}</td>
-      <td>${escapeHtml(req.requestor || req['requestor_name'] || '—')}</td>
-      <td>${escapeHtml(req.total || req['total_amount'] || '0')}</td>
-      <td>${escapeHtml(req.submitted_at || req['submitted_at'] || '—')}</td>
-      <td><button class="btn-approve" data-id="${escapeHtml(req.id)}">Approve</button></td>
+      <td><strong>${escapeHtml(String(reqId))}</strong></td>
+      <td>${escapeHtml(String(client))}</td>
+      <td>${escapeHtml(String(eventDesc))}</td>
+      <td>${escapeHtml(String(requestor))}</td>
+      <td>${formatCurrency(String(total))}</td>
+      <td>${escapeHtml(String(submitted))}</td>
+      <td><span class="status-badge ${status === 'approved' ? 'approved' : ''}">${escapeHtml(status)}</span></td>
+      <td>
+        <button class="btn-approve" onclick="approveRequisition('${escapeHtml(String(reqId))}', this)">Approve</button>
+      </td>
     `;
     tbody.appendChild(tr);
   });
+
   container.innerHTML = '';
   container.appendChild(table);
-  // Attach event listeners to approve buttons
-  document.querySelectorAll('.btn-approve').forEach(btn => {
-    btn.addEventListener('click', async (e) => {
-      const reqId = btn.getAttribute('data-id');
-      await approveRequisition(reqId);
-    });
-  });
 }
 
-function escapeHtml(str) { 
-  return String(str).replace(/[&<>]/g, function(m){
-    if(m==='&') return '&amp;';
-    if(m==='<') return '&lt;';
-    if(m==='>') return '&gt;';
-    return m;
-  });
+function formatCurrency(amount) {
+  const num = parseFloat(amount) || 0;
+  return 'KES ' + num.toLocaleString('en-KE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
 
-async function approveRequisition(reqId) {
-  const button = document.querySelector(`.btn-approve[data-id="${reqId}"]`);
+async function approveRequisition(reqId, button) {
   if (!button) return;
+  
   button.disabled = true;
   button.textContent = 'Approving...';
-  const APPROVAL_WEBHOOK = 'https://kmongare.app.n8n.cloud/webhook/requisition-approve'; // change to your n8n webhook
+
   try {
+    const payload = {
+      requisition_id: reqId,
+      approved_at: new Date().toISOString()
+    };
+
     const response = await fetch(APPROVAL_WEBHOOK, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ requisition_id: reqId, approved_by: authEmail, approved_at: new Date().toISOString() })
+      body: JSON.stringify(payload)
     });
+
     if (response.ok || [200, 201, 202].includes(response.status)) {
-      approvalsData = approvalsData.filter(r => (r.id || r['id']) !== reqId);
-      renderApprovalsTable();
-      alert(`Requisition ${reqId} has been approved.`);
+      approvalsData = approvalsData.filter(r => {
+        const rId = String(r.id || r.requisition_id || r['Requisition ID'] || r['ID'] || '');
+        return rId !== String(reqId);
+      });
+      
+      if (approvalsData.length) {
+        renderApprovalsTable();
+      } else {
+        document.getElementById('approvals-container').innerHTML = 
+          '<div class="approvals-loader">No more requisitions.</div>';
+      }
+      
+      alert(`✓ Requisition ${reqId} has been approved successfully.`);
     } else {
       throw new Error(`Server responded with ${response.status}`);
     }
@@ -2467,179 +2574,13 @@ async function approveRequisition(reqId) {
     button.textContent = 'Approve';
   }
 }
-// // Requisition Approvals Module
-// const REQUISITIONS_SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQzV51evXd43ebjxahF57b6j4MTDnI0tcEjBNzLjoqdP84_vujazI5cLRD12tzJ9fLl30hYT3zEMyyU/pub?output=csv';
-// const APPROVAL_WEBHOOK = 'https://kmongare.app.n8n.cloud/webhook/requisition-approve';
 
-// let approvalsData = [];
-// let approverEmail = '';
-
-// function formatCurrency(amount) {
-//   const num = parseFloat(amount) || 0;
-//   return 'KES ' + num.toLocaleString('en-KE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-// }
-
-// function renderApprovalsTable() {
-//   const container = document.getElementById('approvals-container');
-//   if (!container) return;
-  
-//   const table = document.createElement('table');
-//   table.className = 'approvals-table';
-//   table.innerHTML = `
-//     <thead><tr>
-//       <th>Req ID</th><th>Client</th><th>Event</th><th>Requestor</th><th>Total (KES)</th><th>Submitted</th><th>Status</th><th>Action</th>
-//     </tr></thead>
-//     <tbody id="approvals-tbody"></tbody>
-//   `;
-
-//   const tbody = table.querySelector('#approvals-tbody');
-  
-//   approvalsData.forEach(req => {
-//     const reqId = req.id || req.requisition_id || req['Requisition ID'] || '—';
-//     const client = req.client || req.Client || '—';
-//     const eventDesc = req.event_desc || req.event_description || req['Event Description'] || req.description || '—';
-//     const requestor = req.requestor || req.requestor_name || req['Requestor Name'] || '—';
-//     const total = req.total || req.total_amount || req['Total Amount'] || '0';
-//     const submitted = req.submitted_at || req['Submitted At'] || '—';
-//     const status = req.status || req.Status || 'pending';
-
-//     const tr = document.createElement('tr');
-//     tr.innerHTML = `
-//       <td><strong>${escapeHtml(reqId)}</strong></td>
-//       <td>${escapeHtml(client)}</td>
-//       <td>${escapeHtml(eventDesc)}</td>
-//       <td>${escapeHtml(requestor)}</td>
-//       <td>${formatCurrency(total)}</td>
-//       <td>${escapeHtml(submitted)}</td>
-//       <td><span class="status-badge">${escapeHtml(status)}</span></td>
-//       <td><button class="btn-approve" data-id="${escapeHtml(reqId)}">Approve</button></td>
-//     `;
-//     tbody.appendChild(tr);
-//   });
-
-//   container.innerHTML = '';
-//   container.appendChild(table);
-
-//   // Attach event listeners
-//   document.querySelectorAll('.btn-approve').forEach(btn => {
-//     btn.addEventListener('click', async () => {
-//       const reqId = btn.getAttribute('data-id');
-//       await approveRequisition(reqId, btn);
-//     });
-//   });
-// }
-
-// async function approveRequisition(reqId, button) {
-//   if (!button) return;
-//   button.disabled = true;
-//   button.textContent = 'Approving...';
-
-//   try {
-//     const payload = {
-//       requisition_id: reqId,
-//       approved_by: approverEmail,
-//       approved_at: new Date().toISOString()
-//     };
-
-//     const response = await fetch(APPROVAL_WEBHOOK, {
-//       method: 'POST',
-//       headers: { 'Content-Type': 'application/json' },
-//       body: JSON.stringify(payload)
-//     });
-
-//     if (response.ok || [200, 201, 202].includes(response.status)) {
-//       approvalsData = approvalsData.filter(r => 
-//         (r.id || r.requisition_id || r['Requisition ID']) !== reqId
-//       );
-      
-//       if (approvalsData.length) {
-//         renderApprovalsTable();
-//       } else {
-//         document.getElementById('approvals-container').innerHTML = 
-//           '<div class="approvals-loader">No more pending requisitions.</div>';
-//       }
-//       alert(`✓ Requisition ${reqId} approved.`);
-//     } else {
-//       throw new Error(`Server responded with ${response.status}`);
-//     }
-//   } catch (err) {
-//     alert(`Approval failed: ${err.message}`);
-//     button.disabled = false;
-//     button.textContent = 'Approve';
-//   }
-// }
-
-// async function loadRequisitionsForApproval() {
-//   const emailInput = document.getElementById('approver-email');
-//   const msgEl = document.getElementById('loader-msg');
-//   const btn = document.getElementById('btn-load-approvals');
-//   const container = document.getElementById('approvals-container');
-//   const card = document.getElementById('approvals-card');
-
-//   if (!emailInput) return;
-  
-//   const email = emailInput.value.trim().toLowerCase();
-//   msgEl.className = 'loader-msg';
-//   msgEl.textContent = '';
-//   card.classList.add('hidden');
-
-//   const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-//   if (!valid) {
-//     msgEl.className = 'loader-msg error';
-//     msgEl.textContent = 'Please enter a valid email address.';
-//     return;
-//   }
-
-//   approverEmail = email;
-//   btn.classList.add('loading');
-//   btn.disabled = true;
-//   msgEl.textContent = 'Loading requisitions...';
-//   container.innerHTML = '<div class="approvals-loader">Loading requisitions...</div>';
-//   card.classList.remove('hidden');
-
-//   try {
-//     const res = await fetch(REQUISITIONS_SHEET_URL);
-//     if (!res.ok) throw new Error('Could not fetch requisitions sheet.');
-    
-//     const csvText = await res.text();
-//     const rows = parseCSV(csvText);
-//     const allReqs = csvToObj(rows);
-
-//     approvalsData = allReqs.filter(r => 
-//       (r.status || r.Status || '').toLowerCase() !== 'approved'
-//     );
-
-//     if (!approvalsData.length) {
-//       container.innerHTML = '<div class="approvals-loader">No pending requisitions found.</div>';
-//       msgEl.className = 'loader-msg';
-//       msgEl.textContent = 'No pending requisitions at this time.';
-//     } else {
-//       renderApprovalsTable();
-//       msgEl.className = 'loader-msg success';
-//       msgEl.textContent = `${approvalsData.length} pending requisition${approvalsData.length !== 1 ? 's' : ''} loaded.`;
-//     }
-//   } catch (err) {
-//     container.innerHTML = `<div class="approvals-loader" style="color:var(--error)">Failed to load: ${err.message}</div>`;
-//     msgEl.className = 'loader-msg error';
-//     msgEl.textContent = 'Error: ' + err.message;
-//   } finally {
-//     btn.classList.remove('loading');
-//     btn.disabled = false;
-//   }
-// }
-// document.addEventListener('DOMContentLoaded', function() {
-//   const loadBtn = document.getElementById('btn-load-approvals');
-//   if (loadBtn) {
-//     loadBtn.addEventListener('click', loadRequisitionsForApproval);
-//   }
-//   const emailField = document.getElementById('approver-email');
-//   if (emailField) {
-//     emailField.addEventListener('keydown', (e) => {
-//       if (e.key === 'Enter') loadRequisitionsForApproval();
-//     });
-//   }
-// });
-
+function escapeHtml(str) {
+  return String(str).replace(/[&<>"']/g, function(m) {
+    const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
+    return map[m];
+  });
+}
 </script>
 </body>
 </html>
