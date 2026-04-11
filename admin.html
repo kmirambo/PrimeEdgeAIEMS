@@ -2366,50 +2366,79 @@ async function loadAllSheets() {
     msgEl.textContent = 'Loading available sheets...';
     msgEl.className = 'loader-msg';
 
-    const apiUrl = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}?key=AIzaSyDDI4NhLGOkT8SzH3PmJLEL1_uI3uFDcf8&fields=sheets.properties`;
+    // Fetch the spreadsheet in JSON format to get sheet names
+    const jsonUrl = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json`;
     
-    const response = await fetch(apiUrl);
+    const response = await fetch(jsonUrl);
     if (!response.ok) {
       throw new Error('Failed to load sheet metadata');
     }
 
-    const data = await response.json();
-    allSheets = data.sheets || [];
+    const text = await response.text();
+    // Parse the JSON response (it's wrapped in a function call)
+    const jsonString = text.substring(text.indexOf('{'), text.lastIndexOf('}') + 1);
+    const data = JSON.parse(jsonString);
 
-    if (allSheets.length === 0) {
-      msgEl.className = 'loader-msg error';
-      msgEl.textContent = 'No sheets found in this spreadsheet.';
-      return;
+    // Extract sheet names from the response
+    const sheets = data.table.cols.map((col, idx) => ({
+      title: col.label,
+      sheetId: idx
+    })).filter(s => s.title); // Filter out empty labels
+
+    if (sheets.length === 0) {
+      throw new Error('No sheets found');
     }
+
+    allSheets = sheets;
 
     const selector = document.getElementById('sheet-selector');
     selector.innerHTML = '<option value="">-- Select a sheet --</option>';
     
-    allSheets.forEach(sheet => {
+    sheets.forEach((sheet, idx) => {
       const option = document.createElement('option');
-      const sheetTitle = sheet.properties.title;
-      const sheetGid = sheet.properties.sheetId;
-      option.value = sheetGid;
-      option.textContent = sheetTitle;
+      option.value = idx;
+      option.textContent = sheet.title;
       selector.appendChild(option);
     });
 
     selector.disabled = false;
-    msgEl.textContent = `${allSheets.length} sheet${allSheets.length !== 1 ? 's' : ''} loaded. Select one to proceed.`;
+    msgEl.textContent = `${sheets.length} sheet${sheets.length !== 1 ? 's' : ''} loaded. Select one to proceed.`;
     msgEl.className = 'loader-msg success';
 
   } catch (err) {
     console.error('Error loading sheets:', err);
+    
+    // Fallback: Manual entry with common sheet names
     const msgEl = document.getElementById('loader-msg');
-    msgEl.className = 'loader-msg error';
-    msgEl.textContent = 'Error: Could not load sheets from spreadsheet. Make sure it is publicly accessible.';
+    msgEl.className = 'loader-msg';
+    msgEl.textContent = 'Enter sheet name or GID manually below:';
     
     const selector = document.getElementById('sheet-selector');
     selector.innerHTML = `
-      <option value="">-- Error: Check Sharing Settings --</option>
-      <option value="530187145">GID 530187145 (Manual)</option>
+      <option value="">-- Manual Entry --</option>
+      <option value="0">Sheet1 (GID: 0)</option>
+      <option value="530187145">GID 530187145</option>
+      <option value="">Custom GID...</option>
     `;
     selector.disabled = false;
+    
+    // Add a text input for custom GID
+    const inputContainer = document.getElementById('email-section');
+    if (!document.getElementById('custom-gid-input')) {
+      const customInput = document.createElement('input');
+      customInput.id = 'custom-gid-input';
+      customInput.type = 'text';
+      customInput.placeholder = 'Or enter GID here (e.g., 530187145)';
+      customInput.className = 'email-input';
+      customInput.style.marginTop = '12px';
+      customInput.addEventListener('change', () => {
+        if (customInput.value.trim()) {
+          selectedSheetGid = customInput.value.trim();
+          document.getElementById('btn-load-approvals').disabled = false;
+        }
+      });
+      inputContainer.appendChild(customInput);
+    }
   }
 }
 
@@ -2433,9 +2462,18 @@ async function loadRequisitions() {
   msgEl.textContent = '';
   card.classList.add('hidden');
 
-  if (!selectedSheetGid) {
+  // Use selected sheet or default to 0
+  let gid = selectedSheetGid || '0';
+  
+  // Check if custom GID was entered
+  const customGidInput = document.getElementById('custom-gid-input');
+  if (customGidInput && customGidInput.value.trim()) {
+    gid = customGidInput.value.trim();
+  }
+
+  if (!gid) {
     msgEl.className = 'loader-msg error';
-    msgEl.textContent = 'Please select a sheet.';
+    msgEl.textContent = 'Please select or enter a sheet GID.';
     return;
   }
 
@@ -2446,7 +2484,7 @@ async function loadRequisitions() {
   card.classList.remove('hidden');
 
   try {
-    const csvUrl = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/export?format=csv&gid=${selectedSheetGid}`;
+    const csvUrl = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/export?format=csv&gid=${gid}`;
     
     const res = await fetch(csvUrl);
     if (!res.ok) throw new Error('Could not fetch requisitions sheet.');
