@@ -1495,14 +1495,14 @@ input.error-state { border-color: var(--error); }
 /* ═══════════════════════════════════════════════
    CONFIG
 ═══════════════════════════════════════════════ */
-const OTP_REQUEST_URL     = 'https://kmongare.app.n8n.cloud/webhook/otp-auth';
-const OTP_VERIFY_URL      = 'https://kmongare.app.n8n.cloud/webhook/otp-auth';
+const OTP_REQUEST_URL     = 'https://primeedgeai.app.n8n.cloud/webhook/otp-auth';
+const OTP_VERIFY_URL      = 'https://primeedgeai.app.n8n.cloud/webhook/otp-auth';
 const SHEET_ID            = '1AO-06SYVS_uVnBWkM5smUFeSoTWUeq0GbFvX7tJr3oE';
 const SHEET_GID           = '0';
 const SHEET_CSV_URL       = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${SHEET_GID}`;
-const RECCEE_WEBHOOK      = 'https://kmongare.app.n8n.cloud/webhook/reccee-assessment';
-const EVENT_WEBHOOK       = 'https://kmongare.app.n8n.cloud/webhook/event-registration';
-const REQUISITION_WEBHOOK = 'https://kmongare.app.n8n.cloud/webhook/requisition-request';
+const RECCEE_WEBHOOK      = 'https://primeedgeai.app.n8n.cloud/webhook/reccee-assessment';
+const EVENT_WEBHOOK       = 'https://primeedgeai.app.n8n.cloud/webhook/event-registration';
+const REQUISITION_WEBHOOK = 'https://primeedgeai.app.n8n.cloud/webhook/requisition-request';
 const EVT_SHEET_URL       = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQzV51evXd43ebjxahF57b6j4MTDnI0tcEjBNzLjoqdP84_vujazI5cLRD12tzJ9fLl30hYT3zEMyyU/pub?output=csv';
 const OTP_LIFETIME        = 5 * 60;
 
@@ -2630,7 +2630,7 @@ document.getElementById('pc-submit-btn').addEventListener('click', async () => {
   };
 
   try {
-    const res = await fetch('https://kmongare.app.n8n.cloud/webhook/pay-claim', {
+    const res = await fetch('https://primeedgeai.app.n8n.cloud/webhook/pay-claim', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
