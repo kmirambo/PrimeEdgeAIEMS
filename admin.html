@@ -14,10 +14,10 @@
   --surface: #141710;
   --surface-2: #1a1f16;
   --border: #2A2E26;
-  --border-focus: #C8E63C;
-  --accent: #C8E63C;
-  --accent-dim: rgba(200,230,60,0.12);
-  --accent-border: rgba(200,230,60,0.2);
+  --border-focus: #6B8CFF;
+  --accent: #6B8CFF;
+  --accent-dim: rgba(107,140,255,0.12);
+  --accent-border: rgba(107,140,255,0.2);
   --text-primary: #F0F2EB;
   --text-secondary: #7A8070;
   --text-muted: #4A5040;
@@ -48,7 +48,7 @@ body {
   padding: 40px 16px;
   background-color: var(--bg);
   background-image:
-    radial-gradient(ellipse 80% 60% at 50% -10%, rgba(200,230,60,0.07) 0%, transparent 70%),
+    radial-gradient(ellipse 80% 60% at 50% -10%, rgba(107,140,255,0.07) 0%, transparent 70%),
     url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%232a2e26' fill-opacity='0.4'%3E%3Cpath d='M0 0h1v1H0zM20 0h1v1h-1zM0 20h1v1H0zM20 20h1v1h-1z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
   animation: fadeIn .4s ease both;
 }
@@ -71,7 +71,7 @@ body {
 .lstep.done { color: var(--text-secondary); }
 .lstep-dot { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid currentColor; display: flex; align-items: center; justify-content: center; font-size: 9px; flex-shrink: 0; transition: background 0.3s; }
 .lstep.active .lstep-dot { background: var(--accent-dim); border-color: var(--accent); }
-.lstep.done .lstep-dot { background: rgba(200,230,60,0.08); }
+.lstep.done .lstep-dot { background: rgba(107,140,255,0.08); }
 .lstep-line { flex: 1; height: 1px; background: var(--border); margin: 0 10px; }
 .lpanel { display: none; }
 .lpanel.active { display: block; animation: rise .35s ease both; }
@@ -86,8 +86,8 @@ input.error-state { border-color: var(--error); }
 
 .otp-group { display: flex; gap: 10px; justify-content: center; margin: 8px 0 4px; }
 .otp-box { width: 52px; height: 58px; background: var(--input-bg); border: 1px solid var(--border); border-radius: var(--radius); color: var(--text-primary); font-family: 'DM Serif Display', serif; font-size: 24px; text-align: center; outline: none; transition: border-color .2s, box-shadow .2s, background .2s; caret-color: var(--accent); }
-.otp-box:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-dim); background: rgba(200,230,60,0.04); }
-.otp-box.filled { border-color: rgba(200,230,60,0.4); background: rgba(200,230,60,0.04); }
+.otp-box:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-dim); background: rgba(107,140,255,0.04); }
+.otp-box.filled { border-color: rgba(107,140,255,0.4); background: rgba(107,140,255,0.04); }
 .otp-box.error-state { border-color: var(--error); animation: shake .35s ease; }
 @keyframes shake { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-5px)} 40%{transform:translateX(5px)} 60%{transform:translateX(-4px)} 80%{transform:translateX(4px)} }
 
@@ -105,7 +105,7 @@ input.error-state { border-color: var(--error); }
 
 .submit-row { margin-top: 28px; }
 .btn-primary { width: 100%; background: var(--accent); color: #0C0F0A; border: none; border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; padding: 14px 32px; cursor: pointer; transition: background .2s, transform .15s, box-shadow .2s; display: flex; align-items: center; justify-content: center; gap: 10px; }
-.btn-primary:hover:not(:disabled) { background: #d8f04e; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(200,230,60,0.2); }
+.btn-primary:hover:not(:disabled) { background: #8AABFF; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(107,140,255,0.2); }
 .btn-primary:disabled,.btn-primary.loading { opacity: .65; pointer-events: none; }
 .btn-spinner { width: 16px; height: 16px; border: 2px solid rgba(0,0,0,0.25); border-top-color: currentColor; border-radius: 50%; animation: spin .7s linear infinite; display: none; }
 .btn-primary.loading .btn-spinner { display: block; }
@@ -251,8 +251,8 @@ input.error-state { border-color: var(--error); }
 .r-input[readonly] { opacity: .7; cursor: default; }
 .job-cards { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
 .job-card { background: var(--input-bg); border: 1px solid var(--border); border-radius: 8px; padding: 16px 18px; cursor: pointer; transition: border-color .2s, background .2s; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
-.job-card:hover { border-color: rgba(200,230,60,.4); background: rgba(200,230,60,.03); }
-.job-card.selected { border-color: var(--accent); background: rgba(200,230,60,.06); }
+.job-card:hover { border-color: rgba(107,140,255,.4); background: rgba(107,140,255,.03); }
+.job-card.selected { border-color: var(--accent); background: rgba(107,140,255,.06); }
 .job-card.purple-job-card:hover { border-color: rgba(167,139,250,.4); background: rgba(167,139,250,.03); }
 .job-card.purple-job-card.selected { border-color: var(--purple); background: rgba(167,139,250,.06); }
 .job-card-left { flex: 1; }
@@ -290,7 +290,7 @@ input.error-state { border-color: var(--error); }
 .btn-back { background: transparent; border: 1px solid var(--border); color: var(--text-secondary); border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 13px; padding: 11px 20px; cursor: pointer; transition: border-color .2s, color .2s; }
 .btn-back:hover { border-color: var(--accent); color: var(--accent); }
 .btn-next { background: var(--accent); color: #0C0F0A; border: none; border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; padding: 12px 28px; cursor: pointer; transition: background .2s, transform .15s, box-shadow .2s; display: flex; align-items: center; gap: 10px; margin-left: auto; }
-.btn-next:hover { background: #d8f04e; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(200,230,60,.2); }
+.btn-next:hover { background: #8AABFF; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(107,140,255,.2); }
 .btn-next.loading { pointer-events: none; opacity: .7; }
 .btn-next .btn-spinner { width: 16px; height: 16px; border: 2px solid rgba(0,0,0,.25); border-top-color: #0C0F0A; border-radius: 50%; animation: spin .7s linear infinite; display: none; }
 .btn-next.loading .btn-spinner { display: block; }
@@ -298,7 +298,7 @@ input.error-state { border-color: var(--error); }
 .step-hint { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-muted); }
 .submit-area { display: flex; flex-direction: column; gap: 12px; margin-top: 32px; }
 .btn-download { background: var(--accent); color: #0C0F0A; border: none; border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; padding: 13px 28px; cursor: pointer; transition: background .2s; display: flex; align-items: center; gap: 10px; justify-content: center; width: 100%; }
-.btn-download:hover { background: #d8f04e; }
+.btn-download:hover { background: #8AABFF; }
 .btn-submit { background: var(--success); color: #fff; border: none; border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; padding: 13px 28px; cursor: pointer; transition: background .2s; display: flex; align-items: center; gap: 10px; justify-content: center; width: 100%; }
 .btn-submit:hover { background: #81c784; }
 .btn-download.loading, .btn-submit.loading { pointer-events: none; opacity: .7; }
@@ -325,7 +325,7 @@ input.error-state { border-color: var(--error); }
 .btn-new-rec { background: transparent; border: 1px solid var(--border); color: var(--text-secondary); border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 13px; padding: 10px 22px; cursor: pointer; transition: all .2s; margin: 4px; }
 .btn-new-rec:hover { border-color: var(--accent); color: var(--accent); }
 .btn-go-dash { background: var(--accent); color: #0C0F0A; border: none; border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; padding: 10px 22px; cursor: pointer; transition: all .2s; margin: 4px; }
-.btn-go-dash:hover { background: #d8f04e; }
+.btn-go-dash:hover { background: #8AABFF; }
 
 /* EVENT SUBMISSION */
 .evt-form-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 40px; position: relative; overflow: hidden; }
@@ -384,7 +384,7 @@ input.error-state { border-color: var(--error); }
 .evt-submit-row { margin-top: 32px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 .evt-submit-note { font-size: 11px; color: var(--text-muted); font-family: 'DM Mono', monospace; }
 .btn-evt-submit { background: var(--accent); color: #0C0F0A; border: none; border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; padding: 14px 32px; cursor: pointer; transition: background .2s, transform .15s, box-shadow .2s; display: flex; align-items: center; gap: 10px; }
-.btn-evt-submit:hover { background: #d8f04e; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(200,230,60,.2); }
+.btn-evt-submit:hover { background: #8AABFF; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(107,140,255,.2); }
 .btn-evt-submit.update-submit { background: var(--orange); color: #fff; }
 .btn-evt-submit.update-submit:hover { background: #ea6c0a; box-shadow: 0 8px 24px rgba(249,115,22,.25); }
 .btn-evt-submit.loading { pointer-events: none; opacity: .7; }
@@ -518,6 +518,19 @@ input.error-state { border-color: var(--error); }
 .approval-status-badge { display: inline-block; background: rgba(249,115,22,0.1); border: 1px solid rgba(249,115,22,0.25); color: var(--orange); border-radius: 100px; padding: 4px 10px; font-size: 10px; font-family: 'DM Mono', monospace; white-space: nowrap; }
 .approval-status-badge.approved { background: rgba(102,187,106,0.1); color: var(--success); border-color: rgba(102,187,106,0.3); }
 .approvals-loader { text-align: center; padding: 40px; color: var(--text-muted); font-family: 'DM Mono', monospace; }
+
+/* ═══════════════════════════════════════════════
+   PAY CLAIMS SPECIFIC STYLES
+═══════════════════════════════════════════════ */
+.pc-pay-display { background: rgba(167,139,250,0.05); border: 1px solid rgba(167,139,250,0.15); border-radius: 8px; padding: 20px; margin-bottom: 20px; }
+.pc-pay-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.pc-pay-item { text-align: center; }
+.pc-pay-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px; display: block; }
+.pc-pay-value { font-family: 'DM Serif Display', serif; font-size: 32px; color: var(--purple); font-weight: 400; }
+.pc-pay-divider { border-top: 1px solid rgba(167,139,250,0.2); margin-top: 16px; padding-top: 16px; }
+.pc-total-item { text-align: center; }
+.pc-total-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px; display: block; }
+.pc-total-value { font-family: 'DM Serif Display', serif; font-size: 36px; color: var(--purple); font-weight: 400; }
 /* Requisition Approvals Module */
 .email-section {
   background: var(--surface);
@@ -941,14 +954,14 @@ input.error-state { border-color: var(--error); }
       <div class="nav-item" data-page="requisitions">
         <svg class="nav-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M2.5 3A1.5 1.5 0 001 4.5v4A1.5 1.5 0 002.5 10h6A1.5 1.5 0 0010 8.5v-4A1.5 1.5 0 008.5 3h-6zM12 3a1 1 0 00-1 1v.667a1 1 0 001 1H18a1 1 0 001-1V4a1 1 0 00-1-1h-6zM12 9a1 1 0 00-1 1v.667a1 1 0 001 1H18a1 1 0 001-1V10a1 1 0 00-1-1h-6zM12 15a1 1 0 00-1 1v.667a1 1 0 001 1H18a1 1 0 001-1V16a1 1 0 00-1-1h-6zM1 12.5A1.5 1.5 0 002.5 14h6a1.5 1.5 0 001.5-1.5v-4A1.5 1.5 0 008.5 7h-6A1.5 1.5 0 001 8.5v4z"/></svg>
         <span class="nav-label">Requisitions</span>
-        <span class="nav-badge-purple">New</span>
+        <span class="nav-badge">New</span>
       </div>
       
-      <div class="nav-item" data-page="req-approvals">
-  <svg class="nav-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg>
-  <span class="nav-label">Requisition Approvals</span>
-  <span class="nav-badge-purple">New</span>
-</div>
+       <div class="nav-item" data-page="pay-claims">
+     <svg class="nav-icon" viewBox="0 0 20 20" fill="currentColor">...</svg>
+     <span class="nav-label">Pay Claims</span>
+     <span class="nav-badge">New</span>
+   </div>
       
       <div class="nav-item disabled" data-page="timesheets">
         <svg class="nav-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm.75-13a.75.75 0 00-1.5 0v5c0 .414.336.75.75.75h4a.75.75 0 000-1.5h-3.25V5z" clip-rule="evenodd"/></svg>
@@ -1015,8 +1028,7 @@ input.error-state { border-color: var(--error); }
           <div class="module-card" onclick="navigateTo('reccee')"><div class="module-icon"></div><div class="module-title">Reccee Assessment</div><div class="module-desc">Site visit form for evaluating venues — security, logistics, medical, and compliance.</div><div class="module-footer"><span class="module-status status-active">Live</span><span class="module-arrow">→</span></div></div>
           <div class="module-card" onclick="navigateTo('event-submission')"><div class="module-icon"></div><div class="module-title">Event Submission</div><div class="module-desc">Submit a new event for approval or update an existing event with new details.</div><div class="module-footer"><span class="module-status status-active">Live</span><span class="module-arrow">→</span></div></div>
           <div class="module-card" onclick="navigateTo('requisitions')"><div class="module-icon"></div><div class="module-title">Requisitions</div><div class="module-desc">Submit procurement requests for event supplies, services, and equipment with itemised costing.</div><div class="module-footer"><span class="module-status status-new">New</span><span class="module-arrow">→</span></div></div>
-          <div class="module-card" onclick="navigateTo('req-approvals')"><div class="module-icon"></div><div class="module-title">Requisition Approvals</div><div class="module-desc">Site visit form for evaluating venues — security, logistics, medical, and compliance.</div><div class="module-footer"><span class="module-status status-active">Live</span><span class="module-arrow">→</span></div></div>
-
+          <div class="module-card purple-card" onclick="navigateTo('pay-claims')"><div class="module-icon"></div><div class="module-title">Pay Claims</div><div class="module-desc">Submit pay claims based on days worked...</div>..</div>
           <div class="module-card locked"><div class="module-icon"></div><div class="module-title">Site Checklist</div><div class="module-desc">Pre-event and post-event site checklists for crew verification.</div><div class="module-footer"><span class="module-status status-soon">Coming Soon</span><span class="module-arrow">→</span></div></div>
           <div class="module-card locked"><div class="module-icon"></div><div class="module-title">Incident Report</div><div class="module-desc">Log and escalate field incidents in real-time during events.</div><div class="module-footer"><span class="module-status status-soon">Coming Soon</span><span class="module-arrow">→</span></div></div>
           <div class="module-card locked"><div class="module-icon"></div><div class="module-title">Timesheets</div><div class="module-desc">Clock in, clock out, and submit weekly timesheets for payroll.</div><div class="module-footer"><span class="module-status status-locked">Locked</span><span class="module-arrow">→</span></div></div>
@@ -1357,39 +1369,112 @@ input.error-state { border-color: var(--error); }
         </div>
       </div>
 
-      <!-- NEW MODULE: REQUISITION APPROVALS -->
-<div id="page-req-approvals" style="display:none">
-  <div class="section-head" style="margin-bottom:8px">
-    <h3>Requisition <em style="font-style:italic;color:var(--orange)">Approvals</em></h3>
-    <div class="line"></div>
-  </div>
-  <p style="font-size:13px;color:var(--text-secondary);margin-bottom:28px">Enter your email to load pending requisitions. Review and approve procurement requests.</p>
 
-  <!-- Email Input Section (styled to match platform) -->
-  <div class="email-section" id="email-section">
-    <div class="email-label">Your Email</div>
-    <div class="email-row">
-      <div class="email-field">
-        <label>Approver Email Address</label>
-        <input type="email" class="email-input" id="approver-email" placeholder="your.email@company.com" />
+            <!-- PAY CLAIMS PAGE -->
+      <div id="page-pay-claims" style="display:none">
+        <div class="section-head" style="margin-bottom:8px">
+          <h3>Pay <em style="font-style:italic;color:var(--purple)">Claims</em></h3>
+          <div class="line"></div>
+        </div>
+        <p style="font-size:13px;color:var(--text-secondary);margin-bottom:28px">Submit your pay claim. Select a job you worked on, and we'll calculate your total pay based on days worked at KES 2,000 per day.</p>
+
+        <div class="req-form-card" id="pay-main-card">
+          
+          <!-- JOB SELECTION -->
+          <div class="req-section-label" style="margin-top:0">Select Your Job</div>
+          <div class="req-job-lookup-box">
+            <div class="req-lookup-title">Find a Job You Worked On</div>
+            <div class="req-email-row">
+              <div class="req-email-field">
+                <label>Your email address</label>
+                <input type="email" class="req-email-input" id="pc-email" placeholder="your.email@company.com" />
+              </div>
+              <button class="btn-req-load" id="btn-pc-load-jobs" type="button">
+                <span class="lbl-text">Load Jobs</span>
+                <div class="btn-spinner"></div>
+              </button>
+            </div>
+            <div class="req-loader-msg" id="pc-loader-msg"></div>
+            <div class="req-job-cards" id="pc-job-cards"></div>
+          </div>
+
+          <!-- JOB DETAILS (auto-filled) -->
+          <div class="req-section-label">Job Details</div>
+          <div class="req-prefilled-grid">
+            <div class="req-field" id="pcf-job-id">
+              <label>Job ID <span class="req">*</span></label>
+              <input type="text" class="req-input" id="pc-job-id" placeholder="Select a job above" readonly />
+              <div class="req-field-error">Select a job to continue.</div>
+            </div>
+            <div class="req-field" id="pcf-description">
+              <label>Description</label>
+              <input type="text" class="req-input" id="pc-description" placeholder="Auto-filled" readonly />
+            </div>
+          </div>
+          <div class="req-field" id="pcf-project-lead">
+            <label>Project Lead</label>
+            <input type="text" class="req-input" id="pc-project-lead" placeholder="Auto-filled" readonly />
+          </div>
+
+          <!-- WORK PERIOD -->
+          <div class="req-section-label">Work Period</div>
+          <div class="req-prefilled-grid">
+            <div class="req-field" id="pcf-start-date">
+              <label>Start Date <span class="req">*</span></label>
+              <input type="date" class="req-input" id="pc-start-date" readonly />
+              <div class="req-field-error">Start date is required.</div>
+            </div>
+            <div class="req-field" id="pcf-end-date">
+              <label>End Date <span class="req">*</span></label>
+              <input type="date" class="req-input" id="pc-end-date" readonly />
+              <div class="req-field-error">End date is required.</div>
+            </div>
+          </div>
+
+          <!-- CALCULATION -->
+          <div class="req-section-label">Pay Calculation</div>
+          <div class="pc-pay-display">
+            <div class="pc-pay-grid">
+              <div class="pc-pay-item">
+                <span class="pc-pay-label">Days Worked</span>
+                <div class="pc-pay-value" id="pc-days-display">—</div>
+              </div>
+              <div class="pc-pay-item">
+                <span class="pc-pay-label">Daily Rate</span>
+                <div class="pc-pay-value" style="font-size:24px">KES 2,000</div>
+              </div>
+            </div>
+            <div class="pc-pay-divider">
+              <div class="pc-total-item">
+                <span class="pc-total-label">Total Pay</span>
+                <div class="pc-total-value" id="pc-total-display">KES —</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SUBMISSION -->
+          <div class="req-submit-row">
+            <span class="req-submit-note">* days calculated automatically from job dates</span>
+            <button class="btn-req-submit" id="pc-submit-btn">
+              <span class="btn-text">Submit Pay Claim</span>
+              <div class="btn-spinner"></div>
+            </button>
+          </div>
+          <div class="req-error-banner" id="pc-error-banner"></div>
+        </div>
+
+        <!-- SUCCESS SCREEN -->
+        <div class="req-form-card req-success-screen" id="pc-success-screen">
+          <div class="req-success-icon">✓</div>
+          <h2>Claim Submitted!</h2>
+          <p>Your pay claim has been submitted for approval. You'll receive confirmation and payment details via email.</p>
+          <div class="req-success-ref" id="pc-success-ref">CLAIM — —</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">
+            <button class="btn-req-new" id="btn-pc-new">Submit another Claim</button>
+            <button class="btn-go-dash" onclick="navigateTo('dashboard')">← Back to Dashboard</button>
+          </div>
+        </div>
       </div>
-      <button class="btn-load" id="btn-load-approvals" type="button">
-        <span id="load-text">Load Requisitions</span>
-        <div class="btn-spinner"></div>
-      </button>
-    </div>
-    <div class="loader-msg" id="loader-msg"></div>
-  </div>
-
-  <!-- Approvals Table Card -->
-  <div class="approvals-card hidden" id="approvals-card">
-    <div class="section-title">Pending Requisitions</div>
-    <div id="approvals-container">
-      <div class="approvals-loader">Loading requisitions...</div>
-    </div>
-  </div>
-</div>
-
       <!-- COMING SOON -->
       <div id="page-coming-soon" style="display:none">
         <div class="coming-soon">
@@ -1410,14 +1495,14 @@ input.error-state { border-color: var(--error); }
 /* ═══════════════════════════════════════════════
    CONFIG
 ═══════════════════════════════════════════════ */
-const OTP_REQUEST_URL     = 'https://chux.app.n8n.cloud/webhook/otp-auth';
-const OTP_VERIFY_URL      = 'https://chux.app.n8n.cloud/webhook/otp-auth';
+const OTP_REQUEST_URL     = 'https://primeedgeai.app.n8n.cloud/webhook/otp-auth';
+const OTP_VERIFY_URL      = 'https://primeedgeai.app.n8n.cloud/webhook/otp-auth';
 const SHEET_ID            = '1AO-06SYVS_uVnBWkM5smUFeSoTWUeq0GbFvX7tJr3oE';
 const SHEET_GID           = '0';
 const SHEET_CSV_URL       = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${SHEET_GID}`;
-const RECCEE_WEBHOOK      = 'https://chux.app.n8n.cloud/webhook/reccee-assessment';
-const EVENT_WEBHOOK       = 'https://chux.app.n8n.cloud/webhook/event-registration';
-const REQUISITION_WEBHOOK = 'https://chux.app.n8n.cloud/webhook/requisition-request';
+const RECCEE_WEBHOOK      = 'https://primeedgeai.app.n8n.cloud/webhook/reccee-assessment';
+const EVENT_WEBHOOK       = 'https://primeedgeai.app.n8n.cloud/webhook/event-registration';
+const REQUISITION_WEBHOOK = 'https://primeedgeai.app.n8n.cloud/webhook/requisition-request';
 const EVT_SHEET_URL       = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQzV51evXd43ebjxahF57b6j4MTDnI0tcEjBNzLjoqdP84_vujazI5cLRD12tzJ9fLl30hYT3zEMyyU/pub?output=csv';
 const OTP_LIFETIME        = 5 * 60;
 
@@ -1570,7 +1655,7 @@ document.querySelectorAll('.nav-item[data-page]').forEach(item=>{
   item.addEventListener('click',()=>{if(item.classList.contains('disabled'))return;navigateTo(item.dataset.page);});
 });
 const pageNames = {
-  dashboard:'Dashboard', reccee:'Reccee Assessment', 'event-submission':'Event Submission',
+  dashboard:'Dashboard', reccee:'Reccee Assessment', 'event-submission':'Event Submission','pay-claims':'Pay Claims',
   requisitions:'Requisitions', 'site-checklist':'Site Checklist','incident-report':'Incident Report',
   timesheets:'Timesheets',team:'Team',reports:'Reports'
 };
@@ -1579,13 +1664,14 @@ function navigateTo(page){
   const activeNav=document.querySelector(`.nav-item[data-page="${page}"]`);
   if(activeNav)activeNav.classList.add('active');
   document.getElementById('topbar-bc').textContent=pageNames[page]||page;
-  ['dashboard','reccee','event-submission','requisitions','coming-soon'].forEach(p=>{
+  ['dashboard','reccee','event-submission','requisitions','pay-claims','coming-soon'].forEach(p=>{
     const el=document.getElementById('page-'+p);if(el)el.style.display='none';
   });
   if(page==='dashboard')document.getElementById('page-dashboard').style.display='';
   else if(page==='reccee')document.getElementById('page-reccee').style.display='';
   else if(page==='event-submission')document.getElementById('page-event-submission').style.display='';
   else if(page==='requisitions')document.getElementById('page-requisitions').style.display='';
+  else if(page==='pay-claims')document.getElementById('page-pay-claims').style.display='';
   else if(page==='req-approvals')document.getElementById('page-req-approvals').style.display='';
   else document.getElementById('page-coming-soon').style.display='';
   if(window.innerWidth<=768){document.getElementById('sidebar').classList.remove('open');document.getElementById('sb-overlay').classList.remove('visible');}
@@ -2351,295 +2437,241 @@ function reqResetAll() {
 
 /* INIT */
 rUpdateProgress(1);
-// NEW: URL to fetch requisitions (replace with your actual CSV or API endpoint)
-const REQUISITIONS_SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQzV51evXd43ebjxahF57b6j4MTDnI0tcEjBNzLjoqdP84_vujazI5cLRD12tzJ9fLl30hYT3zEMyyU/pub?output=csv'; // replace with actual sheet ID
+/* ═══════════════════════════════════════════════
+   PAY CLAIMS MODULE
+═══════════════════════════════════════════════ */
+let pcJobs = [], pcSelectedJob = null;
+let claimsCount = 0; // Add this to your auth state section
 
-let approvalsData = [];
+document.getElementById('btn-pc-load-jobs').addEventListener('click', loadPCJobs);
 
-async function loadRequisitionsForApproval() {
-  const container = document.getElementById('approvals-list-container');
-  if (!container) return;
-  container.innerHTML = '<div class="approvals-loader">Loading requisitions...</div>';
-  try {
-    let reqList = [];
-    try {
-      const res = await fetch(REQUISITIONS_SHEET_URL);
-      if (res.ok) {
-        const csvText = await res.text();
-        const rows = parseCSV(csvText);
-        const headers = rows[0];
-        reqList = rows.slice(1).filter(r => r.some(c => c)).map(row => {
-          let obj = {};
-          headers.forEach((h, i) => { obj[h.trim()] = (row[i] || '').trim(); });
-          return obj;
-        });
-      } else {
-        throw new Error('Sheet not available');
-      }
-    } catch (err) {
-      console.warn('Using mock requisition data because sheet fetch failed:', err);
-      // Mock data for demonstration
-      reqList = [
-        { id: 'REQ-001', client: 'Jumia', event_desc: 'Jumia Anniversary', requestor: 'John Doe', total: '125000', status: 'pending', submitted_at: '2025-03-20' },
-        { id: 'REQ-002', client: 'KCB', event_desc: 'KCB Golf Tournament', requestor: 'Jane Smith', total: '34500', status: 'pending', submitted_at: '2025-03-21' },
-        { id: 'REQ-003', client: 'Safaricom', event_desc: 'M-Pesa Launch', requestor: 'Alice Wangari', total: '98000', status: 'approved', submitted_at: '2025-03-19' }
-      ];
-    }
-    // Filter only pending (or all, but show action only for pending)
-    approvalsData = reqList.filter(r => r.status !== 'approved');
-    renderApprovalsTable();
-  } catch (error) {
-    container.innerHTML = `<div class="approvals-loader" style="color:var(--error)">Failed to load requisitions: ${error.message}</div>`;
-  }
-}
+async function loadPCJobs() {
+  const emailVal = document.getElementById('pc-email').value.trim().toLowerCase();
+  const msgEl    = document.getElementById('pc-loader-msg');
+  const btn      = document.getElementById('btn-pc-load-jobs');
+  const cardsEl  = document.getElementById('pc-job-cards');
 
-function renderApprovalsTable() {
-  const container = document.getElementById('approvals-list-container');
-  if (!container) return;
-  if (!approvalsData.length) {
-    container.innerHTML = '<div class="approvals-loader">No pending requisitions found.</div>';
+  msgEl.className = 'req-loader-msg';
+  cardsEl.innerHTML = '';
+  pcSelectedJob = null;
+  clearPCJobFields();
+
+  const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal);
+  if (!valid) {
+    msgEl.className = 'req-loader-msg error-msg';
+    msgEl.textContent = 'Please enter a valid email address first.';
     return;
   }
-  const table = document.createElement('table');
-  table.className = 'approvals-table';
-  table.innerHTML = `
-    <thead><tr>
-      <th>Req ID</th><th>Client</th><th>Event Description</th><th>Requestor</th><th>Total (KES)</th><th>Submitted</th><th>Action</th>
-    </tr></thead>
-    <tbody id="approvals-tbody"></tbody>
-  `;
-  const tbody = table.querySelector('#approvals-tbody');
-  approvalsData.forEach(req => {
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td>${escapeHtml(req.id || req['id'] || '—')}</td>
-      <td>${escapeHtml(req.client || req['client'] || '—')}</td>
-      <td>${escapeHtml(req.event_desc || req['event_desc'] || req['description'] || '—')}</td>
-      <td>${escapeHtml(req.requestor || req['requestor_name'] || '—')}</td>
-      <td>${escapeHtml(req.total || req['total_amount'] || '0')}</td>
-      <td>${escapeHtml(req.submitted_at || req['submitted_at'] || '—')}</td>
-      <td><button class="btn-approve" data-id="${escapeHtml(req.id)}">Approve</button></td>
-    `;
-    tbody.appendChild(tr);
-  });
-  container.innerHTML = '';
-  container.appendChild(table);
-  // Attach event listeners to approve buttons
-  document.querySelectorAll('.btn-approve').forEach(btn => {
-    btn.addEventListener('click', async (e) => {
-      const reqId = btn.getAttribute('data-id');
-      await approveRequisition(reqId);
-    });
-  });
-}
 
-function escapeHtml(str) { 
-  return String(str).replace(/[&<>]/g, function(m){
-    if(m==='&') return '&amp;';
-    if(m==='<') return '&lt;';
-    if(m==='>') return '&gt;';
-    return m;
-  });
-}
+  btn.classList.add('loading');
+  btn.disabled = true;
+  msgEl.textContent = 'Fetching your jobs…';
 
-async function approveRequisition(reqId) {
-  const button = document.querySelector(`.btn-approve[data-id="${reqId}"]`);
-  if (!button) return;
-  button.disabled = true;
-  button.textContent = 'Approving...';
-  const APPROVAL_WEBHOOK = 'https://chux.app.n8n.cloud/webhook/requisition-approve'; // change to your n8n webhook
   try {
-    const response = await fetch(APPROVAL_WEBHOOK, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ requisition_id: reqId, approved_by: authEmail, approved_at: new Date().toISOString() })
-    });
-    if (response.ok || [200, 201, 202].includes(response.status)) {
-      approvalsData = approvalsData.filter(r => (r.id || r['id']) !== reqId);
-      renderApprovalsTable();
-      alert(`Requisition ${reqId} has been approved.`);
-    } else {
-      throw new Error(`Server responded with ${response.status}`);
+    const res = await fetch(SHEET_CSV_URL);
+    if (!res.ok) throw new Error('Could not fetch the jobs sheet.');
+    const rows = parseCSV(await res.text());
+    const all  = csvToObj(rows);
+    const matched = all.filter(r => emailMatch(emailVal, r));
+
+    if (!matched.length) {
+      msgEl.className = 'req-loader-msg error-msg';
+      msgEl.textContent = `No jobs found for "${emailVal}". Check your email or contact the PrimeEdgeAI team.`;
+      return;
     }
+
+    pcJobs = matched;
+    msgEl.className = 'req-loader-msg success';
+    msgEl.textContent = `${matched.length} job${matched.length !== 1 ? 's' : ''} found — tap one to claim pay.`;
+    buildPCJobCards(matched);
+
   } catch (err) {
-    alert(`Approval failed: ${err.message}`);
-    button.disabled = false;
-    button.textContent = 'Approve';
+    msgEl.className = 'req-loader-msg error-msg';
+    msgEl.textContent = 'Error: ' + err.message;
+  } finally {
+    btn.classList.remove('loading');
+    btn.disabled = false;
   }
 }
-// // Requisition Approvals Module
-// const REQUISITIONS_SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQzV51evXd43ebjxahF57b6j4MTDnI0tcEjBNzLjoqdP84_vujazI5cLRD12tzJ9fLl30hYT3zEMyyU/pub?output=csv';
-// const APPROVAL_WEBHOOK = 'https://chux.app.n8n.cloud/webhook/requisition-approve';
 
-// let approvalsData = [];
-// let approverEmail = '';
+function buildPCJobCards(jobs) {
+  const container = document.getElementById('pc-job-cards');
+  container.innerHTML = '';
+  jobs.forEach(job => {
+    const card = document.createElement('div');
+    card.className = 'job-card purple-job-card';
+    const id     = job['Job_ID'] || '';
+    const desc   = job['Description'] || '(no description)';
+    const client = job['Client'] || '';
+    const start  = job['Start Date'] || '';
+    const end    = job['End Date'] || '';
+    const dateStr = start === end ? start : (start && end ? `${start} → ${end}` : start || end);
+    card.innerHTML = `
+      <div class="job-card-left">
+        <div class="job-card-id">${id}</div>
+        <div class="job-card-desc">${desc}</div>
+        <div class="job-card-meta">${[client, dateStr].filter(Boolean).join(' · ')}</div>
+      </div>
+      <div class="job-card-check"></div>`;
+    card.addEventListener('click', () => {
+      document.querySelectorAll('#pc-job-cards .job-card').forEach(c => {
+        c.classList.remove('selected');
+        c.querySelector('.job-card-check').textContent = '';
+      });
+      card.classList.add('selected');
+      card.querySelector('.job-card-check').textContent = '✓';
+      pcSelectedJob = job;
+      prefillPCJobFields(job);
+      calculatePCPay(job);
+      document.getElementById('pc-error-banner').classList.remove('visible');
+      ['pcf-job-id','pcf-description','pcf-project-lead','pcf-start-date','pcf-end-date'].forEach(id => {
+        document.getElementById(id).classList.remove('has-error');
+      });
+    });
+    container.appendChild(card);
+  });
+}
 
-// function formatCurrency(amount) {
-//   const num = parseFloat(amount) || 0;
-//   return 'KES ' + num.toLocaleString('en-KE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-// }
+function prefillPCJobFields(job) {
+  const flash = el => {
+    el.style.transition = 'background 0s';
+    el.style.background = 'rgba(167,139,250,0.2)';
+    setTimeout(() => { el.style.transition = 'background 0.8s'; el.style.background = ''; }, 60);
+  };
+  const jobIdEl = document.getElementById('pc-job-id');
+  const descEl = document.getElementById('pc-description');
+  const leadEl = document.getElementById('pc-project-lead');
+  const startEl = document.getElementById('pc-start-date');
+  const endEl = document.getElementById('pc-end-date');
+  jobIdEl.value  = job['Job_ID'] || '';
+  descEl.value   = job['Description'] || '';
+  leadEl.value   = job['Project Lead'] || '';
+  startEl.value  = job['Start Date'] || '';
+  endEl.value    = job['End Date'] || '';
+  [jobIdEl, descEl, leadEl, startEl, endEl].forEach(flash);
+}
 
-// function renderApprovalsTable() {
-//   const container = document.getElementById('approvals-container');
-//   if (!container) return;
+function clearPCJobFields() {
+  document.getElementById('pc-job-id').value  = '';
+  document.getElementById('pc-description').value = '';
+  document.getElementById('pc-project-lead').value = '';
+  document.getElementById('pc-start-date').value = '';
+  document.getElementById('pc-end-date').value = '';
+  document.getElementById('pc-days-display').textContent = '—';
+  document.getElementById('pc-total-display').textContent = 'KES —';
+}
+
+function calculatePCPay(job) {
+  const startStr = job['Start Date'];
+  const endStr = job['End Date'];
   
-//   const table = document.createElement('table');
-//   table.className = 'approvals-table';
-//   table.innerHTML = `
-//     <thead><tr>
-//       <th>Req ID</th><th>Client</th><th>Event</th><th>Requestor</th><th>Total (KES)</th><th>Submitted</th><th>Status</th><th>Action</th>
-//     </tr></thead>
-//     <tbody id="approvals-tbody"></tbody>
-//   `;
+  if (!startStr || !endStr) return;
 
-//   const tbody = table.querySelector('#approvals-tbody');
-  
-//   approvalsData.forEach(req => {
-//     const reqId = req.id || req.requisition_id || req['Requisition ID'] || '—';
-//     const client = req.client || req.Client || '—';
-//     const eventDesc = req.event_desc || req.event_description || req['Event Description'] || req.description || '—';
-//     const requestor = req.requestor || req.requestor_name || req['Requestor Name'] || '—';
-//     const total = req.total || req.total_amount || req['Total Amount'] || '0';
-//     const submitted = req.submitted_at || req['Submitted At'] || '—';
-//     const status = req.status || req.Status || 'pending';
+  const start = new Date(startStr);
+  const end = new Date(endStr);
+  const daysWorked = Math.ceil((end - start) / (1000 * 60 * 60 * 24)) + 1;
+  const dailyRate = 2000;
+  const totalPay = daysWorked * dailyRate;
 
-//     const tr = document.createElement('tr');
-//     tr.innerHTML = `
-//       <td><strong>${escapeHtml(reqId)}</strong></td>
-//       <td>${escapeHtml(client)}</td>
-//       <td>${escapeHtml(eventDesc)}</td>
-//       <td>${escapeHtml(requestor)}</td>
-//       <td>${formatCurrency(total)}</td>
-//       <td>${escapeHtml(submitted)}</td>
-//       <td><span class="status-badge">${escapeHtml(status)}</span></td>
-//       <td><button class="btn-approve" data-id="${escapeHtml(reqId)}">Approve</button></td>
-//     `;
-//     tbody.appendChild(tr);
-//   });
+  document.getElementById('pc-days-display').textContent = daysWorked;
+  document.getElementById('pc-total-display').textContent = `KES ${totalPay.toLocaleString('en-KE')}`;
+}
 
-//   container.innerHTML = '';
-//   container.appendChild(table);
+function pcSetErr(id, show) {
+  const el = document.getElementById(id);
+  if (el) el.classList.toggle('has-error', show);
+}
 
-//   // Attach event listeners
-//   document.querySelectorAll('.btn-approve').forEach(btn => {
-//     btn.addEventListener('click', async () => {
-//       const reqId = btn.getAttribute('data-id');
-//       await approveRequisition(reqId, btn);
-//     });
-//   });
-// }
+function pcValidate() {
+  let ok = true;
+  const jobIdVal = document.getElementById('pc-job-id').value.trim();
+  pcSetErr('pcf-job-id', !jobIdVal);
+  if (!jobIdVal) ok = false;
 
-// async function approveRequisition(reqId, button) {
-//   if (!button) return;
-//   button.disabled = true;
-//   button.textContent = 'Approving...';
+  const startVal = document.getElementById('pc-start-date').value;
+  pcSetErr('pcf-start-date', !startVal);
+  if (!startVal) ok = false;
 
-//   try {
-//     const payload = {
-//       requisition_id: reqId,
-//       approved_by: approverEmail,
-//       approved_at: new Date().toISOString()
-//     };
+  const endVal = document.getElementById('pc-end-date').value;
+  pcSetErr('pcf-end-date', !endVal);
+  if (!endVal) ok = false;
 
-//     const response = await fetch(APPROVAL_WEBHOOK, {
-//       method: 'POST',
-//       headers: { 'Content-Type': 'application/json' },
-//       body: JSON.stringify(payload)
-//     });
+  if (!jobIdVal) {
+    document.getElementById('pc-error-banner').textContent = 'Please select a job from the list above.';
+    document.getElementById('pc-error-banner').classList.add('visible');
+  }
+  return ok;
+}
 
-//     if (response.ok || [200, 201, 202].includes(response.status)) {
-//       approvalsData = approvalsData.filter(r => 
-//         (r.id || r.requisition_id || r['Requisition ID']) !== reqId
-//       );
-      
-//       if (approvalsData.length) {
-//         renderApprovalsTable();
-//       } else {
-//         document.getElementById('approvals-container').innerHTML = 
-//           '<div class="approvals-loader">No more pending requisitions.</div>';
-//       }
-//       alert(`✓ Requisition ${reqId} approved.`);
-//     } else {
-//       throw new Error(`Server responded with ${response.status}`);
-//     }
-//   } catch (err) {
-//     alert(`Approval failed: ${err.message}`);
-//     button.disabled = false;
-//     button.textContent = 'Approve';
-//   }
-// }
+document.getElementById('pc-submit-btn').addEventListener('click', async () => {
+  if (!pcValidate()) return;
+  const btn = document.getElementById('pc-submit-btn');
+  btn.classList.add('loading');
+  document.getElementById('pc-error-banner').classList.remove('visible');
 
-// async function loadRequisitionsForApproval() {
-//   const emailInput = document.getElementById('approver-email');
-//   const msgEl = document.getElementById('loader-msg');
-//   const btn = document.getElementById('btn-load-approvals');
-//   const container = document.getElementById('approvals-container');
-//   const card = document.getElementById('approvals-card');
+  const startStr = document.getElementById('pc-start-date').value;
+  const endStr = document.getElementById('pc-end-date').value;
+  const start = new Date(startStr);
+  const end = new Date(endStr);
+  const daysWorked = Math.ceil((end - start) / (1000 * 60 * 60 * 24)) + 1;
+  const totalPay = daysWorked * 2000;
 
-//   if (!emailInput) return;
-  
-//   const email = emailInput.value.trim().toLowerCase();
-//   msgEl.className = 'loader-msg';
-//   msgEl.textContent = '';
-//   card.classList.add('hidden');
+  const payload = {
+    job_id:       document.getElementById('pc-job-id').value.trim(),
+    description:  document.getElementById('pc-description').value.trim(),
+    project_lead: document.getElementById('pc-project-lead').value.trim(),
+    email:        document.getElementById('pc-email').value.trim(),
+    start_date:   startStr,
+    end_date:     endStr,
+    days_worked:  daysWorked,
+    total_pay:    totalPay,
+    submitted_by: authEmail,
+    submitted_at: new Date().toISOString()
+  };
 
-//   const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-//   if (!valid) {
-//     msgEl.className = 'loader-msg error';
-//     msgEl.textContent = 'Please enter a valid email address.';
-//     return;
-//   }
+  try {
+    const res = await fetch('https://primeedgeai.app.n8n.cloud/webhook/pay-claim', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    if (res.ok || [200, 201, 202].includes(res.status)) {
+      pcShowSuccess(payload);
+    } else {
+      throw new Error(`Server returned ${res.status}`);
+    }
+  } catch (err) {
+    document.getElementById('pc-error-banner').textContent = `Submission failed: ${err.message}. Please try again.`;
+    document.getElementById('pc-error-banner').classList.add('visible');
+  } finally {
+    btn.classList.remove('loading');
+  }
+});
 
-//   approverEmail = email;
-//   btn.classList.add('loading');
-//   btn.disabled = true;
-//   msgEl.textContent = 'Loading requisitions...';
-//   container.innerHTML = '<div class="approvals-loader">Loading requisitions...</div>';
-//   card.classList.remove('hidden');
+function pcShowSuccess(payload) {
+  const ref = 'CLAIM-' + Date.now().toString(36).toUpperCase();
+  document.getElementById('pc-success-ref').textContent = `${ref} · ${payload.job_id} · KES ${payload.total_pay.toLocaleString('en-KE')}`;
+  document.getElementById('pc-success-screen').classList.add('visible');
+  document.getElementById('pay-main-card').style.display = 'none';
+  claimsCount++;
+  document.getElementById('dash-claims-count').textContent = claimsCount;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
 
-//   try {
-//     const res = await fetch(REQUISITIONS_SHEET_URL);
-//     if (!res.ok) throw new Error('Could not fetch requisitions sheet.');
-    
-//     const csvText = await res.text();
-//     const rows = parseCSV(csvText);
-//     const allReqs = csvToObj(rows);
-
-//     approvalsData = allReqs.filter(r => 
-//       (r.status || r.Status || '').toLowerCase() !== 'approved'
-//     );
-
-//     if (!approvalsData.length) {
-//       container.innerHTML = '<div class="approvals-loader">No pending requisitions found.</div>';
-//       msgEl.className = 'loader-msg';
-//       msgEl.textContent = 'No pending requisitions at this time.';
-//     } else {
-//       renderApprovalsTable();
-//       msgEl.className = 'loader-msg success';
-//       msgEl.textContent = `${approvalsData.length} pending requisition${approvalsData.length !== 1 ? 's' : ''} loaded.`;
-//     }
-//   } catch (err) {
-//     container.innerHTML = `<div class="approvals-loader" style="color:var(--error)">Failed to load: ${err.message}</div>`;
-//     msgEl.className = 'loader-msg error';
-//     msgEl.textContent = 'Error: ' + err.message;
-//   } finally {
-//     btn.classList.remove('loading');
-//     btn.disabled = false;
-//   }
-// }
-// document.addEventListener('DOMContentLoaded', function() {
-//   const loadBtn = document.getElementById('btn-load-approvals');
-//   if (loadBtn) {
-//     loadBtn.addEventListener('click', loadRequisitionsForApproval);
-//   }
-//   const emailField = document.getElementById('approver-email');
-//   if (emailField) {
-//     emailField.addEventListener('keydown', (e) => {
-//       if (e.key === 'Enter') loadRequisitionsForApproval();
-//     });
-//   }
-// });
-
+document.getElementById('btn-pc-new').addEventListener('click', pcResetAll);
+function pcResetAll() {
+  document.getElementById('pc-email').value = authEmail;
+  document.getElementById('pc-loader-msg').textContent = '';
+  document.getElementById('pc-loader-msg').className = 'req-loader-msg';
+  document.getElementById('pc-job-cards').innerHTML = '';
+  pcJobs = [];
+  pcSelectedJob = null;
+  clearPCJobFields();
+  document.getElementById('pc-error-banner').classList.remove('visible');
+  document.getElementById('pc-success-screen').classList.remove('visible');
+  document.getElementById('pay-main-card').style.display = '';
+  document.querySelectorAll('.req-field.has-error').forEach(f => f.classList.remove('has-error'));
+}
 </script>
 </body>
 </html>
